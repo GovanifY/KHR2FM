@@ -1,0 +1,20 @@
+id,fr,en
+MENU_NEW_00,NOUVEAU JEU,NEW GAME
+MENU_NEW_01,Mode normal,Normal mode
+MENU_NEW_02,Mode critique,Critical mode
+MENU_NEW_01_DESC,: Mode normal où la difficulté est bien dosée.,: Normal mode in which difficulty is balanced.
+MENU_NEW_02_DESC,": Mode critique, vos nerfs seront mis à rude épreuve.",": Critical mode, your nerves will play a severe test."
+MENU_NEW_DESC,Choisissez un mode de difficulté,Choose a difficulty level
+MENU_SAVE_DESC,Choisissez un fichier à charger,Choose a file to load
+MENU_SAVE_LV,NV.,LV.
+MENU_SAVE_TIME,Temps de jeu,Play time
+MENU_SAVE_00,Mode normal,Normal mode
+MENU_SAVE_01,Mode critique,Critical Mode
+MENU_SAVE_DESC_00,Choisissez un fichier à charger,Choose a save file to load
+MENU_SAVE_DESC_01,Choisissez un emplacement,Choose a place
+MENU_SAVE_ERROR,Impossible de lire les données,Impossible to read save datas
+MENU_SAVE_NOT_FOUND,Aucune sauvegarde,No save
+EXPZ_DESC_00,Voulez-vous désactiver [color=yellow]le gain d'expérience[/color] ?,Do you want to deactivate [color=yellow]experience gain[/color] ?
+EXPZ_DESC_01,[color=yellow]Vos statistiques seront accrues[/color],[color=yellow]Your stats will be increased[/color]
+EXPZ_CHOICE_00,Oui,Yes
+EXPZ_CHOICE_01,Non,No

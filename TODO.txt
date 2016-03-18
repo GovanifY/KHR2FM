@@ -1,0 +1,13 @@
+A ne pas oublier:
+* Gestion des saves dans le splash(et global)
+* Gestion du Game over
+* Réorganiser SE par dossiers!
+* Convertir animatedsprites en plusieurs images en un atlas(si possible)
+* Musique a passer écran chargement(battle yuugure)
+* Vidéo: vérifier fondu correct
+* Animation keyblade -> pos 0(Intro et texte)
+* visible_characters TextScroll!
+
+
+A VERIFIER:
+* ScreenLoader a l'air de crasher si la scène est freed avant d'une facon wtf, le is_queue_deletion devrait le fixer.

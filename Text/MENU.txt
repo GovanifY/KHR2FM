@@ -1,0 +1,5 @@
+MENU
+-----
+* 10/12/2015 "MENU.csv"
+  Le texte a traduire de KHR2 sera stocké dans des csv, les ressources quand a elles(comme
+  les images ou vidéos irremplacables facilement)devront avoir un équivalent dans la langue voulue.

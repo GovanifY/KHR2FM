@@ -1,0 +1,19 @@
+KHR2
+-----
+* 07/12/2015 "NOTES.txt"
+  A propos des notes
+  Les notes sont un moyen de partager des notes sur certaines techniques ou fichiers ressources du jeu.
+  Toutes les notes devront être en .txt, elles ne seront comme ca pas compilés dans le jeu au moment de l'export.
+
+* 07/12/2015 "icon.webp"
+  L'icone "icon.webp" est en format webp qui ne doit pas être compressé dans les options export car,
+  si compressé, godot ne trouve pas l'icone et utilise celui par défaut.
+* 12/12/2015
+  La structure de KHR2 se fait ainsi:
+  Le dossier BGM contient les musiques au format stream(wav, ogg)
+  Le dossier EN(ou autre selon les langues) contient les ressources GFX a modifier lors de trad
+  Le dossier GFX contient toutes les atouts graphiques
+  Le dossier Scenes contient toutes les parties du jeu, divisées en scènes
+  Le dossier Scripts contient les Scripts liés aux scènes
+  Le dossier SE contient les Effets sonores dans un format audio décompressé pour requérir moins de ressources
+  Le dossier Text contient les Textes au format CSV convertis automatiquement en xl compressés
