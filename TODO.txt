@@ -4,9 +4,10 @@ A ne pas oublier:
 * Réorganiser SE par dossiers!
 * Convertir animatedsprites en plusieurs images en un atlas(si possible)
 * Musique a passer écran chargement(battle yuugure)
-* Vidéo: vérifier fondu correct
 * Animation keyblade -> pos 0(Intro et texte)
 * visible_characters TextScroll!
+
+DEMANDER KREISS MENU OPTIONS(FullScreen, langues, FPS)
 
 
 A VERIFIER:

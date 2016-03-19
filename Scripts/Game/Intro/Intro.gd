@@ -49,6 +49,7 @@ func _process(delta):
 	elif(textregion==8 && !Globals.get("TextScrolling")):
 		textregion=9
 		get_node("Keyblade_Anim").stop()
+		get_node("Box_message_039b").set_pos(Vector2(0,0))
 		get_node("DARKNESS_Intro_Anim").play("DARKNESS_Intro_Anim")
 		get_node("BG_Kiryoku_1_Anim").play("BG_Kiryoku_1_Anim")
 	elif(textregion==9 && !Globals.get("TextScrolling")):
@@ -71,6 +72,7 @@ func _process(delta):
 	elif(textregion==14 && !Globals.get("TextScrolling")):
 		get_node("Switch_1").play("Switch_1")
 		get_node("Keyblade_Anim").stop()
+		get_node("Box_message_039b").set_pos(Vector2(0,0))
 		textregion=15
 	elif(textregion==15 && !Globals.get("TextScrolling")):
 		if(!get_node("Switch_1").is_playing()):
@@ -99,6 +101,7 @@ func _process(delta):
 	elif(textregion==21 && !Globals.get("TextScrolling")):
 		textregion=22
 		get_node("Keyblade_Anim").stop()
+		get_node("Box_message_039b").set_pos(Vector2(0,0))
 		get_node("LIGHT_Intro_Anim").play("LIGHT_Intro_Anim")
 	elif(textregion==22 && !Globals.get("TextScrolling")):
 		if(get_node("LIGHT_Intro_Anim").get_pos()>10.8):
@@ -128,6 +131,7 @@ func _process(delta):
 	elif(textregion==29 && !Globals.get("TextScrolling")):
 		textregion=30
 		get_node("Keyblade_Anim").stop()
+		get_node("Box_message_039b").set_pos(Vector2(0,0))
 		get_node("KEYBLADE_Intro_Anim").play("KEYBLADE_Intro_Anim")
 	elif(textregion==30 && !Globals.get("TextScrolling")):
 		if(!get_node("KEYBLADE_Intro_Anim").is_playing()):
@@ -191,6 +195,7 @@ func _process(delta):
 		get_node("/root/global").textscroll(get_node("Text_Messages"), tr("KIRYOKU_INTRO_TEXT_19"), get_node("SE"), "MSG_SOUND")
 	elif(textregion==47 && !Globals.get("TextScrolling")):
 		get_node("Keyblade_Anim").stop()
+		get_node("Box_message_039b").set_pos(Vector2(0,0))
 		get_node("End_Anim").play("End_Anim")
 		textregion=48
 	elif(textregion==48 && !Globals.get("TextScrolling")):
