@@ -17,13 +17,17 @@ func preload_scene(path):
 	#Pour éviter que la scène s'exécute encore
 	call_deferred("_deferred_goto_scene",path)
 
-func goto_scene(path):
+#ajouter kill
+func goto_scene(path,kill=true):
 	pre=false
 	#On supprime l'ancienne scene
 	#ATTENTION PARFOIS LA SCENE EST DEJA FREED ET CA PLANTE(A FIXER)
-	if !current_scene.is_queued_for_deletion():
-		current_scene.queue_free()
 	#Pour éviter que la scène s'exécute encore
+	#Attempt to call function 'queue_free' in base 'previously freed instance' on a null instance.
+	if kill==true:
+		if current_scene==0:
+			if !current_scene.is_queued_for_deletion():
+				current_scene.queue_free()
 	call_deferred("_deferred_goto_scene",path)
 	
 func _deferred_goto_scene(path):
