@@ -6,7 +6,7 @@ var aquaplaying=false
 func _process(delta):
 	if (hasbeenset == false):
 		if(!get_node("Null1").is_playing()):
-			#Si le splash est terminé et que les anims ont pas encore été lancées ont les lance.
+			#Si le splash est terminé et que les anims ont pas encore été lancées on les lance.
 			get_node("Aqua").play()
 			hasbeenset=true
 			aquaplaying=true
@@ -20,6 +20,5 @@ func _process(delta):
 func _ready():
 	# Initialization here
 	set_process(true)
+	#get_node("/root/SceneLoader").preload_scene("res://Scenes/Game/Intro/Intro.scn")
 	pass
-
-

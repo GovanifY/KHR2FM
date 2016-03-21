@@ -1,11 +1,10 @@
 A ne pas oublier:
+* Gestion du SceneLoader Preload + Nodes a passer(musique yuugure)
 * Gestion des saves dans le splash(et global)
 * Gestion du Game over
 * Réorganiser SE par dossiers!
 * Convertir animatedsprites en plusieurs images en un atlas(si possible)
-* Musique a passer écran chargement(battle yuugure)
-* Animation keyblade -> pos 0(Intro et texte)
-* visible_characters TextScroll!
+* visible_characters TextScroll(optimisation interne)!
 
 DEMANDER KREISS MENU OPTIONS(FullScreen, langues, FPS)
 
