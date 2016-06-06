@@ -23,10 +23,10 @@ func goto_scene(path,kill=true):
 	#On supprime l'ancienne scene
 	#ATTENTION PARFOIS LA SCENE EST DEJA FREED ET CA PLANTE(A FIXER)
 	#Pour éviter que la scène s'exécute encore
-	#Attempt to call function 'queue_free' in base 'previously freed instance' on a null instance.
+	#Attempt to call function 'is_queued_for_deletion()' in base 'previously freed instance' on a null instance.
 	if kill==true:
-		if current_scene==0:
-			if !current_scene.is_queued_for_deletion():
+		#if current_scene==0:
+		if !current_scene.is_queued_for_deletion():
 				current_scene.queue_free()
 	call_deferred("_deferred_goto_scene",path)
 	

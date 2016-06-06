@@ -1,21 +1,22 @@
 ![Kingdom Hearts Rebirth 2][LogoMain]
 
-**Kingdom Hearts Rebirth 2 is the sequel of the first game released using RMXP as a Visual Novel**
+**Kingdom Hearts Rebirth 2 is the sequel of the first Rebirth game released using RMXP as a Visual Novel**
 
 ![][Separator]  
 <center>![][Information]  </center>
 <br />
 **Official Website:** [][KHR2Website]
 **Language: English and French**
-**Dimension: 878*480**
-**Weight: TO BE MODIFIED!**
-**Minimum Requirements: OepnGL capable graphic card, 2GB of RAM**  
+**Resolution: 878*480**
+**Size: TO BE MODIFIED!**
+**Minimum Requirements: OpenGL capable graphic card, 2GB of RAM**  
 ![][Separator]  
 **Story and Gameplay(Game): BLABLABLA**<br />
 ![Kingdom Hearts Rebirth 2][GamePlay01]  
 ![][Separator]  
 
-**Special thanks: Zeus81, Brikou, Delta, Keyvall, Garruk, RitoJS, f0tz!baerchen, Chaosg1, NearFantastica, Darkleo, Kevin Gadd (Hiretsukan), Krazplay, Yeyinde, Stephane Roys, Rodriguez Manon, Kurofidy, Biward, Yoshi Uchiwa, Roxas, Ajisai, RPGZexion, GovanifY, Disney & Square enix.Including our community and guys that are forgotten! (If it seems like you're forgotten in the credits section, contact us!)**  
+**Special thanks: Zeus81, Brikou, Delta, Keyvall, Garruk, RitoJS, f0tz!baerchen, Chaosg1, NearFantastica, Darkleo, Kevin Gadd (Hiretsukan), Krazplay, Yeyinde, Stephane Roys, Rodriguez Manon, Kurofidy, Biward, Yoshi Uchiwa, Roxas, Ajisai, RPGZexion, GovanifY, Disney & Square enix.Including our community and guys that are forgotten! (If you seem to be forgotten in this list, contact us!)**  
+<!-- also, should we add links to their repos or something? -->  
 
 ![][Separator]  
 The Main code is licensed under MIT license to Gauvain Roussel-Tarbouriech(GovanifY)

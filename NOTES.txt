@@ -7,7 +7,7 @@ KHR2
 * 12/12/2015
   La structure de KHR2 se fait ainsi:
   Le dossier BGM contient les musiques au format stream(wav, ogg)
-  Le dossier EN(ou autre selon les langues) contient les ressources GFX a modifier lors de trad
+  Le dossier LANG contient les ressources GFX a modifier lors de trad
   Le dossier GFX contient toutes les atouts graphiques
   Le dossier Scenes contient toutes les parties du jeu, divisées en scènes
   Le dossier Scripts contient les Scripts liés aux scènes
