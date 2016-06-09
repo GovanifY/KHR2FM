@@ -110,7 +110,8 @@ func _process(delta):
 		
 	#L'anim' de combat
 	if(confirm==true && is_processing()==true):
-		print("yay")
+		#TODO!!
+		pass
 	#L'anim 'still'
 	if (left==false && right==false && is_processing()==true):
 		if(Kiryoku_direction==0):
