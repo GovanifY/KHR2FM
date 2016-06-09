@@ -74,7 +74,7 @@ func _process(delta):
 	
 	
 
-	if(keypressed==true && fs_pressed==true):
+	if(keypressed==true && fs_pressed==false):
 		keypressed=false
 
 func save():
