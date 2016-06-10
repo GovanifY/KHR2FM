@@ -9,14 +9,16 @@ var keypressed=false
 var keypressedtext=false
 #Un accumultaeur pour le timer
 var accum=0
-var textenabled=false
-var text=null
-var TextNode=null
-var currentlywritten=""
-var FRAME_TEXT_WAIT=1
-var actualTimeWait=1
-var SE=null
-var SENm=null
+const FRAME_TEXT_WAIT=1
+var Text = {
+	"node" : null,
+	"enabled" : false,
+	"timer" : 1
+}
+var SE = {
+	"node" : null,
+	"name" : null
+}
 var debug=null
 
 
@@ -44,6 +46,12 @@ func _process(delta):
 				Globals.set("PlayTimeHours", Globals.get("PlayTimeHours") + 1)
 				if Globals.get("PlayTimeHours",100):
 					Globals.set("PlayTimeHours", 99)
+
+	# Detect a quit ---> HIHG PRIORITY! Call the quit function right away
+	if Input.is_action_pressed("quit"):
+		get_tree().quit()
+
+	# FullScreen-related actions
 	var fs_pressed = false
 	if Input.is_action_pressed("fullscreen"):
 		fs_pressed = true
@@ -53,7 +61,10 @@ func _process(delta):
 			OS.set_window_fullscreen(false)
 		elif(!OS.is_video_mode_fullscreen()):
 			OS.set_window_fullscreen(true)
-			
+	if(keypressed==true && fs_pressed==false):
+		keypressed=false
+
+	# Debugging stuff, ignore this
 	if debug==true:
 		if Input.is_action_pressed("debug_a"):
 			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/Splash.scn", false)
@@ -69,13 +80,12 @@ func _process(delta):
 			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Battle_Yuugure.scn", false)
 		if Input.is_action_pressed("debug_h"):
 			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Demo/End_Demo.scn")
-	if(textenabled==true):
-		updateText()
-	
-	
 
-	if(keypressed==true && fs_pressed==false):
-		keypressed=false
+	# The infamous text scroll
+	if(Text.enabled==true):
+		update_text()
+
+
 
 func save():
 	var savedict = {
@@ -85,52 +95,60 @@ func save():
 		Critical=Globals.get("Critical"),
 		EXP_Zero=Globals.get("EXP_Zero"),
 		LV=Globals.get("LV")
-		}
+	}
 	return savedict
 
-func textscroll(node, texttouse, SENode, NameSE):
-	if texttouse.length()==0:
+func textscroll(node, texttouse, SENode, SEName):
+	if texttouse.length() == 0:
 		return
-	currentlywritten=currentlywritten+texttouse[0]
-	currentlywritten=currentlywritten.replace("|","\n")
-	node.set_bbcode(currentlywritten)
-	textenabled=true
-	TextNode=node
-	text=texttouse
-	SE= SENode
-	SENm = NameSE
+
+	Text.enabled = true
+	Text.node = node
+	SE.node = SENode
+	SE.name = SEName
 	Globals.set("TextScrolling",true)
-	
-func updateText():
-	var confirm=false
+
+	#print("Printing text:\n", texttouse)
+	texttouse = texttouse.replace("\\n", "\n")
+	Text.node.set_bbcode(texttouse)
+	Text.node.set_visible_characters(1)
+
+func update_text():
+	var confirm = false
+	var chars_written = Text.node.get_visible_characters()
+	var text_length = Text.node.get_bbcode().length()
+
+	# Are we in a hurry?
 	if Input.is_action_pressed("enter"):
 		confirm = true
-		
-	if(actualTimeWait!=0):
-		actualTimeWait=actualTimeWait-1
-	elif(actualTimeWait==0):
-		actualTimeWait=FRAME_TEXT_WAIT
-		if(currentlywritten.length() < text.length()):
-			currentlywritten=currentlywritten+text[currentlywritten.length()]
-			currentlywritten=currentlywritten.replace("|","\n")
-			TextNode.set_bbcode(currentlywritten)
-			
 
-				
-	if(currentlywritten.length() < text.length()):
-		if(confirm == true && keypressedtext == false):
-			currentlywritten=text.replace("|","\n")
-			TextNode.set_bbcode(currentlywritten)
+	# Check for timer: write a character if it's gone to 0, wait otherwise
+	if Text.timer != 0:
+		Text.timer-=1
+	elif Text.timer == 0:
+		Text.timer = FRAME_TEXT_WAIT
+		if chars_written < text_length:
+			# TODO: replace "|" with "\n"?
+			chars_written+=1
+			Text.node.set_visible_characters(chars_written)
+
+	# If "enter" action was pressed:
+	if confirm == true && keypressedtext == false:
+		# if we're still writing, write everything
+		if chars_written < text_length:
+			# TODO: replace "|" with "\n"?
+			chars_written = text_length
+			Text.node.set_visible_characters(chars_written)
 			keypressedtext=true
-	if(currentlywritten.length()==text.length()):
-		if(confirm == true && keypressedtext == false):
-			if(SE!=null):
-				SE.play(SENm)
-			currentlywritten=""
+
+		# if we're done writing, clear everything
+		elif chars_written == text_length:
+			if SE.node != null:
+				SE.node.play(SE.name)
 			Globals.set("TextScrolling",false)
-			TextNode.set_bbcode(currentlywritten)
-			textenabled=false
+			Text.node.clear()
+			Text.enabled=false
 			keypressedtext=true
-				
-	if(keypressedtext==true && confirm==false):
-		keypressedtext=false
+
+	if confirm == false && keypressedtext == true:
+		keypressedtext = false
