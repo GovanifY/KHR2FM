@@ -9,6 +9,16 @@ A ne pas oublier:
 * Fixer les spawns de debug(liés a l'issue au dessus)
 * Ajouter Keyaku dans les remerciements et avertir Kreiss
 
+CE QUI SUIS EST LIE A L'EXPORT ET NON AU JEU EN SOIT
+
+* AVANT EXPORT verifier groupes images pour atlas
+* Vérifier compression des musiques et SE
+
+CE QUI SUIS EST LIE A DES MODS DE GODOT ENGINE
+
+* Changer le format d'abstraction pck de Godot Engine en hashant les noms
+* Supprimer les options non voulues au player release(autorisé seulement a
+  exécuter ressources internes)
 DEMANDER KREISS MENU OPTIONS(FullScreen, langues, FPS)
 
 
