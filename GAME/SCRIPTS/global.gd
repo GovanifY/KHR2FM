@@ -108,7 +108,6 @@ func textscroll(node, texttouse, SENode, SEName):
 	SE.name = SEName
 	Globals.set("TextScrolling",true)
 
-	#print("Printing text:\n", texttouse)
 	texttouse = texttouse.replace("\\n", "\n")
 	Text.node.set_bbcode(texttouse)
 	Text.node.set_visible_characters(1)
@@ -128,7 +127,6 @@ func update_text():
 	elif Text.timer == 0:
 		Text.timer = FRAME_TEXT_WAIT
 		if chars_written < text_length:
-			# TODO: replace "|" with "\n"?
 			chars_written+=1
 			Text.node.set_visible_characters(chars_written)
 
@@ -136,7 +134,6 @@ func update_text():
 	if confirm == true && keypressedtext == false:
 		# if we're still writing, write everything
 		if chars_written < text_length:
-			# TODO: replace "|" with "\n"?
 			chars_written = text_length
 			Text.node.set_visible_characters(chars_written)
 			keypressedtext=true
