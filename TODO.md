@@ -13,4 +13,4 @@ DEMANDER KREISS MENU OPTIONS(FullScreen, langues, FPS)
 
 
 A VERIFIER:
-* ScreenLoader a l'air de crasher si la scène est freed avant d'une facon wtf, le is_queue_deletion devrait le fixer.(repenser le système de chargement encore une fois.
+* ScreenLoader a l'air de crasher si la scène est freed avant d'une facon wtf, le is_queue_deletion devrait le fixer.(repenser le système de chargement encore une fois.)
