@@ -5,7 +5,7 @@ export(String) var player_name
 export(int, 1, 20) var player_speed = 5
 
 # Player vars
-var Player = {
+var PlayerStats = {
 	# Valeurs variees
 	"name" : "",        # Nom du personnage
 	"speed" : 0,        # Vitesse (en pixels)
@@ -18,8 +18,11 @@ var Player = {
 }
 
 var PlayerControl = {
+	# actions
+	"guard" : false,    # Boolean pour commencer l'action "Guard"
 	"guarding" : false, # Boolean pour savoir si l'on est protégé des attaques
 	"moving" : false,   # Boolean qui indique si le player bouge
+	# input
 	"left" : false,
 	"right" : false,
 	"confirm" : false,
@@ -43,24 +46,29 @@ func _input(event):
 		# Check d'input
 		PlayerControl.left = Input.is_action_pressed("ui_left")
 		PlayerControl.right = Input.is_action_pressed("ui_right")
+		PlayerControl.confirm = Input.is_action_pressed("enter")
+		PlayerControl.cancel = Input.is_action_pressed("cancel")
 
-		### Player.moving ###
+		### PlayerControl.moving ###
 		# déterminer la priorité de direction
 		if PlayerControl.left && PlayerControl.right:
-			PlayerControl.left = (Player.direction == "Left")
+			PlayerControl.left = (PlayerStats.direction == "Left")
 			PlayerControl.right = !PlayerControl.left
 		# Indiquer la direction finale
-		if PlayerControl.left && !PlayerControl.guarding:
-			Player.direction = "Left"
+		if PlayerControl.left:
+			PlayerStats.direction = "Left"
 			PlayerControl.moving = true
-		elif PlayerControl.right && !PlayerControl.guarding:
-			Player.direction = "Right"
+		elif PlayerControl.right:
+			PlayerStats.direction = "Right"
 			PlayerControl.moving = true
 		else:
 			PlayerControl.moving = false
 
-		### Player.guarding ###
-		# TODO
+		### PlayerControl.guarding ###
+		if PlayerControl.cancel && !PlayerControl.guard:
+			PlayerControl.guard = true
+		elif event.is_action_released("cancel"):
+			PlayerControl.guard = false
 
 func _process(delta):
 	# Popup Info checks
@@ -82,38 +90,46 @@ func _process(delta):
 	# TODO
 
 	# Si le player doit bouger
-	if PlayerControl.moving:
+	if PlayerControl.moving && !PlayerControl.guarding:
 		var mod
-		if Player.direction == "Left": mod = -1
+		if PlayerStats.direction == "Left": mod = -1
 		else: mod = 1
 
-		var speed = Player.speed * mod
-		play_player_anim("Walk")
-		Player.sprite.set_pos(Vector2(Player.sprite.get_pos().x + speed, Player.sprite.get_pos().y))
+		var speed = PlayerStats.speed * mod
+		Player_play_anim("Walk")
+		PlayerStats.sprite.set_pos(Vector2(PlayerStats.sprite.get_pos().x + speed, PlayerStats.sprite.get_pos().y))
+
+	# L'anim de garde ("X"), tout est stoppé lorsqu'on la joue
+	if PlayerControl.guard || PlayerControl.guarding:
+		if !PlayerControl.guarding:
+			Player_play_anim("Guard")
+			PlayerControl.guarding = true
+		elif !Player_is_anim_playing("Guard"):
+			PlayerControl.guarding = false
 
 	# L'anim 'still'
 	if !PlayerControl.moving && !PlayerControl.guarding:
-		play_player_anim("Still")
+		Player_play_anim("Still")
 
 	# Délimitations de la zone
 	# TODO: Éviter valeurs hardcoded comme celles-ci!!!
-	if (Player.sprite.get_pos().x <= -222):
-		Player.sprite.set_pos(Vector2(-222, Player.sprite.get_pos().y))
-	if (Player.sprite.get_pos().x >= 620):
-		Player.sprite.set_pos(Vector2(620, Player.sprite.get_pos().y))
+	if (PlayerStats.sprite.get_pos().x <= -222):
+		PlayerStats.sprite.set_pos(Vector2(-222, PlayerStats.sprite.get_pos().y))
+	if (PlayerStats.sprite.get_pos().x >= 620):
+		PlayerStats.sprite.set_pos(Vector2(620, PlayerStats.sprite.get_pos().y))
 
 func _ready():
 	# Export des valeurs
-	Player.name = player_name
-	Player.speed = player_speed
+	PlayerStats.name = player_name
+	PlayerStats.speed = player_speed
 
 	# Initialization du Player
-	Player.direction = "Right"
-	Player.node = get_node(Player.name)
-	Player.anims = Player.node.get_node("anims")
-	Player.sprite = Player.node.get_node(Player.name + "_Sprite")
+	PlayerStats.direction = "Right"
+	PlayerStats.node = get_node(PlayerStats.name)
+	PlayerStats.anims = PlayerStats.node.get_node("anims")
+	PlayerStats.sprite = PlayerStats.node.get_node(PlayerStats.name + "_Sprite")
 	# Remettre "root" des animations pour qu'elles communiquent avec le Sprite
-	for anim in Player.anims.get_children():
+	for anim in PlayerStats.anims.get_children():
 		anim.set_root("../..")
 
 	# Commencer l'animation d'info
@@ -125,23 +141,29 @@ func _ready():
 
 
 # Battle Methods
-func stop_all_player_anims():
-	# Chercher tous les Nodes d'animation
-	var all_anims = Player.anims.get_children()
-	for anim in all_anims:
-		anim.stop()
-
 func init_info_popup():
 	BattleState.info_popup = true
 	BattleState.battle = false
 	get_node("Info_Popup").play("Info_Popup")
 
-func play_player_anim(action_name):
-	var anim_name = Player.name + "_" + action_name + "_" + Player.direction
-	var anim_node = Player.anims.get_node(anim_name)
+## Paramétrisation d'Animations
+func Player_stop_all_anims():
+	# Chercher tous les Nodes d'animation
+	var all_anims = PlayerStats.anims.get_children()
+	for anim in all_anims:
+		anim.stop()
+
+func Player_play_anim(action_name):
+	var anim_name = PlayerStats.name + "_" + action_name + "_" + PlayerStats.direction
+	var anim_node = PlayerStats.anims.get_node(anim_name)
 
 	if (!anim_node.is_playing()):
-		if Player.action != null:
-			Player.action.stop()
-		Player.action = anim_node
-		Player.action.play(anim_name)
+		if PlayerStats.action != null:
+			PlayerStats.action.stop()
+		PlayerStats.action = anim_node
+		PlayerStats.action.play(anim_name)
+
+func Player_is_anim_playing(action_name):
+	var anim_name = PlayerStats.name + "_" + action_name + "_" + PlayerStats.direction
+	var anim_node = PlayerStats.anims.get_node(anim_name)
+	return anim_node.is_playing()
