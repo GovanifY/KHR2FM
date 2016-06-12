@@ -9,7 +9,7 @@ var Player = {
 	# Valeurs variees
 	"name" : "",        # Nom du personnage
 	"speed" : 0,        # Vitesse (en pixels)
-	"direction" : "",   # String qui se colle a la fin de chaque nom d'anim
+	"direction" : "",   # String qui se colle à la fin de chaque nom d'anim
 	"action" : null,    # L'animation qui cours (Still, Walk...)
 	# Nodes
 	"node" : null,      # Node type "Control" du Player principal
@@ -38,14 +38,14 @@ var BattleState = {
 
 # Core functions
 func _input(event):
-	# Input a considerer ssi on est en mode Battle
+	# Input a considérer ssi on est en mode Battle
 	if BattleState.battle:
-		# Check de input
+		# Check d'input
 		PlayerControl.left = Input.is_action_pressed("ui_left")
 		PlayerControl.right = Input.is_action_pressed("ui_right")
 
 		### Player.moving ###
-		# determiner la priorite de direction
+		# déterminer la priorité de direction
 		if PlayerControl.left && PlayerControl.right:
 			PlayerControl.left = (Player.direction == "Left")
 			PlayerControl.right = !PlayerControl.left
@@ -66,19 +66,20 @@ func _process(delta):
 	# Popup Info checks
 	if BattleState.info_popup:
 		if !BattleState.info_scroll:
-			# Si la barre d'info est sur l'ecran
+			# Si la barre d'info est sur l'écran
 			if !get_node("Info_Popup").is_playing():
 				# TODO: remove hardcoded values
 				get_node("/root/global").textscroll(get_node("Info_Label"), tr("INTRO_INFO_YUUGURE"), null, null)
 				BattleState.info_scroll = true
 		else:
-			# Si le jouer a appuye pour continuer, retirer la barre
+			# Si le jouer a appuyé pour continuer, retirer la barre
 			if !Globals.get("TextScrolling"):
 				get_node("Info_Unpop").play("Info_Unpop")
 				BattleState.info_popup = false
 				BattleState.battle = true
 
 	# Battle
+	# TODO
 
 	# Si le player doit bouger
 	if PlayerControl.moving:
@@ -94,8 +95,8 @@ func _process(delta):
 	if !PlayerControl.moving && !PlayerControl.guarding:
 		play_player_anim("Still")
 
-	# Delimitations de la zone
-	# TODO: Eviter valeurs hardcoded comme celles-ci!!!
+	# Délimitations de la zone
+	# TODO: Éviter valeurs hardcoded comme celles-ci!!!
 	if (Player.sprite.get_pos().x <= -222):
 		Player.sprite.set_pos(Vector2(-222, Player.sprite.get_pos().y))
 	if (Player.sprite.get_pos().x >= 620):
@@ -118,7 +119,7 @@ func _ready():
 	# Commencer l'animation d'info
 	init_info_popup()
 
-	# Demarrer les proces necessaires
+	# Démarrer les proces necessaires
 	set_process_input(true) # input
 	set_process(true)       # frame-by-frame
 
@@ -132,6 +133,7 @@ func stop_all_player_anims():
 
 func init_info_popup():
 	BattleState.info_popup = true
+	BattleState.battle = false
 	get_node("Info_Popup").play("Info_Popup")
 
 func play_player_anim(action_name):
