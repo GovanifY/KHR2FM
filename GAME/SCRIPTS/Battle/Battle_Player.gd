@@ -58,7 +58,8 @@ func handle_input(event):
 				Status.guard = true  # La touche a été appuyé pour la 1ère fois
 				return
 		else:
-			Status.guarding = 0
+			if Status.guarding == 2:
+				Status.guarding = 0
 
 	### Status.moving ###
 	# déterminer la priorité de direction
