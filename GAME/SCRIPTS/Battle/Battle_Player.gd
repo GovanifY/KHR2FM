@@ -18,7 +18,7 @@ var Status = {
 	"direction" : "",     # String qui se colle à la fin de chaque nom d'anim
 	"action"    : null,   # L'animation qui cours (Still, Walk...)
 	"guard"     : false,  # Boolean pour commencer l'action "Guard"
-	"guarding"  : false,  # Boolean pour savoir si l'on est protégé des attaques
+	"guarding"  : 0,      # Est-on protégé des attaques?: (0 || 2) == non; 1 == oui
 	"moving"    : false   # Boolean qui indique si le player bouge
 }
 
@@ -48,7 +48,17 @@ func handle_input(event):
 	var left    = Input.is_action_pressed("ui_left")
 	var right   = Input.is_action_pressed("ui_right")
 	var confirm = Input.is_action_pressed("enter")
-	var cancel  = Input.is_action_pressed("cancel")
+	var cancel  = event.is_action("cancel")
+
+	### Status.guarding ###
+	# Priorité d'actions!
+	if cancel:
+		if event.is_pressed():
+			if !Status.guard && Status.guarding == 0:
+				Status.guard = true  # La touche a été appuyé pour la 1ère fois
+				return
+		else:
+			Status.guarding = 0
 
 	### Status.moving ###
 	# déterminer la priorité de direction
@@ -65,12 +75,6 @@ func handle_input(event):
 	else:
 		Status.moving    = false
 
-	### Status.guarding ###
-	if cancel && !Status.guard:
-		Status.guard = true
-	elif event.is_action_released("cancel"):
-		Status.guard = false
-
 ## get_ & set_ functions
 func get_pos():
 	return Data.sprite.get_pos()
@@ -83,7 +87,7 @@ func is_moving():
 	return Status.moving
 
 func is_guarding():
-	return Status.guard || Status.guarding
+	return Status.guard || Status.guarding == 1
 
 ## Actions
 func do_limit_pos(x_left, x_right):
@@ -101,12 +105,14 @@ func do_move():
 	set_pos(Vector2(get_pos().x + distance, get_pos().y))
 
 func do_guard():
-	if !Status.guarding:
+	if Status.guarding == 0:
 		play_anim("Guard")
-		Status.guarding = true
+		Status.guarding = 1
+	elif Status.guarding == 2:
+		Status.guard = false
 
 func _end_guard():
-	Status.guarding = false
+	Status.guarding = 2
 
 ## Réglage des animations
 func stop_all_anims():
