@@ -22,14 +22,6 @@ var Status = {
 	"moving"    : false   # Boolean qui indique si le player bouge
 }
 
-# Contrôle d'input
-var Control = {
-	"left"    : false,
-	"right"   : false,
-	"confirm" : false,
-	"cancel"  : false
-}
-
 # Core functions
 func _ready():
 	# Initialization du Player
@@ -40,7 +32,7 @@ func _ready():
 	# Remettre "root" des animations pour qu'elles communiquent avec le Sprite
 	for anim in Data.anims.get_children():
 		anim.set_root("../..")
-		# Connection de "signals"
+		# Connection de "signals" pour Guard
 		if (anim.get_name() == Data.name + "_Guard_Left" ||
 			anim.get_name() == Data.name + "_Guard_Right"):
 			anim.connect("finished", self, "_end_guard")
@@ -53,28 +45,28 @@ func handle_input(event):
 # Cette fonction ne fait que des changements de variables. Faire autrement implique
 # des perdes de performance
 	# Check d'input
-	Control.left    = Input.is_action_pressed("ui_left")
-	Control.right   = Input.is_action_pressed("ui_right")
-	Control.confirm = Input.is_action_pressed("enter")
-	Control.cancel  = Input.is_action_pressed("cancel")
+	var left    = Input.is_action_pressed("ui_left")
+	var right   = Input.is_action_pressed("ui_right")
+	var confirm = Input.is_action_pressed("enter")
+	var cancel  = Input.is_action_pressed("cancel")
 
 	### Status.moving ###
 	# déterminer la priorité de direction
-	if Control.left && Control.right:
-		Control.left  = (Status.direction == "Left")
-		Control.right = !Control.left
+	if left && right:
+		left  = (Status.direction == "Left")
+		right = !left
 	# Indiquer la direction finale
-	if Control.left:
+	if left:
 		Status.direction = "Left"
 		Status.moving    = true
-	elif Control.right:
+	elif right:
 		Status.direction = "Right"
 		Status.moving    = true
 	else:
 		Status.moving    = false
 
 	### Status.guarding ###
-	if Control.cancel && !Status.guard:
+	if cancel && !Status.guard:
 		Status.guard = true
 	elif event.is_action_released("cancel"):
 		Status.guard = false
