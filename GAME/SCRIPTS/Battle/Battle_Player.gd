@@ -32,17 +32,21 @@ var Control = {
 
 # Core functions
 func _ready():
-	# Export des valeurs
+	# Initialization du Player
 	Data.name = get_name()
 	Data.speed = player_speed
-
-	# Initialization du Player
-	Status.direction = "Right"
 	Data.anims = get_node("anims")
 	Data.sprite = get_node(Data.name + "_Sprite")
 	# Remettre "root" des animations pour qu'elles communiquent avec le Sprite
 	for anim in Data.anims.get_children():
 		anim.set_root("../..")
+		# Connection de "signals"
+		if (anim.get_name() == Data.name + "_Guard_Left" ||
+			anim.get_name() == Data.name + "_Guard_Right"):
+			anim.connect("finished", self, "_end_guard")
+
+	# Direction par défaut
+	Status.direction = "Right"
 
 # Input
 func handle_input(event):
@@ -108,8 +112,9 @@ func do_guard():
 	if !Status.guarding:
 		play_anim("Guard")
 		Status.guarding = true
-	elif !is_anim_playing("Guard"):
-		Status.guarding = false
+
+func _end_guard():
+	Status.guarding = false
 
 ## Réglage des animations
 func stop_all_anims():
@@ -127,8 +132,3 @@ func play_anim(action_name):
 			Status.action.stop()
 		Status.action = anim_node
 		Status.action.play(anim_name)
-
-func is_anim_playing(action_name):
-	var anim_name = Data.name + "_" + action_name + "_" + Status.direction
-	var anim_node = Data.anims.get_node(anim_name)
-	return anim_node.is_playing()
