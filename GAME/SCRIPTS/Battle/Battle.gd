@@ -37,17 +37,16 @@ func _process(delta):
 				BattleState.battle = true
 
 	### Actions pour Player ###
-	# Si le player doit bouger
-	if Player.is_moving() && !Player.is_guarding():
-		Player.do_move()
-
 	# L'anim de garde ("X"), tout est stoppé lorsqu'on la joue
 	if Player.is_guarding():
 		Player.do_guard()
-
-	# L'anim 'still'
-	if !Player.is_moving() && !Player.is_guarding():
-		Player.play_anim("Still")
+	else:
+		# Si le player doit bouger
+		if Player.is_moving():
+			Player.do_move()
+		# L'anim 'still'
+		else:
+			Player.play_anim("Still")
 
 	# Délimitations de la zone
 	# TODO: Éviter valeurs hardcoded comme celles-ci!!!
