@@ -40,13 +40,14 @@ func _process(delta):
 	# L'anim de garde ("X"), tout est stoppé lorsqu'on la joue
 	if Player.is_guarding():
 		Player.do_guard()
+		return
+
+	# Si le player doit bouger
+	if Player.is_moving():
+		Player.do_move()
+	# L'anim 'still'
 	else:
-		# Si le player doit bouger
-		if Player.is_moving():
-			Player.do_move()
-		# L'anim 'still'
-		else:
-			Player.play_anim("Still")
+		Player.play_anim("Still")
 
 	# Délimitations de la zone
 	# TODO: Éviter valeurs hardcoded comme celles-ci!!!

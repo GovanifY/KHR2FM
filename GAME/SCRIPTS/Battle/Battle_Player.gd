@@ -48,17 +48,24 @@ func handle_input(event):
 	var left    = Input.is_action_pressed("ui_left")
 	var right   = Input.is_action_pressed("ui_right")
 	var confirm = Input.is_action_pressed("enter")
-	var cancel  = event.is_action("cancel")
+	var cancel  = event.is_action("cancel") && !event.is_echo()
 
 	### Status.guarding ###
 	# Priorité d'actions!
 	if cancel:
-		if event.is_pressed():
+		if event.is_action_pressed("cancel"):
 			if !Status.guard && Status.guarding == 0:
-				Status.guard = true  # La touche a été appuyé pour la 1ère fois
+				Status.guard = true
 				return
+			elif !Status.guard && Status.guarding == 2:
+				Status.guarding = 0
 		else:
+			# if anim is NOT over
+			if Status.guarding == 1:
+				Status.guard = false
+			# if anim is over
 			if Status.guarding == 2:
+				Status.guard = false
 				Status.guarding = 0
 
 	### Status.moving ###
@@ -109,11 +116,13 @@ func do_guard():
 	if Status.guarding == 0:
 		play_anim("Guard")
 		Status.guarding = 1
-	elif Status.guarding == 2:
-		Status.guard = false
 
 func _end_guard():
-	Status.guarding = 2
+	if Status.guard:
+		Status.guarding = 2
+		Status.guard = false
+	else:
+		Status.guarding = 0
 
 ## Réglage des animations
 func stop_all_anims():
