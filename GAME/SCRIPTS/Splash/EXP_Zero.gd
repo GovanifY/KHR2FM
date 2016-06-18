@@ -15,7 +15,7 @@ func _process(delta):
 				hasbeenset=true
 		elif(EndAnim==true):
 			if(!get_node("End").is_playing()):
-				get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Aqua.scn")
+				get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Aqua.tscn")
 	else:
 		var right = false
 		var left = false

@@ -200,7 +200,7 @@ func _process(delta):
 		textregion=48
 	elif(textregion==48 && !Globals.get("TextScrolling")):
 		if(!get_node("End_Anim").is_playing()):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Battle_Yuugure.scn")
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Battle_Yuugure.tscn")
 func _ready():
 	# Initialization here
 	set_process(true)

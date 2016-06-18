@@ -16,9 +16,9 @@ func _process(delta):
 			aquaplaying=false
 	elif(hasbeenset==true):
 		if(!get_node("Null2").is_playing()):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Intro.scn")
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Intro.tscn")
 func _ready():
 	# Initialization here
 	set_process(true)
-	#get_node("/root/SceneLoader").preload_scene("res://GAME/SCENES/Game/Intro/Intro.scn")
+	#get_node("/root/SceneLoader").preload_scene("res://GAME/SCENES/Game/Intro/Intro.tscn")
 	pass

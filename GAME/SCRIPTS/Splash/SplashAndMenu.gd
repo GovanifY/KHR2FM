@@ -40,11 +40,11 @@ func _process(delta):
 			if(SelectMode==0):
 				if(!get_node("Custom Title System/NewGame_1").is_playing()):
 					Globals.set("Critical", false)
-					get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Aqua.scn")
+					get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Aqua.tscn")
 			elif(SelectMode==1):
 				if(!get_node("Custom Title System/NewGame_2").is_playing()):
 					Globals.set("Critical", true)
-					get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/EXP_Zero.scn")
+					get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/EXP_Zero.tscn")
 		elif(Save_Window_Anim==true):
 			if(!get_node("Custom Title System/SplashSave").is_playing()):
 				Save_Window_Anim=false
@@ -153,7 +153,7 @@ func _process(delta):
 
 			if (confirm == true && keypressed == false):
 				keypressed=true
-				get_node("Custom Title System/System").play("New Game")
+				get_node("Custom Title System/System").play("NewGame")
 				if (SelectMode==0):
 					get_node("Custom Title System/NewGame_1").play("NewGame_1")
 				elif (SelectMode==1):

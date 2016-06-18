@@ -67,19 +67,19 @@ func _process(delta):
 	# Debugging stuff, ignore this
 	if debug==true:
 		if Input.is_action_pressed("debug_a"):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/Splash.scn", false)
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/Splash.tscn", false)
 		if Input.is_action_pressed("debug_b"):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/EXP_Zero.scn", false)
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/EXP_Zero.tscn", false)
 		if Input.is_action_pressed("debug_c"):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/MainLoader.scn", false)
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/MainLoader.tscn", false)
 		if Input.is_action_pressed("debug_d"):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Intro.scn", false)
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Intro.tscn", false)
 		if Input.is_action_pressed("debug_e"):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Aqua.scn", false)
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Aqua.tscn", false)
 		if Input.is_action_pressed("debug_f"):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Battle_Yuugure.scn", false)
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Battle_Yuugure.tscn", false)
 		if Input.is_action_pressed("debug_h"):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Demo/End_Demo.scn")
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Demo/End_Demo.tscn")
 
 	# The infamous text scroll
 	if(Text.enabled==true):
