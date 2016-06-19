@@ -40,7 +40,7 @@ func _process(delta):
 	else:
 		Player.play_anim("Still")
 
-	### Actions pour les ennemies ###
+	### Actions pour les ennemis ###
 	# TODO
 
 	### GLOBAL ###
