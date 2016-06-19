@@ -1,5 +1,8 @@
 extends Node2D
 
+# InfoBar vars
+var InfoBar = null
+
 # Player vars
 export(String) var player_name = ""
 var Player = null
@@ -9,9 +12,9 @@ var Player = null
 
 # Battle vars
 var BattleState = {
-	"info_popup" : false,
-	"info_scroll" : false,
-	"battle" : false
+	"infobar" : false,
+	"battle" : false,
+	"qte" : false
 }
 
 # Core functions
@@ -22,19 +25,8 @@ func _input(event):
 
 func _process(delta):
 	### Popup Info checks ###
-	if BattleState.info_popup:
-		if !BattleState.info_scroll:
-			# Si la barre d'info est sur l'écran
-			if !get_node("Info_Popup").is_playing():
-				# TODO: remove hardcoded values
-				get_node("/root/global").textscroll(get_node("Info_Label"), tr("INTRO_INFO_YUUGURE"), null, null)
-				BattleState.info_scroll = true
-		else:
-			# Si le jouer a appuyé pour continuer, retirer la barre
-			if !Globals.get("TextScrolling"):
-				get_node("Info_Unpop").play("Info_Unpop")
-				BattleState.info_popup = false
-				BattleState.battle = true
+	if BattleState.infobar:
+		InfoBar.display()
 
 	### Actions pour Player ###
 	# L'anim de garde ("X"), tout est stoppé lorsqu'on la joue
@@ -42,26 +34,29 @@ func _process(delta):
 		Player.do_guard()
 		return
 
-	# Si le player doit bouger
+	# Si le player doit bouger ou pas
 	if Player.is_moving():
 		Player.do_move()
-	# L'anim 'still'
 	else:
 		Player.play_anim("Still")
-
-	# Délimitations de la zone
-	# TODO: Éviter valeurs hardcoded comme celles-ci!!!
-	Player.do_limit_pos(-222, 620)
 
 	### Actions pour les ennemies ###
 	# TODO
 
+	### GLOBAL ###
+	# Délimitations de la zone
+	# TODO: Éviter valeurs hardcoded comme celles-ci!!!
+	Player.do_limit_pos(-222, 620)
+
 func _ready():
-	# Export des valeurs
+	# Initialization des Nodes
 	Player = get_node(player_name)
+	InfoBar = get_node("InfoBar")
 
 	# Commencer l'animation d'info
-	Info_Popup_init()
+	InfoBar.init()
+	BattleState.infobar = true
+	InfoBar.connect("dismiss", self, "_dismiss_infobar")
 
 	# Démarrer les procès necessaires
 	set_process_input(true) # input
@@ -69,7 +64,6 @@ func _ready():
 
 
 # Battle Methods
-func Info_Popup_init():
-	BattleState.info_popup = true
-	BattleState.battle = false
-	get_node("Info_Popup").play("Info_Popup")
+func _dismiss_infobar():
+	BattleState.infobar = false
+	BattleState.battle = true

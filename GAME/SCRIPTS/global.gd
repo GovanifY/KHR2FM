@@ -99,8 +99,11 @@ func save():
 	return savedict
 
 func textscroll(node, texttouse, SENode, SEName):
+	# Si le texte est en blanc, ignorer
 	if texttouse.length() == 0:
 		return
+	# Important assertions
+	assert(node != null)
 
 	Text.enabled = true
 	Text.node = node
