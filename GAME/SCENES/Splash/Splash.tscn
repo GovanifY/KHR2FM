@@ -38,13 +38,20 @@
 [ext_resource path="res://ASSETS/GFX/Title/CTS/Save/Save_Load_05.png" type="Texture" id=36]
 [ext_resource path="res://ASSETS/GFX/Title/CTS/Save/Save_Load_34.png" type="Texture" id=37]
 [ext_resource path="res://ASSETS/GFX/Title/CTS/Save/Save_Load_35.png" type="Texture" id=38]
-[ext_resource path="res://ASSETS/SE/New Game.smp" type="Sample" id=39]
-[ext_resource path="res://ASSETS/SE/System_00.smp" type="Sample" id=40]
-[ext_resource path="res://ASSETS/SE/System_01.smp" type="Sample" id=41]
-[ext_resource path="res://ASSETS/SE/System_02.smp" type="Sample" id=42]
-[ext_resource path="res://ASSETS/SE/System_03.smp" type="Sample" id=43]
-[ext_resource path="res://ASSETS/SE/System_04.smp" type="Sample" id=44]
+[ext_resource path="res://ASSETS/SE/System/New Game.smp" type="Sample" id=39]
+[ext_resource path="res://ASSETS/SE/System/System_00.smp" type="Sample" id=40]
+[ext_resource path="res://ASSETS/SE/System/System_00.smp" type="Sample" id=41]
+[ext_resource path="res://ASSETS/SE/System/System_02.smp" type="Sample" id=42]
+[ext_resource path="res://ASSETS/SE/System/System_03.smp" type="Sample" id=43]
+[ext_resource path="res://ASSETS/SE/System/System_04.smp" type="Sample" id=44]
 [ext_resource path="res://ASSETS/LANG/TEXT/Fonts/Noto.fnt" type="BitmapFont" id=45]
+
+
+
+
+
+
+
 
 [sub_resource type="Animation" id=1]
 

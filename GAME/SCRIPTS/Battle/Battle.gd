@@ -53,9 +53,6 @@ func _ready():
 	Player = get_node(player_name)
 	InfoBar = get_node("InfoBar")
 
-	# Setup du background et foreground animé
-
-
 	# Commencer l'animation d'info
 	summon_infobar(null)
 
