@@ -18,7 +18,9 @@ func display():
 
 
 # InfoBar initializer
-func init():
+func init(messageID):
+	if messageID:
+		InfoMessage = messageID
 	# L'InfoMessage n'est qu'un ID pour chercher la traduction
 	InfoMessage = tr(InfoMessage)
 	get_node("Info_Popup").play("Info_Popup")

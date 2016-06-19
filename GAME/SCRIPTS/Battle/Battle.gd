@@ -53,10 +53,11 @@ func _ready():
 	Player = get_node(player_name)
 	InfoBar = get_node("InfoBar")
 
+	# Setup du background et foreground animé
+
+
 	# Commencer l'animation d'info
-	InfoBar.init()
-	BattleState.infobar = true
-	InfoBar.connect("dismiss", self, "_dismiss_infobar")
+	summon_infobar(null)
 
 	# Démarrer les procès necessaires
 	set_process_input(true) # input
@@ -64,6 +65,11 @@ func _ready():
 
 
 # Battle Methods
+func summon_infobar(messageID):
+	InfoBar.init(messageID)
+	BattleState.infobar = true
+	InfoBar.connect("dismiss", self, "_dismiss_infobar")
+
 func _dismiss_infobar():
 	BattleState.infobar = false
 	BattleState.battle = true
