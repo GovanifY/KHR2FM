@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://ASSETS/GFX/Loading/1.png" type="Texture" id=1]
 [ext_resource path="res://ASSETS/GFX/Loading/2.png" type="Texture" id=2]
@@ -13,10 +13,6 @@
 [ext_resource path="res://ASSETS/GFX/Loading/11.png" type="Texture" id=11]
 [ext_resource path="res://ASSETS/GFX/Loading/12.png" type="Texture" id=12]
 [ext_resource path="res://ASSETS/GFX/Loading/13.png" type="Texture" id=13]
-
-[sub_resource type="GDScript" id=3]
-
-script/source = "\nextends Node2D\n\n# member variables here, example:\n# var a=2\n# var b=\"textvar\"\n\nfunc _ready():\n\t#Pour avoir une pré de la scène et être sur que le coeur s\'affiche que quand nécessaire:\n\tget_node(\"Heart_Loading\").set_opacity(0)\n\t# Initialization here\n\tpass\n\n\n"
 
 [sub_resource type="Animation" id=1]
 
@@ -35,7 +31,6 @@ animations = [ { "frames":[ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 )
 
 [node name="MainLoader" type="Node2D"]
 
-script/script = SubResource( 3 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
 
 [node name="BGLoading" type="AnimationPlayer" parent="."]
@@ -53,6 +48,7 @@ autoplay = ""
 
 frames = SubResource( 2 )
 animation = "default"
+frame = 12
 centered = false
 
 

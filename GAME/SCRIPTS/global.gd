@@ -19,7 +19,7 @@ var SE = {
 	"node" : null,
 	"name" : null
 }
-var debug=null
+var debug = false
 
 
 func _ready():
@@ -29,10 +29,10 @@ func _ready():
 	Globals.set("PlayTimeHours", 0)
 	Globals.set("TimerActivated", false)
 	Globals.set("TextScrolling",false)
-	if OS.is_debug_build():
-		debug=true
-	else:
-		debug=false
+	#if OS.is_debug_build():
+	#	debug=true
+	#else:
+	#	debug=false
 
 func _process(delta):
 	if(Globals.get("TimerActivated")==true):
