@@ -20,7 +20,7 @@
 
 script/source = "\nextends RichTextLabel\n\n# member variables here, example:\n# var a=2\n# var b=\"textvar\"\n\nfunc _ready():\n\tget_node(\".\").set_bbcode(tr(\"BATTLE_ATTACK\"))\n\t# Initialization here\n\tpass\n\n\n"
 
-[sub_resource type="SpriteFrames" id=19]
+[sub_resource type="SpriteFrames" id=2]
 
 animations = [ { "frames":[ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ], "loop":true, "name":"default", "speed":5.0 } ]
 
@@ -64,8 +64,8 @@ script/script = SubResource( 1 )
 
 [node name="Kiryoku" parent="." instance=ExtResource( 6 )]
 
-margin/left = -72.0
-margin/right = -32.0
+margin/left = -165.0
+margin/right = 120.0
 
 [node name="Yuugure" type="Control" parent="."]
 
@@ -82,7 +82,7 @@ __meta__ = { "_editor_collapsed":true }
 [node name="Yuugure_Sprite" type="AnimatedSprite" parent="Yuugure"]
 
 transform/pos = Vector2( 400, 0 )
-frames = SubResource( 19 )
+frames = SubResource( 2 )
 animation = "default"
 centered = false
 

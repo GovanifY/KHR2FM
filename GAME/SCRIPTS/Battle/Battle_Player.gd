@@ -2,6 +2,8 @@ extends Control
 
 # Export values
 export(int, 1, 20) var player_speed = 5
+export(int) var limit_left = 0
+export(int) var limit_right = 877
 
 # Données importantes sur le player
 var Data = {
@@ -42,8 +44,8 @@ func _ready():
 
 # Input
 func handle_input(event):
-# Cette fonction ne fait que des changements de variables. Faire autrement implique
-# des perdes de performance
+	# Cette fonction ne fait que des changements de variables. Faire autrement implique
+	# des perdes de performance
 	# Check d'input
 	var left    = Input.is_action_pressed("ui_left")
 	var right   = Input.is_action_pressed("ui_right")
@@ -84,11 +86,11 @@ func handle_input(event):
 		Status.moving    = false
 
 ## get_ & set_ functions
-func get_pos():
-	return Data.sprite.get_pos()
+#func get_pos():
+#	return Data.sprite.get_pos()
 
-func set_pos(vec):
-	Data.sprite.set_pos(vec)
+#func set_pos(vec):
+#	Data.sprite.set_pos(vec)
 
 ## is_ functions
 func is_moving():
@@ -98,11 +100,11 @@ func is_guarding():
 	return Status.guard || Status.guarding == 1
 
 ## Actions
-func do_limit_pos(x_left, x_right):
-	if (get_pos().x <= x_left):
-		set_pos(Vector2(x_left, get_pos().y))
-	if (get_pos().x >= x_right):
-		set_pos(Vector2(x_right, get_pos().y))
+func do_limit_pos():
+	if (get_pos().x <= limit_left):
+		set_pos(Vector2(limit_left, get_pos().y))
+	if (get_pos().x >= limit_right):
+		set_pos(Vector2(limit_right, get_pos().y))
 
 func do_move():
 	var mod = 1

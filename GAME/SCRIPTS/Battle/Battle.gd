@@ -45,8 +45,7 @@ func _process(delta):
 
 	### GLOBAL ###
 	# Délimitations de la zone
-	# TODO: Éviter valeurs hardcoded comme celles-ci!!!
-	Player.do_limit_pos(-222, 620)
+	Player.do_limit_pos()
 
 func _ready():
 	# Initialization des Nodes

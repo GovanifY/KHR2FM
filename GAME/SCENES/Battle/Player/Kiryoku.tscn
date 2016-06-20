@@ -304,8 +304,8 @@ tracks/2/keys = { "cont":false, "times":FloatArray( 0.06 ), "transitions":FloatA
 
 [sub_resource type="SampleLibrary" id=14]
 
-samples/Kiryoku_06 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 83 ) }
 samples/Kiryoku_05 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 82 ) }
+samples/Kiryoku_06 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 83 ) }
 samples/Kiryoku_02 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 79 ) }
 samples/Kiryoku_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 81 ) }
 samples/Kiryoku_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 80 ) }
@@ -323,14 +323,16 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 40.0
+margin/right = 285.0
+margin/bottom = 480.0
 script/script = ExtResource( 1 )
 player_speed = 5
+limit_left = -285
+limit_right = 540
 
 [node name="Kiryoku_Sprite" type="AnimatedSprite" parent="."]
 
-transform/pos = Vector2( -100, 0 )
+transform/scale = Vector2( 1, 1 )
 frames = SubResource( 1 )
 animation = "default"
 centered = false
