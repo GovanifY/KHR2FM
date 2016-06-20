@@ -53,7 +53,7 @@ func _ready():
 	InfoBar = get_node("InfoBar")
 
 	# Commencer l'animation d'info
-	summon_infobar(null)
+	summon_infobar()
 
 	# Démarrer les procès necessaires
 	set_process_input(true) # input
@@ -61,7 +61,7 @@ func _ready():
 
 
 # Battle Methods
-func summon_infobar(messageID):
+func summon_infobar(messageID = null):
 	InfoBar.init(messageID)
 	BattleState.infobar = true
 	InfoBar.connect("dismiss", self, "_dismiss_infobar")

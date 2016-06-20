@@ -18,7 +18,7 @@ func display():
 
 
 # InfoBar initializer
-func init(messageID):
+func init(messageID = null):
 	if messageID:
 		InfoMessage = messageID
 	# L'InfoMessage n'est qu'un ID pour chercher la traduction
