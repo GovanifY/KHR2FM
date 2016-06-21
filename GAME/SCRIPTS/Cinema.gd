@@ -92,8 +92,8 @@ func parse_subtitles():
 
 	assert(Subtitles.label != null)
 
-	# All right, I tried to make this as most performant possible, but it's still
-	# helluva slow. So, either I switch to static programming on this one, or I
+	# All right, I tried to make this as performant as possible, but it's still
+	# not fast enough. So, either I switch to static programming on this one, or I
 	# let it be this slow.
 
 	# Opening subs file
