@@ -20,13 +20,13 @@ func _ready():
 
 	# If the loading Scene is NOT loaded, then something REALLY went wrong
 	assert(Scenes.loading != null)
-	Loading.animation = Scenes.loading.get_node("BGLoading")
-	Loading.sprite = Scenes.loading.get_node("Heart_Loading")
+	Loading.sprite = Scenes.loading.get_node("Heart")
+	Loading.animation = Scenes.loading.get_node("HeartAnimation")
 	_do_animation(false)
 
 func _do_animation(play):
 	if play:
-		Loading.animation.play("HeartLoading")
+		Loading.animation.play("Rotation")
 		Loading.sprite.set_opacity(1)
 	else:
 		Loading.animation.stop()
