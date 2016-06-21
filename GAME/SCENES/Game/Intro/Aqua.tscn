@@ -7,5 +7,7 @@
 
 video_file = ExtResource( 2 )
 next_scene = "res://GAME/SCENES/Game/Intro/Intro.tscn"
+have_subtitles = true
+subtitles_file = "res://ASSETS/VIDEO/Aqua.srt"
 
 

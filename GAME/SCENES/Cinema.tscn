@@ -1,12 +1,15 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://GAME/SCRIPTS/Cinema.gd" type="Script" id=1]
+[ext_resource path="res://ASSETS/LANG/TEXT/Fonts/NotoBig.fnt" type="BitmapFont" id=2]
 
 [node name="Cinema" type="Node2D"]
 
 script/script = ExtResource( 1 )
 video_file = null
 next_scene = ""
+have_subtitles = false
+subtitles_file = ""
 
 [node name="Video" type="VideoPlayer" parent="."]
 
@@ -24,5 +27,22 @@ stream/volume_db = 0.0
 stream/autoplay = false
 stream/paused = false
 expand = true
+__meta__ = { "_edit_lock_":true }
+
+[node name="Subtitles" type="RichTextLabel" parent="."]
+
+rect/min_size = Vector2( 0, 78 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 99.0
+margin/top = 368.0
+margin/right = 777.0
+margin/bottom = 446.0
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode/enabled = true
+bbcode/bbcode = ""
+visible_characters = -1
 
 
