@@ -28,7 +28,7 @@ animations = [ { "frames":[ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 )
 
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
-player_name = "Kiryoku"
+Player = NodePath("Kiryoku")
 
 [node name="InfoBar" parent="." instance=ExtResource( 2 )]
 

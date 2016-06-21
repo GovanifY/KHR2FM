@@ -4,8 +4,7 @@ extends Node2D
 var InfoBar = null
 
 # Player vars
-export(String) var player_name = ""
-var Player = null
+export(NodePath) var Player = null
 
 # Enemies vars
 # TODO
@@ -49,7 +48,7 @@ func _process(delta):
 
 func _ready():
 	# Initialization des Nodes
-	Player = get_node(player_name)
+	Player = get_node(Player)
 	InfoBar = get_node("InfoBar")
 
 	# Commencer l'animation d'info
