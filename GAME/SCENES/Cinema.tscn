@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://GAME/SCRIPTS/Cinema.gd" type="Script" id=1]
+
+[node name="Cinema" type="Node2D"]
+
+script/script = ExtResource( 1 )
+video_file = null
+next_scene = ""
+
+[node name="Video" type="VideoPlayer" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 878.0
+margin/bottom = 480.0
+stream/audio_track = 0
+stream/stream = null
+stream/volume_db = 0.0
+stream/autoplay = false
+stream/paused = false
+expand = true
+
+
