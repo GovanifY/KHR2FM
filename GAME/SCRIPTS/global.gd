@@ -24,15 +24,17 @@ var debug = false
 
 func _ready():
 	# Initialization here
-	set_process(true)
 	Globals.set("PlayTimeMinutes", 0)
 	Globals.set("PlayTimeHours", 0)
 	Globals.set("TimerActivated", false)
 	Globals.set("TextScrolling",false)
+
 	#if OS.is_debug_build():
 	#	debug=true
 	#else:
 	#	debug=false
+
+	set_process(true)
 
 func _process(delta):
 	if Globals.get("TimerActivated"):
@@ -57,10 +59,7 @@ func _process(delta):
 		fs_pressed = true
 	if fs_pressed && !keypressed:
 		keypressed = true
-		if OS.is_video_mode_fullscreen():
-			OS.set_window_fullscreen(false)
-		elif !OS.is_video_mode_fullscreen():
-			OS.set_window_fullscreen(true)
+		OS.set_window_fullscreen(!OS.is_video_mode_fullscreen())
 	if !fs_pressed && keypressed:
 		keypressed = false
 
