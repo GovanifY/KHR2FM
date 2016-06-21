@@ -1,15 +1,15 @@
 extends Node
 
-#Ce script gère les fonctions globales du jeu qui se font dans le background
-#tel que le timer, la save ou le fullscreen.
-#Le script est en autoload.
+# Ce script gère les fonctions globales du jeu qui se font dans le background
+# tel que le timer, la save ou le fullscreen.
+# Le script est en autoload.
 
 
 var keypressed=false
 var keypressedtext=false
-#Un accumultaeur pour le timer
-var accum=0
-const FRAME_TEXT_WAIT=1
+# Un accumulateur pour le timer
+var accum = 0
+const FRAME_TEXT_WAIT = 1
 var Text = {
 	"node" : null,
 	"enabled" : false,
@@ -35,19 +35,19 @@ func _ready():
 	#	debug=false
 
 func _process(delta):
-	if(Globals.get("TimerActivated")==true):
+	if Globals.get("TimerActivated"):
 		accum+=delta
-		if(accum>60):
+		if (accum>60):
 			accum=0
 			Globals.set("PlayTimeMinutes", Globals.get("PlayTimeMinutes") + 1)
 			#C'est du débug, ca sers pas a grand chose
 			#print("Time:", Globals.get("PlayTimeHours") ,":", Globals.get("PlayTimeMinutes"))
-			if(Globals.get("PlayTimeMinutes")==60):
+			if Globals.get("PlayTimeMinutes") == 60:
 				Globals.set("PlayTimeHours", Globals.get("PlayTimeHours") + 1)
 				if Globals.get("PlayTimeHours",100):
 					Globals.set("PlayTimeHours", 99)
 
-	# Detect a quit ---> HIHG PRIORITY! Call the quit function right away
+	# Detect a quit ---> HIGH PRIORITY! Call the quit function right away
 	if Input.is_action_pressed("quit"):
 		get_tree().quit()
 
@@ -55,34 +55,34 @@ func _process(delta):
 	var fs_pressed = false
 	if Input.is_action_pressed("fullscreen"):
 		fs_pressed = true
-	if(fs_pressed == true && keypressed == false):
-		keypressed=true
-		if(OS.is_video_mode_fullscreen()):
+	if fs_pressed && !keypressed:
+		keypressed = true
+		if OS.is_video_mode_fullscreen():
 			OS.set_window_fullscreen(false)
-		elif(!OS.is_video_mode_fullscreen()):
+		elif !OS.is_video_mode_fullscreen():
 			OS.set_window_fullscreen(true)
-	if(keypressed==true && fs_pressed==false):
-		keypressed=false
+	if !fs_pressed && keypressed:
+		keypressed = false
 
 	# Debugging stuff, ignore this
-	if debug==true:
+	if debug:
 		if Input.is_action_pressed("debug_a"):
 			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/Splash.tscn", false)
-		if Input.is_action_pressed("debug_b"):
+		elif Input.is_action_pressed("debug_b"):
 			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/EXP_Zero.tscn", false)
-		if Input.is_action_pressed("debug_c"):
+		elif Input.is_action_pressed("debug_c"):
 			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/MainLoader.tscn", false)
-		if Input.is_action_pressed("debug_d"):
+		elif Input.is_action_pressed("debug_d"):
 			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Intro.tscn", false)
-		if Input.is_action_pressed("debug_e"):
+		elif Input.is_action_pressed("debug_e"):
 			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Aqua.tscn", false)
-		if Input.is_action_pressed("debug_f"):
+		elif Input.is_action_pressed("debug_f"):
 			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Battle_Yuugure.tscn", false)
-		if Input.is_action_pressed("debug_h"):
+		elif Input.is_action_pressed("debug_h"):
 			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Demo/End_Demo.tscn")
 
 	# The infamous text scroll
-	if(Text.enabled==true):
+	if Text.enabled:
 		update_text()
 
 
