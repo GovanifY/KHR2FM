@@ -35,7 +35,7 @@ func _process(delta):
 
 			if Subtitles.array[Subtitles.index][0] < cur_pos && cur_pos < Subtitles.array[Subtitles.index][1]:
 				if !Subtitles.shown:
-					Subtitles.label.set_bbcode(Subtitles.array[Subtitles.index][2])
+					Subtitles.label.set_bbcode(apply_effects(Subtitles.array[Subtitles.index][2]))
 					Subtitles.shown = true
 
 			elif cur_pos >= Subtitles.array[Subtitles.index][1]:
@@ -71,6 +71,9 @@ func _ready():
 	set_process(true)
 
 # Misc.
+static func apply_effects(string):
+	return "[center]" + string + "[/center]"
+
 static func timer_to_seconds(formatted):
 	var temp = formatted.split(":")
 	var hrs  = temp[0].to_int()
@@ -112,7 +115,7 @@ func parse_subtitles():
 
 			# Get following line for the text/translation
 			line = subs.get_line()
-			arr.push_back("[center]" + tr(line) + "[/center]") # pushing text/translation
+			arr.push_back(tr(line)) # pushing text/translation
 
 			# Pushing this array onto the main array
 			Subtitles.array.push_back(arr)
