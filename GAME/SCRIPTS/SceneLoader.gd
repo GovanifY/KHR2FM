@@ -39,7 +39,9 @@ func goto_scene(path):
 	assert(Scenes.next != null)
 	set_process(true)
 
-	Scenes.current.queue_free()
+	if Scenes.current != null:
+		Scenes.current.queue_free()
+		Scenes.current = null
 	_do_animation(true)
 
 	wait_frames = 1
@@ -70,8 +72,13 @@ func _process(delta):
 			# Au cas si on veut mettre quelque chose à jour
 			break
 		else:
-			# Si on est là, le chargement a aussi eu un problème...
+			# Loading error: probably some files weren't loaded.
 			Scenes.next = null
+			# TODO: Quitting is too much; think of an alternative scenario in
+			# TODO: case of failure
+			# FIXME: alert() doesn't seem to do anything on OS X
+			OS.alert("There was a problem while loading the next scene.", "Loading error!")
+			get_tree().quit()
 			break
 
 func set_new_scene(scene_resource):

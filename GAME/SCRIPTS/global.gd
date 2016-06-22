@@ -13,7 +13,8 @@ const FRAME_TEXT_WAIT = 1
 var Text = {
 	"node" : null,
 	"enabled" : false,
-	"timer" : 1
+	"timer" : 1,
+	"length" : 0
 }
 var SE = {
 	"node" : null,
@@ -29,33 +30,20 @@ func _ready():
 	Globals.set("TimerActivated", false)
 	Globals.set("TextScrolling",false)
 
-	#if OS.is_debug_build():
-	#	debug=true
-	#else:
-	#	debug=false
+	# For extended debugging purposes
+	debug = OS.is_debug_build()
 
+	set_process_input(true)
 	set_process(true)
 
-func _process(delta):
-	if Globals.get("TimerActivated"):
-		accum+=delta
-		if (accum>60):
-			accum=0
-			Globals.set("PlayTimeMinutes", Globals.get("PlayTimeMinutes") + 1)
-			#C'est du débug, ca sers pas a grand chose
-			#print("Time:", Globals.get("PlayTimeHours") ,":", Globals.get("PlayTimeMinutes"))
-			if Globals.get("PlayTimeMinutes") == 60:
-				Globals.set("PlayTimeHours", Globals.get("PlayTimeHours") + 1)
-				if Globals.get("PlayTimeHours",100):
-					Globals.set("PlayTimeHours", 99)
-
+func _input(event):
 	# Detect a quit ---> HIGH PRIORITY! Call the quit function right away
-	if Input.is_action_pressed("quit"):
+	if InputMap.event_is_action(event, "quit"):
 		get_tree().quit()
 
 	# FullScreen-related actions
 	var fs_pressed = false
-	if Input.is_action_pressed("fullscreen"):
+	if InputMap.event_is_action(event, "fullscreen"):
 		fs_pressed = true
 	if fs_pressed && !keypressed:
 		keypressed = true
@@ -65,20 +53,33 @@ func _process(delta):
 
 	# Debugging stuff, ignore this
 	if debug:
-		if Input.is_action_pressed("debug_a"):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/Splash.tscn", false)
-		elif Input.is_action_pressed("debug_b"):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/EXP_Zero.tscn", false)
-		elif Input.is_action_pressed("debug_c"):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/MainLoader.tscn", false)
-		elif Input.is_action_pressed("debug_d"):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Intro.tscn", false)
-		elif Input.is_action_pressed("debug_e"):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Aqua.tscn", false)
-		elif Input.is_action_pressed("debug_f"):
-			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Battle_Yuugure.tscn", false)
-		elif Input.is_action_pressed("debug_h"):
+		if InputMap.event_is_action(event, "debug_a"):
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/Splash.tscn")
+		elif InputMap.event_is_action(event, "debug_b"):
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/EXP_Zero.tscn")
+		elif InputMap.event_is_action(event, "debug_c"):
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/MainLoader.tscn")
+		elif InputMap.event_is_action(event, "debug_d"):
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Intro.tscn")
+		elif InputMap.event_is_action(event, "debug_e"):
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Aqua.tscn")
+		elif InputMap.event_is_action(event, "debug_f"):
+			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Battle_Yuugure.tscn")
+		elif InputMap.event_is_action(event, "debug_h"):
 			get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Demo/End_Demo.tscn")
+
+func _process(delta):
+	if Globals.get("TimerActivated"):
+		accum += delta
+		if accum > 60:
+			accum = 0
+			Globals.set("PlayTimeMinutes", Globals.get("PlayTimeMinutes") + 1)
+			#C'est du débug, ca sers pas a grand chose
+			#print("Time:", Globals.get("PlayTimeHours") ,":", Globals.get("PlayTimeMinutes"))
+			if Globals.get("PlayTimeMinutes") == 60:
+				Globals.set("PlayTimeHours", Globals.get("PlayTimeHours") + 1)
+				if Globals.get("PlayTimeHours",100):
+					Globals.set("PlayTimeHours", 99)
 
 	# The infamous text scroll
 	if Text.enabled:
@@ -113,11 +114,11 @@ func textscroll(node, texttouse, SENode, SEName):
 	texttouse = texttouse.replace("\\n", "\n")
 	Text.node.set_bbcode(texttouse)
 	Text.node.set_visible_characters(1)
+	Text.length = Text.node.get_bbcode().length()
 
 func update_text():
 	var confirm = false
 	var chars_written = Text.node.get_visible_characters()
-	var text_length = Text.node.get_bbcode().length()
 
 	# Are we in a hurry?
 	if Input.is_action_pressed("enter"):
@@ -128,20 +129,20 @@ func update_text():
 		Text.timer-=1
 	elif Text.timer == 0:
 		Text.timer = FRAME_TEXT_WAIT
-		if chars_written < text_length:
+		if chars_written < Text.length:
 			chars_written+=1
 			Text.node.set_visible_characters(chars_written)
 
 	# If "enter" action was pressed:
 	if confirm == true && keypressedtext == false:
 		# if we're still writing, write everything
-		if chars_written < text_length:
-			chars_written = text_length
+		if chars_written < Text.length:
+			chars_written = Text.length
 			Text.node.set_visible_characters(chars_written)
 			keypressedtext=true
 
 		# if we're done writing, clear everything
-		elif chars_written == text_length:
+		elif chars_written == Text.length:
 			if SE.node != null:
 				SE.node.play(SE.name)
 			Globals.set("TextScrolling",false)
