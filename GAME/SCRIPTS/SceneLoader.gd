@@ -76,8 +76,7 @@ func _process(delta):
 			Scenes.next = null
 			# TODO: Quitting is too much; think of an alternative scenario in
 			# TODO: case of failure
-			# FIXME: alert() doesn't seem to do anything on OS X
-			OS.alert("There was a problem while loading the next scene.", "Loading error!")
+			OS.alert("There was a problem loading the next scene.", "Loading error!")
 			get_tree().quit()
 			break
 
