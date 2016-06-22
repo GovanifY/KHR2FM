@@ -30,9 +30,7 @@ func _input(event):
 		get_tree().quit()
 
 	# FullScreen-related actions
-	var fs_pressed = false
-	if InputMap.event_is_action(event, "fullscreen"):
-		fs_pressed = true
+	var fs_pressed = InputMap.event_is_action(event, "fullscreen")
 	if fs_pressed && !keypressed:
 		keypressed = true
 		OS.set_window_fullscreen(!OS.is_video_mode_fullscreen())
@@ -59,15 +57,13 @@ func _input(event):
 func _process(delta):
 	if Globals.get("TimerActivated"):
 		accum += delta
-		if accum > 60:
+		if accum >= 60:
 			accum = 0
 			Globals.set("PlayTimeMinutes", Globals.get("PlayTimeMinutes") + 1)
 			#C'est du débug, ca sers pas a grand chose
 			#print("Time:", Globals.get("PlayTimeHours") ,":", Globals.get("PlayTimeMinutes"))
-			if Globals.get("PlayTimeMinutes") == 60:
+			if Globals.get("PlayTimeMinutes") >= 60:
 				Globals.set("PlayTimeHours", Globals.get("PlayTimeHours") + 1)
-				if Globals.get("PlayTimeHours",100):
-					Globals.set("PlayTimeHours", 99)
 
 
 func save():
