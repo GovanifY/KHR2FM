@@ -31,15 +31,14 @@ __meta__ = { "_edit_lock_":true }
 
 [node name="Subtitles" type="RichTextLabel" parent="."]
 
-rect/min_size = Vector2( 0, 78 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 99.0
-margin/top = 368.0
-margin/right = 777.0
-margin/bottom = 446.0
+margin/left = 110.0
+margin/top = 400.0
+margin/right = 788.0
+margin/bottom = 450.0
 custom_fonts/normal_font = ExtResource( 2 )
 bbcode/enabled = true
 bbcode/bbcode = ""

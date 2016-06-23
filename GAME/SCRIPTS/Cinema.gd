@@ -72,7 +72,7 @@ func _ready():
 
 # Misc.
 static func apply_effects(string):
-	return "[center]" + string + "[/center]"
+	return "[center]" + tr(string) + "[/center]"
 
 static func timer_to_seconds(formatted):
 	var temp = formatted.split(":")
@@ -90,8 +90,9 @@ static func timer_to_seconds(formatted):
 	return ret
 
 func parse_subtitles():
-	if have_subtitles || subtitles_file.empty():
+	if !have_subtitles || subtitles_file.empty():
 		print("Current subtitle settings prohibit me from proceeding. Skipping.")
+		return
 
 	assert(Subtitles.label != null)
 
@@ -115,7 +116,7 @@ func parse_subtitles():
 
 			# Get following line for the text/translation
 			line = subs.get_line()
-			arr.push_back(tr(line)) # pushing text/translation
+			arr.push_back(line) # pushing text/translation
 
 			# Pushing this array onto the main array
 			Subtitles.array.push_back(arr)
