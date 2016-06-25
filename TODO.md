@@ -6,8 +6,10 @@
 * Réorganiser systèmes events(text) et battle de façon abstraite.
 * POUR TRANSFERER MUSIC, 2 SCENES, UNE CONTENANT LA MUSIQUE CHARGEANT L'AUTRE ET ALLANT A L'AUTRE SCENE A LA FIN HANDLANT LA SECONDE(en gros repenser le système de chargement)
 * Fixer les spawns de debug(liés a l'issue au dessus)
-* Corriger le problème d'input (Godot ignore les clés Meta/Shift/Ctrl/Alt)
-* Ajouter Keyaku dans les remerciements et avertir Kreiss
+* Ajouter Keyaku dans les remerciements ~~et avertir Kreiss~~
+* Documenter la nomenclature des fichiers, où:
+	- "nom_de_script" ---> script interne qui n'est pas instanced sous un Node
+	- "NomDeScript" ---> script pour un node
 
 ### CE QUI SUIS EST LIE A L'EXPORT ET NON AU JEU EN SOIT
 
