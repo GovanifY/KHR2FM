@@ -43,8 +43,6 @@ func _input(event):
 			SceneLoader.goto_scene("res://GAME/SCENES/Splash/Splash.tscn")
 		elif InputMap.event_is_action(event, "debug_b"):
 			SceneLoader.goto_scene("res://GAME/SCENES/Splash/EXP_Zero.tscn")
-		elif InputMap.event_is_action(event, "debug_c"):
-			SceneLoader.goto_scene("res://GAME/SCENES/MainLoader.tscn")
 		elif InputMap.event_is_action(event, "debug_d"):
 			SceneLoader.goto_scene("res://GAME/SCENES/Game/Intro/Intro.tscn")
 		elif InputMap.event_is_action(event, "debug_e"):
@@ -55,6 +53,7 @@ func _input(event):
 			SceneLoader.goto_scene("res://GAME/SCENES/Demo/End_Demo.tscn")
 
 func _process(delta):
+	# Global Timer
 	if Globals.get("TimerActivated"):
 		accum += delta
 		if accum >= 60:

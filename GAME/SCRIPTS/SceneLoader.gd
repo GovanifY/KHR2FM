@@ -13,6 +13,7 @@ var Loading = {
 	"sprite" : null
 }
 
+# Core functions
 func _ready():
 	var root = get_tree().get_root()
 	Scenes.current = root.get_child(root.get_child_count()-1)
@@ -32,20 +33,6 @@ func _do_animation(play):
 		Loading.animation.stop()
 		Loading.sprite.set_opacity(0)
 
-func goto_scene(path):
-	Scenes.next = ResourceLoader.load_interactive(path)
-	# Check if something went wrong
-	# TODO: use an "if" condition and output our error.
-	assert(Scenes.next != null)
-	set_process(true)
-
-	if Scenes.current != null:
-		Scenes.current.queue_free()
-		Scenes.current = null
-	_do_animation(true)
-
-	wait_frames = 1
-
 func _process(delta):
 	if Scenes.next == null:
 		# no more loading
@@ -57,14 +44,14 @@ func _process(delta):
 		return
 
 	var margin = OS.get_ticks_msec()
-	while OS.get_ticks_msec() < margin + MAX_TIME: # use "time_max" to control how much time we block this thread
-		# poll your Scenes.next
+	while OS.get_ticks_msec() < margin + MAX_TIME: # use "MAX_TIME" to control how much time we block this thread
+		# poll your next Scene
 		var err = Scenes.next.poll()
 
 		if err == ERR_FILE_EOF: # load finished
 			var resource = Scenes.next.get_resource()
 			Scenes.next = null
-			set_new_scene(resource)
+			_set_new_scene(resource)
 			# On stop l'anim et on efface le sprite utilisé
 			_do_animation(false)
 			break
@@ -74,12 +61,30 @@ func _process(delta):
 		else:
 			# Loading error: probably some files weren't loaded.
 			Scenes.next = null
-			# TODO: Quitting is too much; think of an alternative scenario in
-			# TODO: case of failure
+			# FIXME: Quitting is too much; think of an alternative scenario in
+			# FIXME: case of failure
 			OS.alert("There was a problem loading the next scene.", "Loading error!")
 			get_tree().quit()
 			break
 
-func set_new_scene(scene_resource):
+func _set_new_scene(scene_resource):
 	Scenes.current = scene_resource.instance()
 	get_node("/root").add_child(Scenes.current)
+
+# Methods
+func goto_scene(path):
+	Scenes.next = ResourceLoader.load_interactive(path)
+	# Check if something went wrong
+	# TODO: use an "if" condition and output our error.
+	assert(Scenes.next != null)
+
+	if Scenes.current != null:
+		# Stop every process from the current node to avoid crashes
+		Scenes.current.set_process(false)
+		Scenes.current.set_process_input(false)
+		Scenes.current.queue_free()
+		Scenes.current = null
+	_do_animation(true)
+
+	wait_frames = 1
+	set_process(true)

@@ -208,6 +208,11 @@ func _process(delta):
 	elif textregion==48 && !TextScroll.is_active():
 		if !get_node("End_Anim").is_playing():
 			SceneLoader.goto_scene("res://GAME/SCENES/Game/Intro/Battle_Yuugure.tscn")
+
+	# Update text
+	if TextScroll.is_active():
+		TextScroll.update_text()
+
 func _ready():
 	# Initialization here
 	set_process(true)

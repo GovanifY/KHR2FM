@@ -12,16 +12,6 @@ var SE = {
 	"node" : null,
 	"name" : null
 }
-var is_scrolling = false
-
-# Core functions
-func _ready():
-	set_process(true)
-
-func _process(delta):
-	# The infamous text scroll
-	if Text.enabled:
-		update_text()
 
 # Check scrolling status
 func is_active():
@@ -50,12 +40,10 @@ func scroll(node, texttouse):
 
 # Updates the text with the most recent line
 func update_text():
-	var confirm = false
 	var chars_written = Text.node.get_visible_characters()
 
 	# Are we in a hurry?
-	if Input.is_action_pressed("enter"):
-		confirm = true
+	var confirm = Input.is_action_pressed("enter")
 
 	# Check for timer: write a character if it's gone to 0, wait otherwise
 	if Text.timer != 0:

@@ -15,11 +15,12 @@ func display():
 		TextScroll.set_SE()
 		TextScroll.scroll(get_node("Info_Label"), InfoMessage)
 		info_scroll = true
-	# Si le jouer a appuyé pour continuer, retirer la barre
-	if !TextScroll.is_active():
+	
+	if TextScroll.is_active():
+		TextScroll.update_text()
+	else:
 		get_node("Info_Unpop").play("Info_Unpop")
 		emit_signal("dismiss")
-
 
 # InfoBar initializer
 func init(messageID = null):
