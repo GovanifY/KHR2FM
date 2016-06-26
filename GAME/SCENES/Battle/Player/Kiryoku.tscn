@@ -304,12 +304,12 @@ tracks/2/keys = { "cont":false, "times":FloatArray( 0.06 ), "transitions":FloatA
 
 [sub_resource type="SampleLibrary" id=14]
 
-samples/Kiryoku_05 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 82 ) }
 samples/Kiryoku_06 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 83 ) }
 samples/Kiryoku_02 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 79 ) }
+samples/Kiryoku_09 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 84 ) }
+samples/Kiryoku_05 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 82 ) }
 samples/Kiryoku_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 81 ) }
 samples/Kiryoku_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 80 ) }
-samples/Kiryoku_09 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 84 ) }
 
 [sub_resource type="SampleLibrary" id=15]
 
@@ -332,14 +332,11 @@ limit_right = 540
 
 [node name="Kiryoku_Sprite" type="AnimatedSprite" parent="."]
 
-transform/scale = Vector2( 1, 1 )
 frames = SubResource( 1 )
 animation = "default"
 centered = false
 
 [node name="anims" type="Node" parent="."]
-
-__meta__ = { "_editor_collapsed":true }
 
 [node name="Kiryoku_Still_Right" type="AnimationPlayer" parent="anims"]
 
