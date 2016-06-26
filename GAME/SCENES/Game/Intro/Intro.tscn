@@ -204,6 +204,7 @@
 resource/name = "Null1"
 length = 2.0
 loop = false
+loop_interpolation = true
 step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Box_message_000:visibility/opacity")
@@ -326,6 +327,7 @@ tracks/22/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "upda
 resource/name = "Null2"
 length = 3.66
 loop = false
+loop_interpolation = true
 step = 0.1
 
 [sub_resource type="SpriteFrames" id=3]
@@ -335,16 +337,17 @@ animations = [ { "frames":[ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 )
 [sub_resource type="SampleLibrary" id=4]
 
 samples/Light = { "db":0.0, "pitch":1.0, "sample":ExtResource( 26 ) }
-samples/MSG_SOUND = { "db":0.0, "pitch":1.0, "sample":ExtResource( 27 ) }
 samples/Noise = { "db":0.0, "pitch":0.85, "sample":ExtResource( 28 ) }
-samples/Intro_Message = { "db":0.0, "pitch":1.0, "sample":ExtResource( 24 ) }
+samples/MSG_SOUND = { "db":0.0, "pitch":1.0, "sample":ExtResource( 27 ) }
 samples/Intro_Message_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 25 ) }
+samples/Intro_Message = { "db":0.0, "pitch":1.0, "sample":ExtResource( 24 ) }
 
 [sub_resource type="Animation" id=5]
 
 resource/name = "KH_Intro"
 length = 7.87
 loop = false
+loop_interpolation = true
 step = 0.02
 tracks/0/type = "value"
 tracks/0/path = NodePath("KH_Intro:visibility/opacity")
@@ -377,6 +380,7 @@ tracks/4/keys = { "times":FloatArray( 7.64, 7.87 ), "transitions":FloatArray( 1,
 resource/name = "Keyblade_Anim"
 length = 0.78
 loop = true
+loop_interpolation = true
 step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Box_message_039b:visibility/opacity")
@@ -398,6 +402,7 @@ animations = [ { "frames":[ ExtResource( 30 ), ExtResource( 31 ), ExtResource( 3
 resource/name = "DARKNESS_Intro_Anim"
 length = 10.17
 loop = false
+loop_interpolation = true
 step = 0.04
 tracks/0/type = "value"
 tracks/0/path = NodePath("Box_message_039:visibility/opacity")
@@ -467,6 +472,7 @@ animations = [ { "frames":[ ExtResource( 114 ), ExtResource( 115 ), ExtResource(
 
 length = 0.66
 loop = true
+loop_interpolation = true
 step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("BG_Kiryoku_1:frame")
@@ -479,6 +485,7 @@ tracks/0/keys = { "times":FloatArray( 0.13, 0.33, 0.46, 0.66 ), "transitions":Fl
 resource/name = "BG_Kiryoku_2_Anim"
 length = 0.4
 loop = true
+loop_interpolation = true
 step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("BG_Kiryoku_1:frame")
@@ -490,6 +497,7 @@ tracks/0/keys = { "times":FloatArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35 )
 
 length = 1.0
 loop = false
+loop_interpolation = true
 step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Box_message_001:visibility/opacity")
@@ -546,6 +554,7 @@ tracks/9/keys = { "times":FloatArray( 0, 0.13, 0.62, 0.75 ), "transitions":Float
 
 length = 26.03
 loop = false
+loop_interpolation = true
 step = 0.02
 tracks/0/type = "value"
 tracks/0/path = NodePath("BlackBG:visibility/opacity")
@@ -685,13 +694,14 @@ samples/End_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 165 ) }
 [sub_resource type="SampleLibrary" id=17]
 
 samples/Transition = { "db":0.0, "pitch":1.0, "sample":ExtResource( 169 ) }
-samples/Appearance_boom = { "db":0.0, "pitch":1.0, "sample":ExtResource( 167 ) }
 samples/Reminiscence_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 168 ) }
+samples/Appearance_boom = { "db":0.0, "pitch":1.0, "sample":ExtResource( 167 ) }
 
 [sub_resource type="Animation" id=18]
 
 length = 8.19
 loop = false
+loop_interpolation = true
 step = 0.02
 tracks/0/type = "value"
 tracks/0/path = NodePath("Box_message_013:visibility/opacity")
@@ -774,6 +784,7 @@ tracks/14/keys = { "times":FloatArray(  ), "transitions":FloatArray(  ), "update
 resource/name = "Switch_2"
 length = 0.33
 loop = false
+loop_interpolation = true
 step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Box_message_012:visibility/opacity")
@@ -811,6 +822,7 @@ tracks/5/keys = { "times":FloatArray( 0, 0.33 ), "transitions":FloatArray( 1, 1 
 resource/name = "End_Anim"
 length = 1.5
 loop = false
+loop_interpolation = true
 step = 0.02
 tracks/0/type = "value"
 tracks/0/path = NodePath("Box_message_012:visibility/opacity")

@@ -5,22 +5,30 @@ export(String) var InfoMessage = "BATTLE INFO MESSAGE"
 
 # Managing the "Dismiss" signal
 signal dismiss
-var info_scroll = false
+# Info data
+var Info = {
+	"scroll" : false,
+	"text" : null
+}
 
 # Really Important Nodes
-onready var TextScroll = get_node("/root/TextScroll")
+onready var TextScroll = preload("res://GAME/SCRIPTS/TextScroll.gd")
 
 func display():
-	if !info_scroll:
-		TextScroll.set_SE()
-		TextScroll.scroll(get_node("Info_Label"), InfoMessage)
-		info_scroll = true
-	
-	if TextScroll.is_active():
-		TextScroll.update_text()
+	if !Info.scroll:
+		Info.text = TextScroll.new()
+		Info.text.set_SE()
+		Info.text.scroll(get_node("Info_Label"), InfoMessage)
+		Info.scroll = true
+
+	if Info.text.is_active():
+		Info.text.update_text()
 	else:
 		get_node("Info_Unpop").play("Info_Unpop")
 		emit_signal("dismiss")
+		Info.text.free()
+		Info.text = null
+		return
 
 # InfoBar initializer
 func init(messageID = null):

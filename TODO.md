@@ -10,7 +10,7 @@ Non, sérieux, ça coupe les temps de loading (test-only) et temps d'export, et,
 * Fixer les spawns de debug(liés a l'issue au dessus)
 * Ajouter Keyaku dans les remerciements ~~et avertir Kreiss~~
 * Documenter la nomenclature des fichiers, où:
-	- "nom_de_script" ---> script interne qui n'est pas instanced sous un Node
+	- "nom_de_script" ---> script interne qui ne doit pas être considérée comme Class
 	- "NomDeScript" ---> script pour un node
 
 ### CE QUI SUIS EST LIE A L'EXPORT ET NON AU JEU EN SOIT
