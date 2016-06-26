@@ -16,7 +16,6 @@ Non, sérieux, ça coupe les temps de loading (test-only) et temps d'export, et,
 ### CE QUI SUIS EST LIE A L'EXPORT ET NON AU JEU EN SOIT
 
 * AVANT EXPORT verifier groupes images pour atlas
-* Vérifier compression des musiques et SE
 
 ### CE QUI SUIS EST LIE A DES MODS DE GODOT ENGINE
 
