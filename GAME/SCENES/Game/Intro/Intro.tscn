@@ -312,9 +312,9 @@ animations = [ { "frames":[ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 )
 
 samples/Light = { "db":0.0, "pitch":1.0, "sample":ExtResource( 26 ) }
 samples/Noise = { "db":0.0, "pitch":0.85, "sample":ExtResource( 28 ) }
+samples/Intro_Message = { "db":0.0, "pitch":1.0, "sample":ExtResource( 24 ) }
 samples/MSG_SOUND = { "db":0.0, "pitch":1.0, "sample":ExtResource( 27 ) }
 samples/Intro_Message_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 25 ) }
-samples/Intro_Message = { "db":0.0, "pitch":1.0, "sample":ExtResource( 24 ) }
 
 [sub_resource type="Animation" id=5]
 
@@ -606,8 +606,8 @@ samples/End_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 165 ) }
 [sub_resource type="SampleLibrary" id=17]
 
 samples/Transition = { "db":0.0, "pitch":1.0, "sample":ExtResource( 168 ) }
-samples/Reminiscence_2 = { "db":0.0, "pitch":1.0, "sample":null }
 samples/Appearance_boom = { "db":0.0, "pitch":1.0, "sample":ExtResource( 167 ) }
+samples/Reminiscence_2 = { "db":0.0, "pitch":1.0, "sample":null }
 
 [sub_resource type="Animation" id=18]
 
@@ -962,13 +962,13 @@ autoplay = ""
 
 [node name="BlackBG" type="Sprite" parent="."]
 
-visibility/opacity = 0.54
+visibility/opacity = 0.0
 texture = ExtResource( 126 )
 centered = false
 
 [node name="Box_message_013" type="Sprite" parent="."]
 
-visibility/opacity = 0.878788
+visibility/opacity = 0.0
 transform/pos = Vector2( -400, 0 )
 texture = ExtResource( 127 )
 centered = false
@@ -982,7 +982,7 @@ centered = false
 
 [node name="Box_message_001" type="Sprite" parent="."]
 
-visibility/opacity = 0.692308
+visibility/opacity = 0.0
 texture = ExtResource( 129 )
 centered = false
 
@@ -994,7 +994,7 @@ centered = false
 
 [node name="Box_message_039b" type="Sprite" parent="."]
 
-visibility/opacity = 0.692308
+visibility/opacity = 0.0
 texture = ExtResource( 131 )
 centered = false
 

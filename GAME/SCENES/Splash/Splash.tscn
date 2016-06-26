@@ -923,11 +923,11 @@ tracks/0/keys = { "cont":true, "times":FloatArray( 0.39, 0.66 ), "transitions":F
 
 [sub_resource type="SampleLibrary" id=19]
 
-samples/System_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 43 ) }
-samples/System_00 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 40 ) }
-samples/System_01 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 40 ) }
-samples/System_02 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 41 ) }
 samples/System_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 42 ) }
+samples/System_01 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 40 ) }
+samples/System_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 43 ) }
+samples/System_02 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 41 ) }
+samples/System_00 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 40 ) }
 samples/NewGame = { "db":0.0, "pitch":1.0, "sample":ExtResource( 39 ) }
 
 [node name="Splash" type="Node2D"]
@@ -1152,7 +1152,7 @@ centered = false
 [node name="Save_Load_00" type="Sprite" parent="Custom Title System"]
 
 visibility/opacity = 0.0
-transform/pos = Vector2( 0, 240 )
+transform/pos = Vector2( -0.902527, 229.17 )
 texture = ExtResource( 32 )
 centered = false
 
