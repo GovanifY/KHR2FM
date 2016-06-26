@@ -9,7 +9,7 @@ var Dialogue = {
 }
 
 # Really Important Nodes
-onready var TextScroll = preload("res://GAME/SCRIPTS/TextScroll.gd")
+const TextScroll = preload("res://GAME/SCRIPTS/TextScroll.gd")
 onready var SceneLoader = get_node("/root/SceneLoader")
 
 func _process(delta):

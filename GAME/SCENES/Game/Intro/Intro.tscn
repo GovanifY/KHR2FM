@@ -939,6 +939,7 @@ frames = SubResource( 3 )
 animation = "default"
 frame = 19
 centered = false
+__meta__ = { "_editor_collapsed":true }
 
 [node name="Last_KH_Intro" type="Sprite" parent="KH_Intro"]
 

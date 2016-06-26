@@ -12,7 +12,7 @@ var Info = {
 }
 
 # Really Important Nodes
-onready var TextScroll = preload("res://GAME/SCRIPTS/TextScroll.gd")
+const TextScroll = preload("res://GAME/SCRIPTS/TextScroll.gd")
 
 func display():
 	if !Info.scroll:
