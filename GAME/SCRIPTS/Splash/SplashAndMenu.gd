@@ -24,8 +24,10 @@ var NewGameLaunched = false
 var save1 = File.new()
 var save2 = File.new()
 
-func _process(delta):
+# Very Important Nodes
+onready var SceneLoader = get_node("/root/SceneLoader")
 
+func _process(delta):
 	if (hasbeenset== false || NewGameLaunched==true ||Save_Window_Anim==true):
 		if(hasbeenset==false):
 			if(!get_node("SplashAndMenuShowUp").is_playing()):
@@ -40,11 +42,13 @@ func _process(delta):
 			if(SelectMode==0):
 				if(!get_node("Custom Title System/NewGame_1").is_playing()):
 					Globals.set("Critical", false)
-					get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Aqua.tscn")
+					SceneLoader.add_scene("Game/Intro/Aqua.tscn")
+					SceneLoader.load_now()
 			elif(SelectMode==1):
 				if(!get_node("Custom Title System/NewGame_2").is_playing()):
 					Globals.set("Critical", true)
-					get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Splash/EXP_Zero.tscn")
+					SceneLoader.add_scene("Splash/EXP_Zero.tscn")
+					SceneLoader.load_now()
 		elif(Save_Window_Anim==true):
 			if(!get_node("Custom Title System/SplashSave").is_playing()):
 				Save_Window_Anim=false

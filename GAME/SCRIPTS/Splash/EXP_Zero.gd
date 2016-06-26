@@ -6,6 +6,9 @@ var SelectMode=0
 var keypressed=false
 var EndAnim=false
 
+# Very Important Nodes
+onready var SceneLoader = get_node("/root/SceneLoader")
+
 func _process(delta):
 	if (hasbeenset == false || EndAnim ==true):
 		if(hasbeenset==false):
@@ -15,7 +18,8 @@ func _process(delta):
 				hasbeenset=true
 		elif(EndAnim==true):
 			if(!get_node("End").is_playing()):
-				get_node("/root/SceneLoader").goto_scene("res://GAME/SCENES/Game/Intro/Aqua.tscn")
+				SceneLoader.add_scene("Game/Intro/Aqua.tscn")
+				SceneLoader.load_now()
 	else:
 		var right = false
 		var left = false
@@ -31,7 +35,7 @@ func _process(delta):
 
 		if Input.is_action_pressed("enter"):
 			confirm = true
-			
+
 		if (left == true && keypressed == false):
 			get_node("System").play("System_03")
 			SelectMode=SelectMode-1
@@ -49,7 +53,7 @@ func _process(delta):
 				get_node("EXP_Zero_001").set_opacity(0)
 				get_node("EXP_Zero_000").set_opacity(1)
 			keypressed=true
-			
+
 		if (right == true && keypressed == false):
 			get_node("System").play("System_03")
 			SelectMode=SelectMode+1
@@ -76,12 +80,10 @@ func _process(delta):
 			get_node("End").play("End")
 			EndAnim=true
 			keypressed=true
-			
+
 		if(keypressed==true && (right==false && left==false && confirm==false)):
 			keypressed=false
 
 func _ready():
 	set_process(true)
 	pass
-
-

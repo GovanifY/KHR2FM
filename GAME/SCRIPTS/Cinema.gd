@@ -10,6 +10,9 @@ export(String, FILE, "*.tscn") var next_scene = ""
 export(bool) var have_subtitles = false
 export(String, FILE, "*.srt") var subtitles_file = ""
 
+# Very Important Nodes
+onready var SceneLoader = get_node("/root/SceneLoader")
+
 # Instance members
 var Video = {
 	"playing" : false,
@@ -48,9 +51,7 @@ func _process(delta):
 
 		# FIXME: This is horrible in terms of performance. Look for an alternative
 		if !Video.node.is_playing():
-			# TODO: don't goto_scene() like this. Update SceneLoader to have better
-			# TODO: Scene handling
-			get_node("/root/SceneLoader").goto_scene(next_scene)
+			SceneLoader.load_now()
 	return
 
 func _enter_tree():
@@ -66,6 +67,10 @@ func _ready():
 	# Setting subtitles (if any)
 	Subtitles.label = get_node("Subtitles")
 	parse_subtitles()
+
+	# TODO: Loading next scene in the background
+	SceneLoader.add_scene(next_scene)
+	#SceneLoader.load_in_background()
 
 	# Start playing
 	set_process(true)

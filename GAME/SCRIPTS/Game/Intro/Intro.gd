@@ -214,7 +214,8 @@ func _process(delta):
 		if !get_node("End_Anim").is_playing():
 			Dialogue.text.free()
 			Dialogue.text = null
-			SceneLoader.goto_scene("res://GAME/SCENES/Game/Intro/Battle_Yuugure.tscn")
+			SceneLoader.add_scene("Game/Intro/Battle_Yuugure.tscn")
+			SceneLoader.load_now()
 			return
 
 	# Update text

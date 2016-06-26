@@ -13,7 +13,6 @@ var debug = false
 onready var SceneLoader = get_node("/root/SceneLoader")
 
 func _ready():
-	# Initialization here
 	Globals.set("PlayTimeMinutes", 0)
 	Globals.set("PlayTimeHours", 0)
 	Globals.set("TimerActivated", false)
@@ -40,17 +39,20 @@ func _input(event):
 	# Debugging stuff, ignore this
 	if debug:
 		if InputMap.event_is_action(event, "debug_a"):
-			SceneLoader.goto_scene("res://GAME/SCENES/Splash/Splash.tscn")
+			SceneLoader.add_scene("Splash/Splash.tscn")
 		elif InputMap.event_is_action(event, "debug_b"):
-			SceneLoader.goto_scene("res://GAME/SCENES/Splash/EXP_Zero.tscn")
+			SceneLoader.add_scene("Splash/EXP_Zero.tscn")
 		elif InputMap.event_is_action(event, "debug_d"):
-			SceneLoader.goto_scene("res://GAME/SCENES/Game/Intro/Intro.tscn")
+			SceneLoader.add_scene("Game/Intro/Intro.tscn")
 		elif InputMap.event_is_action(event, "debug_e"):
-			SceneLoader.goto_scene("res://GAME/SCENES/Game/Intro/Aqua.tscn")
+			SceneLoader.add_scene("Game/Intro/Aqua.tscn")
 		elif InputMap.event_is_action(event, "debug_f"):
-			SceneLoader.goto_scene("res://GAME/SCENES/Game/Intro/Battle_Yuugure.tscn")
+			SceneLoader.add_scene("Game/Intro/Battle_Yuugure.tscn")
 		elif InputMap.event_is_action(event, "debug_h"):
-			SceneLoader.goto_scene("res://GAME/SCENES/Demo/End_Demo.tscn")
+			SceneLoader.add_scene("Demo/End_Demo.tscn")
+
+		if SceneLoader.is_there_a_scene():
+			SceneLoader.load_now()
 
 func _process(delta):
 	# Global Timer

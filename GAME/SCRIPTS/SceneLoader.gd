@@ -1,29 +1,49 @@
 extends Node
 
+# Constants
+const PATH_SCENES = "res://GAME/SCENES/"
 const MAX_TIME = 100 # msec
-var wait_frames
+const MainLoader = preload(PATH_SCENES + "MainLoader.tscn")
 
+# Instance members
 var Scenes = {
 	"current" : null,
 	"next" : null,
-	"loading" : null
+	"loader" : null
 }
 var Loading = {
 	"animation" : null,
 	"sprite" : null
 }
 
-# Core functions
-func _ready():
-	var root = get_tree().get_root()
-	Scenes.current = root.get_child(root.get_child_count()-1)
-	Scenes.loading = get_node("/root/MainLoader")
+# Our FIFO Queue
+var Queue = []
 
-	# If the loading Scene is NOT loaded, then something REALLY went wrong
-	assert(Scenes.loading != null)
-	Loading.sprite = Scenes.loading.get_node("Heart")
-	Loading.animation = Scenes.loading.get_node("HeartAnimation")
-	_do_animation(false)
+######################
+### Core functions ###
+######################
+func _ready():
+	var root = get_node("/root")
+	# The last Node is the one currently being shown
+	Scenes.current = root.get_child(root.get_child_count()-1)
+
+func _prepare_main_loader():
+	# Skip in case it's already instanced
+	if Scenes.loader != null:
+		return
+
+	Scenes.loader = MainLoader.instance()
+
+	# If a MainLoader is NOT instanced, then something REALLY went wrong
+	assert(Scenes.loader != null)
+	Loading.sprite = Scenes.loader.get_node("Heart")
+	Loading.animation = Scenes.loader.get_node("HeartAnimation")
+	get_node("/root").add_child(Scenes.loader)
+
+func _destroy_main_loader():
+	Scenes.loader.queue_free()
+	get_node("/root").remove_child(Scenes.loader)
+	Scenes.loader = null
 
 func _do_animation(play):
 	if play:
@@ -39,10 +59,6 @@ func _process(delta):
 		set_process(false)
 		return
 
-	if wait_frames > 0:
-		wait_frames -= 1
-		return
-
 	var margin = OS.get_ticks_msec()
 	while OS.get_ticks_msec() < margin + MAX_TIME: # use "MAX_TIME" to control how much time we block this thread
 		# poll your next Scene
@@ -51,9 +67,12 @@ func _process(delta):
 		if err == ERR_FILE_EOF: # load finished
 			var resource = Scenes.next.get_resource()
 			Scenes.next = null
-			_set_new_scene(resource)
-			# On stop l'anim et on efface le sprite utilisé
-			_do_animation(false)
+			Scenes.current = resource.instance()
+			get_node("/root").add_child(Scenes.current)
+
+			# We destroy the MainLoader since we don't need it anymore
+			_destroy_main_loader()
+
 			break
 		elif err == OK:
 			# Au cas si on veut mettre quelque chose à jour
@@ -67,24 +86,70 @@ func _process(delta):
 			get_tree().quit()
 			break
 
-func _set_new_scene(scene_resource):
-	Scenes.current = scene_resource.instance()
-	get_node("/root").add_child(Scenes.current)
+########################
+### Helper functions ###
+########################
+static func _enqueue(queue, elem):
+	assert(typeof(queue) == TYPE_ARRAY && elem != null)
+	if elem in queue:
+		print("queue already contains input element")
+		return
 
-# Methods
-func goto_scene(path):
-	Scenes.next = ResourceLoader.load_interactive(path)
-	# Check if something went wrong
+	queue.push_back(elem)
+
+static func _dequeue(queue):
+	assert(typeof(queue) == TYPE_ARRAY)
+	if queue.size() == 0:
+		print("Queue is empty")
+		return null
+
+	# Since Godot doesn't know the definition of "pop", I have to do it this way
+	var temp = queue[0]
+	queue.pop_front()
+	return temp
+
+static func _load_scene(path):
+	var next = ResourceLoader.load_interactive(path)
+	# Check if something went wrong while loading the file
 	# TODO: use an "if" condition and output our error.
-	assert(Scenes.next != null)
+	assert(next != null)
+	return next
 
-	if Scenes.current != null:
-		# Stop every process from the current node to avoid crashes
-		Scenes.current.set_process(false)
-		Scenes.current.set_process_input(false)
-		Scenes.current.queue_free()
-		Scenes.current = null
+static func _stop_scene(scene):
+	if scene != null:
+		# Stop every process from the this node to avoid crashes
+		scene.set_process(false)
+		scene.set_process_input(false)
+		scene.queue_free()
+
+###############
+### Methods ###
+###############
+# Adds a scene's path to our queue
+func add_scene(path):
+	# Check if we were given a partial path
+	if !path.is_abs_path():
+		path = PATH_SCENES + path
+	# Now, if it still doesn't fit in the description, don't enqueue it
+	if path.is_abs_path():
+		_enqueue(Queue, path)
+
+# Determines if a scene can be loaded
+func is_there_a_scene():
+	return Queue.size() > 0
+
+# Loads new scene using the MainLoader scene
+func load_now():
+	var new_scene = _dequeue(Queue)
+	if new_scene == null:
+		print("No scene available to load")
+		return
+
+	Scenes.next = _load_scene(new_scene)
+	_stop_scene(Scenes.current)
+	Scenes.current = null
+
+	_prepare_main_loader()
 	_do_animation(true)
 
-	wait_frames = 1
 	set_process(true)
