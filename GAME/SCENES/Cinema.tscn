@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://GAME/SCRIPTS/Cinema.gd" type="Script" id=1]
-[ext_resource path="res://ASSETS/LANG/TEXT/Fonts/NotoBig.fnt" type="BitmapFont" id=2]
+[ext_resource path="res://ASSETS/LANG/ASSETS/FONTS/Big.fnt" type="BitmapFont" id=2]
 
 [node name="Cinema" type="Node2D"]
 

@@ -132,7 +132,7 @@
 [ext_resource path="res://ASSETS/GFX/Game/Text/Box_message_002.png" type="Texture" id=130]
 [ext_resource path="res://ASSETS/GFX/Game/Text/Box_message_039b.png" type="Texture" id=131]
 [ext_resource path="res://ASSETS/GFX/Game/Text/Box_message_000.png" type="Texture" id=132]
-[ext_resource path="res://ASSETS/LANG/TEXT/Fonts/Notomsg.fnt" type="BitmapFont" id=133]
+[ext_resource path="res://ASSETS/LANG/ASSETS/FONTS/Message.fnt" type="BitmapFont" id=133]
 [ext_resource path="res://ASSETS/GFX/Intro/Flash_Intro/Flash_12.png" type="Texture" id=134]
 [ext_resource path="res://ASSETS/GFX/Intro/Flash_Intro/Flash_13.png" type="Texture" id=135]
 [ext_resource path="res://ASSETS/GFX/Intro/Flash_Intro/Flash_14.png" type="Texture" id=136]
@@ -168,7 +168,7 @@
 [ext_resource path="res://ASSETS/GFX/BackGround/White.png" type="Texture" id=166]
 [ext_resource path="res://ASSETS/SE/Cutscenes/Appearance_boom.wav" type="Sample" id=167]
 [ext_resource path="res://ASSETS/SE/Battle/General/Transition.wav" type="Sample" id=168]
-[ext_resource path="res://ASSETS/LANG/TEXT/Fonts/NotoBig.fnt" type="BitmapFont" id=169]
+[ext_resource path="res://ASSETS/LANG/ASSETS/FONTS/Big.fnt" type="BitmapFont" id=169]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Transition/Transition_00.png" type="Texture" id=170]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Transition/Transition_01.png" type="Texture" id=171]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Transition/Transition_02.png" type="Texture" id=172]
@@ -600,14 +600,14 @@ animations = [ { "frames":[ ExtResource( 134 ), ExtResource( 135 ), ExtResource(
 
 [sub_resource type="SampleLibrary" id=16]
 
-samples/Appearance_boom_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 164 ) }
 samples/End_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 165 ) }
+samples/Appearance_boom_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 164 ) }
 
 [sub_resource type="SampleLibrary" id=17]
 
 samples/Transition = { "db":0.0, "pitch":1.0, "sample":ExtResource( 168 ) }
-samples/Appearance_boom = { "db":0.0, "pitch":1.0, "sample":ExtResource( 167 ) }
 samples/Reminiscence_2 = { "db":0.0, "pitch":1.0, "sample":null }
+samples/Appearance_boom = { "db":0.0, "pitch":1.0, "sample":ExtResource( 167 ) }
 
 [sub_resource type="Animation" id=18]
 
