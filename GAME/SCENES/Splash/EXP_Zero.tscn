@@ -7,8 +7,8 @@
 [ext_resource path="res://ASSETS/GFX/Title/EXP/Exp_zero_002.png" type="Texture" id=5]
 [ext_resource path="res://ASSETS/GFX/Title/EXP/Exp_zero_003.png" type="Texture" id=6]
 [ext_resource path="res://ASSETS/LANG/TEXT/Fonts/Noto.fnt" type="BitmapFont" id=7]
-[ext_resource path="res://ASSETS/SE/System_03.smp" type="Sample" id=8]
-[ext_resource path="res://ASSETS/SE/System_04.smp" type="Sample" id=9]
+[ext_resource path="res://ASSETS/SE/System_03.wav" type="Sample" id=8]
+[ext_resource path="res://ASSETS/SE/System_04.wav" type="Sample" id=9]
 [ext_resource path="res://ASSETS/GFX/BackGround/Black.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=1]
