@@ -815,11 +815,11 @@ tracks/24/keys = { "cont":true, "times":FloatArray( 2.46, 3.29 ), "transitions":
 resource/name = "SplashSave"
 length = 0.62
 loop = false
-step = 0.1
+step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("System:play/play")
 tracks/0/interp = 1
-tracks/0/keys = { "cont":true, "times":FloatArray( 0.06 ), "transitions":FloatArray( 1 ), "values":[ "System_00" ] }
+tracks/0/keys = { "cont":true, "times":FloatArray(  ), "transitions":FloatArray(  ), "values":[  ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Save_Load_02:visibility/opacity")
 tracks/1/interp = 1
@@ -1099,7 +1099,6 @@ centered = false
 
 [node name="CTS_22" type="Sprite" parent="Custom Title System"]
 
-visibility/opacity = 0.0
 texture = ExtResource( 24 )
 centered = false
 
@@ -1132,8 +1131,6 @@ centered = false
 [node name="Mode_01" type="Sprite" parent="Custom Title System"]
 
 visibility/opacity = 0.0
-transform/pos = Vector2( 0, 240 )
-transform/scale = Vector2( 1, 1e-05 )
 texture = ExtResource( 29 )
 centered = false
 
@@ -1152,7 +1149,7 @@ centered = false
 [node name="Save_Load_00" type="Sprite" parent="Custom Title System"]
 
 visibility/opacity = 0.0
-transform/pos = Vector2( -0.902527, 229.17 )
+transform/pos = Vector2( 0, 240 )
 texture = ExtResource( 32 )
 centered = false
 
