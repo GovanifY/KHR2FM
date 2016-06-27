@@ -27,11 +27,18 @@ func _ready():
 	# The last Node is the one currently being shown
 	Scenes.current = root.get_child(root.get_child_count()-1)
 
-func _prepare_main_loader():
+func _prepare_main_loader(next_scene = null):
 	# Skip in case it's already instanced
 	if Scenes.loader != null:
 		return
 
+	# Erase the current scene and prepare the next one
+	if next_scene != null:
+		Scenes.next = _load_scene(next_scene)
+		_stop_scene(Scenes.current)
+		Scenes.current = null
+
+	# Instance the loading scene
 	Scenes.loader = MainLoader.instance()
 
 	# If a MainLoader is NOT instanced, then something REALLY went wrong
@@ -39,6 +46,9 @@ func _prepare_main_loader():
 	Loading.sprite = Scenes.loader.get_node("Heart")
 	Loading.animation = Scenes.loader.get_node("HeartAnimation")
 	get_node("/root").add_child(Scenes.loader)
+
+	# Start playing the animation
+	_do_animation(true)
 
 func _destroy_main_loader():
 	Scenes.loader.queue_free()
@@ -138,18 +148,13 @@ func add_scene(path):
 func is_there_a_scene():
 	return Queue.size() > 0
 
-# Loads new scene using the MainLoader scene
-func load_now():
+# Loads new scene.
+func load_new_scene():
 	var new_scene = _dequeue(Queue)
 	if new_scene == null:
 		print("No scene available to load")
 		return
 
-	Scenes.next = _load_scene(new_scene)
-	_stop_scene(Scenes.current)
-	Scenes.current = null
-
-	_prepare_main_loader()
-	_do_animation(true)
+	_prepare_main_loader(new_scene)
 
 	set_process(true)

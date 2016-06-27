@@ -19,7 +19,7 @@ func _process(delta):
 		elif(EndAnim==true):
 			if(!get_node("End").is_playing()):
 				SceneLoader.add_scene("Game/Intro/Aqua.tscn")
-				SceneLoader.load_now()
+				SceneLoader.load_new_scene()
 	else:
 		var right = false
 		var left = false

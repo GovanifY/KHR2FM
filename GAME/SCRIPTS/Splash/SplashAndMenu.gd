@@ -43,12 +43,12 @@ func _process(delta):
 				if(!get_node("Custom Title System/NewGame_1").is_playing()):
 					Globals.set("Critical", false)
 					SceneLoader.add_scene("Game/Intro/Aqua.tscn")
-					SceneLoader.load_now()
+					SceneLoader.load_new_scene()
 			elif(SelectMode==1):
 				if(!get_node("Custom Title System/NewGame_2").is_playing()):
 					Globals.set("Critical", true)
 					SceneLoader.add_scene("Splash/EXP_Zero.tscn")
-					SceneLoader.load_now()
+					SceneLoader.load_new_scene()
 		elif(Save_Window_Anim==true):
 			if(!get_node("Custom Title System/SplashSave").is_playing()):
 				Save_Window_Anim=false

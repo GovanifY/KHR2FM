@@ -52,7 +52,7 @@ func _input(event):
 			SceneLoader.add_scene("Demo/End_Demo.tscn")
 
 		if SceneLoader.is_there_a_scene():
-			SceneLoader.load_now()
+			SceneLoader.load_new_scene()
 
 func _process(delta):
 	# Global Timer

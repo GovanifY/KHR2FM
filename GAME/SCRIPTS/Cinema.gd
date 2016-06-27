@@ -26,7 +26,9 @@ var Subtitles = {
 	"label" : null   # Node where the text should reside
 }
 
-# Core functions
+######################
+### Core functions ###
+######################
 func _process(delta):
 	if !Video.playing:
 		Video.node.play()
@@ -38,7 +40,7 @@ func _process(delta):
 
 			if Subtitles.array[Subtitles.index][0] < cur_pos && cur_pos < Subtitles.array[Subtitles.index][1]:
 				if !Subtitles.shown:
-					Subtitles.label.set_bbcode(apply_effects(Subtitles.array[Subtitles.index][2]))
+					Subtitles.label.set_bbcode(format_string(Subtitles.array[Subtitles.index][2]))
 					Subtitles.shown = true
 
 			elif cur_pos >= Subtitles.array[Subtitles.index][1]:
@@ -49,9 +51,8 @@ func _process(delta):
 				if Subtitles.index >= Subtitles.array.size():
 					have_subtitles = false
 
-		# FIXME: This is horrible in terms of performance. Look for an alternative
 		if !Video.node.is_playing():
-			SceneLoader.load_now()
+			SceneLoader.load_new_scene()
 	return
 
 func _enter_tree():
@@ -68,15 +69,16 @@ func _ready():
 	Subtitles.label = get_node("Subtitles")
 	parse_subtitles()
 
-	# TODO: Loading next scene in the background
+	# Preparing next scene
 	SceneLoader.add_scene(next_scene)
-	#SceneLoader.load_in_background()
 
 	# Start playing
 	set_process(true)
 
-# Misc.
-static func apply_effects(string):
+########################
+### Helper functions ###
+########################
+static func format_string(string):
 	return "[center]" + tr(string) + "[/center]"
 
 static func timer_to_seconds(formatted):
@@ -94,6 +96,9 @@ static func timer_to_seconds(formatted):
 	ret += secs
 	return ret
 
+###############
+### Methods ###
+###############
 func parse_subtitles():
 	if !have_subtitles || subtitles_file.empty():
 		print("Current subtitle settings prohibit me from proceeding. Skipping.")

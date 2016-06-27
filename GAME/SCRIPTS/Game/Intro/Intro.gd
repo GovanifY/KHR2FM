@@ -215,7 +215,7 @@ func _process(delta):
 			Dialogue.text.free()
 			Dialogue.text = null
 			SceneLoader.add_scene("Game/Intro/Battle_Yuugure.tscn")
-			SceneLoader.load_now()
+			SceneLoader.load_new_scene()
 			return
 
 	# Update text
