@@ -33,7 +33,6 @@ func _ready():
 	Data.sprite = get_node(Data.name + "_Sprite")
 	# Remettre "root" des animations pour qu'elles communiquent avec le Sprite
 	for anim in Data.anims.get_children():
-		anim.set_root("../..")
 		# Connection de "signals" pour Guard
 		if (anim.get_name() == Data.name + "_Guard_Left" ||
 			anim.get_name() == Data.name + "_Guard_Right"):
