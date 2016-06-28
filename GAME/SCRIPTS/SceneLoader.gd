@@ -15,6 +15,7 @@ var Scenes = {
 	"loader" : null
 }
 var Loading = {
+	"length" : 0,
 	"animation" : null,
 	"sprite" : null,
 	"complete" : true,
@@ -50,8 +51,10 @@ func _prepare_main_loader(next_scene = null):
 
 	# If a MainLoader is NOT instanced, then something REALLY went wrong
 	assert(Scenes.loader != null)
+	# Grabbing important Loading data
 	Loading.sprite = Scenes.loader.get_node("Heart")
 	Loading.animation = Scenes.loader.get_node("HeartAnimation")
+	Loading.length = Loading.animation.get_animation("Rotation").get_length()
 	get_node("/root").add_child(Scenes.loader)
 
 	# Start playing the animation
@@ -67,6 +70,8 @@ func _do_animation(play):
 	if play:
 		Loading.animation.play("Rotation")
 		Loading.sprite.set_opacity(1)
+		var step = randf() * Loading.length
+		Loading.animation.seek(step)
 	else:
 		Loading.animation.stop()
 		Loading.sprite.set_opacity(0)
