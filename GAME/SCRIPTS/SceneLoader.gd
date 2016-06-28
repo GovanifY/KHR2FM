@@ -5,6 +5,9 @@ const PATH_SCENES = "res://GAME/SCENES/"
 const MAX_TIME = 100 # msec
 const MainLoader = preload(PATH_SCENES + "MainLoader.tscn")
 
+# Signal
+signal scene_ready
+
 # Instance members
 var Scenes = {
 	"current" : null,
@@ -13,11 +16,15 @@ var Scenes = {
 }
 var Loading = {
 	"animation" : null,
-	"sprite" : null
+	"sprite" : null,
+	"complete" : true,
+	"err" : 0
 }
 
 # Our FIFO Queue
 var Queue = []
+# Our LIFO Pending line
+var Pending = []
 
 ######################
 ### Core functions ###
@@ -51,9 +58,10 @@ func _prepare_main_loader(next_scene = null):
 	_do_animation(true)
 
 func _destroy_main_loader():
-	Scenes.loader.queue_free()
-	get_node("/root").remove_child(Scenes.loader)
-	Scenes.loader = null
+	if Scenes.loader != null: # Avoids crashes
+		Scenes.loader.queue_free()
+		get_node("/root").remove_child(Scenes.loader)
+		Scenes.loader = null
 
 func _do_animation(play):
 	if play:
@@ -63,49 +71,51 @@ func _do_animation(play):
 		Loading.animation.stop()
 		Loading.sprite.set_opacity(0)
 
+func _set_new_scene():
+	var resource = Scenes.next.get_resource()
+	Scenes.next = null
+	Scenes.current = resource.instance()
+	get_node("/root").add_child(Scenes.current)
+
+	Pending.remove(0)
+	set_process(false)
+
+func _set_readiness():
+	Loading.complete = true
+	emit_signal("scene_ready")
+
 func _process(delta):
-	if Scenes.next == null:
-		# no more loading
-		set_process(false)
+	if is_ready(): # no more loading
+		_set_new_scene()
 		return
 
-	var margin = OS.get_ticks_msec()
-	while OS.get_ticks_msec() < margin + MAX_TIME: # use "MAX_TIME" to control how much time we block this thread
-		# poll your next Scene
-		var err = Scenes.next.poll()
+	# poll your next Scene
+	Loading.err = Scenes.next.poll()
 
-		if err == ERR_FILE_EOF: # load finished
-			var resource = Scenes.next.get_resource()
-			Scenes.next = null
-			Scenes.current = resource.instance()
-			get_node("/root").add_child(Scenes.current)
+	if Loading.err == ERR_FILE_EOF: # load finished
+		# We destroy the MainLoader since we don't need it anymore
+		_destroy_main_loader()
+		_set_readiness()
+	elif Loading.err == OK: # Updating progress
+		# FIXME: don't use this really dumb assert
+		assert(true)
+	else:
+		# Loading error: some files probably weren't loaded.
+		Scenes.next = null
+		# FIXME: Quitting is too much; think of an alternative scenario in
+		# FIXME: case of failure
+		OS.alert("There was a problem loading the next scene.", "Loading error!")
+		get_tree().quit()
 
-			# We destroy the MainLoader since we don't need it anymore
-			_destroy_main_loader()
-
-			break
-		elif err == OK:
-			# Au cas si on veut mettre quelque chose à jour
-			break
-		else:
-			# Loading error: probably some files weren't loaded.
-			Scenes.next = null
-			# FIXME: Quitting is too much; think of an alternative scenario in
-			# FIXME: case of failure
-			OS.alert("There was a problem loading the next scene.", "Loading error!")
-			get_tree().quit()
-			break
+	return
 
 ########################
 ### Helper functions ###
 ########################
 static func _enqueue(queue, elem):
 	assert(typeof(queue) == TYPE_ARRAY && elem != null)
-	if elem in queue:
-		print("queue already contains input element")
-		return
-
-	queue.push_back(elem)
+	if not elem in queue:
+		queue.push_back(elem)
 
 static func _dequeue(queue):
 	assert(typeof(queue) == TYPE_ARRAY)
@@ -137,6 +147,9 @@ static func _stop_scene(scene):
 ###############
 # Adds a scene's path to our queue
 func add_scene(path):
+	if !is_ready():
+		return
+
 	# Check if we were given a partial path
 	if !path.is_abs_path():
 		path = PATH_SCENES + path
@@ -148,13 +161,26 @@ func add_scene(path):
 func is_there_a_scene():
 	return Queue.size() > 0
 
+# Checks if a new scene is ready
+func is_ready():
+	return Loading.complete
+
 # Loads new scene.
 func load_new_scene():
+	if !is_ready():
+		return
+
 	var new_scene = _dequeue(Queue)
 	if new_scene == null:
 		print("No scene available to load")
 		return
 
+	# Check if we're already processing this scene
+	if new_scene in Pending:
+		return
+	Pending.push_back(new_scene)
+
 	_prepare_main_loader(new_scene)
 
+	Loading.complete = false
 	set_process(true)
