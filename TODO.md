@@ -6,7 +6,6 @@ Non, sérieux, ça coupe les temps de loading (test-only) et temps d'export, ça
 * Mettre plus de SE et les organiser par dossiers!
 * Réecrire le système de Guard (sauf la partie du Signal). Il est un peu confus.
 * Réorganiser systèmes events (dialogue, etc…) et battle (partiellement fait) de façon abstraite.
-* Fixer les spawns de debug(liés a l'issue au dessus)
 * Ajouter Keyaku dans les remerciements ~~et avertir Kreiss~~
 * Documenter la nomenclature des fichiers, où:
 	- "nom_de_script" ---> script interne qui ne doit pas être considéré comme Class
