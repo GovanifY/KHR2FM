@@ -11,6 +11,7 @@ var Dialogue = {
 # Really Important Nodes
 const TextScroll = preload("res://GAME/SCRIPTS/TextScroll.gd")
 onready var SceneLoader = get_node("/root/SceneLoader")
+onready var AudioRoom = get_node("/root/AudioRoom")
 
 func _process(delta):
 	if Dialogue.started==false:
@@ -18,7 +19,8 @@ func _process(delta):
 		if !hasbeenset:
 			if !get_node("Null1").is_playing():
 				#Si le splash est terminé et que les anims ont pas encore été lancées ont les lance.
-				get_node("Into_the_darkness").play()
+				AudioRoom.load_music(get_node("Into_the_darkness"))
+				AudioRoom.play()
 				get_node("Null2").play("Null2")
 				hasbeenset=true
 		else:
@@ -122,6 +124,7 @@ func _process(delta):
 			Dialogue.region=23
 	elif Dialogue.region==23 && !Dialogue.text.is_active():
 		if !get_node("LIGHT_Intro_Anim").is_playing():
+			AudioRoom.stop()
 			get_node("Keyblade_Anim").play("Keyblade_Anim")
 			Dialogue.text.scroll(get_node("Text_Messages"), tr("KIRYOKU_INTRO_TEXT_04"))
 			Dialogue.region=24
@@ -209,6 +212,8 @@ func _process(delta):
 		get_node("Keyblade_Anim").stop()
 		get_node("Box_message_039b").set_pos(Vector2(0,0))
 		get_node("End_Anim").play("End_Anim")
+		AudioRoom.load_music(get_node("The_Eye_of_Darkness"))
+		AudioRoom.play()
 		Dialogue.region=48
 	elif Dialogue.region==48 && !Dialogue.text.is_active():
 		if !get_node("End_Anim").is_playing():
