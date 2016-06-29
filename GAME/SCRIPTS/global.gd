@@ -23,10 +23,14 @@ func _ready():
 	set_process_input(true)
 	set_process(true)
 
+func _notification(notif):
+	if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		quit_game()
+
 func _input(event):
 	# Detect a quit ---> HIGH PRIORITY! Call the quit function right away
 	if InputMap.event_is_action(event, "quit"):
-		get_tree().quit()
+		quit_game()
 
 	# FullScreen-related actions
 	var fs_pressed = InputMap.event_is_action(event, "fullscreen")
@@ -66,6 +70,10 @@ func _process(delta):
 			if Globals.get("PlayTimeMinutes") >= 60:
 				Globals.set("PlayTimeHours", Globals.get("PlayTimeHours") + 1)
 
+
+func quit_game():
+	SceneLoader.kill_thread()
+	get_tree().quit()
 
 func save():
 	var savedict = {

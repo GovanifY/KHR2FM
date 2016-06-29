@@ -51,8 +51,9 @@ func _process(delta):
 				if Subtitles.index >= Subtitles.array.size():
 					have_subtitles = false
 
+		# FIXME: Still no VideoStream signal? This needs to exist
 		if !Video.node.is_playing():
-			SceneLoader.load_new_scene()
+			SceneLoader.next_scene()
 	return
 
 func _enter_tree():
@@ -69,8 +70,9 @@ func _ready():
 	Subtitles.label = get_node("Subtitles")
 	parse_subtitles()
 
-	# Preparing next scene
+	# Loading next scene in the background
 	SceneLoader.add_scene(next_scene)
+	SceneLoader.load_new_scene(true)
 
 	# Start playing
 	set_process(true)
