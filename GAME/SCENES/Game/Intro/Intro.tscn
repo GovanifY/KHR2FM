@@ -330,9 +330,9 @@ animations = [ { "frames":[ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 )
 
 samples/Light = { "db":0.0, "pitch":1.0, "sample":ExtResource( 26 ) }
 samples/Noise = { "db":0.0, "pitch":0.85, "sample":ExtResource( 28 ) }
-samples/MSG_SOUND = { "db":0.0, "pitch":1.0, "sample":ExtResource( 27 ) }
-samples/Intro_Message = { "db":0.0, "pitch":1.0, "sample":ExtResource( 24 ) }
 samples/Intro_Message_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 25 ) }
+samples/Intro_Message = { "db":0.0, "pitch":1.0, "sample":ExtResource( 24 ) }
+samples/MSG_SOUND = { "db":0.0, "pitch":1.0, "sample":ExtResource( 27 ) }
 
 [sub_resource type="Animation" id=5]
 
@@ -679,8 +679,8 @@ samples/Appearance_boom_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 164 )
 [sub_resource type="SampleLibrary" id=17]
 
 samples/Light = { "db":0.0, "pitch":1.0, "sample":ExtResource( 26 ) }
-samples/Reminiscence_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 168 ) }
 samples/Appearance_boom = { "db":0.0, "pitch":1.0, "sample":ExtResource( 167 ) }
+samples/Reminiscence_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 168 ) }
 
 [sub_resource type="Animation" id=18]
 
@@ -911,12 +911,12 @@ autoplay = ""
 
 [node name="KH_Intro" type="AnimatedSprite" parent="."]
 
+editor/display_folded = true
 visibility/opacity = 0.0
 frames = SubResource( 3 )
 animation = "default"
 frame = 19
 centered = false
-__meta__ = { "_editor_collapsed":true }
 
 [node name="Last_KH_Intro" type="Sprite" parent="KH_Intro"]
 
