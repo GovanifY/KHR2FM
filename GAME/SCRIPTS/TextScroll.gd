@@ -22,16 +22,19 @@ func set_SE(SENode = null, SEName = null):
 	SE.node = SENode
 	SE.name = SEName
 
+# Sets the node to use when scrolling. Mandatory
+func set_text_node(node):
+	Text.node = node
+
 # Adds new text to scroll
-func scroll(node, texttouse):
+func scroll(texttouse):
+	# If Text.node is null, give it up
+	assert(Text.node != null)
 	# Si le texte est en blanc, ignorer
 	if texttouse.empty():
 		return
-	# Important assertions
-	assert(node != null)
 
 	Text.enabled = true
-	Text.node = node
 
 	texttouse = texttouse.replace("\\n", "\n")
 	Text.node.set_bbcode(texttouse)

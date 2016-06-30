@@ -25,7 +25,8 @@ func display():
 	if !Info.scroll:
 		Info.text = TextScroll.new()
 		Info.text.set_SE()
-		Info.text.scroll(get_node("InfoLabel"), InfoMessage)
+		Info.text.set_text_node(get_node("InfoLabel"))
+		Info.text.scroll(InfoMessage)
 		Info.scroll = true
 
 	if Info.text.is_active():
