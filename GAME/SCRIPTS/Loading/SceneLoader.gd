@@ -2,9 +2,8 @@ extends Node
 
 # Constants
 const PATH_SCENES = "res://GAME/SCENES/"
-const MAX_TIME = 100 # msec
 const MainLoader = preload(PATH_SCENES + "MainLoader.tscn")
-const ThreadLoader = preload("res://GAME/SCRIPTS/thread_loader.gd")
+const ThreadLoader = preload("res://GAME/SCRIPTS/Loading/ThreadLoader.gd")
 
 # Instance members
 var Scenes = {
@@ -78,6 +77,21 @@ func _set_new_scene():
 	get_node("/root").add_child(resource.instance())
 
 	Scenes.path = null
+
+# Setup when loading was concluded
+func _finish_loading():
+	# Grabbing our latest result
+	Scenes.next = thread.result()
+	thread.clear()
+
+	# We destroy the MainLoader since we don't need it anymore
+	_destroy_main_loader()
+	Loading.complete = true
+
+	# Firing up the new scene
+	if !Loading.background:
+		_set_new_scene()
+
 
 ########################
 ### Helper functions ###
@@ -156,20 +170,6 @@ func load_new_scene(background = false):
 	thread.add_scene(_load_scene(Scenes.path))
 
 	return
-
-# Setup when loading was concluded
-func _finish_loading():
-	# Grabbing our latest result
-	Scenes.next = thread.result()
-	thread.clear()
-
-	# We destroy the MainLoader since we don't need it anymore
-	_destroy_main_loader()
-	Loading.complete = true
-
-	# Firing up the new scene
-	if !Loading.background:
-		_set_new_scene()
 
 # In cases of emergency
 func kill_thread():

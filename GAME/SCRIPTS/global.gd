@@ -74,14 +74,3 @@ func _process(delta):
 func quit_game():
 	SceneLoader.kill_thread()
 	get_tree().quit()
-
-func save():
-	var savedict = {
-		PlayTimeMinutes=Globals.get("PlayTimeMinutes"),
-		PlayTimeHours=Globals.get("PlayTimeHours"),
-		FaceSave=Globals.get("FaceSave"),
-		Critical=Globals.get("Critical"),
-		EXP_Zero=Globals.get("EXP_Zero"),
-		LV=Globals.get("LV")
-	}
-	return savedict

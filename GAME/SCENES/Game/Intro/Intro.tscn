@@ -329,10 +329,10 @@ animations = [ { "frames":[ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 )
 [sub_resource type="SampleLibrary" id=4]
 
 samples/Light = { "db":0.0, "pitch":1.0, "sample":ExtResource( 26 ) }
-samples/Noise = { "db":0.0, "pitch":0.85, "sample":ExtResource( 28 ) }
 samples/Intro_Message_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 25 ) }
 samples/Intro_Message = { "db":0.0, "pitch":1.0, "sample":ExtResource( 24 ) }
 samples/MSG_SOUND = { "db":0.0, "pitch":1.0, "sample":ExtResource( 27 ) }
+samples/Noise = { "db":0.0, "pitch":0.85, "sample":ExtResource( 28 ) }
 
 [sub_resource type="Animation" id=5]
 
@@ -673,8 +673,8 @@ animations = [ { "frames":[ ExtResource( 134 ), ExtResource( 135 ), ExtResource(
 
 [sub_resource type="SampleLibrary" id=16]
 
-samples/End_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 165 ) }
 samples/Appearance_boom_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 164 ) }
+samples/End_2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 165 ) }
 
 [sub_resource type="SampleLibrary" id=17]
 
