@@ -2,7 +2,7 @@ extends Node
 
 # Constants
 const PATH_SCENES = "res://GAME/SCENES/"
-const MainLoader = preload(PATH_SCENES + "MainLoader.tscn")
+const MainLoader = preload("res://GAME/SCENES/MainLoader.tscn")
 const ThreadLoader = preload("res://GAME/SCRIPTS/Loading/ThreadLoader.gd")
 
 # Instance members
@@ -64,12 +64,10 @@ func _destroy_current_scene():
 func _do_animation(play):
 	if play:
 		Loading.animation.play("Rotation")
-		Loading.sprite.set_opacity(1)
 		var step = randf() * Loading.length
 		Loading.animation.seek(step)
 	else:
 		Loading.animation.stop()
-		Loading.sprite.set_opacity(0)
 
 func _set_new_scene():
 	var resource = Scenes.next.get_resource()
