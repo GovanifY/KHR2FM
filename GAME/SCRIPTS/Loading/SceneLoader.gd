@@ -178,7 +178,7 @@ func start_thread():
 
 # Kills thread and decrements RefCount
 func kill_thread():
-	if thread.is_active():
+	if thread != null && thread.is_active():
 		thread.wait_to_finish()
 		thread.clear()
 
