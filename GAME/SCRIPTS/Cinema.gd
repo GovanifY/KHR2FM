@@ -10,9 +10,6 @@ export(String, FILE, "*.tscn") var next_scene = ""
 export(bool) var have_subtitles = false
 export(String, FILE, "*.srt") var subtitles_file = ""
 
-# Very Important Nodes
-onready var SceneLoader = get_node("/root/SceneLoader")
-
 # Instance members
 var Video = {
 	"playing" : false,

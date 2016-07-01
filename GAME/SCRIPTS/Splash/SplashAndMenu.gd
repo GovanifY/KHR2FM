@@ -24,9 +24,6 @@ var NewGameLaunched = false
 var save1 = File.new()
 var save2 = File.new()
 
-# Very Important Nodes
-onready var SceneLoader = get_node("/root/SceneLoader")
-
 func _process(delta):
 	if (hasbeenset== false || NewGameLaunched==true ||Save_Window_Anim==true):
 		if(hasbeenset==false):

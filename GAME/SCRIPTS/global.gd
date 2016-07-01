@@ -10,8 +10,6 @@ var keypressed=false
 var accum = 0
 var debug = false
 
-onready var SceneLoader = get_node("/root/SceneLoader")
-
 func _ready():
 	Globals.set("PlayTimeMinutes", 0)
 	Globals.set("PlayTimeHours", 0)

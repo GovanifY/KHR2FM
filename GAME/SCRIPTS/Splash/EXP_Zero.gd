@@ -6,9 +6,6 @@ var SelectMode=0
 var keypressed=false
 var EndAnim=false
 
-# Very Important Nodes
-onready var SceneLoader = get_node("/root/SceneLoader")
-
 func _process(delta):
 	if (hasbeenset == false || EndAnim ==true):
 		if(hasbeenset==false):

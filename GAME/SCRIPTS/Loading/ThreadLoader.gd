@@ -4,7 +4,6 @@ var scene_next = null
 
 var has_loaded = false
 var has_progress = false
-var keep_loop = true
 
 # Signal
 signal scene_ready
@@ -76,9 +75,8 @@ func _thread_process():
 	return
 
 func _thread_loop(nothing):
-	while keep_loop:
-		if !is_ready():
-			_thread_process()
+	while !is_ready():
+		_thread_process()
 
 
 ###############
@@ -97,11 +95,7 @@ func add_scene(loaded_scene):
 func is_ready():
 	return has_loaded
 
-func set_loop_mode(loop):
-	keep_loop = loop
-
 func start_loader(debug = false):
-	set_loop_mode(true)
 	mutex = Mutex.new()
 
 	if !debug:

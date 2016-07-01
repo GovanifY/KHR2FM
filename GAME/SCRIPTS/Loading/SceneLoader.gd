@@ -27,12 +27,6 @@ var thread
 ######################
 ### Core functions ###
 ######################
-func _ready():
-	thread = ThreadLoader.new()
-	thread.connect("scene_ready", self, "_finish_loading")
-	thread.connect("scene_error", self, "_kill_thread")
-	thread.start_loader()
-
 func _prepare_main_loader():
 	# Skip in case it's already instanced
 	if Scenes.loader != null:
@@ -70,6 +64,9 @@ func _do_animation(play):
 		Loading.animation.stop()
 
 func _set_new_scene():
+	# We don't need the thread anymore
+	kill_thread()
+	# Instancing the new resource
 	var resource = Scenes.next.get_resource()
 	Scenes.next = null
 	get_node("/root").add_child(resource.instance())
@@ -80,7 +77,6 @@ func _set_new_scene():
 func _finish_loading():
 	# Grabbing our latest result
 	Scenes.next = thread.result()
-	thread.clear()
 
 	# We destroy the MainLoader since we don't need it anymore
 	_destroy_main_loader()
@@ -145,7 +141,10 @@ func is_there_a_scene():
 
 # Checks if a new scene is ready
 func is_ready():
-	return Loading.complete #&& !thread.is_active()
+	var ret = Loading.complete
+	if thread != null:
+		ret = ret && !thread.is_active()
+	return ret
 
 # Loads new scene.
 func load_new_scene(background = false):
@@ -165,15 +164,23 @@ func load_new_scene(background = false):
 
 	# Manage the ThreadLoader with our material
 	Loading.complete = false
-	thread.add_scene(_load_scene(Scenes.path))
+	start_thread()
 
 	return
 
-# In cases of emergency
+# Fires up a new ThreadLoader
+func start_thread():
+	thread = ThreadLoader.new()
+	thread.connect("scene_ready", self, "_finish_loading")
+	thread.connect("scene_error", self, "kill_thread")
+	thread.start_loader()
+	thread.add_scene(_load_scene(Scenes.path))
+
+# Kills thread and decrements RefCount
 func kill_thread():
-	thread.set_loop_mode(false)
-	thread.wait_to_finish()
-	get_tree().quit()
+	if thread.is_active():
+		thread.wait_to_finish()
+		thread.clear()
 
 # Erases current scene and jumps over to the next one. There are two scenarios:
 # 1. A scene is still loading, so it launches MainLoader
@@ -182,6 +189,8 @@ func next_scene():
 	_destroy_current_scene()
 	if !is_ready():
 		_prepare_main_loader()
-	else:
-		_set_new_scene()
+
+	thread.wait_to_finish()
+	_destroy_main_loader()
+	_set_new_scene()
 	return
