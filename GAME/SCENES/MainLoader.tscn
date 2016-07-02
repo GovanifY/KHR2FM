@@ -5,14 +5,14 @@
 [sub_resource type="Animation" id=1]
 
 resource/name = "Rotation"
-length = 0.75
+length = 0.6
 loop = true
 step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("Heart:transform/scale")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.34, 0.4, 0.74 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ Vector2( 1, 1 ), Vector2( 0.1, 1 ), Vector2( 0.001, 1 ), Vector2( 1, 1 ) ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.3, 0.31, 0.6 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ Vector2( 1, 1 ), Vector2( 0.1, 1 ), Vector2( 0.001, 1 ), Vector2( 1, 1 ) ] }
 
 [node name="MainLoader" type="Node2D"]
 
@@ -21,6 +21,7 @@ __meta__ = { "__editor_plugin_screen__":"Script" }
 [node name="Heart" type="Sprite" parent="."]
 
 transform/pos = Vector2( 816, 428 )
+transform/scale = Vector2( 0.983586, 1 )
 texture = ExtResource( 1 )
 
 [node name="HeartAnimation" type="AnimationPlayer" parent="."]
