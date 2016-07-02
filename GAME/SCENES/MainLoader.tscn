@@ -21,7 +21,7 @@ __meta__ = { "__editor_plugin_screen__":"Script" }
 [node name="Heart" type="Sprite" parent="."]
 
 transform/pos = Vector2( 816, 428 )
-transform/scale = Vector2( 0.983586, 1 )
+transform/scale = Vector2( 1, 1 )
 texture = ExtResource( 1 )
 
 [node name="HeartAnimation" type="AnimationPlayer" parent="."]
