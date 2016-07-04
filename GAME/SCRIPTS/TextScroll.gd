@@ -3,6 +3,7 @@ extends Node
 # Signals
 signal started
 signal finished
+signal cleared
 
 # Member instances
 const FRAME_TEXT_WAIT = 1
@@ -78,3 +79,4 @@ func confirm():
 	else:
 		# if we're done writing, clear everything
 		Text.node.clear()
+		emit_signal("cleared")
