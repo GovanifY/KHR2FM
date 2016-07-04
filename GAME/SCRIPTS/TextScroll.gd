@@ -1,52 +1,22 @@
 extends Node
 
+# Signals
+signal started
+signal finished
+
+# Member instances
 const FRAME_TEXT_WAIT = 1
 var Text = {
 	"node" : null,
-	"enabled" : false,
-	"end_line" : false,
 	"timer" : 1,
 	"length" : 0
 }
-var SE = {
-	"node" : null,
-	"name" : null
-}
 
-# Check scrolling status
-func is_active():
-	return Text.enabled
-
-# Adds new sound effects to use
-func set_SE(SENode = null, SEName = null):
-	SE.node = SENode
-	SE.name = SEName
-
-# Sets the node to use when scrolling. Mandatory
-func set_text_node(node):
-	Text.node = node
-
-# Adds new text to scroll
-func scroll(texttouse):
-	# If Text.node is null, give it up
-	assert(Text.node != null)
-	# Si le texte est en blanc, ignorer
-	if texttouse.empty():
-		return
-
-	Text.enabled = true
-
-	texttouse = texttouse.replace("\\n", "\n")
-	Text.node.set_bbcode(texttouse)
-	Text.node.set_visible_characters(1)
-	Text.length = Text.node.get_bbcode().length()
-
-# Updates the text with the most recent line
-func update_text():
+######################
+### Core functions ###
+######################
+func _process(delta):
 	var chars_written = Text.node.get_visible_characters()
-
-	# Are we in a hurry?
-	var confirm = Input.is_action_pressed("enter")
 
 	# Check for timer: write a character if it's gone to 0, wait otherwise
 	if Text.timer != 0:
@@ -57,21 +27,54 @@ func update_text():
 			chars_written+=1
 			Text.node.set_visible_characters(chars_written)
 
-	# If "enter" action was pressed:
-	if confirm && !Text.end_line:
+	# In case all characters have been drawn
+	if chars_written == Text.length:
+		_stop_scrolling()
+		return
+
+func _start_scrolling():
+	set_process(true)
+	emit_signal("started")
+
+func _stop_scrolling():
+	set_process(false)
+	emit_signal("finished")
+
+###############
+### Methods ###
+###############
+# Sets the node to use when scrolling. Mandatory
+func set_text_node(node):
+	Text.node = node
+
+# Adds new text to scroll, then starts scrolling immediately
+func scroll(texttouse):
+	# If Text.node is null, forget it
+	assert(Text.node != null);
+	# If there's already text being displayed, do not replace it!
+	if is_processing():
+		print("TextScroll: Already scrolling text!")
+		return
+	# If there's no text, forget it as well
+	if texttouse.empty():
+		return
+
+	texttouse = texttouse.replace("\\n", "\n")
+	Text.node.set_bbcode(texttouse)
+	Text.node.set_visible_characters(1)
+	Text.length = Text.node.get_bbcode().length()
+
+	_start_scrolling()
+
+# Auto-checks whether to stop, or skip ahead
+func confirm():
+	var chars_written = Text.node.get_visible_characters()
+
+	if is_processing():
 		# if we're still writing, write everything
-		if chars_written < Text.length:
-			chars_written = Text.length
-			Text.node.set_visible_characters(chars_written)
-			Text.end_line = true
-
+		chars_written = Text.length
+		Text.node.set_visible_characters(chars_written)
+		_stop_scrolling()
+	else:
 		# if we're done writing, clear everything
-		elif chars_written == Text.length:
-			if SE.node != null:
-				SE.node.play(SE.name)
-			Text.node.clear()
-			Text.enabled = false
-			Text.end_line = true
-
-	if !confirm && Text.end_line:
-		Text.end_line = false
+		Text.node.clear()
