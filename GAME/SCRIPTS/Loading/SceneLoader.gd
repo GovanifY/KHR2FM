@@ -2,7 +2,7 @@ extends Node
 
 # Constants
 const PATH_SCENES = "res://GAME/SCENES/"
-const MainLoader = preload("res://GAME/SCENES/MainLoader.tscn")
+const MainLoader = preload("res://GAME/SCENES/Loading/MainLoader.tscn")
 const ThreadLoader = preload("res://GAME/SCRIPTS/Loading/ThreadLoader.gd")
 
 # Instance members
