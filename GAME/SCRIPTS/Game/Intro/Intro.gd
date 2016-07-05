@@ -1,9 +1,5 @@
 extends Node2D
 
-# Really Important Nodes
-onready var SceneLoader = get_node("/root/SceneLoader")
-onready var AudioRoom = get_node("/root/AudioRoom")
-
 # Instance members
 var cursor = 0
 var Dialogue = null
@@ -11,9 +7,6 @@ var Dialogue = null
 ######################
 ### Core functions ###
 ######################
-func _process(delta):
-	pass
-
 func _ready():
 	# Setting dialogue lines
 	Dialogue = get_node("Dialogue")
@@ -21,8 +14,6 @@ func _ready():
 
 	# Setting first lines of dialogue
 	Dialogue.collect("INTRO_TEXT", 8)
-
-	#set_process(true)
 	pass
 
 func _set_cursor():
