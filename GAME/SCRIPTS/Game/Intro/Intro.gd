@@ -27,7 +27,3 @@ func _set_cursor():
 		Dialogue.switch_side()
 		Dialogue.collect("KIRYOKU_INTRO_TEXT", 3)
 	pass
-
-###############
-### Methods ###
-###############
