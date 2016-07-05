@@ -5,10 +5,13 @@ extends Node
 # Le script est en autoload.
 
 
-var keypressed=false
 # Un accumulateur pour le timer
 var accum = 0
 var debug = false
+
+var SelfInput = {
+	"fullscreen" : false
+}
 
 func _ready():
 	Globals.set("PlayTimeMinutes", 0)
@@ -30,33 +33,31 @@ func _input(event):
 	if InputMap.event_is_action(event, "quit"):
 		quit_game()
 
-	# FullScreen-related actions
-	var fs_pressed = InputMap.event_is_action(event, "fullscreen")
-	if fs_pressed && !keypressed:
-		keypressed = true
-		OS.set_window_fullscreen(!OS.is_video_mode_fullscreen())
-	if !fs_pressed && keypressed:
-		keypressed = false
+	if event.is_pressed() && !event.is_echo():
+		SelfInput.fullscreen = InputMap.event_is_action(event, "fullscreen")
 
-	# Debugging stuff, ignore this
-	if debug:
-		if InputMap.event_is_action(event, "debug_a"):
-			SceneLoader.add_scene("Splash/Splash.tscn")
-		elif InputMap.event_is_action(event, "debug_b"):
-			SceneLoader.add_scene("Splash/EXP_Zero.tscn")
-		elif InputMap.event_is_action(event, "debug_d"):
-			SceneLoader.add_scene("Game/Intro/Intro.tscn")
-		elif InputMap.event_is_action(event, "debug_e"):
-			SceneLoader.add_scene("Game/Intro/Aqua.tscn")
-		elif InputMap.event_is_action(event, "debug_f"):
-			SceneLoader.add_scene("Game/Intro/Battle_Yuugure.tscn")
-		elif InputMap.event_is_action(event, "debug_h"):
-			SceneLoader.add_scene("Demo/End_Demo.tscn")
+		# Debugging stuff, ignore this
+		if debug:
+			if InputMap.event_is_action(event, "debug_a"):
+				SceneLoader.add_scene("Splash/Splash.tscn")
+			elif InputMap.event_is_action(event, "debug_d"):
+				SceneLoader.add_scene("Game/Intro/Intro.tscn")
+			elif InputMap.event_is_action(event, "debug_e"):
+				SceneLoader.add_scene("Game/Intro/Aqua.tscn")
+			elif InputMap.event_is_action(event, "debug_f"):
+				SceneLoader.add_scene("Game/Intro/Battle_Yuugure.tscn")
+			elif InputMap.event_is_action(event, "debug_h"):
+				SceneLoader.add_scene("Demo/End_Demo.tscn")
 
-		if SceneLoader.is_there_a_scene():
-			SceneLoader.load_new_scene()
+			if SceneLoader.is_there_a_scene():
+				SceneLoader.load_new_scene()
 
 func _process(delta):
+	# Managing input
+	if SelfInput.fullscreen:
+		SelfInput.fullscreen = false
+		OS.set_window_fullscreen(!OS.is_video_mode_fullscreen())
+
 	# Global Timer
 	if Globals.get("TimerActivated"):
 		accum += delta
