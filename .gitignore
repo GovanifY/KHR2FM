@@ -1,2 +1,6 @@
-# Ignoring binary text files(Godot Engine)
+### Godot-related files ###
+# Binary text files
 *.xl
+
+# Temporary files
+*.tmp
