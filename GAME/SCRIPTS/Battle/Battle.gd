@@ -1,32 +1,46 @@
 extends Node2D
 
-# InfoBar vars
-var InfoBar = null
-
-# Player vars
+# Export values
 export(NodePath) var Player = null
+export(String) var info_message = "BATTLE INFO MESSAGE"
 
-# Enemies vars
-# TODO
+# Instance members
+var InfoBar = null
+var Foreground = null
 
-# Battle vars
 var BattleState = {
-	"infobar" : false,
 	"battle" : false,
 	"qte" : false
 }
 
-# Core functions
+######################
+### Core functions ###
+######################
+func _exit_tree():
+	Foreground.stop()
+
+func _ready():
+	# Nodes initialization
+	Player = get_node(Player)
+	InfoBar = get_node("InfoBar")
+	Foreground = get_node("Foreground")
+	Foreground.start()
+
+	# Start Infobar animation
+	InfoBar.init()
+	InfoBar.connect("dismiss", self, "_dismiss_infobar")
+	summon_infobar(info_message)
+
+	# Démarrer les procès necessaires
+	set_process_input(true) # input
+	set_process(true)       # frame-by-frame
+
 func _input(event):
 	# Input a considérer ssi on est en mode Battle
 	if BattleState.battle:
 		Player.handle_input(event)
 
 func _process(delta):
-	### Popup Info checks ###
-	if BattleState.infobar:
-		InfoBar.display()
-
 	### Actions pour Player ###
 	# L'anim de garde ("X"), tout est stoppé lorsqu'on la joue
 	if Player.is_guarding():
@@ -46,25 +60,14 @@ func _process(delta):
 	# Délimitations de la zone
 	Player.do_limit_pos()
 
-func _ready():
-	# Initialization des Nodes
-	Player = get_node(Player)
-	InfoBar = get_node("InfoBar")
-
-	# Commencer l'animation d'info
-	summon_infobar()
-
-	# Démarrer les procès necessaires
-	set_process_input(true) # input
-	set_process(true)       # frame-by-frame
-
-
-# Battle Methods
-func summon_infobar(messageID = null):
-	InfoBar.init(messageID)
-	BattleState.infobar = true
-	InfoBar.connect("dismiss", self, "_dismiss_infobar")
-
+#######################
+### Signal routines ###
+#######################
 func _dismiss_infobar():
-	BattleState.infobar = false
 	BattleState.battle = true
+
+###############
+### Methods ###
+###############
+func summon_infobar(messageID):
+	InfoBar.display(messageID)

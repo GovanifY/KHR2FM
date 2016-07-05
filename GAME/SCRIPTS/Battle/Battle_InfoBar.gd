@@ -1,49 +1,52 @@
 #extends anything
 
-# Export Data
-export(String) var InfoMessage = "BATTLE INFO MESSAGE"
-
-# Managing the "Dismiss" signal
+# Signals
 signal dismiss
-# Info data
-var Info = {
-	"display" : false,
-	"scroll" : false,
-	"text" : null
-}
+
+# Instance members
+var InfoText = null
 
 # Really Important Nodes
 const TextScroll = preload("res://GAME/SCRIPTS/TextScroll.gd")
 
-func _can_display():
-	Info.display = true
+######################
+### Core functions ###
+######################
+func _input(event):
+	# Avoid repeated key captures
+	if event.is_pressed() && !event.is_echo():
+		if event.is_action("enter"):
+			InfoText.confirm()
 
-func display():
-	if !Info.display:
-		return
+#######################
+### Signal routines ###
+#######################
+func _display(message):
+	get_node("Slide").disconnect("finished", self, "_display")
+	InfoText.scroll(message)
 
-	if !Info.scroll:
-		Info.text = TextScroll.new()
-		Info.text.set_SE()
-		Info.text.set_text_node(get_node("InfoLabel"))
-		Info.text.scroll(InfoMessage)
-		Info.scroll = true
+func _dismiss():
+	set_process_input(false)
+	get_node("Slide").play("Out")
+	emit_signal("dismiss")
 
-	if Info.text.is_active():
-		Info.text.update_text()
-	else:
-		get_node("Slide").play("Out")
-		emit_signal("dismiss")
-		Info.text.free()
-		Info.text = null
-	return
-
+###############
+### Methods ###
+###############
 # InfoBar initializer
-func init(messageID = null):
-	if messageID:
-		InfoMessage = messageID
+func init():
+	# Instancing TextScroll
+	InfoText = TextScroll.new()
+	InfoText.set_text_node(get_node("InfoLabel"))
+	add_child(InfoText)
 
-	# L'InfoMessage n'est qu'un ID pour chercher la traduction
-	InfoMessage = tr(InfoMessage)
+	# Connecting signals
+	InfoText.connect("finished", self, "set_process_input", [true])
+	InfoText.connect("cleared", self, "_dismiss")
+
+func display(messageID):
+	# Grabbing message from its ID
+	var message = tr(messageID)
+	get_node("Slide").connect("finished", self, "_display", [message])
+	# Begin!
 	get_node("Slide").play("In")
-	get_node("Slide").connect("finished", self, "_can_display")
