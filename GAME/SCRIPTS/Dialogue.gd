@@ -85,7 +85,6 @@ func _input(event):
 
 func _process(delta):
 	if SelfInput.confirm:
-		# Reset key value
 		SelfInput.confirm = false
 		# TextScroll confirm
 		Bubble.text.confirm()
@@ -101,7 +100,6 @@ func _get_bubble(type):
 func _open_dialogue():
 	# Revealing current bubble setup
 	Bubble.anims.fadein.play(Bubble.node.get_name())
-	Bubble.anchor.show()
 
 	set_process_input(true)
 	set_process(true)
@@ -109,9 +107,7 @@ func _open_dialogue():
 func _close_dialogue():
 	# Cleaning bubble
 	Bubble.anims.fadeout.play(Bubble.node.get_name())
-	Bubble.anchor.hide()
-	ConfirmKey.icon.hide()
-	ConfirmKey.anims.stop()
+	_hide_keyblade()
 
 	set_process_input(false)
 	set_process(false)
