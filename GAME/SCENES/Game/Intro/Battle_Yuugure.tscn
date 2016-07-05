@@ -29,16 +29,24 @@ animations = [ { "frames":[ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 )
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
 Player = NodePath("Kiryoku")
+info_message = "INTRO_INFO_YUUGURE"
 
 [node name="InfoBar" parent="." instance=ExtResource( 2 )]
 
-InfoMessage = "INTRO_INFO_YUUGURE"
+[node name="Foreground" type="ParallaxBackground" parent="."]
 
-[node name="ForeGround" type="Node" parent="."]
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+scroll/offset = Vector2( 0, 0 )
+scroll/base_offset = Vector2( 0, 0 )
+scroll/base_scale = Vector2( 1, 1 )
+scroll/limit_begin = Vector2( 0, 0 )
+scroll/limit_end = Vector2( 0, 0 )
+scroll/ignore_camera_zoom = false
 
-editor/display_folded = true
-
-[node name="Fog" parent="ForeGround" instance=ExtResource( 3 )]
+[node name="Fog" parent="Foreground" instance=ExtResource( 3 )]
 
 [node name="Commands" type="Sprite" parent="."]
 

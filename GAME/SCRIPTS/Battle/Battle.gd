@@ -6,7 +6,6 @@ export(String) var info_message = "BATTLE INFO MESSAGE"
 
 # Instance members
 var InfoBar = null
-var Foreground = null
 
 var BattleState = {
 	"battle" : false,
@@ -16,15 +15,10 @@ var BattleState = {
 ######################
 ### Core functions ###
 ######################
-func _exit_tree():
-	Foreground.stop()
-
 func _ready():
 	# Nodes initialization
 	Player = get_node(Player)
 	InfoBar = get_node("InfoBar")
-	Foreground = get_node("Foreground")
-	Foreground.start()
 
 	# Start Infobar animation
 	InfoBar.init()
