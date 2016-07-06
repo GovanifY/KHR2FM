@@ -7,7 +7,6 @@ extends Node
 signal no_more_lines
 
 # Constants
-const PATH_MUGSHOTS = "res://ASSETS/GFX/Game/Mugshots/"
 const TextScroll = preload("res://GAME/SCRIPTS/TextScroll.gd")
 
 onready var ALL_ANCHORS = [
@@ -39,10 +38,6 @@ var ConfirmKey = {
 }
 var Mugshot = {
 	"side"  : false  # false = left, true = right
-}
-
-var SelfInput = {
-	"confirm" : false
 }
 
 # Global values
@@ -81,14 +76,9 @@ func _ready():
 func _input(event):
 	# Avoid repeated key captures
 	if event.is_pressed() && !event.is_echo():
-		SelfInput.confirm = event.is_action("enter")
-
-func _process(delta):
-	if SelfInput.confirm:
-		SelfInput.confirm = false
-		# TextScroll confirm
-		Bubble.text.confirm()
-	pass
+		if event.is_action("enter"):
+			Bubble.text.confirm()
+		return
 
 # Some wrappers
 func _get_anchor():
@@ -97,20 +87,12 @@ func _get_anchor():
 func _get_bubble(type):
 	return ALL_BUBBLES[type]
 
-func _open_dialogue():
-	# Revealing current bubble setup
-	Bubble.anims.fadein.play(Bubble.node.get_name())
-
-	set_process_input(true)
-	set_process(true)
-
 func _close_dialogue():
 	# Cleaning bubble
 	Bubble.anims.fadeout.play(Bubble.node.get_name())
 	_hide_keyblade()
 
 	set_process_input(false)
-	set_process(false)
 
 #######################
 ### Signal routines ###
@@ -148,8 +130,14 @@ static func _translate(stringID):
 ###############
 ### Methods ###
 ###############
+func open_dialogue():
+	# Revealing current bubble setup
+	Bubble.anims.fadein.play(Bubble.node.get_name())
+
+	set_process_input(true)
+
 # Collects a bunch of IDs to later scroll their translated counterparts
-func collect(prefix, finish, start = 0):
+func collect_lines(prefix, finish, start = 0):
 	assert(typeof(prefix) == TYPE_STRING)
 	assert(typeof(start) == TYPE_INT && typeof(finish) == TYPE_INT)
 	assert(start <= finish)
@@ -158,8 +146,6 @@ func collect(prefix, finish, start = 0):
 		# ID format: PASSAGE_NAME_##
 		TextCollection.push_back((prefix + "_%02d") % start)
 		start+=1
-
-	_open_dialogue()
 	return
 
 # Checks if there are lines left

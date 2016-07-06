@@ -140,7 +140,7 @@ samples/MSG_SOUND = { "db":0.0, "pitch":1.0, "sample":ExtResource( 3 ) }
 
 [node name="Dialogue" type="CanvasLayer"]
 
-layer = 2
+layer = 5
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
