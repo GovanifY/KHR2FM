@@ -142,8 +142,10 @@ func collect_lines(prefix, finish, start = 0):
 	assert(typeof(start) == TYPE_INT && typeof(finish) == TYPE_INT)
 	assert(start <= finish)
 
+	# ID format: (CHARACTER_)GAMEEVENT_SCENARIO_COUNT
+	# ID example 1: INTRO_FATHERSON_00
+	# ID example 2: KIRYOKU_INTRO_FATHERSON_00
 	while start <= finish:
-		# ID format: PASSAGE_NAME_##
 		TextCollection.push_back((prefix + "_%02d") % start)
 		start+=1
 	return
