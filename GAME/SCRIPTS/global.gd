@@ -9,10 +9,6 @@ extends Node
 var accum = 0
 var debug = false
 
-var SelfInput = {
-	"fullscreen" : false
-}
-
 func _ready():
 	Globals.set("PlayTimeMinutes", 0)
 	Globals.set("PlayTimeHours", 0)
@@ -34,7 +30,9 @@ func _input(event):
 		quit_game()
 
 	if event.is_pressed() && !event.is_echo():
-		SelfInput.fullscreen = InputMap.event_is_action(event, "fullscreen")
+		if InputMap.event_is_action(event, "fullscreen"):
+			OS.set_window_fullscreen(!OS.is_video_mode_fullscreen())
+			return
 
 		# Debugging stuff, ignore this
 		if debug:
@@ -51,13 +49,9 @@ func _input(event):
 
 			if SceneLoader.is_there_a_scene():
 				SceneLoader.load_new_scene()
+		return
 
 func _process(delta):
-	# Managing input
-	if SelfInput.fullscreen:
-		SelfInput.fullscreen = false
-		OS.set_window_fullscreen(!OS.is_video_mode_fullscreen())
-
 	# Global Timer
 	if Globals.get("TimerActivated"):
 		accum += delta

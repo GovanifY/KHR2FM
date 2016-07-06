@@ -4,12 +4,8 @@ Non, sérieux, ça coupe les temps de loading (test-only) et temps d'export, ça
 * Gestion des saves dans le splash(et global)
 * Gestion du Game over
 * Mettre plus de SE et les organiser par dossiers!
-* Réecrire le système de Guard (sauf la partie du Signal). Il est un peu confus.
 * Réorganiser systèmes events (dialogue, etc…) et battle (partiellement fait) de façon abstraite.
 * Ajouter Keyaku dans les remerciements ~~et avertir Kreiss~~
-* Documenter la nomenclature des fichiers, où:
-	- "nom_de_script" ---> script interne qui ne doit pas être considéré comme Class
-	- "NomDeScript" ---> script pour un node
 
 ### CE QUI SUIS EST LIE A L'EXPORT ET NON AU JEU EN SOIT
 
