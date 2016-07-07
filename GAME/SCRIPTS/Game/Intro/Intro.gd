@@ -12,22 +12,33 @@ func _ready():
 	Dialogue = get_node("Dialogue")
 	Dialogue.connect("no_more_lines", self, "_set_cursor")
 
-	# Setting first lines of dialogue
+	# Setting all lines of dialogue
+	Dialogue.set_context("INTRO_FATHERSON")
+	Dialogue.collect_lines("", 9)
+	Dialogue.collect_lines("Yuugure", 13)
+	Dialogue.collect_lines("Kiryoku", 20)
+
+	# Starting first lines
 	Dialogue.set_bubble_type("Narrator")
-	Dialogue.collect_lines("INTRO_FATHERSON", 8)
-	Dialogue.open_dialogue()
+	Dialogue.speak("", 9)
 	pass
 
 func _set_cursor():
 	if cursor == 0:
 		cursor+=1
 		Dialogue.set_bubble_type("Speech")
-		Dialogue.collect_lines("YUUGURE_INTRO_FATHERSON", 4)
 		Dialogue.switch_side()
-		Dialogue.open_dialogue()
+		Dialogue.speak("Yuugure", 5)
 	elif cursor == 1:
 		cursor+=1
-		Dialogue.collect_lines("KIRYOKU_INTRO_FATHERSON", 3)
 		Dialogue.switch_side()
-		Dialogue.open_dialogue()
+		Dialogue.speak("Kiryoku", 4)
+	elif cursor == 2:
+		cursor += 1
+		Dialogue.switch_side()
+		Dialogue.speak("Yuugure", 2)
+	elif cursor == 3:
+		cursor += 1
+		Dialogue.switch_side()
+		Dialogue.speak("Kiryoku", 7)
 	pass

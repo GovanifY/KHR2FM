@@ -39,9 +39,14 @@ var ConfirmKey = {
 var Mugshot = {
 	"side"  : false  # false = left, true = right
 }
+var CurrentSpeaker = {
+	"name"  : null,
+	"count" : 0
+}
 
 # Global values
-var TextCollection = []
+var dialogue_context = ""
+var text_collection = {}
 
 ######################
 ### Core functions ###
@@ -78,7 +83,6 @@ func _input(event):
 	if event.is_pressed() && !event.is_echo():
 		if event.is_action("enter"):
 			Bubble.text.confirm()
-		return
 
 # Some wrappers
 func _get_anchor():
@@ -87,12 +91,16 @@ func _get_anchor():
 func _get_bubble(type):
 	return ALL_BUBBLES[type]
 
+func _open_dialogue():
+	# Revealing current bubble setup
+	Bubble.anims.fadein.play(Bubble.node.get_name())
+
 func _close_dialogue():
+	set_process_input(false)
+
 	# Cleaning bubble
 	Bubble.anims.fadeout.play(Bubble.node.get_name())
 	_hide_keyblade()
-
-	set_process_input(false)
 
 #######################
 ### Signal routines ###
@@ -106,8 +114,11 @@ func _hide_keyblade():
 	ConfirmKey.icon.hide()
 
 func _get_line():
-	Bubble.text.scroll(_translate(TextCollection[0]))
-	TextCollection.pop_front()
+	if !is_processing_input():
+		set_process_input(true)
+
+	CurrentSpeaker.count -= 1
+	Bubble.text.scroll(_translate())
 
 func _next_line():
 	# Play SE
@@ -121,45 +132,76 @@ func _next_line():
 		# No more lines, close everything
 		_close_dialogue()
 
-########################
-### Helper functions ###
-########################
-static func _translate(stringID):
-	return tr(stringID)
+func _translate():
+	var name = ""
+	if !CurrentSpeaker.name.empty():
+		name = CurrentSpeaker.name + "_"
+
+	var index = text_collection[CurrentSpeaker.name].index
+	# ID format: (CHARACTER_)GAME_CONTEXT_COUNT
+	# ID example 1: INTRO_FATHERSON_00
+	# ID example 2: KIRYOKU_INTRO_FATHERSON_00
+	var lineID = name + dialogue_context + "_%02d" % index
+
+	# Incrementing index
+	text_collection[CurrentSpeaker.name].index += 1
+
+	return tr(lineID)
 
 ###############
 ### Methods ###
 ###############
-func open_dialogue():
-	# Revealing current bubble setup
-	Bubble.anims.fadein.play(Bubble.node.get_name())
+# Sets up a character to speak for X lines
+func speak(characterID, count):
+	# Safety assertions
+	assert(characterID != null)
+	assert(typeof(count) == TYPE_INT && count > 0)
+	assert(dialogue_context != null && !dialogue_context.empty())
 
-	set_process_input(true)
+	# Fetching our character information
+	characterID = characterID.to_upper()
+	# If this character doesn't exist, avoid speaking
+	if !text_collection.has(characterID):
+		return
 
-# Collects a bunch of IDs to later scroll their translated counterparts
-func collect_lines(prefix, finish, start = 0):
-	assert(typeof(prefix) == TYPE_STRING)
-	assert(typeof(start) == TYPE_INT && typeof(finish) == TYPE_INT)
-	assert(start <= finish)
+	var character = text_collection[characterID]
 
-	# ID format: (CHARACTER_)GAMEEVENT_SCENARIO_COUNT
-	# ID example 1: INTRO_FATHERSON_00
-	# ID example 2: KIRYOKU_INTRO_FATHERSON_00
-	while start <= finish:
-		TextCollection.push_back((prefix + "_%02d") % start)
-		start+=1
-	return
+	# Setting up our current speaker
+	CurrentSpeaker.name = characterID
+
+	# Count must not go overboard; if it does, decrease it to a minimum
+	var is_overboard = (character.index + count) > character.count
+	if is_overboard:
+		count = character.count - character.index
+	CurrentSpeaker.count = count
+
+	_open_dialogue()
+
+# Collects information that will permit translation afterwards
+func collect_lines(characterID, count):
+	# Safety assertions
+	assert(characterID != null && typeof(characterID) == TYPE_STRING)
+	assert(typeof(count) == TYPE_INT && count > 0)
+
+	characterID = characterID.to_upper()
+
+	# Assigning input values to this character
+	text_collection[characterID] = {
+		"index" : 0,
+		"count" : count
+	}
 
 # Checks if there are lines left
 func is_loaded():
-	return TextCollection.size() > 0
+	return CurrentSpeaker.count > 0
 
-# A bunch of setters
+### A bunch of setters ###
+# Sets bubble type
 func set_bubble_type(type):
 	if typeof(type) == TYPE_STRING:
 		type = ["Narrator", "Speech"].find(type)
 
-	# Security measure
+	# Safety measure
 	assert(0 <= type && type < ALL_BUBBLES.size())
 	Bubble.node = _get_bubble(type)
 
@@ -171,6 +213,11 @@ func set_SE(SENode = null, SEName = null):
 		SEName = "MSG_SOUND"
 	ConfirmKey.SE.node = SENode
 	ConfirmKey.SE.name = SEName
+
+# Sets the game context to load in real time when speaking
+func set_context(context):
+	assert(typeof(context) == TYPE_STRING && !context.empty())
+	dialogue_context = context
 
 # Helpers
 func switch_side():
