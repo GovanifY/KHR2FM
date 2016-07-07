@@ -27,18 +27,15 @@ func _set_cursor():
 	if cursor == 0:
 		cursor+=1
 		Dialogue.set_bubble_type("Speech")
-		Dialogue.switch_side()
+		Dialogue.set_side("right")
 		Dialogue.speak("Yuugure", 5)
 	elif cursor == 1:
 		cursor+=1
-		Dialogue.switch_side()
 		Dialogue.speak("Kiryoku", 4)
 	elif cursor == 2:
 		cursor += 1
-		Dialogue.switch_side()
 		Dialogue.speak("Yuugure", 2)
 	elif cursor == 3:
 		cursor += 1
-		Dialogue.switch_side()
 		Dialogue.speak("Kiryoku", 7)
 	pass

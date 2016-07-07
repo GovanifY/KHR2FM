@@ -19,7 +19,7 @@ onready var ALL_BUBBLES = [
 ]
 
 # Instance members
-onready var Bubble = {
+var Bubble = {
 	"text"    : null,
 	"node"    : null,
 	"anchor"  : null,
@@ -37,7 +37,8 @@ var ConfirmKey = {
 	"icon"     : null
 }
 var Mugshot = {
-	"side"  : false  # false = left, true = right
+	"side"    : false,  # false = left, true = right
+	"specify" : false
 }
 var CurrentSpeaker = {
 	"name"  : null,
@@ -55,6 +56,7 @@ func _ready():
 	# Filling bubble
 	Bubble.node = _get_bubble(0)
 	Bubble.anchor = _get_anchor()
+	Bubble.anchor.show()
 	Bubble.anims.fadein = get_node("Bubble/FadeIn")
 	Bubble.anims.fadeout = get_node("Bubble/FadeOut")
 
@@ -85,11 +87,25 @@ func _input(event):
 			Bubble.text.confirm()
 
 # Some wrappers
+func _get_bubble(type):
+	return ALL_BUBBLES[type]
+
 func _get_anchor():
 	return ALL_ANCHORS[int(Mugshot.side)]
 
-func _get_bubble(type):
-	return ALL_BUBBLES[type]
+func _switch_side():
+	if !Mugshot.side:
+		print("Switching to right")
+	else:
+		print("Switching to left")
+	Bubble.anchor.hide()
+	Mugshot.side = !Mugshot.side
+	Bubble.anchor = _get_anchor()
+	Bubble.anchor.show()
+
+func _has_speaker():
+	return (CurrentSpeaker.name != null && !CurrentSpeaker.name.empty()
+		&& Bubble.node == _get_bubble(1))
 
 func _open_dialogue():
 	# Revealing current bubble setup
@@ -101,6 +117,22 @@ func _close_dialogue():
 	# Cleaning bubble
 	Bubble.anims.fadeout.play(Bubble.node.get_name())
 	_hide_keyblade()
+
+func _translate():
+	var name = ""
+	if !CurrentSpeaker.name.empty():
+		name = CurrentSpeaker.name + "_"
+
+	var index = text_collection[CurrentSpeaker.name].index
+	# ID format: (CHARACTER_)GAME_CONTEXT_COUNT
+	# ID example 1: INTRO_FATHERSON_00
+	# ID example 2: KIRYOKU_INTRO_FATHERSON_00
+	var lineID = name + dialogue_context + "_%02d" % index
+
+	# Incrementing index
+	text_collection[CurrentSpeaker.name].index += 1
+
+	return tr(lineID)
 
 #######################
 ### Signal routines ###
@@ -132,22 +164,6 @@ func _next_line():
 		# No more lines, close everything
 		_close_dialogue()
 
-func _translate():
-	var name = ""
-	if !CurrentSpeaker.name.empty():
-		name = CurrentSpeaker.name + "_"
-
-	var index = text_collection[CurrentSpeaker.name].index
-	# ID format: (CHARACTER_)GAME_CONTEXT_COUNT
-	# ID example 1: INTRO_FATHERSON_00
-	# ID example 2: KIRYOKU_INTRO_FATHERSON_00
-	var lineID = name + dialogue_context + "_%02d" % index
-
-	# Incrementing index
-	text_collection[CurrentSpeaker.name].index += 1
-
-	return tr(lineID)
-
 ###############
 ### Methods ###
 ###############
@@ -163,16 +179,23 @@ func speak(characterID, count):
 	# If this character doesn't exist, avoid speaking
 	if !text_collection.has(characterID):
 		return
-
 	var character = text_collection[characterID]
-
-	# Setting up our current speaker
-	CurrentSpeaker.name = characterID
 
 	# Count must not go overboard; if it does, decrease it to a minimum
 	var is_overboard = (character.index + count) > character.count
 	if is_overboard:
 		count = character.count - character.index
+
+	# If a side has been specified, do not switch here
+	if Mugshot.specify:
+		Mugshot.specify = false
+	# If it has no current speaker, do not switch
+	elif _has_speaker():
+		if !CurrentSpeaker.name.matchn(characterID):
+			_switch_side()
+
+	# Setting up our current speaker
+	CurrentSpeaker.name = characterID
 	CurrentSpeaker.count = count
 
 	_open_dialogue()
@@ -187,15 +210,19 @@ func collect_lines(characterID, count):
 
 	# Assigning input values to this character
 	text_collection[characterID] = {
-		"index" : 0,
-		"count" : count
+		"index"   : 0,
+		"count"   : count
 	}
 
 # Checks if there are lines left
 func is_loaded():
 	return CurrentSpeaker.count > 0
 
-### A bunch of setters ###
+# Sets the game context to load in real time when speaking
+func set_context(context):
+	assert(typeof(context) == TYPE_STRING && !context.empty())
+	dialogue_context = context
+
 # Sets bubble type
 func set_bubble_type(type):
 	if typeof(type) == TYPE_STRING:
@@ -205,6 +232,15 @@ func set_bubble_type(type):
 	assert(0 <= type && type < ALL_BUBBLES.size())
 	Bubble.node = _get_bubble(type)
 
+# Sets the side to position the anchor
+func set_side(side):
+	assert(typeof(side) == TYPE_STRING)
+
+	# Sets to true if side is "right"; false otherwise as a failsafe
+	if Mugshot.side != side.matchn("right"):
+		Mugshot.specify = true
+		_switch_side()
+
 # Adds a new sound effect to use when confirming
 func set_SE(SENode = null, SEName = null):
 	# If ANY of them are null, use the default SE
@@ -213,15 +249,3 @@ func set_SE(SENode = null, SEName = null):
 		SEName = "MSG_SOUND"
 	ConfirmKey.SE.node = SENode
 	ConfirmKey.SE.name = SEName
-
-# Sets the game context to load in real time when speaking
-func set_context(context):
-	assert(typeof(context) == TYPE_STRING && !context.empty())
-	dialogue_context = context
-
-# Helpers
-func switch_side():
-	Bubble.anchor.hide()
-	Mugshot.side = !Mugshot.side
-	Bubble.anchor = _get_anchor()
-	Bubble.anchor.show()
