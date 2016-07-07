@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://GAME/SCRIPTS/Dialogue.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/LANG/ASSETS/FONTS/Message.fnt" type="BitmapFont" id=2]
@@ -115,6 +115,20 @@ size = Vector2( 790, 91 )
 storage = 2
 lossy_quality = 0.7
 
+[sub_resource type="Animation" id=11]
+
+resource/name = "From Left"
+length = 1.0
+loop = false
+step = 0.1
+
+[sub_resource type="Animation" id=12]
+
+resource/name = "From Right"
+length = 1.0
+loop = false
+step = 0.1
+
 [sub_resource type="ImageTexture" id=8]
 
 flags = 0
@@ -147,6 +161,8 @@ scale = Vector2( 1, 1 )
 script/script = ExtResource( 1 )
 
 [node name="Bubble" type="Node" parent="."]
+
+editor/display_folded = true
 
 [node name="FadeIn" type="AnimationPlayer" parent="Bubble"]
 
@@ -202,6 +218,21 @@ visibility/visible = false
 visibility/opacity = 0.0
 transform/pos = Vector2( 445, 405 )
 texture = SubResource( 7 )
+
+[node name="Mugshots" type="Node" parent="."]
+
+[node name="SlideIn" type="AnimationPlayer" parent="Mugshots"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+"anims/From Left" = SubResource( 11 )
+"anims/From Right" = SubResource( 12 )
+"next/From Right" = ""
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
 
 [node name="TextBox" type="RichTextLabel" parent="."]
 

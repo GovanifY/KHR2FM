@@ -37,12 +37,12 @@ var ConfirmKey = {
 	"icon"     : null
 }
 var Mugshot = {
-	"side"    : false,  # false = left, true = right
-	"specify" : false
+	"side"          : false,  # false = left, true = right
+	"specify"       : false
 }
 var CurrentSpeaker = {
-	"name"  : null,
-	"count" : 0
+	"count"   : 0,
+	"name"    : null
 }
 
 # Global values
@@ -67,8 +67,8 @@ func _ready():
 	# Setting text-related data
 	Bubble.text = TextScroll.new()
 	Bubble.text.set_name("TextScroll")
-	add_child(Bubble.text)
 	Bubble.text.set_text_node(get_node("TextBox"))
+	add_child(Bubble.text)
 
 	# Connecting signals
 	Bubble.anims.fadein.connect("finished", self, "_get_line")
@@ -94,12 +94,9 @@ func _get_anchor():
 	return ALL_ANCHORS[int(Mugshot.side)]
 
 func _switch_side():
-	if !Mugshot.side:
-		print("Switching to right")
-	else:
-		print("Switching to left")
-	Bubble.anchor.hide()
 	Mugshot.side = !Mugshot.side
+	# Setting anchor
+	Bubble.anchor.hide()
 	Bubble.anchor = _get_anchor()
 	Bubble.anchor.show()
 
@@ -123,10 +120,10 @@ func _translate():
 	if !CurrentSpeaker.name.empty():
 		name = CurrentSpeaker.name + "_"
 
-	var index = text_collection[CurrentSpeaker.name].index
 	# ID format: (CHARACTER_)GAME_CONTEXT_COUNT
 	# ID example 1: INTRO_FATHERSON_00
 	# ID example 2: KIRYOKU_INTRO_FATHERSON_00
+	var index = text_collection[CurrentSpeaker.name].index
 	var lineID = name + dialogue_context + "_%02d" % index
 
 	# Incrementing index
