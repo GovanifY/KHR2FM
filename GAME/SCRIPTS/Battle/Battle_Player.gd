@@ -17,11 +17,13 @@ var Data = {
 
 # Status des actions du Player
 var Status = {
-	"direction" : "",     # String qui se colle à la fin de chaque nom d'anim
-	"action"    : null,   # L'animation qui cours (Still, Walk...)
+	"direction" : "",     # String qui s'ajoute à la fin de chaque nom d'anim
+	"action"    : null,   # L'animation executée (Still, Walk...)
 	"guard"     : false,  # Boolean pour commencer l'action "Guard"
 	"guarding"  : false,  # Est-on protégé des attaques?
-	"moving"    : false   # Boolean qui indique si le player bouge
+	"moving"    : false,  # Boolean qui indique si le joueur bouge
+	"attack"	: 0,      # Integer qui défini l'attaque actuelle
+	"hit"		: false   # Boolean qui défini si le joueur attaque
 }
 
 ######################
@@ -50,6 +52,10 @@ func _end_guard():
 	Status.guarding = false
 	Status.guard = false
 
+func _end_attack():
+	Status.attack = 0
+	Status.hit = false
+
 ###############
 ### Methods ###
 ###############
@@ -59,6 +65,8 @@ func handle_input(event):
 	if event.is_pressed() && !event.is_echo():
 		if !Status.guarding:
 			Status.guard = event.is_action("cancel")
+		if !Status.hit && Status.attack < 3 && event.is_action("enter"):
+			Status.attack = Status.attack+1
 
 	# Simple Input check
 	var left    = Input.is_action_pressed("ui_left")
@@ -86,6 +94,8 @@ func is_moving():
 func is_guarding():
 	return Status.guard || Status.guarding
 
+func is_attacking():
+	return Status.attack || Status.hit
 ## Actions
 func do_limit_pos():
 	if (get_pos().x <= limit_left):
@@ -105,6 +115,11 @@ func do_guard():
 	if !Status.guarding:
 		play_anim("Guard")
 		Status.guarding = true
+
+func do_attack():
+	if !Status.hit:
+		play_anim("Attack" + Status.attack)
+		Status.hit = true
 
 ## Réglage des animations
 func stop_all_anims():
