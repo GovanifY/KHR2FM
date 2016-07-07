@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://ASSETS/GFX/Game/Mugshots/Kiryoku/Box_message_013.png" type="Texture" id=1]
+
+[node name="Kiryoku" type="Sprite"]
+
+texture = ExtResource( 1 )
+centered = false
+
+
