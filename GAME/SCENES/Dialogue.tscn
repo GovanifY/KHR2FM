@@ -176,17 +176,21 @@ autoplay = ""
 
 [node name="Speech" type="Sprite" parent="Bubble"]
 
+editor/display_folded = true
+visibility/visible = false
 transform/pos = Vector2( 441, 403 )
 texture = SubResource( 5 )
 
 [node name="anchor_left" type="Sprite" parent="Bubble/Speech"]
 
+visibility/visible = false
 material/use_parent = true
 transform/pos = Vector2( -338, -74 )
 texture = SubResource( 6 )
 
 [node name="anchor_right" type="Sprite" parent="Bubble/Speech"]
 
+visibility/visible = false
 material/use_parent = true
 transform/pos = Vector2( 338, -74 )
 texture = SubResource( 6 )
