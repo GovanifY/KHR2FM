@@ -148,8 +148,6 @@ script/script = ExtResource( 1 )
 
 [node name="Bubble" type="Node" parent="."]
 
-editor/display_folded = true
-
 [node name="FadeIn" type="AnimationPlayer" parent="Bubble"]
 
 playback/process_mode = 1
@@ -178,7 +176,6 @@ autoplay = ""
 
 [node name="Speech" type="Sprite" parent="Bubble"]
 
-editor/display_folded = true
 visibility/visible = false
 transform/pos = Vector2( 441, 403 )
 texture = SubResource( 5 )
@@ -187,14 +184,14 @@ texture = SubResource( 5 )
 
 visibility/visible = false
 material/use_parent = true
-transform/pos = Vector2( -341.642, -74.283 )
+transform/pos = Vector2( -341.642, -74.4999 )
 texture = SubResource( 6 )
 
 [node name="anchor_right" type="Sprite" parent="Bubble/Speech"]
 
 visibility/visible = false
 material/use_parent = true
-transform/pos = Vector2( 338, -74.283 )
+transform/pos = Vector2( 338, -74.4999 )
 texture = SubResource( 6 )
 flip_h = true
 
