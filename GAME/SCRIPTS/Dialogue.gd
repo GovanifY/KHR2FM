@@ -46,11 +46,6 @@ var CurrentSpeaker = {
 	"count"   : 0,
 	"name"    : null
 }
-var ScreenPos = {
-	"left"   : Vector2(),
-	"middle" : Vector2(),
-	"right"  : Vector2()
-}
 
 # Global values
 var dialogue_context = ""
@@ -60,10 +55,6 @@ var text_collection = {}
 ### Core functions ###
 ######################
 func _ready():
-	# Getting screen positions
-	ScreenPos.right.width = OS.get_window_size().width
-	ScreenPos.middle.width = int(ScreenPos.right.width) >> 1
-
 	# Filling bubble
 	Bubble.node = _get_bubble(0)
 	Bubble.anchor = _get_anchor()
@@ -115,7 +106,7 @@ func _switch_side():
 	Bubble.anchor = _get_anchor()
 	Bubble.anchor.show()
 
-func _switch_mugshot(mugshot):
+func _switch_mugshot(mugshot, pos):
 	if mugshot == null:
 		return
 
@@ -126,7 +117,6 @@ func _switch_mugshot(mugshot):
 		return
 	# if we need to switch a previously stored mugshot
 	elif Mugshot.nodes[i] != null:
-		assert(true)
 		# TODO: SlideOut animation
 		Mugshot.nodes[i].hide()
 
@@ -134,13 +124,7 @@ func _switch_mugshot(mugshot):
 	Mugshot.nodes[i] = mugshot
 	Mugshot.nodes[i].set_flip_h(Mugshot.side)
 	# Set its position
-	if Mugshot.side:
-		# FIXME: this is SLOW
-		ScreenPos.middle.x = ScreenPos.right.x
-		ScreenPos.middle.x -= Mugshot.nodes[i].get_texture().get_width() / Mugshot.nodes[i].get_hframes()
-		Mugshot.nodes[i].set_pos(ScreenPos.middle)
-	else:
-		Mugshot.nodes[i].set_pos(ScreenPos.left)
+	Mugshot.nodes[i].set_pos(pos[i])
 	# Show it
 	Mugshot.nodes[i].show()
 	# TODO: SlideIn animation
@@ -249,7 +233,7 @@ func speak(characterID, count):
 	# Setting up our current speaker
 	CurrentSpeaker.name = characterID
 	CurrentSpeaker.count = count
-	_switch_mugshot(character.mugshot)
+	_switch_mugshot(character.mugshot, character.pos)
 
 	_open_dialogue()
 
@@ -261,6 +245,7 @@ func collect_lines(characterID, count):
 
 	# Preparing mugshot (if available)
 	var mugshot = null
+	var pos = Vector2()
 	if !characterID.empty():
 		var path = PATH_MUGSHOTS + characterID.capitalize() + ".tscn"
 		# If the path leads to a file (why isn't there an exists() function?)
@@ -269,6 +254,7 @@ func collect_lines(characterID, count):
 			mugshot = mugshot.instance()
 			mugshot.hide()
 			get_node("Mugshots").add_child(mugshot)
+			pos.x = OS.get_window_size().width - (mugshot.get_texture().get_width() / mugshot.get_hframes())
 	# Preparing character index
 	characterID = characterID.to_upper()
 
@@ -276,7 +262,8 @@ func collect_lines(characterID, count):
 	text_collection[characterID] = {
 		"index"   : 0,
 		"count"   : count,
-		"mugshot" : mugshot
+		"mugshot" : mugshot,
+		"pos"     : [Vector2(), pos]
 	}
 
 # Checks if there are lines left
