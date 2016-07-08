@@ -37,8 +37,8 @@ var ConfirmKey = {
 	"icon"     : null
 }
 var Mugshot = {
-	"side"          : false,  # false = left, true = right
-	"specify"       : false
+	"side"    : false,  # false = left, true = right
+	"specify" : false
 }
 var CurrentSpeaker = {
 	"count"   : 0,
@@ -81,9 +81,13 @@ func _ready():
 	set_SE()
 
 func _input(event):
-	# Avoid repeated key captures
+	# Pressed, non-repeating Input check
 	if event.is_pressed() && !event.is_echo():
 		if event.is_action("enter"):
+			Bubble.text.confirm()
+	# Pressed, repeating Input check
+	elif event.is_pressed() && event.is_echo():
+		if event.is_action("fast-forward"):
 			Bubble.text.confirm()
 
 # Some wrappers
@@ -203,6 +207,7 @@ func collect_lines(characterID, count):
 	assert(characterID != null && typeof(characterID) == TYPE_STRING)
 	assert(typeof(count) == TYPE_INT && count > 0)
 
+	# Preparing character index
 	characterID = characterID.to_upper()
 
 	# Assigning input values to this character
