@@ -50,6 +50,13 @@ var CurrentSpeaker = {
 # Global values
 var dialogue_context = ""
 var text_collection = {}
+# For reference, text_collection works like this:
+# text_collection[characterID] = {
+#	"index"   : 0,
+#	"count"   : count,
+#	"mugshot" : mugshot,
+#	"posx"    : [0, posx]
+#}
 
 ######################
 ### Core functions ###
@@ -124,7 +131,7 @@ func _switch_mugshot(mugshot, pos):
 	Mugshot.nodes[i] = mugshot
 	Mugshot.nodes[i].set_flip_h(Mugshot.side)
 	# Set its position
-	Mugshot.nodes[i].set_pos(pos[i])
+	Mugshot.nodes[i].set_pos(Vector2(pos[i], 0))
 	# Show it
 	Mugshot.nodes[i].show()
 	# TODO: SlideIn animation
@@ -149,14 +156,13 @@ func _translate():
 	if !CurrentSpeaker.name.empty():
 		name = CurrentSpeaker.name + "_"
 
+	var character = get_character(CurrentSpeaker.name)
 	# ID format: (CHARACTER_)GAME_CONTEXT_COUNT
 	# ID example 1: INTRO_FATHERSON_00
 	# ID example 2: KIRYOKU_INTRO_FATHERSON_00
-	var index = text_collection[CurrentSpeaker.name].index
-	var lineID = name + dialogue_context + "_%02d" % index
-
+	var lineID = name + dialogue_context + "_%02d" % character.index
 	# Incrementing index
-	text_collection[CurrentSpeaker.name].index += 1
+	character.index += 1
 
 	return tr(lineID)
 
@@ -190,16 +196,6 @@ func _next_line():
 		# No more lines, close everything
 		_close_dialogue()
 
-########################
-### Helper functions ###
-########################
-static func _get_slide_name(side):
-	#side = bool(side)
-	if !side:
-		return "Left"
-	else:
-		return "Right"
-
 ###############
 ### Methods ###
 ###############
@@ -210,12 +206,10 @@ func speak(characterID, count):
 	assert(typeof(count) == TYPE_INT && count > 0)
 	assert(dialogue_context != null && !dialogue_context.empty())
 
-	# Fetching our character information
-	characterID = characterID.to_upper()
-	# If this character doesn't exist, avoid speaking
-	if !text_collection.has(characterID):
+	# Fetching our character information. If this character doesn't exist, avoid speaking
+	var character = get_character(characterID)
+	if character == null:
 		return
-	var character = text_collection[characterID]
 
 	# Count must not go overboard; if it does, decrease it to a minimum
 	var is_overboard = (character.index + count) > character.count
@@ -231,9 +225,9 @@ func speak(characterID, count):
 			_switch_side()
 
 	# Setting up our current speaker
-	CurrentSpeaker.name = characterID
+	CurrentSpeaker.name = characterID.to_upper()
 	CurrentSpeaker.count = count
-	_switch_mugshot(character.mugshot, character.pos)
+	_switch_mugshot(character.mugshot, character.posx)
 
 	_open_dialogue()
 
@@ -245,7 +239,7 @@ func collect_lines(characterID, count):
 
 	# Preparing mugshot (if available)
 	var mugshot = null
-	var pos = Vector2()
+	var posx = 0
 	if !characterID.empty():
 		var path = PATH_MUGSHOTS + characterID.capitalize() + ".tscn"
 		# If the path leads to a file (why isn't there an exists() function?)
@@ -254,16 +248,14 @@ func collect_lines(characterID, count):
 			mugshot = mugshot.instance()
 			mugshot.hide()
 			get_node("Mugshots").add_child(mugshot)
-			pos.x = OS.get_window_size().width - (mugshot.get_texture().get_width() / mugshot.get_hframes())
-	# Preparing character index
-	characterID = characterID.to_upper()
+			posx = OS.get_window_size().width - (mugshot.get_texture().get_width() / mugshot.get_hframes())
 
 	# Assigning input values to this character
-	text_collection[characterID] = {
+	text_collection[characterID.to_upper()] = {
 		"index"   : 0,
 		"count"   : count,
 		"mugshot" : mugshot,
-		"pos"     : [Vector2(), pos]
+		"posx"    : [0, posx]
 	}
 
 # Checks if there are lines left
@@ -301,3 +293,20 @@ func set_SE(SENode = null, SEName = null):
 		SEName = "MSG_SOUND"
 	ConfirmKey.SE.node = SENode
 	ConfirmKey.SE.name = SEName
+
+# Sets which frame to use to a character's mugshot
+func set_mugshot_frame(characterID, frame):
+	assert(typeof(frame) == TYPE_INT)
+	var character = get_character(characterID)
+	if character == null:
+		return
+	character.mugshot.set_frame(frame)
+
+# Grabs the wanted character
+func get_character(characterID):
+	assert(typeof(characterID) == TYPE_STRING)
+	characterID = characterID.to_upper()
+	if !text_collection.has(characterID):
+		print("WARNING: Character \"%s\" does not exist" % characterID)
+		return null
+	return text_collection[characterID]
