@@ -38,9 +38,11 @@ var ConfirmKey = {
 	"icon"     : null
 }
 var Mugshot = {
-	"side"    : false,  # false = left, true = right
-	"specify" : false,
-	"nodes"   : [null, null]
+	"side"      : false,  # false = left, true = right
+	"specify"   : false,
+	"posx"      : [0, 0],
+	"nodes"     : [null, null],
+	"anim_show" : null
 }
 var CurrentSpeaker = {
 	"count"   : 0,
@@ -54,8 +56,7 @@ var text_collection = {}
 # text_collection[characterID] = {
 #	"index"   : 0,
 #	"count"   : count,
-#	"mugshot" : mugshot,
-#	"posx"    : [0, posx]
+#	"mugshot" : mugshot
 #}
 
 ######################
@@ -73,6 +74,9 @@ func _ready():
 	ConfirmKey.icon = get_node("MiniKeyblade")
 	ConfirmKey.anims = get_node("MiniKeyblade/anims")
 
+	# Preaparing mugshot info
+	Mugshot.posx[1] = OS.get_window_size().width - 440
+
 	# Setting text-related data
 	Bubble.text = TextScroll.new()
 	Bubble.text.set_name("TextScroll")
@@ -85,6 +89,7 @@ func _ready():
 	Bubble.text.connect("started", self, "_hide_keyblade")
 	Bubble.text.connect("finished", self, "_show_keyblade")
 	Bubble.text.connect("cleared", self, "_next_line")
+	Mugshot.anim_show.connect("finished", self, "_open_dialogue")
 
 	# Setting default SE
 	set_SE()
@@ -113,28 +118,59 @@ func _switch_side():
 	Bubble.anchor = _get_anchor()
 	Bubble.anchor.show()
 
-func _switch_mugshot(mugshot, pos):
-	if mugshot == null:
-		return
+func _switch_mugshot(character):
+	if character.mugshot == null:
+		return true
 
 	var i = int(Mugshot.side)
-
 	# if it contains a node but is the same as argument
-	if Mugshot.nodes[i] == mugshot:
-		return
+	if Mugshot.nodes[i] == character.mugshot:
+		return true
 	# if we need to switch a previously stored mugshot
 	elif Mugshot.nodes[i] != null:
-		# TODO: SlideOut animation
 		Mugshot.nodes[i].hide()
 
 	# Make the switch
-	Mugshot.nodes[i] = mugshot
+	Mugshot.nodes[i] = character.mugshot
 	Mugshot.nodes[i].set_flip_h(Mugshot.side)
-	# Set its position
-	Mugshot.nodes[i].set_pos(Vector2(pos[i], 0))
 	# Show it
+	_anim_mugshot_in(character)
 	Mugshot.nodes[i].show()
-	# TODO: SlideIn animation
+	return false
+
+func _anim_mugshot_in(character, anim_node):
+	var i = int(Mugshot.side)
+	var from = _get_slide_name(i)
+	var anim = get_node("Mugshots/" + anim_node).get_animation(from)
+
+	# If the animation can't be loaded, just set its position
+	if anim == null:
+		Mugshot.nodes[i].set_pos(Vector2(Mugshot.posx[i], 0))
+		return
+
+	# Setting NodePath
+	var path = character.name + ":transform/pos"
+	anim.track_set_path(0, path)
+
+	# Playing the animation
+	Mugshot.nodes[i].set_pos(Vector2(-440, 0))
+	Mugshot.anim_show.play(from)
+
+func _anim_mugshot_out(character, anim_node):
+	var i = int(Mugshot.side)
+	var anim = get_node("Mugshots/" + anim_node).get_animation("Normal")
+
+	# If the animation can't be loaded, just hide it
+	if anim == null:
+		Mugshot.nodes[i].hide()
+		return
+
+	# Setting NodePath
+	var path = character.name + ":visibility/opacity"
+	anim.track_set_path(0, path)
+
+	# Playing the animation
+	Mugshot.anims.hidedown.play("Normal")
 
 func _has_speaker():
 	return (CurrentSpeaker.name != null && !CurrentSpeaker.name.empty()
@@ -196,6 +232,15 @@ func _next_line():
 		# No more lines, close everything
 		_close_dialogue()
 
+########################
+### Helper functions ###
+########################
+static func _get_slide_name(side):
+	if !side:
+		return "Left"
+	else:
+		return "Right"
+
 ###############
 ### Methods ###
 ###############
@@ -227,9 +272,11 @@ func speak(characterID, count):
 	# Setting up our current speaker
 	CurrentSpeaker.name = characterID.to_upper()
 	CurrentSpeaker.count = count
-	_switch_mugshot(character.mugshot, character.posx)
+	var manual = _switch_mugshot(character)
 
-	_open_dialogue()
+	# At the end of the animation, it should start speaking
+	if manual:
+		_open_dialogue()
 
 # Collects information that will permit translation afterwards
 func collect_lines(characterID, count):
@@ -239,7 +286,6 @@ func collect_lines(characterID, count):
 
 	# Preparing mugshot (if available)
 	var mugshot = null
-	var posx = 0
 	if !characterID.empty():
 		var path = PATH_MUGSHOTS + characterID.capitalize() + ".tscn"
 		# If the path leads to a file (why isn't there an exists() function?)
@@ -248,14 +294,13 @@ func collect_lines(characterID, count):
 			mugshot = mugshot.instance()
 			mugshot.hide()
 			get_node("Mugshots").add_child(mugshot)
-			posx = OS.get_window_size().width - (mugshot.get_texture().get_width() / mugshot.get_hframes())
 
 	# Assigning input values to this character
 	text_collection[characterID.to_upper()] = {
+		"name"    : characterID,
 		"index"   : 0,
 		"count"   : count,
-		"mugshot" : mugshot,
-		"posx"    : [0, posx]
+		"mugshot" : mugshot
 	}
 
 # Checks if there are lines left
