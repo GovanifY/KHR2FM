@@ -89,7 +89,7 @@ func _ready():
 	Bubble.text.connect("started", self, "_hide_keyblade")
 	Bubble.text.connect("finished", self, "_show_keyblade")
 	Bubble.text.connect("cleared", self, "_next_line")
-	Mugshot.anim_show.connect("finished", self, "_open_dialogue")
+	get_node("Mugshots/SlideIn").connect("finished", self, "_open_dialogue")
 
 	# Setting default SE
 	set_SE()
@@ -138,10 +138,11 @@ func _switch_mugshot(character):
 	Mugshot.nodes[i].show()
 	return false
 
-func _anim_mugshot_in(character, anim_node):
+func _anim_mugshot_in(character, anim_node = "SlideIn"):
 	var i = int(Mugshot.side)
 	var from = _get_slide_name(i)
-	var anim = get_node("Mugshots/" + anim_node).get_animation(from)
+	var anim_player = get_node("Mugshots/" + anim_node)
+	var anim = anim_player.get_animation(from)
 
 	# If the animation can't be loaded, just set its position
 	if anim == null:
@@ -154,7 +155,7 @@ func _anim_mugshot_in(character, anim_node):
 
 	# Playing the animation
 	Mugshot.nodes[i].set_pos(Vector2(-440, 0))
-	Mugshot.anim_show.play(from)
+	anim_player.play(from)
 
 func _anim_mugshot_out(character, anim_node):
 	var i = int(Mugshot.side)
