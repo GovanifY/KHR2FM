@@ -67,6 +67,13 @@ func get_bubble_skin(type):
 func get_anchor(side):
 	return ALL_ANCHORS[int(side)]
 
+# is_ functions
+func is_narrator():
+	return This.node == get_bubble_skin(0)
+
+func is_speaker():
+	return This.node == get_bubble_skin(1)
+
 # Animation control
 func play_anim():
 	This.anims.fadein.play(This.node.get_name())

@@ -106,9 +106,9 @@ func speak(characterID, count):
 		return
 
 	# Setting bubble skin
-	if characterID.empty():
+	if characterID.empty() && !Bubble.is_narrator():
 		Bubble.set_bubble_skin("Narrator")
-	else:
+	elif !characterID.empty() && !Bubble.is_speaker():
 		Bubble.set_bubble_skin("Speech")
 
 	# Count must not go overboard; if it does, decrease it to a minimum
