@@ -19,14 +19,12 @@ func _ready():
 	Dialogue.collect_lines("Kiryoku", 20)
 
 	# Starting first lines
-	Dialogue.set_bubble_type("Narrator")
 	Dialogue.speak("", 9)
 	pass
 
 func _set_cursor():
 	if cursor == 0:
 		cursor+=1
-		Dialogue.set_bubble_type("Speech")
 		Dialogue.set_side("right")
 		Dialogue.speak("Yuugure", 5)
 	elif cursor == 1:
