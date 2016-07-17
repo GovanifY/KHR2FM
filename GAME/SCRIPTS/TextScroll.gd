@@ -52,12 +52,16 @@ func set_text_node(node):
 func scroll(texttouse):
 	# If Text.node is null, forget it
 	assert(Text.node != null);
+
+	# If there's no text, forget it as well
+	if texttouse == null:
+		return
+	if texttouse.empty():
+		return
+
 	# If there's already text being displayed, do not replace it!
 	if is_processing():
 		print("TextScroll: Already scrolling text!")
-		return
-	# If there's no text, forget it as well
-	if texttouse.empty():
 		return
 
 	texttouse = texttouse.replace("\\n", "\n")
