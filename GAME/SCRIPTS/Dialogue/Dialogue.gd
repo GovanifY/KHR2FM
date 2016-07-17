@@ -29,17 +29,12 @@ var speaker_collection = {}
 ######################
 ### Core functions ###
 ######################
-func _exit_tree():
-	TranslatedLines.close()
-	TranslatedLines = null
-
 func _ready():
 	# Initializing assets
 	Bubble.init(self, ConfirmKey)
 	Mugshots.init(self)
-
-	if csv_path != null && !csv_path.empty():
-		TranslatedLines = Translator.new(csv_path)
+	TranslatedLines = Translator.new(csv_path)
+	add_child(TranslatedLines)
 
 func _input(event):
 	# Pressed, non-repeating Input check
@@ -77,10 +72,7 @@ func _translate():
 	# Incrementing index
 	character.index += 1
 
-	# Translating can be done either globally or locally, thanks to a pointed file
-	if TranslatedLines == null:
-		return tr(lineID)
-
+	# Grabbing the translation with lineID
 	return TranslatedLines.translate(lineID)
 
 #######################
