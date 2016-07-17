@@ -29,7 +29,7 @@ animations = [ { "frames":[ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 )
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
 Player = NodePath("Kiryoku")
-info_message = "INTRO_INFO_YUUGURE"
+info_message = "INFO_INTRO_YUUGURE"
 
 [node name="InfoBar" parent="." instance=ExtResource( 2 )]
 
