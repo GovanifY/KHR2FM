@@ -7,9 +7,10 @@ const ThreadLoader = preload("res://GAME/SCRIPTS/Loading/ThreadLoader.gd")
 
 # Instance members
 var Scenes = {
-	"path" : null,
-	"next" : null,
-	"loader" : null
+	"path"    : null,
+	"current" : null,
+	"next"    : null,
+	"loader"  : null
 }
 var Loading = {
 	"length" : 0,
@@ -22,7 +23,9 @@ var Loading = {
 # Our FIFO Queue
 var Queue = []
 # Our magical thread
-var thread
+var Threads = {
+	"loader"  : null
+}
 
 ######################
 ### Core functions ###
@@ -51,9 +54,8 @@ func _destroy_main_loader():
 	Scenes.loader = null
 
 func _destroy_current_scene():
-	# Grabbing the last root child, which, in our system, is the current scene
-	var root = get_node("/root")
-	_stop_scene(root.get_child(root.get_child_count()-1))
+	_stop_scene(Scenes.current)
+	Scenes.current = null
 
 func _do_animation(play):
 	if play:
@@ -76,7 +78,7 @@ func _set_new_scene():
 # Setup when loading was concluded
 func _finish_loading():
 	# Grabbing our latest result
-	Scenes.next = thread.result()
+	Scenes.next = Threads.loader.result()
 
 	# We destroy the MainLoader since we don't need it anymore
 	_destroy_main_loader()
@@ -85,7 +87,6 @@ func _finish_loading():
 	# Firing up the new scene
 	if !Loading.background:
 		_set_new_scene()
-
 
 ########################
 ### Helper functions ###
@@ -115,10 +116,10 @@ static func _load_scene(path):
 
 static func _stop_scene(scene):
 	if scene != null:
-		# Stop every process from the this node to avoid crashes
+		# Stop every process from this node to avoid crashes
 		scene.set_process(false)
 		scene.set_process_input(false)
-		scene.free()
+		scene.queue_free()
 
 ###############
 ### Methods ###
@@ -142,19 +143,23 @@ func is_there_a_scene():
 # Checks if a new scene is ready
 func is_ready():
 	var ret = Loading.complete
-	if thread != null:
-		ret = ret && !thread.is_active()
+	if Threads.loader != null:
+		return ret && !Threads.loader.is_active()
 	return ret
 
 # Loads new scene.
 func load_new_scene(background = false):
 	if !is_ready():
-		return
+		return false
 
 	Scenes.path = _dequeue(Queue)
 	if Scenes.path == null || Scenes.path.empty():
 		print("SceneLoader: No available scene to load")
-		return
+		return false
+
+	# Setting current scene (by grabbing root's last child)
+	var root = get_node("/root")
+	Scenes.current = root.get_child(root.get_child_count()-1)
 
 	# Are we doing background?
 	Loading.background = background
@@ -166,21 +171,22 @@ func load_new_scene(background = false):
 	Loading.complete = false
 	start_thread()
 
-	return
+	return true
 
 # Fires up a new ThreadLoader
 func start_thread():
-	thread = ThreadLoader.new()
-	thread.connect("scene_ready", self, "_finish_loading")
-	thread.connect("scene_error", self, "kill_thread")
-	thread.start_loader()
-	thread.add_scene(_load_scene(Scenes.path))
+	Threads.loader = ThreadLoader.new()
+	Threads.loader.connect("scene_ready", self, "_finish_loading")
+	Threads.loader.connect("scene_error", self, "kill_thread")
+	Threads.loader.add_scene(_load_scene(Scenes.path))
+	Threads.loader.start_loader()
 
 # Kills thread and decrements RefCount
 func kill_thread():
-	if thread != null && thread.is_active():
-		thread.wait_to_finish()
-		thread.clear()
+	if Threads.loader != null && Threads.loader.is_active():
+		Threads.loader.wait_to_finish()
+		Threads.loader.clear()
+		Threads.loader = null
 
 # Erases current scene and jumps over to the next one. There are two scenarios:
 # 1. A scene is still loading, so it launches MainLoader
@@ -190,7 +196,7 @@ func next_scene():
 	if !is_ready():
 		_prepare_main_loader()
 
-	thread.wait_to_finish()
+	Threads.loader.wait_to_finish()
 	_destroy_main_loader()
 	_set_new_scene()
 	return
