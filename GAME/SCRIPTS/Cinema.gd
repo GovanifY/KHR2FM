@@ -6,10 +6,10 @@ extends Node2D
 
 # Export values
 export(VideoStreamTheora) var video_file = null
-export(String, FILE, "*.tscn") var next_scene = ""
+export(String, FILE, "tscn") var next_scene = ""
 export(bool) var have_subtitles = false
-export(String, FILE, "*.srt") var subtitles_file = ""
-export(String, FILE, "*.csv") var csv_file = ""
+export(String, FILE, "srt") var subtitles_file = ""
+export(String, FILE, "csv") var csv_file = ""
 
 # Constant values
 const Translator = preload("res://GAME/SCRIPTS/Translator.gd")
