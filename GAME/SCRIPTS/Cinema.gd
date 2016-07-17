@@ -9,6 +9,10 @@ export(VideoStreamTheora) var video_file = null
 export(String, FILE, "*.tscn") var next_scene = ""
 export(bool) var have_subtitles = false
 export(String, FILE, "*.srt") var subtitles_file = ""
+export(String, FILE, "*.csv") var csv_file = ""
+
+# Constant values
+const Translator = preload("res://GAME/SCRIPTS/Translator.gd")
 
 # Instance members
 var Video = {
@@ -17,10 +21,11 @@ var Video = {
 }
 
 var Subtitles = {
-	"array" : [],    # Array of 3-cell Arrays: 0->ON timer, 1->OFF timer, 2-> subtitle
-	"index" : 0,     # index of the array
-	"shown" : false, # showing the current subtitle
-	"label" : null   # Node where the text should reside
+	"array"      : [],    # Array of 3-cell Arrays: 0->ON timer, 1->OFF timer, 2-> subtitle
+	"index"      : 0,     # index of the array
+	"shown"      : false, # showing the current subtitle
+	"label"      : null,  # Node where the text should reside
+	"translator" : null   # Translation node where all lines are saved
 }
 
 ######################
@@ -37,7 +42,7 @@ func _process(delta):
 
 			if Subtitles.array[Subtitles.index][0] < cur_pos && cur_pos < Subtitles.array[Subtitles.index][1]:
 				if !Subtitles.shown:
-					Subtitles.label.set_bbcode(format_string(Subtitles.array[Subtitles.index][2]))
+					Subtitles.label.set_bbcode(_format_string(Subtitles.array[Subtitles.index][2]))
 					Subtitles.shown = true
 
 			elif cur_pos >= Subtitles.array[Subtitles.index][1]:
@@ -74,12 +79,12 @@ func _ready():
 	# Start playing
 	set_process(true)
 
+func _format_string(string):
+	return "[center]" + Subtitles.translator.translate(string) + "[/center]"
+
 ########################
 ### Helper functions ###
 ########################
-static func format_string(string):
-	return "[center]" + tr(string) + "[/center]"
-
 static func timer_to_seconds(formatted):
 	var temp = formatted.split(":")
 	var hrs  = temp[0].to_int()
@@ -99,7 +104,7 @@ static func timer_to_seconds(formatted):
 ### Methods ###
 ###############
 func parse_subtitles():
-	if !have_subtitles || subtitles_file.empty():
+	if !have_subtitles || subtitles_file.empty() || csv_file.empty():
 		print("Current subtitle settings prohibit me from proceeding. Skipping.")
 		return
 
@@ -131,3 +136,8 @@ func parse_subtitles():
 			Subtitles.array.push_back(arr)
 
 	subs.close()
+	subs = null
+
+	# Opening translation
+	Subtitles.translator = Translator.new(csv_file)
+	add_child(Subtitles.translator)

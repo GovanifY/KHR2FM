@@ -10,6 +10,7 @@ video_file = null
 next_scene = ""
 have_subtitles = false
 subtitles_file = ""
+csv_file = ""
 
 [node name="Video" type="VideoPlayer" parent="."]
 
