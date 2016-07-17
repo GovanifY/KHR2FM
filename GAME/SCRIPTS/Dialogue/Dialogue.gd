@@ -1,7 +1,7 @@
 extends Node
 
 # Export values
-# TODO
+export(String, FILE, "csv") var csv_path = null
 
 # Signals
 signal no_more_lines
@@ -9,11 +9,13 @@ signal no_more_lines
 # Constants
 const PATH_MUGSHOTS = "res://GAME/SCENES/Dialogue/Mugshots/"
 const Speaker = preload("res://GAME/SCRIPTS/Dialogue/speaker.gd")
+const Translator = preload("res://GAME/SCRIPTS/Translator.gd")
 
 # Instance members
 onready var Bubble = get_node("Bubble")
 onready var ConfirmKey = get_node("ConfirmKey")
 onready var Mugshots = get_node("Mugshots")
+var TranslatedLines = null
 
 var CurrentSpeaker = {
 	"count"   : 0,
@@ -27,10 +29,17 @@ var speaker_collection = {}
 ######################
 ### Core functions ###
 ######################
+func _exit_tree():
+	TranslatedLines.close()
+	TranslatedLines = null
+
 func _ready():
 	# Initializing assets
 	Bubble.init(self, ConfirmKey)
 	Mugshots.init(self)
+
+	if csv_path != null && !csv_path.empty():
+		TranslatedLines = Translator.new(csv_path)
 
 func _input(event):
 	# Pressed, non-repeating Input check
@@ -68,7 +77,11 @@ func _translate():
 	# Incrementing index
 	character.index += 1
 
-	return tr(lineID)
+	# Translating can be done either globally or locally, thanks to a pointed file
+	if TranslatedLines == null:
+		return tr(lineID)
+
+	return TranslatedLines.translate(lineID)
 
 #######################
 ### Signal routines ###

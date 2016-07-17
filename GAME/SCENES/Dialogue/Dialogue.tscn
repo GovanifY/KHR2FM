@@ -184,6 +184,7 @@ offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 script/script = ExtResource( 1 )
+csv_path = null
 
 [node name="Bubble" type="CanvasLayer" parent="."]
 
