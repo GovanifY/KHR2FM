@@ -1,10 +1,20 @@
+extends Node
+
 # Instance members
 var Lines
 
 ######################
 ### Core functions ###
 ######################
+func _exit_tree():
+	close()
+
 func _init(csv_path):
+	if csv_path == null:
+		return false
+	elif csv_path.empty():
+		return false
+
 	var locale = TranslationServer.get_locale()
 	Lines = Translation.new()
 	Lines.set_locale(locale)
@@ -29,13 +39,17 @@ func _init(csv_path):
 
 	# Adding translation to server
 	TranslationServer.add_translation(Lines)
+	return true
 
 ###############
 ### Methods ###
 ###############
 func translate(lineID):
+	if Lines == null:
+		tr(lineID)
 	return TranslationServer.translate(lineID)
 
 func close():
-	TranslationServer.remove_translation(Lines)
-	Lines = null
+	if Lines != null:
+		TranslationServer.remove_translation(Lines)
+		Lines = null
