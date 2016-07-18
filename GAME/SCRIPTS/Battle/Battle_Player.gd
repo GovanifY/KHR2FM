@@ -10,6 +10,7 @@ var Data = {
 	# Valeurs variées
 	"name"   : "",       # Nom du personnage
 	"speed"  : 0,        # Vitesse (en pixels)
+	"height" : 0,
 	# Nodes
 	"anims"  : null,     # Node type "Node" qui ne contient QUE DES "AnimationPlayer"
 	"sprite" : null      # Node type "Sprite"
@@ -33,6 +34,7 @@ func _ready():
 	# Initialization du Player
 	Data.name = get_name()
 	Data.speed = player_speed
+	Data.height = get_pos().y
 	Data.anims = get_node("anims")
 	Data.sprite = get_node(Data.name + "_Sprite")
 
@@ -67,7 +69,7 @@ func _do_move():
 
 	var distance = Data.speed * mod
 	play_anim("Walk")
-	set_pos(Vector2(get_pos().x + distance, get_pos().y))
+	set_pos(Vector2(get_pos().x + distance, Data.height))
 
 func _do_guard():
 	if !Status.guarding:
@@ -141,9 +143,9 @@ func do_actions():
 
 func do_limit_pos():
 	if (get_pos().x <= limit_left):
-		set_pos(Vector2(limit_left, get_pos().y))
+		set_pos(Vector2(limit_left, Data.height))
 	if (get_pos().x >= limit_right):
-		set_pos(Vector2(limit_right, get_pos().y))
+		set_pos(Vector2(limit_right, Data.height))
 
 ## Réglage des animations
 func stop_all_anims():
