@@ -76,7 +76,6 @@ func _do_guard():
 
 func _do_attack():
 	if !Status.hit:
-		print("test")
 		play_anim("Attack" + str(Status.attack))
 		Status.hit = true
 
@@ -112,6 +111,7 @@ func handle_input(event):
 	if left && right:
 		left  = (Status.direction == "Left")
 		right = !left
+
 	# Indiquer la direction finale
 	if left:
 		Status.direction = "Left"
