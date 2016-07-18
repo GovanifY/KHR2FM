@@ -45,6 +45,35 @@ func _ready():
 	# Direction par défaut
 	Status.direction = "Right"
 
+## is_ functions
+func _is_moving():
+	return Status.moving
+
+func _is_guarding():
+	return Status.guard || Status.guarding
+
+func _is_attacking():
+	return Status.attack || Status.hit
+
+## do_ functions
+func _do_move():
+	var mod = 1
+	if Status.direction == "Left": mod = -1
+
+	var distance = Data.speed * mod
+	play_anim("Walk")
+	set_pos(Vector2(get_pos().x + distance, get_pos().y))
+
+func _do_guard():
+	if !Status.guarding:
+		play_anim("Guard")
+		Status.guarding = true
+
+func _do_attack():
+	if !Status.hit:
+		play_anim("Attack" + Status.attack)
+		Status.hit = true
+
 #######################
 ### Signal routines ###
 #######################
@@ -87,39 +116,24 @@ func handle_input(event):
 	else:
 		Status.moving    = false
 
-## is_ functions
-func is_moving():
-	return Status.moving
-
-func is_guarding():
-	return Status.guard || Status.guarding
-
-func is_attacking():
-	return Status.attack || Status.hit
 ## Actions
+func do_actions():
+	# L'anim de garde ("X"), tout est stoppé lorsqu'on la joue
+	if _is_guarding():
+		_do_guard()
+		return
+
+	# Si le player doit bouger ou pas
+	if _is_moving():
+		_do_move()
+	else:
+		play_anim("Still")
+
 func do_limit_pos():
 	if (get_pos().x <= limit_left):
 		set_pos(Vector2(limit_left, get_pos().y))
 	if (get_pos().x >= limit_right):
 		set_pos(Vector2(limit_right, get_pos().y))
-
-func do_move():
-	var mod = 1
-	if Status.direction == "Left": mod = -1
-
-	var distance = Data.speed * mod
-	play_anim("Walk")
-	set_pos(Vector2(get_pos().x + distance, get_pos().y))
-
-func do_guard():
-	if !Status.guarding:
-		play_anim("Guard")
-		Status.guarding = true
-
-func do_attack():
-	if !Status.hit:
-		play_anim("Attack" + Status.attack)
-		Status.hit = true
 
 ## Réglage des animations
 func stop_all_anims():
@@ -132,7 +146,7 @@ func play_anim(action_name):
 	var anim_name = Data.name + "_" + action_name + "_" + Status.direction
 	var anim_node = Data.anims.get_node(anim_name)
 
-	if (!anim_node.is_playing()):
+	if !anim_node.is_playing():
 		if Status.action != null:
 			Status.action.stop()
 		Status.action = anim_node

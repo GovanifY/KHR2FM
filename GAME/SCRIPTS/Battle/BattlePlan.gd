@@ -40,23 +40,11 @@ func _input(event):
 
 func _process(delta):
 	### Actions pour Player ###
-	# L'anim de garde ("X"), tout est stoppé lorsqu'on la joue
-	if Player.is_guarding():
-		Player.do_guard()
-		return
-
-	# Si le player doit bouger ou pas
-	if Player.is_moving():
-		Player.do_move()
-	else:
-		Player.play_anim("Still")
+	Player.do_actions()
+	Player.do_limit_pos()
 
 	### Actions pour les ennemis ###
 	# TODO
-
-	### GLOBAL ###
-	# Délimitations de la zone
-	Player.do_limit_pos()
 
 #######################
 ### Signal routines ###
