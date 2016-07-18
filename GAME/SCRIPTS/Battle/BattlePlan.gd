@@ -1,11 +1,13 @@
 extends Node2D
 
 # Export values
+export(String) var info_message = "INFO_BATTLE_MESSAGE"
 export(NodePath) var Player = null
-export(String) var info_message = "BATTLE INFO MESSAGE"
+#export(NodePath) var Enemy
+#export(int, 0, 20) var enemy_multiplier
 
 # Instance members
-var InfoBar = null
+onready var InfoBar = get_node("InfoBar")
 
 var BattleState = {
 	"battle" : false,
@@ -16,14 +18,16 @@ var BattleState = {
 ### Core functions ###
 ######################
 func _ready():
-	# Nodes initialization
+	# Important checks
+	assert(Player != null && !Player.is_empty())
+
+	# Node fetching
 	Player = get_node(Player)
-	InfoBar = get_node("InfoBar")
 
 	# Start Infobar animation
 	InfoBar.init()
-	InfoBar.connect("dismiss", self, "_dismiss_infobar")
-	summon_infobar(info_message)
+	InfoBar.connect("dismiss", self, "_battle_begin")
+	InfoBar.display(info_message)
 
 	# Démarrer les procès necessaires
 	set_process_input(true) # input
@@ -57,11 +61,9 @@ func _process(delta):
 #######################
 ### Signal routines ###
 #######################
-func _dismiss_infobar():
+func _battle_begin():
 	BattleState.battle = true
 
 ###############
 ### Methods ###
 ###############
-func summon_infobar(messageID):
-	InfoBar.display(messageID)

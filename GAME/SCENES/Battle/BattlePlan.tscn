@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://GAME/SCRIPTS/Battle/BattlePlan.gd" type="Script" id=1]
+[ext_resource path="res://GAME/SCENES/Battle/InfoBar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Commands/Commands_Lr_010.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/LANG/ASSETS/FONTS/Main.fnt" type="BitmapFont" id=4]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "\nextends RichTextLabel\n\n# member variables here, example:\n# var a=2\n# var b=\"textvar\"\n\nfunc _ready():\n\tget_node(\".\").set_bbcode(tr(\"BATTLE_ATTACK\"))\n\t# Initialization here\n\tpass\n\n\n"
+
+[node name="BattlePlan" type="Node2D"]
+
+script/script = ExtResource( 1 )
+__meta__ = { "__editor_plugin_screen__":"Script" }
+info_message = "INFO_BATTLE_MESSAGE"
+Player = null
+
+[node name="InfoBar" parent="." instance=ExtResource( 2 )]
+
+[node name="Foreground" type="ParallaxBackground" parent="."]
+
+layer = 4
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+scroll/offset = Vector2( 0, 0 )
+scroll/base_offset = Vector2( 0, 0 )
+scroll/base_scale = Vector2( 1, 1 )
+scroll/limit_begin = Vector2( 0, 0 )
+scroll/limit_end = Vector2( 0, 0 )
+scroll/ignore_camera_zoom = false
+
+[node name="Commands" type="CanvasLayer" parent="."]
+
+editor/display_folded = true
+layer = 3
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Selected" type="Sprite" parent="Commands"]
+
+editor/display_folded = true
+texture = ExtResource( 3 )
+centered = false
+
+[node name="BATTLE_ATTACK" type="RichTextLabel" parent="Commands/Selected"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 32.0
+margin/top = 458.0
+margin/right = 207.0
+margin/bottom = 475.0
+custom_fonts/normal_font = ExtResource( 4 )
+bbcode/enabled = true
+bbcode/bbcode = ""
+visible_characters = -1
+script/script = SubResource( 1 )
+
+[node name="Battlers" type="CanvasLayer" parent="."]
+
+layer = 2
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+
