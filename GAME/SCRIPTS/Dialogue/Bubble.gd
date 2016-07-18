@@ -67,6 +67,12 @@ func get_bubble_skin(type):
 func get_anchor(side):
 	return ALL_ANCHORS[int(side)]
 
+func set_modulate(mod):
+	for type in ALL_BUBBLES:
+		type.set_modulate(mod)
+	for anchor in ALL_ANCHORS:
+		anchor.set_modulate(mod)
+
 # is_ functions
 func is_narrator():
 	return This.node == get_bubble_skin(0)

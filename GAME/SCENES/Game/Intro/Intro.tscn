@@ -10,5 +10,6 @@ script/script = ExtResource( 1 )
 [node name="Dialogue" parent="." instance=ExtResource( 2 )]
 
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
+bubble_mod = null
 
 

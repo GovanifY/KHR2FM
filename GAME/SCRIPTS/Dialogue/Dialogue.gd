@@ -2,6 +2,7 @@ extends Node
 
 # Export values
 export(String, FILE, "csv") var csv_path = null
+export(Color, RGBA) var bubble_mod = null
 
 # Signals
 signal no_more_lines
@@ -32,6 +33,8 @@ var speaker_collection = {}
 func _ready():
 	# Initializing assets
 	Bubble.init(self, ConfirmKey)
+	if bubble_mod != null:
+		Bubble.set_modulate(bubble_mod)
 	Mugshots.init(self)
 	TranslatedLines = Translator.new(csv_path)
 	add_child(TranslatedLines)
@@ -59,22 +62,6 @@ func _close_dialogue():
 	Bubble.stop_anim()
 	ConfirmKey.stop_anim()
 
-func _translate():
-	var name = ""
-	if !CurrentSpeaker.name.empty():
-		name = CurrentSpeaker.name + "_"
-
-	var character = get_character(CurrentSpeaker.name)
-	# ID format: (CHARACTER_)GAME_CONTEXT_COUNT
-	# ID example 1: INTRO_FATHERSON_00
-	# ID example 2: KIRYOKU_INTRO_FATHERSON_00
-	var lineID = name + dialogue_context + "_%02d" % character.index
-	# Incrementing index
-	character.index += 1
-
-	# Grabbing the translation with lineID
-	return TranslatedLines.translate(lineID)
-
 #######################
 ### Signal routines ###
 #######################
@@ -83,7 +70,7 @@ func _get_line():
 		set_process_input(true)
 
 	CurrentSpeaker.count -= 1
-	Bubble.write(_translate())
+	Bubble.write(translate())
 
 func _next_line():
 	ConfirmKey.play_SE()
@@ -98,6 +85,25 @@ func _next_line():
 ###############
 ### Methods ###
 ###############
+# Translates lines
+func translate(lineID = null):
+	# If given lineID is null, fetch CurrentSpeaker's next line
+	if lineID == null:
+		var name = ""
+		if !CurrentSpeaker.name.empty():
+			name = CurrentSpeaker.name + "_"
+
+		var character = get_character(CurrentSpeaker.name)
+		# ID format: (CHARACTER_)GAME_CONTEXT_COUNT
+		# ID example 1: INTRO_FATHERSON_00
+		# ID example 2: KIRYOKU_INTRO_FATHERSON_00
+		lineID = name + dialogue_context + "_%02d" % character.index
+		# Incrementing index
+		character.index += 1
+
+	# Grabbing the translation with lineID
+	return TranslatedLines.translate(lineID)
+
 # Sets up a character to speak for X lines
 func speak(characterID, count):
 	# Safety assertions
@@ -171,6 +177,9 @@ func set_context(context):
 # Sets bubble type
 func set_bubble_type(type):
 	Bubble.set_bubble(type)
+
+func set_bubble_modulate(r, g, b, a = 255):
+	Bubble.set_modulate(Color(r, g, b, a))
 
 # Sets the side to position the anchor
 func set_side(side):
