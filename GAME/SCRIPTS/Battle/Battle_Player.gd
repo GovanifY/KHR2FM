@@ -42,6 +42,11 @@ func _ready():
 			anim.get_name() == Data.name + "_Guard_Right"):
 			anim.connect("finished", self, "_end_guard")
 
+	for anim in Data.anims.get_children():
+		for i in range(1,4):
+			if (anim.get_name() == Data.name + "_Attack" + str(i) + "_Left" ||
+				anim.get_name() == Data.name + "_Attack" + str(i) + "_Right"):
+				anim.connect("finished", self, "_end_attack")
 	# Direction par défaut
 	Status.direction = "Right"
 
@@ -71,7 +76,8 @@ func _do_guard():
 
 func _do_attack():
 	if !Status.hit:
-		play_anim("Attack" + Status.attack)
+		print("test")
+		play_anim("Attack" + str(Status.attack))
 		Status.hit = true
 
 #######################
@@ -121,6 +127,10 @@ func do_actions():
 	# L'anim de garde ("X"), tout est stoppé lorsqu'on la joue
 	if _is_guarding():
 		_do_guard()
+		return
+	# L'anim' d'attaque("C"), idem
+	if _is_attacking():
+		_do_attack()
 		return
 
 	# Si le player doit bouger ou pas
