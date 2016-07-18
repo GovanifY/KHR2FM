@@ -185,6 +185,7 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 script/script = ExtResource( 1 )
 csv_path = null
+bubble_mod = null
 
 [node name="Bubble" type="CanvasLayer" parent="."]
 
@@ -246,7 +247,6 @@ flip_h = true
 [node name="Narrator" type="Sprite" parent="Bubble"]
 
 visibility/visible = false
-visibility/opacity = 0.0
 transform/pos = Vector2( 445, 405 )
 texture = SubResource( 7 )
 
