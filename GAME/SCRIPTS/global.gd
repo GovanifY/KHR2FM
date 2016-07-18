@@ -65,5 +65,5 @@ func _process(delta):
 
 
 func quit_game():
-	SceneLoader.kill_thread()
+	SceneLoader.kill_all_threads()
 	get_tree().quit()

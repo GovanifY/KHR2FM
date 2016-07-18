@@ -22,8 +22,8 @@ var Loading = {
 
 # Our FIFO Queue
 var Queue = []
-# Our magical thread
-var Threads = {
+# Our magical threads
+var SL_Threads = {
 	"loader"  : null
 }
 
@@ -66,8 +66,8 @@ func _do_animation(play):
 		Loading.animation.stop()
 
 func _set_new_scene():
-	# We don't need the thread anymore
-	kill_thread()
+	# We don't need a ThreadLoader anymore
+	kill_thread(SL_Threads.loader)
 	# Instancing the new resource
 	var resource = Scenes.next.get_resource()
 	Scenes.next = null
@@ -78,7 +78,7 @@ func _set_new_scene():
 # Setup when loading was concluded
 func _finish_loading():
 	# Grabbing our latest result
-	Scenes.next = Threads.loader.result()
+	Scenes.next = SL_Threads.loader.result()
 
 	# We destroy the MainLoader since we don't need it anymore
 	_destroy_main_loader()
@@ -143,8 +143,8 @@ func is_there_a_scene():
 # Checks if a new scene is ready
 func is_ready():
 	var ret = Loading.complete
-	if Threads.loader != null:
-		return ret && !Threads.loader.is_active()
+	if SL_Threads.loader != null:
+		return ret && !SL_Threads.loader.is_active()
 	return ret
 
 # Loads new scene.
@@ -175,18 +175,22 @@ func load_new_scene(background = false):
 
 # Fires up a new ThreadLoader
 func start_thread():
-	Threads.loader = ThreadLoader.new()
-	Threads.loader.connect("scene_ready", self, "_finish_loading")
-	Threads.loader.connect("scene_error", self, "kill_thread")
-	Threads.loader.add_scene(_load_scene(Scenes.path))
-	Threads.loader.start_loader()
+	SL_Threads.loader = ThreadLoader.new()
+	SL_Threads.loader.connect("scene_ready", self, "_finish_loading")
+	SL_Threads.loader.connect("scene_error", self, "kill_thread", [SL_Threads.loader])
+	SL_Threads.loader.add_scene(_load_scene(Scenes.path))
+	SL_Threads.loader.start_loader()
 
 # Kills thread and decrements RefCount
-func kill_thread():
-	if Threads.loader != null && Threads.loader.is_active():
-		Threads.loader.wait_to_finish()
-		Threads.loader.clear()
-		Threads.loader = null
+func kill_thread(thread):
+	if thread != null && thread.is_active():
+		thread.wait_to_finish()
+		thread.clear()
+
+func kill_all_threads():
+	for thread in SL_Threads:
+		kill_thread(SL_Threads[thread])
+		SL_Threads[thread] = null
 
 # Erases current scene and jumps over to the next one. There are two scenarios:
 # 1. A scene is still loading, so it launches MainLoader
@@ -196,7 +200,7 @@ func next_scene():
 	if !is_ready():
 		_prepare_main_loader()
 
-	Threads.loader.wait_to_finish()
+	SL_Threads.loader.wait_to_finish()
 	_destroy_main_loader()
 	_set_new_scene()
 	return
