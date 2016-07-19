@@ -1,101 +1,73 @@
-[gd_scene load_steps=101 format=1]
+[gd_scene load_steps=66 format=1]
 
 [ext_resource path="res://GAME/SCRIPTS/Battle/Battle_Player.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_00.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_01.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_02.png" type="Texture" id=4]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_03.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_04.png" type="Texture" id=6]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_05.png" type="Texture" id=7]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_06.png" type="Texture" id=8]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_07.png" type="Texture" id=9]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_08.png" type="Texture" id=10]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_09.png" type="Texture" id=11]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_10.png" type="Texture" id=12]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_11.png" type="Texture" id=13]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_12.png" type="Texture" id=14]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_12b.png" type="Texture" id=15]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_13.png" type="Texture" id=16]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_14.png" type="Texture" id=17]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_15.png" type="Texture" id=18]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_16.png" type="Texture" id=19]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_17.png" type="Texture" id=20]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_18.png" type="Texture" id=21]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_19.png" type="Texture" id=22]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_19b.png" type="Texture" id=23]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_20.png" type="Texture" id=24]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_21.png" type="Texture" id=25]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_22.png" type="Texture" id=26]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_23.png" type="Texture" id=27]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_24.png" type="Texture" id=28]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_25.png" type="Texture" id=29]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_26.png" type="Texture" id=30]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_27.png" type="Texture" id=31]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_28.png" type="Texture" id=32]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_29.png" type="Texture" id=33]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_30.png" type="Texture" id=34]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_31.png" type="Texture" id=35]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_32.png" type="Texture" id=36]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_33.png" type="Texture" id=37]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_34.png" type="Texture" id=38]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_35.png" type="Texture" id=39]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_36.png" type="Texture" id=40]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_37.png" type="Texture" id=41]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_38.png" type="Texture" id=42]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_39.png" type="Texture" id=43]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_40.png" type="Texture" id=44]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_41.png" type="Texture" id=45]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_42.png" type="Texture" id=46]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_43.png" type="Texture" id=47]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_44.png" type="Texture" id=48]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_45.png" type="Texture" id=49]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_46.png" type="Texture" id=50]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_47.png" type="Texture" id=51]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_48.png" type="Texture" id=52]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_49.png" type="Texture" id=53]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_50.png" type="Texture" id=54]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_51.png" type="Texture" id=55]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_52.png" type="Texture" id=56]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_53.png" type="Texture" id=57]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_54.png" type="Texture" id=58]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_55.png" type="Texture" id=59]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_56.png" type="Texture" id=60]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_57.png" type="Texture" id=61]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_58.png" type="Texture" id=62]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_59.png" type="Texture" id=63]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_60.png" type="Texture" id=64]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_61.png" type="Texture" id=65]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_62.png" type="Texture" id=66]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_63.png" type="Texture" id=67]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_64.png" type="Texture" id=68]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_65.png" type="Texture" id=69]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_66.png" type="Texture" id=70]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_67.png" type="Texture" id=71]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_68.png" type="Texture" id=72]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_69.png" type="Texture" id=73]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_70.png" type="Texture" id=74]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_71.png" type="Texture" id=75]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_72.png" type="Texture" id=76]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_73.png" type="Texture" id=77]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_74.png" type="Texture" id=78]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_02.wav" type="Sample" id=79]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_03.wav" type="Sample" id=80]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_04.wav" type="Sample" id=81]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_05.wav" type="Sample" id=82]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_06.wav" type="Sample" id=83]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_09.wav" type="Sample" id=84]
-[ext_resource path="res://ASSETS/SE/Battle/General/Ground_walk.wav" type="Sample" id=85]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_06.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_07.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_08.png" type="Texture" id=7]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_09.png" type="Texture" id=8]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_10.png" type="Texture" id=9]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_11.png" type="Texture" id=10]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_12.png" type="Texture" id=11]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_12b.png" type="Texture" id=12]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_20.png" type="Texture" id=13]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_21.png" type="Texture" id=14]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_22.png" type="Texture" id=15]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_26.png" type="Texture" id=16]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_27.png" type="Texture" id=17]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_28.png" type="Texture" id=18]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_29.png" type="Texture" id=19]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_30.png" type="Texture" id=20]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_31.png" type="Texture" id=21]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_32.png" type="Texture" id=22]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_33.png" type="Texture" id=23]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_34.png" type="Texture" id=24]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_35.png" type="Texture" id=25]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_36.png" type="Texture" id=26]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_37.png" type="Texture" id=27]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_38.png" type="Texture" id=28]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_39.png" type="Texture" id=29]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_40.png" type="Texture" id=30]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_41.png" type="Texture" id=31]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_42.png" type="Texture" id=32]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_43.png" type="Texture" id=33]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_62.png" type="Texture" id=34]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_63.png" type="Texture" id=35]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_64.png" type="Texture" id=36]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_65.png" type="Texture" id=37]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_66.png" type="Texture" id=38]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_67.png" type="Texture" id=39]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_68.png" type="Texture" id=40]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_69.png" type="Texture" id=41]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_71.png" type="Texture" id=42]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_72.png" type="Texture" id=43]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_73.png" type="Texture" id=44]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_02.wav" type="Sample" id=45]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_03.wav" type="Sample" id=46]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_04.wav" type="Sample" id=47]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_05.wav" type="Sample" id=48]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_06.wav" type="Sample" id=49]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_09.wav" type="Sample" id=50]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Hit1.wav" type="Sample" id=51]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Hit2.wav" type="Sample" id=52]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Swing.wav" type="Sample" id=53]
+[ext_resource path="res://ASSETS/SE/Battle/General/Ground_walk.wav" type="Sample" id=54]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="RectangleShape2D" id=1]
 
-animations = [ { "frames":[ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 46 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 54 ), ExtResource( 55 ), ExtResource( 56 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 74 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 77 ), ExtResource( 78 ) ], "loop":true, "name":"default", "speed":5.0 } ]
+custom_solver_bias = 0.0
+extents = Vector2( 35, 45 )
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="SpriteFrames" id=2]
 
-resource/name = "Kiryoku_Still_Right"
+animations = [ { "frames":[ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ) ], "loop":true, "name":"default", "speed":5.0 } ]
+
+[sub_resource type="Animation" id=3]
+
 length = 0.4
 loop = true
-loop_interpolation = true
 step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
@@ -103,421 +75,238 @@ tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.1, 0.2, 0.3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":1, "values":[ 0, 1, 2, 1 ] }
 
-[sub_resource type="Animation" id=3]
-
-resource/name = "Kiryoku_Still_Left"
-length = 0.4
-loop = true
-loop_interpolation = true
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.1, 0.2, 0.3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":1, "values":[ 3, 4, 5, 4 ] }
-
 [sub_resource type="Animation" id=4]
 
-resource/name = "Kiryoku_Walk_Right"
-length = 0.27
+resource/name = "Walk"
+length = 0.4
 loop = true
-loop_interpolation = true
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.06, 0.09, 0.12, 0.15, 0.21, 0.24 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 6, 7, 8, 9, 10, 11, 12 ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 3, 4, 5, 6, 7, 8, 9, 10 ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../../SE_General:play/play")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 0.15 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ "Ground_walk", "Ground_walk" ] }
+tracks/1/keys = { "times":FloatArray( 0, 0.2 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ "Ground_walk", "Ground_walk" ] }
 
 [sub_resource type="Animation" id=5]
 
-resource/name = "Kiryoku_Walk_Left"
-length = 0.27
-loop = true
-loop_interpolation = true
-step = 0.1
+resource/name = "Guard"
+length = 0.4
+loop = false
+step = 0.04
 tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.06, 0.09, 0.12, 0.15, 0.21, 0.24, 0.27 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 14, 15, 16, 17, 18, 19, 20, 21 ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.04, 0.08, 0.12 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":1, "values":[ 23, 24, 25, 26 ] }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../../SE_General:play/play")
+tracks/1/path = NodePath("../../Voice:play/play")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 0.15 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ "Ground_walk", "Ground_walk" ] }
+tracks/1/keys = { "times":FloatArray( 0.04 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_02" ] }
 
 [sub_resource type="Animation" id=6]
 
-resource/name = "Kiryoku_Guard_Right"
-length = 0.29
+resource/name = "Attack1"
+length = 0.35
 loop = false
-loop_interpolation = true
-step = 0.1
+step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.06, 0.09 ), "transitions":FloatArray( 1, 1, 1 ), "update":1, "values":[ 38, 39, 40 ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.05, 0.1, 0.15 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":1, "values":[ 14, 15, 16, 17 ] }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../../SE_Attack:play/play")
+tracks/1/path = NodePath("../../Weapon:play/play")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_02" ] }
-
-[sub_resource type="Animation" id=7]
-
-resource/name = "Kiryoku_Guard_Left"
-length = 0.29
-loop = false
-loop_interpolation = true
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.06, 0.09 ), "transitions":FloatArray( 1, 1, 1 ), "update":1, "values":[ 56, 57, 58 ] }
-tracks/1/type = "value"
-tracks/1/path = NodePath("../../SE_Attack:play/play")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_02" ] }
-
-[sub_resource type="Animation" id=8]
-
-resource/name = "Kiryoku_Attack1_Right"
-length = 0.15
-loop = false
-loop_interpolation = true
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "update":1, "values":[ 28, 45, 29, 30, 31 ] }
-tracks/1/type = "value"
-tracks/1/path = NodePath("../../SE_Attack:play/play")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0.03 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kioku_Keyblade_00" ] }
+tracks/1/keys = { "times":FloatArray( 0.05 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_Keyblade_Swing" ] }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../../SE_Attack:play/play")
+tracks/2/path = NodePath("../../Voice:play/play")
 tracks/2/interp = 1
 tracks/2/imported = false
 tracks/2/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_03" ] }
-tracks/3/type = "value"
-tracks/3/path = NodePath("../../Kiryoku_Sprite:offset")
+tracks/3/type = "method"
+tracks/3/path = NodePath("../..")
 tracks/3/interp = 1
 tracks/3/imported = false
-tracks/3/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "update":0, "values":[ Vector2( 0, 0 ), Vector2( 15, 0 ), Vector2( 21, 0 ), Vector2( 27, 0 ), Vector2( 33, 0 ) ] }
+tracks/3/keys = { "times":FloatArray( 0.06, 0.23 ), "transitions":FloatArray( 1, 1 ), "values":[ { "args":[ 33 ], "method":"_move" }, { "args":[  ], "method":"_action_unlock" } ] }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=7]
 
-resource/name = "Kiryoku_Attack1_Left"
-length = 0.15
+resource/name = "Attack2"
+length = 0.35
 loop = false
-loop_interpolation = true
-step = 0.1
+step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("../../SE_Attack:play/play")
+tracks/0/path = NodePath("../../Weapon:play/play")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_03" ] }
+tracks/0/keys = { "times":FloatArray( 0.1 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_Keyblade_Swing" ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "update":1, "values":[ 46, 63, 47, 48, 49 ] }
+tracks/1/keys = { "times":FloatArray( 0, 0.03, 0.1, 0.17, 0.21, 0.26 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 18, 19, 20, 21, 23, 24 ] }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../../SE_Attack:play/play")
+tracks/2/path = NodePath("../../Voice:play/play")
 tracks/2/interp = 1
 tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0.03 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kioku_Keyblade_00" ] }
-tracks/3/type = "value"
-tracks/3/path = NodePath("../../Kiryoku_Sprite:offset")
+tracks/2/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_04" ] }
+tracks/3/type = "method"
+tracks/3/path = NodePath("../..")
 tracks/3/interp = 1
 tracks/3/imported = false
-tracks/3/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "update":0, "values":[ Vector2( 0, 0 ), Vector2( -15, 0 ), Vector2( -21, 0 ), Vector2( -27, 0 ), Vector2( -33, 0 ) ] }
+tracks/3/keys = { "times":FloatArray( 0.1, 0.26 ), "transitions":FloatArray( 1, 1 ), "values":[ { "args":[ 54 ], "method":"_move" }, { "args":[  ], "method":"_action_unlock" } ] }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=8]
 
-resource/name = "Kiryoku_Attack2_Right"
-length = 0.24
-loop = true
-loop_interpolation = true
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("../../SE_Attack:play/play")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_04" ] }
-tracks/1/type = "value"
-tracks/1/path = NodePath("../../Kiryoku_Sprite:frame")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 32, 33, 34, 34, 35, 37, 38, 36 ] }
-tracks/2/type = "value"
-tracks/2/path = NodePath("../../SE_Attack:play/play")
-tracks/2/interp = 1
-tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0.06 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kioku_Keyblade_00" ] }
-tracks/3/type = "value"
-tracks/3/path = NodePath("../../Kiryoku_Sprite:offset")
-tracks/3/interp = 1
-tracks/3/imported = false
-tracks/3/keys = { "times":FloatArray( 0, 0.06, 0.09, 0.12, 0.15, 0.18 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1 ), "update":0, "values":[ Vector2( 0, 0 ), Vector2( 30, 0 ), Vector2( 40, 0 ), Vector2( 46, 0 ), Vector2( 52, 0 ), Vector2( 54, 0 ) ] }
-
-[sub_resource type="Animation" id=11]
-
-resource/name = "Kiryoku_Attack2_Left"
-length = 0.24
+resource/name = "Attack3"
+length = 0.5
 loop = false
-loop_interpolation = true
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("../../SE_Attack:play/play")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_04" ] }
-tracks/1/type = "value"
-tracks/1/path = NodePath("../../Kiryoku_Sprite:frame")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 50, 51, 52, 52, 53, 55, 56, 54 ] }
-tracks/2/type = "value"
-tracks/2/path = NodePath("../../SE_Attack:play/play")
-tracks/2/interp = 1
-tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0.06 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kioku_Keyblade_00" ] }
-tracks/3/type = "value"
-tracks/3/path = NodePath("../../Kiryoku_Sprite:offset")
-tracks/3/interp = 1
-tracks/3/imported = false
-tracks/3/keys = { "times":FloatArray( 0, 0.06, 0.09, 0.12, 0.15, 0.18 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1 ), "update":0, "values":[ Vector2( 0, 0 ), Vector2( -30, 0 ), Vector2( -40, 0 ), Vector2( -46, 0 ), Vector2( -52, 0 ), Vector2( -54, 0 ) ] }
-
-[sub_resource type="Animation" id=12]
-
-resource/name = "Kiryoku_Attack3_Right"
-length = 0.24
-loop = false
-loop_interpolation = true
-step = 0.1
+step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 39, 40, 41, 42, 43, 44, 40, 39 ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.06, 0.13, 0.17, 0.21, 0.25, 0.29, 0.33, 0.38 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 24, 25, 27, 28, 29, 30, 31, 27, 26 ] }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../../SE_Attack:play/play")
+tracks/1/path = NodePath("../../Voice:play/play")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0.06 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kioku_Keyblade_00" ] }
-tracks/2/type = "value"
-tracks/2/path = NodePath("../../Kiryoku_Sprite:offset")
+tracks/1/keys = { "times":FloatArray( 0.13 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_05" ] }
+tracks/2/type = "method"
+tracks/2/path = NodePath("../..")
 tracks/2/interp = 1
 tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0, 0.06, 0.09, 0.12, 0.15, 0.18 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1 ), "update":0, "values":[ Vector2( 0, 0 ), Vector2( 30, 0 ), Vector2( 50, 0 ), Vector2( 60, 0 ), Vector2( 66, 0 ), Vector2( 72, 0 ) ] }
+tracks/2/keys = { "times":FloatArray( 0.13 ), "transitions":FloatArray( 1 ), "values":[ { "args":[ 72 ], "method":"_move" } ] }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="SampleLibrary" id=9]
 
-resource/name = "Kiryoku_Attack3_Left"
-length = 0.24
-loop = false
-loop_interpolation = true
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("../../Kiryoku_Sprite:offset")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.06, 0.09, 0.12, 0.15, 0.18 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1 ), "update":0, "values":[ Vector2( 0, 0 ), Vector2( -30, 0 ), Vector2( -50, 0 ), Vector2( -60, 0 ), Vector2( -66, 0 ), Vector2( -72, 0 ) ] }
-tracks/1/type = "value"
-tracks/1/path = NodePath("../../Kiryoku_Sprite:frame")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 57, 58, 59, 60, 61, 62, 58, 57 ] }
-tracks/2/type = "value"
-tracks/2/path = NodePath("../../SE_Attack:play/play")
-tracks/2/interp = 1
-tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0.06 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kioku_Keyblade_00" ] }
+samples/Kiryoku_02 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 45 ) }
+samples/Kiryoku_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 46 ) }
+samples/Kiryoku_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 47 ) }
+samples/Kiryoku_05 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 48 ) }
+samples/Kiryoku_06 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 49 ) }
+samples/Kiryoku_09 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 50 ) }
 
-[sub_resource type="SampleLibrary" id=14]
+[sub_resource type="SampleLibrary" id=10]
 
-samples/Kiryoku_06 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 83 ) }
-samples/Kiryoku_02 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 79 ) }
-samples/Kiryoku_09 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 84 ) }
-samples/Kiryoku_05 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 82 ) }
-samples/Kiryoku_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 81 ) }
-samples/Kiryoku_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 80 ) }
+samples/Kiryoku_Keyblade_Hit1 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 51 ) }
+samples/Kiryoku_Keyblade_Hit2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 52 ) }
+samples/Kiryoku_Keyblade_Swing = { "db":0.0, "pitch":1.0, "sample":ExtResource( 53 ) }
 
-[sub_resource type="SampleLibrary" id=15]
+[sub_resource type="SampleLibrary" id=11]
 
-samples/Ground_walk = { "db":-25.0, "pitch":1.0, "sample":ExtResource( 85 ) }
+samples/Ground_walk = { "db":-25.0, "pitch":1.0, "sample":ExtResource( 54 ) }
 
-[node name="Kiryoku" type="Control"]
+[node name="Kiryoku" type="KinematicBody2D"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 285.0
-margin/bottom = 480.0
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
 script/script = ExtResource( 1 )
 player_speed = 5
-limit_left = -285
+limit_left = -300
 limit_right = 540
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( 310, 245 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
 
 [node name="Kiryoku_Sprite" type="AnimatedSprite" parent="."]
 
-frames = SubResource( 1 )
+frames = SubResource( 2 )
 animation = "default"
 centered = false
 
+[node name="Actions" type="Node" parent="."]
+
+[node name="ComboTimer" type="Timer" parent="Actions"]
+
+process_mode = 0
+wait_time = 0.7
+one_shot = true
+autostart = false
+
 [node name="anims" type="Node" parent="."]
 
-[node name="Kiryoku_Still_Right" type="AnimationPlayer" parent="anims"]
+[node name="Still" type="AnimationPlayer" parent="anims"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("")
-anims/Kiryoku_Still_Right = SubResource( 2 )
+anims/Still = SubResource( 3 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="Kiryoku_Still_Left" type="AnimationPlayer" parent="anims"]
+[node name="Walk" type="AnimationPlayer" parent="anims"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("")
-anims/Kiryoku_Still_Left = SubResource( 3 )
+anims/Walk = SubResource( 4 )
+next/Walk = ""
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="Kiryoku_Walk_Right" type="AnimationPlayer" parent="anims"]
+[node name="Guard" type="AnimationPlayer" parent="anims"]
 
-playback/process_mode = 1
+playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("")
-anims/Kiryoku_Walk_Right = SubResource( 4 )
+anims/Guard = SubResource( 5 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="Kiryoku_Walk_Left" type="AnimationPlayer" parent="anims"]
+[node name="Attack" type="AnimationPlayer" parent="anims"]
 
-playback/process_mode = 1
+playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("")
-anims/Kiryoku_Walk_Left = SubResource( 5 )
+anims/Attack1 = SubResource( 6 )
+anims/Attack2 = SubResource( 7 )
+anims/Attack3 = SubResource( 8 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="Kiryoku_Guard_Right" type="AnimationPlayer" parent="anims"]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("")
-anims/Kiryoku_Guard_Right = SubResource( 6 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = ""
-
-[node name="Kiryoku_Guard_Left" type="AnimationPlayer" parent="anims"]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("")
-anims/Kiryoku_Guard_Left = SubResource( 7 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = ""
-
-[node name="Kiryoku_Attack1_Right" type="AnimationPlayer" parent="anims"]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("")
-anims/Kiryoku_Attack1_Right = SubResource( 8 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = ""
-
-[node name="Kiryoku_Attack1_Left" type="AnimationPlayer" parent="anims"]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("")
-anims/Kiryoku_Attack1_Left = SubResource( 9 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = ""
-
-[node name="Kiryoku_Attack2_Right" type="AnimationPlayer" parent="anims"]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("")
-anims/Kiryoku_Attack2_Right = SubResource( 10 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = ""
-
-[node name="Kiryoku_Attack2_Left" type="AnimationPlayer" parent="anims"]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("")
-anims/Kiryoku_Attack2_Left = SubResource( 11 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = ""
-
-[node name="Kiryoku_Attack3_Right" type="AnimationPlayer" parent="anims"]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("")
-anims/Kiryoku_Attack3_Right = SubResource( 12 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = ""
-
-[node name="Kiryoku_Attack3_Left" type="AnimationPlayer" parent="anims"]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("")
-anims/Kiryoku_Attack3_Left = SubResource( 13 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = ""
-
-[node name="SE_Attack" type="SamplePlayer" parent="."]
+[node name="Voice" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 14 )
+config/samples = SubResource( 9 )
+default/volume_db = 0.0
+default/pitch_scale = 1.0
+default/pan = 0.0
+default/depth = 0.0
+default/height = 0.0
+default/filter/type = 0
+default/filter/cutoff = 5000.0
+default/filter/resonance = 1.0
+default/filter/gain = 1.0
+default/reverb_room = 2
+default/reverb_send = 0.0
+default/chorus_send = 0.0
+
+[node name="Weapon" type="SamplePlayer" parent="."]
+
+config/polyphony = 1
+config/samples = SubResource( 10 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0
@@ -534,7 +323,7 @@ default/chorus_send = 0.0
 [node name="SE_General" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 15 )
+config/samples = SubResource( 11 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0

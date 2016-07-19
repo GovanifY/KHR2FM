@@ -16,8 +16,7 @@ Player = NodePath("Battlers/Kiryoku")
 
 [node name="Kiryoku" parent="BattlePlan/Battlers" instance=ExtResource( 3 )]
 
-margin/left = -180.0
-margin/right = 105.0
+transform/pos = Vector2( -120, 0 )
 
 [node name="Yuugure" parent="BattlePlan/Battlers" instance=ExtResource( 4 )]
 

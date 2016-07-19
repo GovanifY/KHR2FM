@@ -9,11 +9,6 @@ export(NodePath) var Player = null
 # Instance members
 onready var InfoBar = get_node("InfoBar")
 
-var BattleState = {
-	"battle" : false,
-	"qte" : false
-}
-
 ######################
 ### Core functions ###
 ######################
@@ -21,37 +16,24 @@ func _ready():
 	# Important checks
 	assert(Player != null && !Player.is_empty())
 
-	# Node fetching
+	# Preparing Player
 	Player = get_node(Player)
+	Player.set_process_input(false)
 
-	# Start Infobar animation
-	InfoBar.init()
-	InfoBar.connect("dismiss", self, "_battle_begin")
-	InfoBar.display(info_message)
-
-	# Démarrer les procès necessaires
-	set_process_input(true) # input
-	set_process(true)       # frame-by-frame
-
-func _input(event):
-	# Input a considérer ssi on est en mode Battle
-	if BattleState.battle:
-		Player.handle_input(event)
-
-func _process(delta):
-	### Actions pour Player ###
-	Player.do_actions()
-	Player.do_limit_pos()
-
-	### Actions pour les ennemis ###
-	# TODO
+	init_battle()
 
 #######################
 ### Signal routines ###
 #######################
 func _battle_begin():
-	BattleState.battle = true
+	Player.set_process_input(true)
 
 ###############
 ### Methods ###
 ###############
+# Initializes pre-battle environment. Useful when controlling BattlePlan as a child
+func init_battle():
+	# Start Infobar animation
+	InfoBar.init()
+	InfoBar.connect("dismiss", self, "_battle_begin")
+	InfoBar.display(info_message)

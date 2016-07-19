@@ -1,4 +1,7 @@
-extends Control
+extends KinematicBody2D
+
+# Constants
+const Battle_Action = preload("res://GAME/SCRIPTS/Battle/Battle_Action.gd")
 
 # Export values
 export(int, 1, 20) var player_speed = 5
@@ -13,19 +16,18 @@ var Data = {
 	"height" : 0,
 	# Nodes
 	"anims"  : null,     # Node type "Node" qui ne contient QUE DES "AnimationPlayer"
-	"sprite" : null      # Node type "Sprite"
+	"sprite" : null,     # Node type "Sprite" ou "AnimatedSprite"
+	"timer"  : null
 }
 
 # Status des actions du Player
 var Status = {
-	"direction" : "",     # String qui s'ajoute à la fin de chaque nom d'anim
-	"action"    : null,   # L'animation executée (Still, Walk...)
-	"guard"     : false,  # Boolean pour commencer l'action "Guard"
-	"guarding"  : false,  # Est-on protégé des attaques?
-	"moving"    : false,  # Boolean qui indique si le joueur bouge
-	"attack"	: 0,      # Integer qui défini l'attaque actuelle
-	"hit"		: false   # Boolean qui défini si le joueur attaque
+	"action" : null,   # L'animation executée (Still, Walk...)
+	"lock"   : false,
+	"motion" : 0       # Integer pour l'abscisse du mouvement
 }
+
+var Actions = {}
 
 ######################
 ### Core functions ###
@@ -37,110 +39,88 @@ func _ready():
 	Data.height = get_pos().y
 	Data.anims = get_node("anims")
 	Data.sprite = get_node(Data.name + "_Sprite")
+	Data.timer = get_node("Actions/ComboTimer")
 
-	# Connection de "signals" pour Guard
-	for anim in Data.anims.get_children():
-		if (anim.get_name() == Data.name + "_Guard_Left" ||
-			anim.get_name() == Data.name + "_Guard_Right"):
-			anim.connect("finished", self, "_end_guard")
+	# Adding "Guard"
+	Actions.guard = Battle_Action.new(Data.anims, "Guard", "cancel")
+	Actions.guard.set_event("pressed", true)
+	Actions.guard.set_event("echo", false)
 
-	for anim in Data.anims.get_children():
-		for i in range(1,4):
-			if (anim.get_name() == Data.name + "_Attack" + str(i) + "_Left" ||
-				anim.get_name() == Data.name + "_Attack" + str(i) + "_Right"):
-				anim.connect("finished", self, "_end_attack")
-	# Direction par défaut
-	Status.direction = "Right"
+	# Adding "Attack"
+	Actions.attack = Battle_Action.new(Data.anims, "Attack", "enter", 3)
+	Actions.attack.set_timer(Data.timer)
+	Actions.attack.set_event("pressed", true)
+	Actions.attack.set_event("echo", false)
 
-## is_ functions
-func _is_moving():
-	return Status.moving
+	# Connecting Actions' signals
+	for act in Actions:
+		Actions[act].connect("finished", self, "_play_still")
 
-func _is_guarding():
-	return Status.guard || Status.guarding
+	# Player gains control
+	_play_still()
+	set_process_input(true)
+	set_fixed_process(true)
 
-func _is_attacking():
-	return Status.attack || Status.hit
-
-## do_ functions
-func _do_move():
-	var mod = 1
-	if Status.direction == "Left": mod = -1
-
-	var distance = Data.speed * mod
-	play_anim("Walk")
-	set_pos(Vector2(get_pos().x + distance, Data.height))
-
-func _do_guard():
-	if !Status.guarding:
-		play_anim("Guard")
-		Status.guarding = true
-
-func _do_attack():
-	if !Status.hit:
-		play_anim("Attack" + str(Status.attack))
-		Status.hit = true
-
-#######################
-### Signal routines ###
-#######################
-func _end_guard():
-	Status.guarding = false
-	Status.guard = false
-
-func _end_attack():
-	Status.attack = 0
-	Status.hit = false
-
-###############
-### Methods ###
-###############
-## Input
-func handle_input(event):
-	# Pressed, non-repeating Input check (for very specific actions)
-	if event.is_pressed() && !event.is_echo():
-		if !Status.guarding:
-			Status.guard = event.is_action("cancel")
-		if !Status.hit && Status.attack < 3 && event.is_action("enter"):
-			Status.attack = Status.attack+1
+func _input(event):
+	# Handling Actions
+	if !Status.lock:
+		for act in Actions:
+			if Actions[act].check_event(event):
+				_action_lock()
+				Status.action.stop()
+				Actions[act].take_event(event)
 
 	# Simple Input check
 	var left    = Input.is_action_pressed("ui_left")
 	var right   = Input.is_action_pressed("ui_right")
-	var confirm = Input.is_action_pressed("enter")
 
 	# déterminer la priorité de direction
 	if left && right:
-		left  = (Status.direction == "Left")
+		left  = Data.sprite.is_flipped_h()
 		right = !left
 
 	# Indiquer la direction finale
-	if left:
-		Status.direction = "Left"
-		Status.moving    = true
-	elif right:
-		Status.direction = "Right"
-		Status.moving    = true
+	if left || right:
+		Data.sprite.set_flip_h(left)
+		Status.motion = Data.speed
 	else:
-		Status.moving    = false
+		Status.motion = 0
 
+func _fixed_process(delta):
+	# FIXME: Swap this crap with physics-based walls
+	do_limit_pos()
+
+	# Si le player doit bouger
+	if Status.motion != 0:
+		play_anim("Walk")
+		var motion = _move(Status.motion)
+
+	if Data.timer.get_time_left() > 0:
+		print(Data.timer.get_time_left())
+
+# Custom move() operation
+func _move(x):
+	if Data.sprite.is_flipped_h():
+		x *= -1
+	return move(Vector2(x, Data.height))
+
+func _action_lock():
+	Status.lock = true
+
+func _action_unlock():
+	Status.lock = false
+
+#######################
+### Signal routines ###
+#######################
+func _play_still():
+	_action_unlock()
+	play_anim("Still")
+
+###############
+### Methods ###
+###############
 ## Actions
-func do_actions():
-	# L'anim de garde ("X"), tout est stoppé lorsqu'on la joue
-	if _is_guarding():
-		_do_guard()
-		return
-	# L'anim' d'attaque("C"), idem
-	if _is_attacking():
-		_do_attack()
-		return
-
-	# Si le player doit bouger ou pas
-	if _is_moving():
-		_do_move()
-	else:
-		play_anim("Still")
-
 func do_limit_pos():
 	if (get_pos().x <= limit_left):
 		set_pos(Vector2(limit_left, Data.height))
@@ -155,11 +135,13 @@ func stop_all_anims():
 		anim.stop()
 
 func play_anim(action_name):
-	var anim_name = Data.name + "_" + action_name + "_" + Status.direction
-	var anim_node = Data.anims.get_node(anim_name)
+	var anim_node = Data.anims.get_node(action_name)
 
 	if !anim_node.is_playing():
 		if Status.action != null:
 			Status.action.stop()
 		Status.action = anim_node
-		Status.action.play(anim_name)
+		Status.action.play(action_name)
+		return true
+
+	return false
