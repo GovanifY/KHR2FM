@@ -106,6 +106,17 @@ func _action_lock():
 func _action_unlock():
 	Status.lock = false
 
+# Ok from now on I might add dirty code and let you correct that mah friend Key
+func _random_se():
+	var rng = randi() % 3
+	var name=""
+	if rng==0:
+		name="Kiryoku_05"
+	elif rng==1:
+		name="Kiryoku_06"
+	elif rng==2:
+		name="Kiryoku_09"
+	get_node("Voice").play(name)
 #######################
 ### Signal routines ###
 #######################
@@ -141,3 +152,4 @@ func play_anim(action_name):
 		return true
 
 	return false
+

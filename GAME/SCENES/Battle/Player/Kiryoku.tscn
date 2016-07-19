@@ -174,16 +174,16 @@ tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.06, 0.13, 0.17, 0.21, 0.25, 0.29, 0.33, 0.38 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 24, 25, 27, 28, 29, 30, 31, 27, 26 ] }
-tracks/1/type = "value"
-tracks/1/path = NodePath("../../Voice:play/play")
+tracks/1/type = "method"
+tracks/1/path = NodePath("../..")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0.13 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_05" ] }
+tracks/1/keys = { "times":FloatArray( 0.13 ), "transitions":FloatArray( 1 ), "values":[ { "args":[ 72 ], "method":"_move" } ] }
 tracks/2/type = "method"
 tracks/2/path = NodePath("../..")
 tracks/2/interp = 1
 tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0.13 ), "transitions":FloatArray( 1 ), "values":[ { "args":[ 72 ], "method":"_move" } ] }
+tracks/2/keys = { "times":FloatArray( 0.13 ), "transitions":FloatArray( 1 ), "values":[ { "args":[  ], "method":"_random_se" } ] }
 
 [sub_resource type="SampleLibrary" id=9]
 
@@ -226,6 +226,7 @@ _update_shape_index = 0
 
 frames = SubResource( 2 )
 animation = "default"
+frame = 27
 centered = false
 
 [node name="Actions" type="Node" parent="."]
@@ -233,7 +234,7 @@ centered = false
 [node name="ComboTimer" type="Timer" parent="Actions"]
 
 process_mode = 0
-wait_time = 0.5
+wait_time = 0.7
 one_shot = true
 autostart = false
 
