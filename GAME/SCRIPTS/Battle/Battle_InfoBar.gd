@@ -22,13 +22,14 @@ func _input(event):
 ### Signal routines ###
 #######################
 func _display(message):
-	get_node("Slide").disconnect("finished", self, "_display")
+	var slide = get_node("Slide")
+	slide.disconnect("finished", self, "_display")
 	InfoText.scroll(message)
+	slide.connect("finished", self, "emit_signal", ["dismiss"])
 
 func _dismiss():
 	set_process_input(false)
 	get_node("Slide").play("Out")
-	emit_signal("dismiss")
 
 ###############
 ### Methods ###
