@@ -11,8 +11,6 @@ export(int) var limit_right = 877
 # Données importantes sur le player
 var Data = {
 	# Valeurs variées
-	"name"   : "",       # Nom du personnage
-	"speed"  : 0,        # Vitesse (en pixels)
 	"height" : 0,
 	# Nodes
 	"anims"  : null,     # Node type "Node" qui ne contient QUE DES "AnimationPlayer"
@@ -34,11 +32,9 @@ var Actions = {}
 ######################
 func _ready():
 	# Initialization du Player
-	Data.name = get_name()
-	Data.speed = player_speed
 	Data.height = get_pos().y
 	Data.anims = get_node("anims")
-	Data.sprite = get_node(Data.name + "_Sprite")
+	Data.sprite = get_node(get_name() + "_Sprite")
 	Data.timer = get_node("Actions/ComboTimer")
 
 	# Adding "Guard"
@@ -82,7 +78,7 @@ func _input(event):
 	# Indiquer la direction finale
 	if left || right:
 		Data.sprite.set_flip_h(left)
-		Status.motion = Data.speed
+		Status.motion = player_speed
 	else:
 		Status.motion = 0
 
