@@ -234,7 +234,7 @@ centered = false
 [node name="ComboTimer" type="Timer" parent="Actions"]
 
 process_mode = 0
-wait_time = 0.7
+wait_time = 0.5
 one_shot = true
 autostart = false
 
