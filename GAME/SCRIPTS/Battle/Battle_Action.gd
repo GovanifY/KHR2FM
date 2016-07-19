@@ -82,6 +82,7 @@ func _inc_combo():
 func _end_combo():
 	Course.combo = false
 	Course.counter = 0
+	_end_action()
 
 func _end_action():
 	emit_signal("finished")
