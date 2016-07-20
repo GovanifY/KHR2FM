@@ -13,9 +13,9 @@ var Data = {
 	# Valeurs variées
 	"height" : 0,
 	# Nodes
-	"anims"  : null,     # Node type "Node" qui ne contient QUE DES "AnimationPlayer"
-	"sprite" : null,     # Node type "Sprite" ou "AnimatedSprite"
-	"timer"  : null
+	"anims"  : null,  # Node type "Node" qui ne contient QUE DES "AnimationPlayer"
+	"sprite" : null,  # Node type "Sprite" ou "AnimatedSprite"
+	"timer"  : null   # Node type "Timer" pour les combo
 }
 
 # Status des actions du Player
@@ -106,17 +106,10 @@ func _action_lock():
 func _action_unlock():
 	Status.lock = false
 
-# Ok from now on I might add dirty code and let you correct that mah friend Key
-func _random_se():
-	var rng = randi() % 3
-	var name=""
-	if rng==0:
-		name="Kiryoku_05"
-	elif rng==1:
-		name="Kiryoku_06"
-	elif rng==2:
-		name="Kiryoku_09"
-	get_node("Voice").play(name)
+func _random_voice(snd_arr):
+	var rng = randi() % snd_arr.size()
+	get_node("Voice").play(snd_arr[rng])
+
 #######################
 ### Signal routines ###
 #######################
@@ -127,7 +120,6 @@ func _play_still():
 ###############
 ### Methods ###
 ###############
-## Actions
 func do_limit_pos():
 	if (get_pos().x <= limit_left):
 		set_pos(Vector2(limit_left, Data.height))
@@ -152,4 +144,3 @@ func play_anim(action_name):
 		return true
 
 	return false
-

@@ -183,7 +183,7 @@ tracks/2/type = "method"
 tracks/2/path = NodePath("../..")
 tracks/2/interp = 1
 tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0.13 ), "transitions":FloatArray( 1 ), "values":[ { "args":[  ], "method":"_random_se" } ] }
+tracks/2/keys = { "times":FloatArray( 0.13 ), "transitions":FloatArray( 1 ), "values":[ { "args":[ StringArray( "Kiryoku_05", "Kiryoku_06", "Kiryoku_09" ) ], "method":"_random_voice" } ] }
 
 [sub_resource type="SampleLibrary" id=9]
 
@@ -226,7 +226,6 @@ _update_shape_index = 0
 
 frames = SubResource( 2 )
 animation = "default"
-frame = 28
 centered = false
 
 [node name="Actions" type="Node" parent="."]
