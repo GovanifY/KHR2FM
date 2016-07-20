@@ -14,11 +14,6 @@ Player = NodePath("Battlers/Kiryoku")
 
 [node name="Fog" parent="BattlePlan/Foreground" instance=ExtResource( 2 )]
 
-[node name="Fog_texture" parent="BattlePlan/Foreground/Fog"]
-
-margin/left = -878.0
-margin/right = 0.0
-
 [node name="Selected" parent="BattlePlan/Commands"]
 
 editor/display_folded = false
@@ -31,4 +26,3 @@ transform/pos = Vector2( -120, 0 )
 
 
 [editable path="BattlePlan"]
-[editable path="BattlePlan/Foreground/Fog"]
