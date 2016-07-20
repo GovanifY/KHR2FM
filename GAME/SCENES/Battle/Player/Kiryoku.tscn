@@ -178,7 +178,7 @@ tracks/1/type = "method"
 tracks/1/path = NodePath("../..")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0.13 ), "transitions":FloatArray( 1 ), "values":[ { "args":[ 72 ], "method":"_move" } ] }
+tracks/1/keys = { "times":FloatArray( 0.17, 0.21, 0.25, 0.29, 0.33 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ { "args":[ 30 ], "method":"_move" }, { "args":[ 20 ], "method":"_move" }, { "args":[ 10 ], "method":"_move" }, { "args":[ 6 ], "method":"_move" }, { "args":[ 6 ], "method":"_move" } ] }
 tracks/2/type = "method"
 tracks/2/path = NodePath("../..")
 tracks/2/interp = 1
@@ -226,7 +226,7 @@ _update_shape_index = 0
 
 frames = SubResource( 2 )
 animation = "default"
-frame = 27
+frame = 28
 centered = false
 
 [node name="Actions" type="Node" parent="."]
