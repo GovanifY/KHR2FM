@@ -44,7 +44,7 @@ playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/Left = SubResource( 1 )
 playback/active = true
-playback/speed = 0.3
+playback/speed = 0.25
 blend_times = [  ]
 autoplay = "Left"
 
