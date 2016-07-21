@@ -8,17 +8,22 @@ export(NodePath) var Player = null
 
 # Instance members
 onready var InfoBar = get_node("InfoBar")
+var DefaultPos = Vector2Array()  # Vector2Array of size 3 (left, center, right)
 var Battlers = []
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
+	# New positions for the main Battlers
+	update_positions()
+
 	# Preparing Player
 	if _is_nodepath(Player):
 		Player = get_node(Player)
 		if _is_battler(Player):
 			Player.set_process_input(false)
+			Player.set_pos(Vector2(DefaultPos[0]))
 			Battlers.push_back(Player)
 
 	# Battlers should stand down until further notice
@@ -57,6 +62,21 @@ static func _is_battler(node):
 ###############
 ### Methods ###
 ###############
+# Updates the default positions to put our Battlers
+func update_positions():
+	DefaultPos.resize(3)
+	DefaultPos[0] = OS.get_video_mode_size()
+
+	# Adjusting Y (Height)
+	DefaultPos[0].y = int(DefaultPos[0].y) >> 1
+	DefaultPos[1] = DefaultPos[0]
+	DefaultPos[2] = DefaultPos[0]
+
+	# Adjusting X (Length)
+	DefaultPos[1].x = int(DefaultPos[1].x) >> 1
+	DefaultPos[0].x = int(DefaultPos[0].x) >> 3
+	DefaultPos[2].x -= DefaultPos[0].x
+
 # Initializes pre-battle environment. Useful when controlling BattlePlan as a child
 func init_battle():
 	# Start Infobar animation

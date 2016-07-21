@@ -1,6 +1,5 @@
 # Signals
-#signal started
-signal combo
+signal combo(name, counter)
 signal finished
 
 # Timers
@@ -9,22 +8,18 @@ var ComboTimer = null
 # Properties of the action to be setup
 var Properties = {
 	"action" : null,  # InputAction to be linked to
-	"name"   : null,  # Name of the action
-	"count"  : 0,     # Number of subsequent actions
-	"anim"   : null   # Animation node
+	"name"   : null,
+	"count"  : 0     # Number of subsequent actions
 }
 var Callback = {
 	"active" : false,
 	"fn"     : null,
 	"args"   : null
 }
-
 var IEvent = {
 	"pressed" : false,
 	"echo"    : false
 }
-# List of animation names to load
-var AnimList = []
 
 # Temporary data to keep updating as everything goes along
 var Course = {
@@ -36,30 +31,18 @@ var Course = {
 ### Core functions ###
 ######################
 # Assembles input data to create an action; shouldn't do a thing if data is insufficient
-func _init(anims, name, action, count=0):
+func _init(name, action, count=1):
 	# Checking input
-	assert(anims != null)
 	assert(typeof(action) == TYPE_STRING && !action.empty())
 	assert(typeof(name)   == TYPE_STRING)
-	assert(typeof(count)  == TYPE_INT && count >= 0)
+	assert(typeof(count)  == TYPE_INT && count > 0)
 
 	# Assembling data
-	#set_name("Action" + name)
+	Properties.name = name
 	Properties.action = action
-	Properties.anim = anims.get_node(name)
-
-	if count > 0:
-		Properties.count = count
-		for i in range(1, count+1):
-			AnimList.push_back("%s%d" % [name, i])
-	else:
-		Properties.count = 1
-		AnimList.push_back(name)
+	Properties.count = count
 
 	# TODO: abort if data is insufficient
-	# Connecting animation
-	Properties.anim.connect("finished", self, "_end_action")
-
 	return true
 
 func _start_timer():
@@ -79,7 +62,6 @@ func _inc_combo():
 	if Course.combo:
 		_start_timer()
 		Course.counter += 1
-		#emit_signal("combo")
 	return true
 
 #######################
@@ -122,11 +104,11 @@ func is_pressed(event):
 
 # Action control
 func check_event(event):
-	return event.is_action(Properties.action) && is_pressed(event) && is_echo(event)
+	return event.is_action(Properties.action) && (is_pressed(event) && is_echo(event))
 
 func take_event(event):
 	if Course.counter < Properties.count:
-		Properties.anim.play(AnimList[Course.counter])
+		emit_signal("combo", Properties.name, Course.counter)
 		if Callback.active:
 			Callback.fn.call_func(Callback.args)
 		_inc_combo()

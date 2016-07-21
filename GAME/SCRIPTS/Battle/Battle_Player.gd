@@ -8,8 +8,6 @@ export(int, 1, 20) var player_speed = 5
 
 # Données importantes sur le player
 var Data = {
-	# Valeurs variées
-	"height" : 0,
 	# Nodes
 	"anims"  : null,  # Node type "Node" qui ne contient QUE DES "AnimationPlayer"
 	"sprite" : null,  # Node type "Sprite" ou "AnimatedSprite"
@@ -23,6 +21,7 @@ var Status = {
 	"motion" : 0       # Integer pour l'abscisse du mouvement
 }
 
+var AnimList = {}
 var Actions = {}
 
 ######################
@@ -30,25 +29,31 @@ var Actions = {}
 ######################
 func _ready():
 	# Initialization du Player
-	Data.height = get_pos().y
 	Data.anims = get_node("anims")
 	Data.sprite = get_node(get_name() + "_Sprite")
 	Data.timer = get_node("Actions/ComboTimer")
 
 	# Adding "Guard"
-	Actions.guard = Battle_Action.new(Data.anims, "Guard", "cancel")
+	Actions.guard = Battle_Action.new("Guard", "cancel")
 	Actions.guard.set_event("pressed", true)
 	Actions.guard.set_event("echo", false)
 
 	# Adding "Attack"
-	Actions.attack = Battle_Action.new(Data.anims, "Attack", "enter", 3)
+	Actions.attack = Battle_Action.new("Attack", "enter", 3)
 	Actions.attack.set_timer(Data.timer)
 	Actions.attack.set_event("pressed", true)
 	Actions.attack.set_event("echo", false)
 
-	# Connecting Actions' signals
 	for act in Actions:
+		# Connecting Actions' signals
+		var action_name = act.capitalize()
+		var action_anim = Data.anims.get_node(action_name)
+		action_anim.connect("finished", Actions[act], "_end_action")
+		Actions[act].connect("combo", self, "_play_action")
 		Actions[act].connect("finished", self, "_play_still")
+
+		# Grabbing Action's animation list
+		AnimList[action_name] = action_anim.get_animation_list()
 
 	# Player gains control
 	_play_still()
@@ -65,8 +70,8 @@ func _input(event):
 				Actions[act].take_event(event)
 
 		# Simple Input check
-		var left    = Input.is_action_pressed("ui_left")
-		var right   = Input.is_action_pressed("ui_right")
+		var left  = Input.is_action_pressed("ui_left")
+		var right = Input.is_action_pressed("ui_right")
 
 		# déterminer la priorité de direction
 		if left && right:
@@ -91,11 +96,11 @@ func _fixed_process(delta):
 # Custom move() operation
 func _move(x):
 	if typeof(x) != TYPE_INT:
-		return Vector2()
+		return Vector2(0, 0)
 
 	if Data.sprite.is_flipped_h():
 		x *= -1
-	return move(Vector2(x, Data.height))
+	return move(Vector2(x, 0))
 
 func _action_lock():
 	Status.lock = true
@@ -114,6 +119,9 @@ func _play_still():
 	_action_unlock()
 	play_anim("Still")
 
+func _play_action(name, idx):
+	play_anim(name, AnimList[name][idx])
+
 ###############
 ### Methods ###
 ###############
@@ -124,14 +132,14 @@ func stop_all_anims():
 	for anim in all_anims:
 		anim.stop()
 
-func play_anim(action_name):
-	var anim_node = Data.anims.get_node(action_name)
+func play_anim(anim_name, idx = anim_name):
+	var anim_node = Data.anims.get_node(anim_name)
 
 	if !anim_node.is_playing():
 		if Status.action != null:
 			Status.action.stop()
 		Status.action = anim_node
-		Status.action.play(action_name)
+		Status.action.play(idx)
 		return true
 
 	return false

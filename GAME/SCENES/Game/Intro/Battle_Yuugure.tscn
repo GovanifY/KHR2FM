@@ -20,8 +20,6 @@ editor/display_folded = false
 
 [node name="Kiryoku" parent="BattlePlan/Battlers" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( -120, 0 )
-
 [node name="Yuugure" parent="BattlePlan/Battlers" instance=ExtResource( 4 )]
 
 
