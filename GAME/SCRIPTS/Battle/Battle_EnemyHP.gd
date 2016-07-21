@@ -9,7 +9,6 @@ var GreenBar = get_node("GreenBar")
 var SlideHit = get_node("SlideHit")
 
 func _set_HP(curHP):
-	var GreenBar = get_node("GreenBar")
 	Greenbar.set_scale(Vector2(curHP/100,0)
 
 func update():
