@@ -108,6 +108,11 @@ tracks/1/path = NodePath("../../Voice:play/play")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_02" ] }
+tracks/2/type = "method"
+tracks/2/path = NodePath("../..")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0.28 ), "transitions":FloatArray( 1 ), "values":[ { "args":[  ], "method":"_action_unlock" } ] }
 
 [sub_resource type="Animation" id=6]
 
@@ -243,7 +248,6 @@ _update_shape_index = 0
 
 frames = SubResource( 2 )
 animation = "default"
-frame = 29
 
 [node name="Actions" type="Node" parent="."]
 
