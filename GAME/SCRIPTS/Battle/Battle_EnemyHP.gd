@@ -5,13 +5,13 @@ extends CanvasLayer
 ######################
 
 var oldHP = 100
-var GreenBar = get_node("GreenBar")
-var SlideHit = get_node("SlideHit")
+onready var GreenBar = get_node("GreenBar")
+onready var SlideHit = get_node("SlideHit")
 
 func _set_HP(curHP):
-	Greenbar.set_scale(Vector2(curHP/100,0)
+	GreenBar.set_scale(Vector2(curHP/100,0))
 
-func update():
+func update(curHP):
 	while curHP > 100:
 		#TODO: Update for bubbles here
 		curHP = curHP - 100
@@ -21,3 +21,4 @@ func update():
 		#SlideHit is 2secs long so *2
 		SlideHit.seek((curHP/100)*2)
 	#TODO: Add Timer for life drawing anim and play SlideHit!
+	oldHP = curHP

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://GAME/SCENES/Battle/BattlePlan.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GAME/SCENES/Battle/ForeGround/Fog.tscn" type="PackedScene" id=2]
-[ext_resource path="res://GAME/SCENES/Battle/Player/Kiryoku.tscn" type="PackedScene" id=3]
-[ext_resource path="res://GAME/SCENES/Battle/Enemy/Yuugure.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Boss/Boss-Bubble.png" type="Texture" id=3]
+[ext_resource path="res://GAME/SCENES/Battle/Player/Kiryoku.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GAME/SCENES/Battle/Enemy/Yuugure.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Animation" id=1]
 
@@ -26,6 +27,15 @@ Player = NodePath("Battlers/Kiryoku")
 
 [node name="Fog" parent="BattlePlan/Foreground" instance=ExtResource( 2 )]
 
+[node name="EmtpyBubbles" type="Sprite" parent="BattlePlan/HUD/EnemyHP"]
+
+transform/pos = Vector2( 831, 22 )
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( -271, 0 )
+vframes = 2
+frame = 1
+
 [node name="SlideHit" type="AnimationPlayer" parent="BattlePlan/HUD/EnemyHP"]
 
 playback/process_mode = 1
@@ -37,9 +47,9 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="Kiryoku" parent="BattlePlan/Battlers" instance=ExtResource( 3 )]
+[node name="Kiryoku" parent="BattlePlan/Battlers" instance=ExtResource( 4 )]
 
-[node name="Yuugure" parent="BattlePlan/Battlers" instance=ExtResource( 4 )]
+[node name="Yuugure" parent="BattlePlan/Battlers" instance=ExtResource( 5 )]
 
 
 [editable path="BattlePlan"]
