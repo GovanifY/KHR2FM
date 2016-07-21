@@ -58,7 +58,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 35, 45 )
+extents = Vector2( 20, 30 )
 
 [sub_resource type="SpriteFrames" id=2]
 
@@ -207,13 +207,14 @@ samples/Ground_walk = { "db":-25.0, "pitch":1.0, "sample":ExtResource( 54 ) }
 [node name="Kiryoku" type="KinematicBody2D"]
 
 input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 310, 245 )
+shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 player_speed = 5
-limit_left = -300
-limit_right = 540
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 

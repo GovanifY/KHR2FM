@@ -13,6 +13,12 @@ var Properties = {
 	"count"  : 0,     # Number of subsequent actions
 	"anim"   : null   # Animation node
 }
+var Callback = {
+	"active" : false,
+	"fn"     : null,
+	"args"   : null
+}
+
 var IEvent = {
 	"pressed" : false,
 	"echo"    : false
@@ -98,6 +104,11 @@ func set_timer(value):
 	ComboTimer = value
 	ComboTimer.connect("timeout", self, "_end_combo")
 
+func set_callback(node, callback, args):
+	Callback.active = true
+	Callback.fn     = funcref(node, callback)
+	Callback.args   = args
+
 # InputEvent checks
 func is_echo(event):
 	if IEvent.echo:
@@ -114,9 +125,10 @@ func check_event(event):
 	return event.is_action(Properties.action) && is_pressed(event) && is_echo(event)
 
 func take_event(event):
-	#if !Properties.anim.is_playing()
 	if Course.counter < Properties.count:
 		Properties.anim.play(AnimList[Course.counter])
+		if Callback.active:
+			Callback.fn.call_func(Callback.args)
 		_inc_combo()
 		return true
 

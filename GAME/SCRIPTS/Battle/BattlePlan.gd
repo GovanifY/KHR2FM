@@ -8,17 +8,22 @@ export(NodePath) var Player = null
 
 # Instance members
 onready var InfoBar = get_node("InfoBar")
+var Battlers = []
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	# Important checks
-	assert(Player != null && !Player.is_empty())
-
 	# Preparing Player
-	Player = get_node(Player)
-	Player.set_process_input(false)
+	if _is_nodepath(Player):
+		Player = get_node(Player)
+		if _is_battler(Player):
+			Player.set_process_input(false)
+			Battlers.push_back(Player)
+
+	# Battlers should stand down until further notice
+	for battler in Battlers:
+		battler.set_fixed_process(false)
 
 	init_battle()
 
@@ -26,7 +31,28 @@ func _ready():
 ### Signal routines ###
 #######################
 func _battle_begin():
+	# Player gains control
 	Player.set_process_input(true)
+
+	# All Battlers
+	for battler in Battlers:
+		battler.set_fixed_process(true)
+
+########################
+### Helper functions ###
+########################
+# Checks if the given argument is a valid NodePath
+static func _is_nodepath(nodepath):
+	return (nodepath != null
+		&& typeof(nodepath) == TYPE_NODE_PATH && !nodepath.is_empty()
+	)
+
+# Checks if the given argument is a Battler Node
+static func _is_battler(node):
+	return (node != null
+		&& typeof(node) == TYPE_OBJECT && node.is_type("KinematicBody2D")
+		#&& node.get_script() != null && node.get_script().has_source_code()
+	)
 
 ###############
 ### Methods ###

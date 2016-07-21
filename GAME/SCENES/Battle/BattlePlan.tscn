@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://GAME/SCRIPTS/Battle/BattlePlan.gd" type="Script" id=1]
 [ext_resource path="res://GAME/SCENES/Battle/InfoBar.tscn" type="PackedScene" id=2]
@@ -8,6 +8,11 @@
 [sub_resource type="GDScript" id=1]
 
 script/source = "\nextends RichTextLabel\n\n# member variables here, example:\n# var a=2\n# var b=\"textvar\"\n\nfunc _ready():\n\tget_node(\".\").set_bbcode(tr(\"BATTLE_ATTACK\"))\n\t# Initialization here\n\tpass\n\n\n"
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 1, 240 )
 
 [node name="BattlePlan" type="Node2D"]
 
@@ -67,5 +72,36 @@ layer = 2
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
+
+[node name="Walls" type="StaticBody2D" parent="Battlers"]
+
+editor/display_folded = true
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 240 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 2 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 878, 240 )
+shapes/1/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Left" type="CollisionShape2D" parent="Battlers/Walls"]
+
+transform/pos = Vector2( 0, 240 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Right" type="CollisionShape2D" parent="Battlers/Walls"]
+
+transform/pos = Vector2( 878, 240 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 1
 
 

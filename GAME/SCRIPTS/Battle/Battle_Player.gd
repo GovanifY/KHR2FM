@@ -5,8 +5,6 @@ const Battle_Action = preload("res://GAME/SCRIPTS/Battle/Battle_Action.gd")
 
 # Export values
 export(int, 1, 20) var player_speed = 5
-export(int) var limit_left = 0
-export(int) var limit_right = 877
 
 # Données importantes sur le player
 var Data = {
@@ -66,36 +64,35 @@ func _input(event):
 				Status.action.stop()
 				Actions[act].take_event(event)
 
-	# Simple Input check
-	var left    = Input.is_action_pressed("ui_left")
-	var right   = Input.is_action_pressed("ui_right")
+		# Simple Input check
+		var left    = Input.is_action_pressed("ui_left")
+		var right   = Input.is_action_pressed("ui_right")
 
-	# déterminer la priorité de direction
-	if left && right:
-		left  = Data.sprite.is_flipped_h()
-		right = !left
+		# déterminer la priorité de direction
+		if left && right:
+			left  = Data.sprite.is_flipped_h()
+			right = !left
 
-	# Indiquer la direction finale
-	if left || right:
-		Data.sprite.set_flip_h(left)
-		Status.motion = player_speed
+		# Indiquer la direction finale
+		if left || right:
+			Data.sprite.set_flip_h(left)
+			Status.motion = player_speed
+		else:
+			Status.motion = 0
 	else:
 		Status.motion = 0
 
 func _fixed_process(delta):
-	# FIXME: Swap this crap with physics-based walls
-	do_limit_pos()
-
 	# Si le player doit bouger
 	if Status.motion != 0:
 		play_anim("Walk")
 		var motion = _move(Status.motion)
 
-	if Data.timer.get_time_left() > 0:
-		print(Data.timer.get_time_left())
-
 # Custom move() operation
 func _move(x):
+	if typeof(x) != TYPE_INT:
+		return Vector2()
+
 	if Data.sprite.is_flipped_h():
 		x *= -1
 	return move(Vector2(x, Data.height))
@@ -120,12 +117,6 @@ func _play_still():
 ###############
 ### Methods ###
 ###############
-func do_limit_pos():
-	if (get_pos().x <= limit_left):
-		set_pos(Vector2(limit_left, Data.height))
-	if (get_pos().x >= limit_right):
-		set_pos(Vector2(limit_right, Data.height))
-
 ## Réglage des animations
 func stop_all_anims():
 	# Chercher tous les Nodes d'animation
