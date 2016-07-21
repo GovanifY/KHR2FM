@@ -73,7 +73,7 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.1, 0.2, 0.3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ 0, 1, 2, 1 ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.1, 0.2, 0.3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":1, "values":[ 0, 1, 2, 1 ] }
 
 [sub_resource type="Animation" id=4]
 
@@ -85,7 +85,7 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.0666, 0.1, 0.1333, 0.1666, 0.2333, 0.2666, 0.3 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ), "update":0, "values":[ 3, 4, 5, 6, 7, 8, 9, 10 ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.0666, 0.1, 0.113334, 0.1333, 0.1666, 0.2333, 0.2666, 0.3 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 3, 4, 5, 0, 6, 7, 8, 9, 10 ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../../General:play/play")
 tracks/1/interp = 1
@@ -102,12 +102,17 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.0666, 0.1 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ 24, 25, 26 ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.0666, 0.1 ), "transitions":FloatArray( 1, 1, 1 ), "update":1, "values":[ 24, 25, 26 ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../../Voice:play/play")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_02" ] }
+tracks/2/type = "method"
+tracks/2/path = NodePath("../..")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0.3 ), "transitions":FloatArray( 1 ), "values":[ { "args":[  ], "method":"_action_unlock" } ] }
 
 [sub_resource type="Animation" id=6]
 
@@ -119,7 +124,7 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.0333, 0.0666, 0.1, 0.1333 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "update":0, "values":[ 14, 31, 15, 16, 17 ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.0333, 0.0666, 0.1, 0.1333 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "update":1, "values":[ 14, 31, 15, 16, 17 ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../../Weapon:play/play")
 tracks/1/interp = 1
@@ -156,7 +161,7 @@ tracks/1/type = "value"
 tracks/1/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 0.0333, 0.0666, 0.1333, 0.1666, 0.2, 0.2333 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1 ), "update":0, "values":[ 18, 19, 20, 21, 23, 24, 22 ] }
+tracks/1/keys = { "times":FloatArray( 0, 0.0333, 0.0666, 0.1333, 0.1666, 0.2, 0.2333 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 18, 19, 20, 21, 23, 24, 22 ] }
 tracks/2/type = "value"
 tracks/2/path = NodePath("../../Voice:play/play")
 tracks/2/interp = 1
@@ -183,7 +188,7 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.0333, 0.0666, 0.1, 0.1333, 0.1666, 0.2, 0.2333 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ), "update":0, "values":[ 25, 26, 27, 28, 29, 30, 26, 25 ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.0333, 0.0666, 0.1, 0.1333, 0.1666, 0.2, 0.2333 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 25, 26, 27, 28, 29, 30, 26, 25 ] }
 tracks/1/type = "method"
 tracks/1/path = NodePath("../..")
 tracks/1/interp = 1
