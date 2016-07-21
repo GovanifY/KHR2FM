@@ -1,6 +1,4 @@
 ### À ne pas oublier:
-* Faire les spritesets pour chaque personnage et qui dépende de chaque environnement (Battle, Worlds, etc…).
-Non, sérieux, ça coupe les temps de loading (test-only) et temps d'export, et, plus importantement, ça coupe le montant gigantesque qu'on utilise de VRAM.
 * Gestion des saves dans le splash(et global)
 * Gestion du Game over
 * Mettre plus de SE et les organiser par dossiers!
