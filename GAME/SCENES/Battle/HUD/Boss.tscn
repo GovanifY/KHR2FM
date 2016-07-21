@@ -17,12 +17,21 @@ transform/pos = Vector2( 540, 13 )
 texture = ExtResource( 1 )
 centered = false
 
-[node name="Boss-Bubble" type="Sprite" parent="."]
+[node name="FullBubbles" type="Sprite" parent="."]
 
-visibility/visible = false
-transform/pos = Vector2( 140, 200 )
+transform/pos = Vector2( 558.238, 22.2955 )
 texture = ExtResource( 2 )
 centered = false
+vframes = 2
+
+[node name="EmptyBubbles" type="Sprite" parent="."]
+
+visibility/visible = false
+transform/pos = Vector2( 558.238, 22.2955 )
+texture = ExtResource( 2 )
+centered = false
+vframes = 2
+frame = 1
 
 [node name="GreenBar" type="Sprite" parent="."]
 
