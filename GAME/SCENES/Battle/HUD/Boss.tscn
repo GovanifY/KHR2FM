@@ -19,14 +19,25 @@ centered = false
 
 [node name="Boss-Bubble" type="Sprite" parent="."]
 
+visibility/visible = false
 transform/pos = Vector2( 140, 200 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="Boss-Barre" type="Sprite" parent="."]
+[node name="GreenBar" type="Sprite" parent="."]
 
-transform/pos = Vector2( 540, 13 )
+transform/pos = Vector2( 541.924, 15.0531 )
 texture = ExtResource( 3 )
 centered = false
+vframes = 2
+
+[node name="RedBar" type="Sprite" parent="."]
+
+visibility/visible = false
+transform/pos = Vector2( 541.97, 15.0755 )
+texture = ExtResource( 3 )
+centered = false
+vframes = 2
+frame = 1
 
 
