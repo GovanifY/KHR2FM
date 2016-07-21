@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Boss/Boss-Fond.png" type="Texture" id=1]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Boss/Boss-Bubble.png" type="Texture" id=2]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Boss/Boss-Barre.png" type="Texture" id=3]
+
+[node name="Boss_HUD" type="CanvasLayer"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Boss-Fond" type="Sprite" parent="."]
+
+transform/pos = Vector2( 540, 13 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Boss-Bubble" type="Sprite" parent="."]
+
+transform/pos = Vector2( 140, 200 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Boss-Barre" type="Sprite" parent="."]
+
+transform/pos = Vector2( 540, 13 )
+texture = ExtResource( 3 )
+centered = false
+
+
