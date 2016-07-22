@@ -14,6 +14,10 @@ Player = NodePath("Battlers/Kiryoku")
 
 [node name="Fog" parent="BattlePlan/Foreground" instance=ExtResource( 2 )]
 
+[node name="EnemyHP" parent="BattlePlan/HUD"]
+
+editor/display_folded = true
+
 [node name="Kiryoku" parent="BattlePlan/Battlers" instance=ExtResource( 3 )]
 
 [node name="Yuugure" parent="BattlePlan/Battlers" instance=ExtResource( 4 )]
