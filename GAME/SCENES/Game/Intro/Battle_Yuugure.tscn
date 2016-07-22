@@ -11,12 +11,9 @@
 
 info_message = "INFO_INTRO_YUUGURE"
 Player = NodePath("Battlers/Kiryoku")
+Enemy = null
 
 [node name="Fog" parent="BattlePlan/Foreground" instance=ExtResource( 2 )]
-
-[node name="EnemyHP" parent="BattlePlan/HUD"]
-
-editor/display_folded = true
 
 [node name="Kiryoku" parent="BattlePlan/Battlers" instance=ExtResource( 3 )]
 
