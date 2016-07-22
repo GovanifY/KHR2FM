@@ -82,7 +82,7 @@ frame = 1
 
 [node name="GreenBar" type="Sprite" parent="HUD/EnemyHP"]
 
-transform/pos = Vector2( 854, 15 )
+transform/pos = Vector2( 854.024, 15.0081 )
 z/z = 1
 texture = ExtResource( 6 )
 centered = false
@@ -91,7 +91,7 @@ vframes = 2
 
 [node name="RedBar" type="Sprite" parent="HUD/EnemyHP"]
 
-transform/pos = Vector2( 854.046, 15.0224 )
+transform/pos = Vector2( 854.022, 15.0143 )
 texture = ExtResource( 6 )
 centered = false
 offset = Vector2( -312, 0 )
@@ -109,6 +109,7 @@ scale = Vector2( 1, 1 )
 [node name="Selected" type="Sprite" parent="HUD/Commands"]
 
 editor/display_folded = true
+transform/pos = Vector2( 4.6391, 0.418818 )
 texture = ExtResource( 7 )
 centered = false
 

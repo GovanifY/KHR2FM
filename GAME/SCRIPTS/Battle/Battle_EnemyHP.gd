@@ -10,7 +10,7 @@ onready var SlideHit = get_node("SlideHit")
 ######################
 func _ready():
 	#set maxHP to Boss HP here
-	pass	
+	pass
 func _set_HP(curHP):
 	GreenBar.set_scale(Vector2(curHP/100,0))
 
