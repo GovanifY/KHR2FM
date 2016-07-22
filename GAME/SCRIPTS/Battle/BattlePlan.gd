@@ -3,7 +3,7 @@ extends Node2D
 # Export values
 export(String) var info_message = "INFO_BATTLE_MESSAGE"
 export(NodePath) var Player = null
-#export(NodePath) var Enemy
+export(NodePath) var Enemy = null
 #export(int, 0, 20) var enemy_multiplier
 
 # Instance members
@@ -21,10 +21,19 @@ func _ready():
 	# Preparing Player
 	if _is_nodepath(Player):
 		Player = get_node(Player)
-		if _is_battler(Player):
-			Player.set_process_input(false)
-			Player.set_pos(Vector2(DefaultPos[0]))
-			Battlers.push_back(Player)
+	if _is_battler(Player):
+		Player.set_process_input(false)
+		Player.set_pos(Vector2(DefaultPos[0]))
+		Battlers.push_back(Player)
+
+	# Preparing Enemy
+	# TODO: This setup is currently for one-boss only. Prepare it for multiple, different enemies
+	if _is_nodepath(Player):
+		Enemy = get_node(Enemy)
+	if _is_battler(Enemy):
+		#Enemy.init_hp_or_something()
+		Enemy.set_pos(Vector2(DefaultPos[2]))
+		Battlers.push_back(Enemy)
 
 	# Battlers should stand down until further notice
 	for battler in Battlers:
