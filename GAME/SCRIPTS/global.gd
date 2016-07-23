@@ -68,7 +68,7 @@ func _process(delta):
 
 # Determines if the given string is valid
 func _is_valid_string(string):
-	return string != null && typeof(string) != TYPE_STRING && !string.empty()
+	return typeof(string) != TYPE_STRING && !string.empty()
 
 ###############
 ### Methods ###
