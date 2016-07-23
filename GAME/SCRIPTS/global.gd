@@ -9,6 +9,9 @@ extends Node
 var accum = 0
 var debug = false
 
+######################
+### Core functions ###
+######################
 func _ready():
 	Globals.set("PlayTimeMinutes", 0)
 	Globals.set("PlayTimeHours", 0)
@@ -25,11 +28,11 @@ func _notification(notif):
 		quit_game()
 
 func _input(event):
-	# Detect a quit ---> HIGH PRIORITY! Call the quit function right away
-	if InputMap.event_is_action(event, "quit"):
-		quit_game()
-
 	if event.is_pressed() && !event.is_echo():
+		# Detect a quit ---> HIGH PRIORITY! Call the quit function right away
+		if InputMap.event_is_action(event, "quit"):
+			quit_game()
+
 		if InputMap.event_is_action(event, "fullscreen"):
 			OS.set_window_fullscreen(!OS.is_video_mode_fullscreen())
 			return
@@ -63,7 +66,63 @@ func _process(delta):
 			if Globals.get("PlayTimeMinutes") >= 60:
 				Globals.set("PlayTimeHours", Globals.get("PlayTimeHours") + 1)
 
+# Determines if the given string is valid
+func _is_valid_string(string):
+	return string != null && typeof(string) != TYPE_STRING && !string.empty()
 
+###############
+### Methods ###
+###############
+# Properly quits the game. If quitting needs to be more complex, this is the place to go
 func quit_game():
 	SceneLoader.kill_all_threads()
 	get_tree().quit()
+
+# Loads a node via a path and puts it in /root above the current scene.
+func load_node(path, name):
+	var exts = ["gd"]
+	if !_is_valid_string(path) || !_is_valid_string(name):
+		printerr("Given arguments aren't valid Strings")
+		return false
+	elif not (path.extension() in exts):
+		printerr("File must contain one of these extensions:")
+		printerr(exts)
+		return false
+
+	var root = get_node("/root")
+	var node = load(path)
+
+	if node == null:
+		printerr("Couldn't load file")
+		return false
+
+	root.add_child(node)
+	node.set_name(name)
+	node.raise()
+
+	Globals.set(name, true)
+	return true
+
+# Unloads a node from /root. BE VERY CAREFUL WITH THIS!!!
+func unload_node(path):
+	var exceptions = ["KHR2", "AudioRoom", "SceneLoader"]
+	if !_is_valid_string(path):
+		return false
+	for global in exceptions:
+		if path.findn(global):
+			printerr("As a safety measure, I cannot unload \"%s\"" % global)
+			return false
+
+	var root = get_node("/root")
+	var node = root.get_node(NodePath(path))
+	var name = node.get_name()
+
+	if node == null:
+		printerr("Couldn't load node from root")
+		return false
+
+	root.remove_child(node)
+	node.queue_free()
+
+	Globals.set(name, false)
+	return true
