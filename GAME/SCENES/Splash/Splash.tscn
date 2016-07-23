@@ -1136,6 +1136,8 @@ autoplay = "Splash"
 
 [node name="SkynismSplash" type="Sprite" parent="."]
 
+visibility/visible = false
+visibility/opacity = 0.0
 texture = ExtResource( 2 )
 centered = false
 
@@ -1152,7 +1154,6 @@ stream/buffering_ms = 500
 
 [node name="WhiteBG" type="Sprite" parent="."]
 
-visibility/opacity = 0.0
 texture = ExtResource( 4 )
 centered = false
 
@@ -1169,86 +1170,67 @@ margin/bottom = 478.0
 
 [node name="CTS_00" type="Sprite" parent="Custom Title System"]
 
-visibility/opacity = 0.0
 texture = ExtResource( 5 )
 centered = false
 region_rect = Rect2( 567, 41, 69, 106 )
 
 [node name="CTS_02" type="Sprite" parent="Custom Title System"]
 
-visibility/opacity = 0.0
-transform/pos = Vector2( 20, 0 )
 texture = ExtResource( 6 )
 centered = false
 
 [node name="CTS_06" type="Sprite" parent="Custom Title System"]
 
-visibility/opacity = 0.0
-transform/pos = Vector2( 100, 70 )
-transform/scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 7 )
 centered = false
 region_rect = Rect2( 233, 74, 295, 104 )
 
 [node name="CTS_08" type="Sprite" parent="Custom Title System"]
 
-visibility/opacity = 0.0
-transform/pos = Vector2( 0, -200 )
 texture = ExtResource( 8 )
 centered = false
 
 [node name="CTS_09" type="Sprite" parent="Custom Title System"]
 
-visibility/opacity = 0.0
-transform/pos = Vector2( 0, 200 )
 texture = ExtResource( 9 )
 centered = false
 
 [node name="CTS_10" type="Sprite" parent="Custom Title System"]
 
+texture = ExtResource( 10 )
+centered = false
+
+[node name="CTS_07" type="Sprite" parent="Custom Title System"]
+
+texture = ExtResource( 11 )
+centered = false
+
+[node name="CTS_10_bis" type="Sprite" parent="Custom Title System"]
+
+visibility/visible = false
 visibility/opacity = 0.0
 transform/pos = Vector2( -100, -70 )
 transform/scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 10 )
 centered = false
 
-[node name="CTS_07" type="Sprite" parent="Custom Title System"]
-
-visibility/opacity = 0.0
-texture = ExtResource( 11 )
-centered = false
-
-[node name="CTS_10_bis" type="Sprite" parent="Custom Title System"]
-
-visibility/opacity = 0.0
-texture = ExtResource( 10 )
-centered = false
-
 [node name="CTS_15" type="Sprite" parent="Custom Title System"]
 
-visibility/opacity = 0.0
-transform/pos = Vector2( -30, 0 )
 texture = ExtResource( 12 )
 centered = false
 
 [node name="CTS_19" type="Sprite" parent="Custom Title System"]
 
-visibility/opacity = 0.0
-transform/pos = Vector2( 0, 20 )
 texture = ExtResource( 13 )
 centered = false
 
 [node name="CTS_20" type="Sprite" parent="Custom Title System"]
 
-visibility/opacity = 0.0
-transform/pos = Vector2( 0, 20 )
 texture = ExtResource( 14 )
 centered = false
 
 [node name="CTS_21" type="Sprite" parent="Custom Title System"]
 
-visibility/opacity = 0.0
-transform/pos = Vector2( 0, 20 )
 texture = ExtResource( 15 )
 centered = false
 
@@ -1311,7 +1293,6 @@ centered = false
 
 [node name="CTS_11" type="Sprite" parent="Custom Title System"]
 
-visibility/opacity = 0.0
 texture = ExtResource( 25 )
 centered = false
 
