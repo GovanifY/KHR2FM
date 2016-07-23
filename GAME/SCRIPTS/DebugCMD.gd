@@ -21,6 +21,8 @@ func _on_TextEdit_text_changed():
 	if msg == "":
 		return
 	if msg.find("\n\n") != -1:
-		_execute(msg)
+		_update_history("> " + str(_execute(msg))+ "\n")
 		get_node("TextEdit").set_text("")
 
+func _update_history(result):
+	get_node("Panel/RichTextLabel").add_text(result)
