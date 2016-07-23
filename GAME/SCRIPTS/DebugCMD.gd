@@ -4,7 +4,7 @@ extends Node2D
 func _ready():
 	pass
 
-func execute(input):
+func _execute(input):
 	#Basic thingy to return, have to be highly modded
 	var script = GDScript.new()
 	script.set_source_code("func code():\n\treturn " + input)
@@ -15,3 +15,15 @@ func execute(input):
 
 	return obj.code()
 
+
+func _on_TextEdit_text_changed():
+	var msg = get_node("TextEdit").get_text()
+	if msg.find("\n\n"):
+		_command_sent()
+
+func _command_sent():
+	var msg = get_node("TextEdit").get_text()
+	if msg == "":
+		return
+	_execute(msg)
+	get_node("TextEdit").set_text("")
