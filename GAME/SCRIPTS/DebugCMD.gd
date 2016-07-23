@@ -18,12 +18,9 @@ func _execute(input):
 
 func _on_TextEdit_text_changed():
 	var msg = get_node("TextEdit").get_text()
-	if msg.find("\n\n"):
-		_command_sent()
-
-func _command_sent():
-	var msg = get_node("TextEdit").get_text()
 	if msg == "":
 		return
-	_execute(msg)
+	if msg.find("\n\n"):
+		_execute(msg)
 	get_node("TextEdit").set_text("")
+
