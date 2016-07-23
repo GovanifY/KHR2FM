@@ -39,19 +39,7 @@ func _input(event):
 
 		# Debugging stuff, ignore this
 		if debug:
-			if InputMap.event_is_action(event, "debug_a"):
-				SceneLoader.add_scene("Splash/Splash.tscn")
-			elif InputMap.event_is_action(event, "debug_d"):
-				SceneLoader.add_scene("Game/Intro/Intro.tscn")
-			elif InputMap.event_is_action(event, "debug_e"):
-				SceneLoader.add_scene("Game/Intro/Aqua.tscn")
-			elif InputMap.event_is_action(event, "debug_f"):
-				SceneLoader.add_scene("Game/Intro/Battle_Yuugure.tscn")
-			elif InputMap.event_is_action(event, "debug_h"):
-				SceneLoader.add_scene("Demo/End_Demo.tscn")
-
-			if SceneLoader.is_there_a_scene():
-				SceneLoader.load_new_scene()
+			pass
 		return
 
 func _process(delta):
