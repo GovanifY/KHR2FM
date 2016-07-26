@@ -11,7 +11,7 @@
 
 info_message = "INFO_INTRO_YUUGURE"
 Player = NodePath("Battlers/Kiryoku")
-Enemy = null
+Enemy = NodePath("Battlers/Yuugure")
 
 [node name="Fog" parent="BattlePlan/Foreground" instance=ExtResource( 2 )]
 
