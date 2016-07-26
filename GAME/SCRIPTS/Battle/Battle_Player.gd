@@ -18,10 +18,13 @@ var Data = {
 # Status des actions du Player
 var Status = {
 	"action" : null,   # L'animation executée (Still, Walk...)
-	"lock"   : false,
-	"motion" : 0       # Integer pour l'abscisse du mouvement
+	"lock"   : false
 }
 
+# Global variables
+var Motion
+
+# Lists
 var AnimList = {}
 var Actions = {}
 
@@ -83,17 +86,17 @@ func _input(event):
 			if left:    face("left")
 			elif right: face("right")
 			set_scale(Data.side)
-			Status.motion = player_speed
+			Motion = player_speed
 		else:
-			Status.motion = 0
+			Motion = 0
 	else:
-		Status.motion = 0
+		Motion = 0
 
 func _fixed_process(delta):
 	# Si le player doit bouger
-	if Status.motion != 0:
+	if Motion != 0:
 		play_anim("Walk")
-		var motion = _move(Status.motion)
+		var motion = _move(Motion)
 
 # Custom move() operation
 func _move(x):
@@ -111,8 +114,9 @@ func _action_unlock():
 	Status.lock = false
 
 func _random_voice(snd_arr):
-	var rng = randi() % snd_arr.size()
-	get_node("Voice").play(snd_arr[rng])
+	if typeof(snd_arr) == TYPE_STRING_ARRAY:
+		var rng = randi() % snd_arr.size()
+		get_node("Voice").play(snd_arr[rng])
 
 #######################
 ### Signal routines ###
