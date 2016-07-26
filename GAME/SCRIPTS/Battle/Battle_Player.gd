@@ -8,10 +8,11 @@ export(int, 1, 20) var player_speed = 5
 
 # Données importantes sur le player
 var Data = {
+	# Various properties
+	"side"  : Vector2(1, 1),
 	# Nodes
-	"anims"  : null,  # Node type "Node" qui ne contient QUE DES "AnimationPlayer"
-	"sprite" : null,  # Node type "Sprite" ou "AnimatedSprite"
-	"timer"  : null   # Node type "Timer" pour les combo
+	"anims" : null,  # Node type "Node" qui ne contient QUE DES "AnimationPlayer"
+	"timer" : null   # Node type "Timer" pour les combo
 }
 
 # Status des actions du Player
@@ -30,8 +31,7 @@ var Actions = {}
 func _ready():
 	# Initialization du Player
 	Data.anims = get_node("anims")
-	Data.sprite = get_node(get_name() + "_Sprite")
-	Data.timer = get_node("Actions/ComboTimer")
+	Data.timer = get_node("ComboTimer")
 
 	# Adding "Guard"
 	Actions.guard = Battle_Action.new("Guard", "cancel")
@@ -75,12 +75,14 @@ func _input(event):
 
 		# déterminer la priorité de direction
 		if left && right:
-			left  = Data.sprite.is_flipped_h()
+			left  = is_facing("left")
 			right = !left
 
 		# Indiquer la direction finale
 		if left || right:
-			Data.sprite.set_flip_h(left)
+			if left:    face("left")
+			elif right: face("right")
+			set_scale(Data.side)
 			Status.motion = player_speed
 		else:
 			Status.motion = 0
@@ -98,7 +100,7 @@ func _move(x):
 	if typeof(x) != TYPE_INT:
 		return Vector2(0, 0)
 
-	if Data.sprite.is_flipped_h():
+	if is_facing("left"):
 		x *= -1
 	return move(Vector2(x, 0))
 
@@ -125,6 +127,26 @@ func _play_action(name, idx):
 ###############
 ### Methods ###
 ###############
+# Points the body towards the new direction
+func face(direction):
+	if not (direction in ["left", "right"]):
+		return
+
+	if direction.matchn("left"):
+		Data.side.x = -1
+	elif direction.matchn("right"):
+		Data.side.x = 1
+
+# Checks which direction we're going towards
+func is_facing(direction):
+	if not (direction in ["left", "right"]):
+		return false
+
+	if direction.matchn("left"):
+		return Data.side.x == -1
+	elif direction.matchn("right"):
+		return Data.side.x == 1
+
 ## Réglage des animations
 func stop_all_anims():
 	# Chercher tous les Nodes d'animation

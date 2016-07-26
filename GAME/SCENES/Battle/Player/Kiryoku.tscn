@@ -73,7 +73,7 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.1, 0.2, 0.3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ 0, 1, 2, 1 ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.1, 0.2, 0.3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":1, "values":[ 0, 1, 2, 1 ] }
 
 [sub_resource type="Animation" id=4]
 
@@ -85,7 +85,7 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.0666, 0.1, 0.1333, 0.1666, 0.2333, 0.2666, 0.3 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ), "update":0, "values":[ 3, 4, 5, 6, 7, 8, 9, 10 ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.0666, 0.1, 0.1333, 0.1666, 0.2333, 0.2666, 0.3 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 3, 4, 5, 6, 7, 8, 9, 10 ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../../General:play/play")
 tracks/1/interp = 1
@@ -102,7 +102,7 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.0666, 0.1 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ 24, 25, 26 ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.0666, 0.1 ), "transitions":FloatArray( 1, 1, 1 ), "update":1, "values":[ 24, 25, 26 ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../../Voice:play/play")
 tracks/1/interp = 1
@@ -122,9 +122,9 @@ loop = false
 step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("../../Kiryoku_Sprite:frame")
-tracks/0/interp = 0
+tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.0333, 0.0666, 0.1, 0.1333 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "update":0, "values":[ 14, 31, 15, 16, 17 ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.0333, 0.0666, 0.1, 0.1333 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "update":1, "values":[ 14, 31, 15, 16, 17 ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../../Weapon:play/play")
 tracks/1/interp = 1
@@ -249,11 +249,7 @@ _update_shape_index = 0
 frames = SubResource( 2 )
 animation = "default"
 
-[node name="Actions" type="Node" parent="."]
-
-editor/display_folded = true
-
-[node name="ComboTimer" type="Timer" parent="Actions"]
+[node name="ComboTimer" type="Timer" parent="."]
 
 process_mode = 0
 wait_time = 0.5
