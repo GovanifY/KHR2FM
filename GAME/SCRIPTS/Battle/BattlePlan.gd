@@ -46,7 +46,8 @@ func _ready():
 #######################
 func _battle_begin():
 	# Player gains control
-	Player.set_process_input(true)
+	if _is_battler(Player):
+		Player.set_process_input(true)
 
 	# All Battlers
 	for battler in Battlers:
@@ -57,14 +58,12 @@ func _battle_begin():
 ########################
 # Checks if the given argument is a valid NodePath
 static func _is_nodepath(nodepath):
-	return (nodepath != null
-		&& typeof(nodepath) == TYPE_NODE_PATH && !nodepath.is_empty()
-	)
+	return typeof(nodepath) == TYPE_NODE_PATH && !nodepath.is_empty()
 
 # Checks if the given argument is a Battler Node
 static func _is_battler(node):
-	return (node != null
-		&& typeof(node) == TYPE_OBJECT && node.is_type("KinematicBody2D")
+	return (
+		typeof(node) == TYPE_OBJECT && node.is_type("KinematicBody2D")
 		#&& node.get_script() != null && node.get_script().has_source_code()
 	)
 
