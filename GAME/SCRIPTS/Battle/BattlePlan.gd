@@ -91,3 +91,14 @@ func init_battle():
 	InfoBar.init()
 	InfoBar.connect("dismiss", self, "_battle_begin")
 	InfoBar.display(info_message)
+
+# Force-stop every single animation node in an Array
+func stop_anims(anim_nodes):
+	if typeof(anim_nodes) == TYPE_OBJECT && anim_nodes.is_type("Node"):
+		anim_nodes = anim_nodes.get_children()
+
+	# If we got our array correctly
+	if typeof(anim_nodes) == TYPE_ARRAY:
+		for anim in anim_nodes:
+			if typeof(anim) == TYPE_OBJECT && anim.is_type("AnimationPlayer"):
+				anim.stop()
