@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 # Constants
-const Battle_Action = preload("res://GAME/SCRIPTS/Battle/Battle_Action.gd")
+const Battle_Action = preload("res://GAME/SCRIPTS/Battle/Action.gd")
 
 # Export values
 export(int, 1, 20) var player_speed = 5

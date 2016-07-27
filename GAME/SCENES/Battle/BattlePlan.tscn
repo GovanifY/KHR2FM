@@ -2,12 +2,13 @@
 
 [ext_resource path="res://GAME/SCRIPTS/Battle/BattlePlan.gd" type="Script" id=1]
 [ext_resource path="res://GAME/SCENES/Battle/InfoBar.tscn" type="PackedScene" id=2]
-[ext_resource path="res://GAME/SCRIPTS/Battle/Battle_EnemyHP.gd" type="Script" id=3]
+[ext_resource path="res://GAME/SCRIPTS/Battle/Enemy/EnemyHP.gd" type="Script" id=3]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Boss/Boss-Fond.png" type="Texture" id=4]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Boss/Boss-Bubble.png" type="Texture" id=5]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Boss/Boss-Barre.png" type="Texture" id=6]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Commands/Commands_Lr_010.png" type="Texture" id=7]
 [ext_resource path="res://ASSETS/LANG/ASSETS/FONTS/Main.fnt" type="BitmapFont" id=8]
+
 
 [sub_resource type="Animation" id=1]
 

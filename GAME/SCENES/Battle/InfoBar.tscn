@@ -1,9 +1,10 @@
 [gd_scene load_steps=8 format=1]
 
-[ext_resource path="res://GAME/SCRIPTS/Battle/Battle_InfoBar.gd" type="Script" id=1]
+[ext_resource path="res://GAME/SCRIPTS/Battle/InfoBar.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Others/Info_00.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/LANG/ASSETS/FONTS/Main.fnt" type="BitmapFont" id=3]
 [ext_resource path="res://ASSETS/SE/System/Infos.wav" type="Sample" id=4]
+
 
 [sub_resource type="Animation" id=1]
 

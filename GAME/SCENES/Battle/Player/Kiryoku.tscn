@@ -1,6 +1,6 @@
 [gd_scene load_steps=66 format=1]
 
-[ext_resource path="res://GAME/SCRIPTS/Battle/Battle_Player.gd" type="Script" id=1]
+[ext_resource path="res://GAME/SCRIPTS/Battle/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_00.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_01.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_02.png" type="Texture" id=4]
