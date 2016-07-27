@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 # Constants
-const Battle_Action = preload("res://GAME/SCRIPTS/Battle/Action.gd")
+const Battle_Action = preload("res://GAME/SCRIPTS/Battle/Actions/Action.gd")
 
 # Export values
 export(int, 1, 20) var player_speed = 5
@@ -53,13 +53,13 @@ func _ready():
 		var action_anim = Data.anims.get_node(action_name)
 		action_anim.connect("finished", Actions[act], "_end_action")
 		Actions[act].connect("combo", self, "_play_action")
-		Actions[act].connect("finished", self, "_play_still")
+		Actions[act].connect("finished", self, "_play_idle")
 
 		# Grabbing Action's animation list
 		AnimList[action_name] = action_anim.get_animation_list()
 
 	# Player gains control
-	_play_still()
+	_play_idle()
 	set_process_input(true)
 	set_fixed_process(true)
 
@@ -121,7 +121,7 @@ func _random_voice(snd_arr):
 #######################
 ### Signal routines ###
 #######################
-func _play_still():
+func _play_idle():
 	_action_unlock()
 	play_anim("Still")
 
