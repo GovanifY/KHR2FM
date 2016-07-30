@@ -30,10 +30,10 @@ func _notification(notif):
 func _input(event):
 	if event.is_pressed() && !event.is_echo():
 		# Detect a quit ---> HIGH PRIORITY! Call the quit function right away
-		if InputMap.event_is_action(event, "quit"):
+		if event.is_action("quit"):
 			quit_game()
 
-		if InputMap.event_is_action(event, "fullscreen"):
+		if event.is_action("fullscreen"):
 			OS.set_window_fullscreen(!OS.is_video_mode_fullscreen())
 			return
 
@@ -56,7 +56,7 @@ func _process(delta):
 
 # Determines if the given string is valid
 func _is_valid_string(string):
-	return typeof(string) != TYPE_STRING && !string.empty()
+	return typeof(string) == TYPE_STRING && !string.empty()
 
 ###############
 ### Methods ###
@@ -67,9 +67,9 @@ func quit_game():
 	get_tree().quit()
 
 # Loads a node via a path and puts it in /root above the current scene.
-func load_node(path, name):
-	var exts = ["gd"]
-	if !_is_valid_string(path) || !_is_valid_string(name):
+func load_node(name, path):
+	var exts = ["gd", "tscn"]
+	if !_is_valid_string(name) || !_is_valid_string(path):
 		printerr("Given arguments aren't valid Strings")
 		return false
 	elif not (path.extension() in exts):
@@ -78,11 +78,14 @@ func load_node(path, name):
 		return false
 
 	var root = get_node("/root")
-	var node = load(path)
+	var scene = load(path)
 
-	if node == null:
+	if scene == null:
 		printerr("Couldn't load file")
 		return false
+
+	# Unpacking
+	var node = scene.instance()
 
 	root.add_child(node)
 	node.set_name(name)
@@ -97,7 +100,7 @@ func unload_node(path):
 	if !_is_valid_string(path):
 		return false
 	for global in exceptions:
-		if path.findn(global):
+		if path.findn(global) != -1:
 			printerr("As a safety measure, I cannot unload \"%s\"" % global)
 			return false
 
