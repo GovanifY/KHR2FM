@@ -2,52 +2,53 @@
 
 [ext_resource path="res://GAME/SCRIPTS/DebugCMD.gd" type="Script" id=1]
 
-[node name="DebugCMD" type="Node2D"]
+[node name="DebugCMD" type="Panel"]
 
+visibility/opacity = 0.5
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 120.0
+margin/top = 20.0
+margin/right = 760.0
+margin/bottom = 340.0
 script/script = ExtResource( 1 )
 
-[node name="TextEdit" type="TextEdit" parent="."]
+[node name="HistoryBox" type="RichTextLabel" parent="."]
 
 visibility/opacity = 0.5
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 135.0
-margin/top = 388.0
-margin/right = 777.0
-margin/bottom = 459.0
-show_line_numbers = false
-highlight_all_occurrences = false
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
-
-[node name="Panel" type="Panel" parent="."]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 141.0
-margin/top = 29.0
-margin/right = 775.0
-margin/bottom = 354.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
-
-visibility/opacity = 0.5
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 1.0
-margin/top = -2.0
-margin/right = 635.0
-margin/bottom = 323.0
+margin/left = 10.0
+margin/top = 10.0
+margin/right = 630.0
+margin/bottom = 310.0
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_constants/line_separation = 1
 bbcode/enabled = false
 bbcode/bbcode = ""
 visible_characters = -1
 
-[connection signal="text_changed" from="TextEdit" to="." method="_on_TextEdit_text_changed"]
+[node name="CommandBox" type="TextEdit" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 360.0
+margin/right = 640.0
+margin/bottom = 440.0
+syntax_highlighting = true
+show_line_numbers = false
+highlight_all_occurrences = false
+caret/block_caret = false
+caret/caret_blink = true
+caret/caret_blink_speed = 0.6
+
+[connection signal="text_changed" from="CommandBox" to="." method="_on_TextEdit_text_changed"]
 
 

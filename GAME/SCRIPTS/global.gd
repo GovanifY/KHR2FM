@@ -39,7 +39,11 @@ func _input(event):
 
 		# Debugging stuff, ignore this
 		if debug:
-			pass
+			if event.is_action("debug"):
+				if !Globals.get("DebugCMD"):
+					load_node("DebugCMD", "res://GAME/SCENES/DebugCMD.tscn")
+				else:
+					unload_node("DebugCMD")
 		return
 
 func _process(delta):
