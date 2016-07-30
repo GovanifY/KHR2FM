@@ -92,8 +92,8 @@ func load_node(name, path):
 	var node = scene.instance()
 
 	root.add_child(node)
+	root.move_child(node, 0)
 	node.set_name(name)
-	node.raise()
 
 	Globals.set(name, true)
 	return true
@@ -117,7 +117,7 @@ func unload_node(path):
 		return false
 
 	root.remove_child(node)
-	node.queue_free()
+	node.free()
 
 	Globals.set(name, false)
 	return true
