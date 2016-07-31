@@ -1,9 +1,8 @@
-#extends anything
-
 # Signals
 signal dismiss
 
 # Instance members
+onready var Slide = get_node("Slide")
 var InfoText = null
 
 # Really Important Nodes
@@ -22,14 +21,17 @@ func _input(event):
 ### Signal routines ###
 #######################
 func _display(message):
-	var slide = get_node("Slide")
-	slide.disconnect("finished", self, "_display")
+	Slide.disconnect("finished", self, "_display")
 	InfoText.scroll(message)
-	slide.connect("finished", self, "emit_signal", ["dismiss"])
+	Slide.connect("finished", self, "_end_dismissal")
 
-func _dismiss():
+func _start_dismissal():
 	set_process_input(false)
-	get_node("Slide").play("Out")
+	Slide.play("Out")
+
+func _end_dismissal():
+	Slide.disconnect("finished", self, "_end_dismissal")
+	emit_signal("dismiss")
 
 ###############
 ### Methods ###
@@ -43,11 +45,11 @@ func init():
 
 	# Connecting signals
 	InfoText.connect("finished", self, "set_process_input", [true])
-	InfoText.connect("cleared", self, "_dismiss")
+	InfoText.connect("cleared", self, "_start_dismissal")
 
 func display(messageID):
 	# Grabbing message from its ID
 	var message = tr(messageID)
-	get_node("Slide").connect("finished", self, "_display", [message])
+	Slide.connect("finished", self, "_display", [message])
 	# Begin!
-	get_node("Slide").play("In")
+	Slide.play("In")

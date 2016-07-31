@@ -22,8 +22,7 @@ func _ready():
 	if _is_nodepath(Player):
 		Player = get_node(Player)
 	if _is_battler(Player):
-		Player.set_process_input(false)
-		Player.set_pos(Vector2(DefaultPos[0]))
+		Player.set_pos(DefaultPos[0])
 		Battlers.push_back(Player)
 
 	# Preparing Enemy
@@ -32,13 +31,10 @@ func _ready():
 		Enemy = get_node(Enemy)
 	if _is_battler(Enemy):
 		#Enemy.init_hp_or_something()
-		Enemy.set_pos(Vector2(DefaultPos[2]))
+		Enemy.set_pos(DefaultPos[2])
 		Battlers.push_back(Enemy)
 
-	# Battlers should stand down until further notice
-	for battler in Battlers:
-		battler.set_fixed_process(false)
-
+	InfoBar.init()
 	init_battle()
 
 #######################
@@ -87,18 +83,30 @@ func update_positions():
 
 # Initializes pre-battle environment. Useful when controlling BattlePlan as a child
 func init_battle():
+	# Player not processing input means that this function has already been called
+	if !Player.is_processing_input():
+		return
+
+	# Battlers should stand down until further notice
+	if _is_battler(Player):
+		Player.set_process_input(false)
+	for battler in Battlers:
+		battler.set_fixed_process(false)
+
 	# Start Infobar animation
-	InfoBar.init()
-	InfoBar.connect("dismiss", self, "_battle_begin")
+	if !InfoBar.is_connected("dismiss", self, "_battle_begin"):
+		InfoBar.connect("dismiss", self, "_battle_begin")
 	InfoBar.display(info_message)
 
 # Force-stop every single animation node in an Array
-func stop_anims(anim_nodes):
-	if typeof(anim_nodes) == TYPE_OBJECT && anim_nodes.is_type("Node"):
-		anim_nodes = anim_nodes.get_children()
-
-	# If we got our array correctly
-	if typeof(anim_nodes) == TYPE_ARRAY:
+func stop_anims():
+	# Iterating all registered Battlers
+	for battler in Battlers:
+		# Checking if the Battler has a Node named "anims"
+		if !battler.has_node("anims"):
+			continue
+		var anim_nodes = battler.get_node("anims").get_children()
 		for anim in anim_nodes:
+			# checking if the current item is an AnimationPlayer
 			if typeof(anim) == TYPE_OBJECT && anim.is_type("AnimationPlayer"):
 				anim.stop()
