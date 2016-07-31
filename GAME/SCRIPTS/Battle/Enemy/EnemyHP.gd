@@ -12,7 +12,7 @@ func _ready():
 	#set maxHP to Boss HP here
 	pass
 func _set_HP(curHP):
-	GreenBar.set_scale(Vector2(curHP/100,0))
+	GreenBar.set_scale(Vector2(float(curHP)/float(100),1))
 
 func update(curHP):
 	var curLine = curHP
