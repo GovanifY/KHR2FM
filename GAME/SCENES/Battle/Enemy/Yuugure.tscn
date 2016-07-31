@@ -10,27 +10,26 @@
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Enemies/Yuugure/Yuugure_61.png" type="Texture" id=8]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Enemies/Yuugure/Yuugure_62.png" type="Texture" id=9]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=1]
 
 script/source = "\nextends KinematicBody2D\n\n# member variables here, example:\n# var a=2\n# var b=\"textvar\"\n\nfunc _ready():\n\t# Called every time the node is added to the scene.\n\t# Initialization here\n\tpass\n\n\n"
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=2]
 
 animations = [ { "frames":[ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ], "loop":true, "name":"default", "speed":5.0 } ]
 
 [node name="Yuugure" type="KinematicBody2D"]
 
+transform/pos = Vector2( 120, 240 )
 input/pickable = false
 collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
-script/script = SubResource( 2 )
+script/script = SubResource( 1 )
 
 [node name="Yuugure_Sprite" type="AnimatedSprite" parent="."]
 
-transform/pos = Vector2( 400, 0 )
-frames = SubResource( 1 )
+frames = SubResource( 2 )
 animation = "default"
-centered = false
 
 

@@ -8,30 +8,29 @@ export(NodePath) var Enemy = null
 
 # Instance members
 onready var InfoBar = get_node("InfoBar")
-var DefaultPos = Vector2Array()  # Vector2Array of size 3 (left, center, right)
 var Battlers = []
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	# New positions for the main Battlers
-	update_positions()
+	# Default positions for the main Battlers
+	var default_pos = _get_default_pos()
 
 	# Preparing Player
 	if _is_nodepath(Player):
 		Player = get_node(Player)
 	if _is_battler(Player):
-		Player.set_pos(DefaultPos[0])
+		Player.set_pos(default_pos[0])
 		Battlers.push_back(Player)
 
 	# Preparing Enemy
 	# TODO: This setup is currently for one-boss only. Prepare it for multiple, different enemies
-	if _is_nodepath(Player):
+	if _is_nodepath(Enemy):
 		Enemy = get_node(Enemy)
 	if _is_battler(Enemy):
 		#Enemy.init_hp_or_something()
-		Enemy.set_pos(DefaultPos[2])
+		Enemy.set_pos(default_pos[2])
 		Battlers.push_back(Enemy)
 
 	InfoBar.init()
@@ -45,7 +44,7 @@ func _battle_begin():
 	if _is_battler(Player):
 		Player.set_process_input(true)
 
-	# All Battlers
+	# Animate all Battlers
 	for battler in Battlers:
 		battler.set_fixed_process(true)
 
@@ -63,24 +62,27 @@ static func _is_battler(node):
 		#&& node.get_script() != null && node.get_script().has_source_code()
 	)
 
+# Updates the default positions to put our Battlers divided in 3 (left, center, right)
+static func _get_default_pos():
+	var default_pos = Vector2Array()
+	default_pos.resize(3)
+	default_pos[0] = OS.get_video_mode_size()
+
+	# Adjusting Y (Height)
+	default_pos[0].y = int(default_pos[0].y) >> 1
+	default_pos[1] = default_pos[0]
+	default_pos[2] = default_pos[0]
+
+	# Adjusting X (Length)
+	default_pos[1].x = int(default_pos[1].x) >> 1
+	default_pos[0].x = int(default_pos[0].x) >> 3
+	default_pos[2].x -= default_pos[0].x
+
+	return default_pos
+
 ###############
 ### Methods ###
 ###############
-# Updates the default positions to put our Battlers
-func update_positions():
-	DefaultPos.resize(3)
-	DefaultPos[0] = OS.get_video_mode_size()
-
-	# Adjusting Y (Height)
-	DefaultPos[0].y = int(DefaultPos[0].y) >> 1
-	DefaultPos[1] = DefaultPos[0]
-	DefaultPos[2] = DefaultPos[0]
-
-	# Adjusting X (Length)
-	DefaultPos[1].x = int(DefaultPos[1].x) >> 1
-	DefaultPos[0].x = int(DefaultPos[0].x) >> 3
-	DefaultPos[2].x -= DefaultPos[0].x
-
 # Initializes pre-battle environment. Useful when controlling BattlePlan as a child
 func init_battle():
 	# Player not processing input means that this function has already been called

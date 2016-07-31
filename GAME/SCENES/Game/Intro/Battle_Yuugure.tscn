@@ -19,5 +19,7 @@ Enemy = NodePath("Battlers/Yuugure")
 
 [node name="Yuugure" parent="BattlePlan/Battlers" instance=ExtResource( 4 )]
 
+transform/pos = Vector2( 750, 240 )
+
 
 [editable path="BattlePlan"]
