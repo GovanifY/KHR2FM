@@ -28,25 +28,31 @@ func _execute(input):
 	return obj.run()
 
 func _command_process():
-	var cmd = CommandBox.get_text()
-	cmd = _clean_str(cmd)
+	var cmd = _clean_cmd()
 
 	# Executing and saving to History
 	HistoryBox.add_text("> " + str(_execute(cmd)) + "\n")
 	if not (cmd in HistoryList.cmds):
 		HistoryList.cmds.push_back(cmd)
-		HistoryList.idx = HistoryList.cmds.size() - 1
+		_last_cmd()
 
 	CommandBox.clear_undo_history()
 	CommandBox.set_text("")
 
-func _clean_str(string):
-	string = string.strip_edges()
-	string = string.replace("\n", "")
-	return string
+func _clean_cmd():
+	# Clearing the Return-turned-newline oddity
+	var lin = CommandBox.cursor_get_line() - 1
+	var col = CommandBox.get_line(lin).length()
+	CommandBox.select(lin, col, lin+1, 0)
+	CommandBox.insert_text_at_cursor("")
+
+	return CommandBox.get_text()
+
+func _last_cmd():
+	HistoryList.idx = HistoryList.cmds.size() - 1
 
 func _point_to_end(idx):
-	#CommandBox.cursor_set_line(CommandBox.get_line_count())
+	CommandBox.cursor_set_line(CommandBox.get_line_count())
 	CommandBox.cursor_set_column(idx)
 
 #######################
@@ -59,6 +65,7 @@ func _CommandBox_input(event):
 		# Controlling Returns
 		if event.is_action("ui_accept"):
 			_command_process()
+			_last_cmd()
 			return
 
 		# Controlling HistoryList
