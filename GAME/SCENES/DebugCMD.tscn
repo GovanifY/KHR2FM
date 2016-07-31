@@ -56,6 +56,8 @@ caret/block_caret = false
 caret/caret_blink = true
 caret/caret_blink_speed = 0.6
 
+[node name="ScriptNode" type="Node" parent="."]
+
 [connection signal="input_event" from="Panel/CommandBox" to="." method="_CommandBox_input"]
 
 

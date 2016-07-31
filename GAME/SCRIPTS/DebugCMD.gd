@@ -3,6 +3,7 @@ extends CanvasLayer
 # Important Nodes
 onready var CommandBox = get_node("Panel/CommandBox")
 onready var HistoryBox = get_node("Panel/HistoryBox")
+onready var ScriptNode = get_node("ScriptNode")
 
 # Instance members
 var HistoryList = {
@@ -22,22 +23,28 @@ func _execute(input):
 	script.set_source_code("func run():\n\treturn " + str(input) + "\n")
 	script.reload()
 
-	var obj = Reference.new()
-	obj.set_script(script)
+	ScriptNode.set_script(script)
+	return ScriptNode.run()
 
-	return obj.run()
+func _register_history(cmd, register=true):
+	if register:
+		HistoryBox.add_text("> " + str(_execute(cmd)) + "\n")
+		if not (cmd in HistoryList.cmds):
+			HistoryList.cmds.push_back(cmd)
+	else:
+		_execute(cmd)
 
 func _command_process():
 	var cmd = _clean_cmd()
+	if cmd.empty():
+		return false
 
 	# Executing and saving to History
-	HistoryBox.add_text("> " + str(_execute(cmd)) + "\n")
-	if not (cmd in HistoryList.cmds):
-		HistoryList.cmds.push_back(cmd)
-		_last_cmd()
+	_register_history(cmd)
 
 	CommandBox.clear_undo_history()
 	CommandBox.set_text("")
+	return true
 
 func _clean_cmd():
 	# Clearing the Return-turned-newline oddity
@@ -48,9 +55,6 @@ func _clean_cmd():
 
 	return CommandBox.get_text()
 
-func _last_cmd():
-	HistoryList.idx = HistoryList.cmds.size() - 1
-
 func _point_to_end(idx):
 	CommandBox.cursor_set_line(CommandBox.get_line_count())
 	CommandBox.cursor_set_column(idx)
@@ -59,13 +63,13 @@ func _point_to_end(idx):
 ### Signal routines ###
 #######################
 func _CommandBox_input(event):
-	var size = HistoryList.cmds.size()
-
 	if event.is_pressed() && !event.is_echo():
+		var size = HistoryList.cmds.size()
+
 		# Controlling Returns
 		if event.is_action("ui_accept"):
-			_command_process()
-			_last_cmd()
+			if _command_process():
+				HistoryList.idx = size - 1
 			return
 
 		# Controlling HistoryList
