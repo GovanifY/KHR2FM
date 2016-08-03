@@ -41,7 +41,7 @@ func _input(event):
 		if debug:
 			if event.is_action("debug"):
 				if !Globals.get("DebugCMD"):
-					load_node("DebugCMD", "res://GAME/SCENES/DebugCMD.tscn")
+					load_node("DebugCMD", "res://GAME/SCENES/Debug/DebugCMD.tscn")
 				else:
 					unload_node("DebugCMD")
 		return
