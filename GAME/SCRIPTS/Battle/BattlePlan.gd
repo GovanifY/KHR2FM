@@ -20,15 +20,15 @@ func _ready():
 	# Preparing Player
 	if _is_nodepath(Player):
 		Player = get_node(Player)
-	if _is_battler(Player):
+	if Player.is_type("Battler"):
 		Player.set_pos(default_pos[0])
 		Battlers.push_back(Player)
 
 	# Preparing Enemy
-	# TODO: This setup is currently for one-boss only. Prepare it for multiple, different enemies
+	# TODO: Prepare this setup for multiple, different enemies
 	if _is_nodepath(Enemy):
 		Enemy = get_node(Enemy)
-	if _is_battler(Enemy):
+	if Enemy.is_type("Battler"):
 		#Enemy.init_hp_or_something()
 		Enemy.set_pos(default_pos[2])
 		Battlers.push_back(Enemy)
@@ -41,7 +41,7 @@ func _ready():
 #######################
 func _battle_begin():
 	# Player gains control
-	if _is_battler(Player):
+	if Player.is_type("Battler"):
 		Player.set_process_input(true)
 
 	# Animate all Battlers
@@ -54,13 +54,6 @@ func _battle_begin():
 # Checks if the given argument is a valid NodePath
 static func _is_nodepath(nodepath):
 	return typeof(nodepath) == TYPE_NODE_PATH && !nodepath.is_empty()
-
-# Checks if the given argument is a Battler Node
-static func _is_battler(node):
-	return (
-		typeof(node) == TYPE_OBJECT && node.is_type("KinematicBody2D")
-		#&& node.get_script() != null && node.get_script().has_source_code()
-	)
 
 # Updates the default positions to put our Battlers divided in 3 (left, center, right)
 static func _get_default_pos():
@@ -90,7 +83,7 @@ func init_battle():
 		return
 
 	# Battlers should stand down until further notice
-	if _is_battler(Player):
+	if Player.is_type("Battler"):
 		Player.set_process_input(false)
 	for battler in Battlers:
 		battler.set_fixed_process(false)
@@ -100,15 +93,12 @@ func init_battle():
 		InfoBar.connect("dismiss", self, "_battle_begin")
 	InfoBar.display(info_message)
 
-# Force-stop every single animation node in an Array
-func stop_anims():
-	# Iterating all registered Battlers
-	for battler in Battlers:
-		# Checking if the Battler has a Node named "anims"
-		if !battler.has_node("anims"):
-			continue
-		var anim_nodes = battler.get_node("anims").get_children()
-		for anim in anim_nodes:
-			# checking if the current item is an AnimationPlayer
-			if typeof(anim) == TYPE_OBJECT && anim.is_type("AnimationPlayer"):
-				anim.stop()
+# Force-stop every single animation node from every battler on scene if unspecified
+func stop_all_anims(battler = null):
+	if battler == null:
+		# Iterating all registered Battlers
+		for battler in Battlers:
+			# Checking if the Battler has a Node named "anims"
+			battler.stop_anims()
+	else:
+		battler.stop_anims()

@@ -108,7 +108,10 @@ func check_event(event):
 
 func take_event(event):
 	if Course.counter < Properties.count:
-		emit_signal("combo", Properties.name, Course.counter)
+		var name = Properties.name
+		if Properties.count > 1:
+			name +=  str(Course.counter+1)
+		emit_signal("combo", name)
 		if Callback.active:
 			Callback.fn.call_func(Callback.args)
 		_inc_combo()
