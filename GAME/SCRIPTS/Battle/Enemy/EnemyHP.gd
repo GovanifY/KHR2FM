@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-var oldHP = 100
-var maxHP = 100
+var oldHP = 100.0
+var maxHP = 100.0
 onready var GreenBar = get_node("GreenBar")
 onready var SlideHit = get_node("SlideHit")
 
@@ -12,7 +12,7 @@ func _ready():
 	#set maxHP to Boss HP here
 	pass
 func _set_HP(curHP):
-	GreenBar.set_scale(Vector2(float(curHP)/float(100),1))
+	GreenBar.set_scale(Vector2(float(curHP)/100,1))
 
 func update(curHP):
 	var curLine = curHP
@@ -28,4 +28,3 @@ func update(curHP):
 		#and maxHP - curHP =< maxHP%100
 	#TODO: Add Timer for life drawing anim and play SlideHit!
 	oldHP = curLine
-
