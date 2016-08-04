@@ -3,15 +3,10 @@ extends "res://GAME/SCRIPTS/Battle/Battler.gd"
 # Export values
 export(int, 1, 20) var player_speed = 5
 
-# Global variables
-#var ComboTimer
-
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	#ComboTimer = get_node("ComboTimer")
-
 	# Adding "Guard"
 	Actions.guard = Battle_Action.new("Guard", "cancel")
 	Actions.guard.set_event("pressed", true)
@@ -19,7 +14,7 @@ func _ready():
 
 	# Adding "Attack"
 	Actions.attack = Battle_Action.new("Attack", "enter", 3)
-	Actions.attack.set_timer(get_node("ComboTimer"))
+	Actions.attack.create_timer(self)
 	Actions.attack.set_event("pressed", true)
 	Actions.attack.set_event("echo", false)
 
@@ -28,9 +23,10 @@ func _ready():
 		Data.anims.connect("finished", Actions[act], "_end_action")
 		var action_name = act.capitalize()
 		Actions[act].connect("combo", self, "action_play")
-		Actions[act].connect("finished", self, "play_idle")
+		Actions[act].connect("finished", self, "action_unlock")
 
 	# Player gains control
+	play_anim("Still")
 	set_process_input(true)
 
 func _input(event):
@@ -48,16 +44,14 @@ func _input(event):
 
 		# déterminer la priorité de direction
 		if left && right:
-			left  = is_facing("left")
+			left  = is_facing(true, false)
 			right = !left
 
 		# Indiquer la direction finale
 		if left || right:
-			if left:    face("left")
-			elif right: face("right")
+			adjust_facing(left, right)
 			Motion = player_speed
 		else:
 			Motion = 0
-			play_anim("Still")
 	else:
 		Motion = 0

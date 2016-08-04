@@ -28,8 +28,6 @@ var Motion
 ######################
 func _ready():
 	Data.anims = get_node("anims")
-
-	play_idle()
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -59,8 +57,7 @@ func move_x(x):
 	if typeof(x) != TYPE_INT:
 		return Vector2(0, 0)
 
-	if is_facing("left"):
-		x *= -1
+	x *= Data.side.x
 	return move(Vector2(x, 0))
 
 ### Action control
@@ -73,30 +70,24 @@ func action_unlock():
 func action_play(name):
 	play_anim(name)
 
-func play_idle():
-	action_unlock()
-	play_anim("Still")
-
 ### Facing functions
 # Points the body towards the new direction
-func face(direction):
-	if not (direction in ["left", "right"]):
-		return
+func adjust_facing(left, right):
+	assert(typeof(left) == TYPE_BOOL && typeof(right) == TYPE_BOOL)
 
-	if direction.matchn("left"):
+	if left && !right:
 		Data.side.x = -1
-	elif direction.matchn("right"):
+	else:
 		Data.side.x = 1
-	set_scale(Data.side)
+	scale(Data.side)
 
 # Checks which direction we're going towards
-func is_facing(direction):
-	if not (direction in ["left", "right"]):
-		return false
+func is_facing(left, right):
+	assert(typeof(left) == TYPE_BOOL && typeof(right) == TYPE_BOOL)
 
-	if direction.matchn("left"):
+	if left && !right:
 		return Data.side.x == -1
-	elif direction.matchn("right"):
+	else:
 		return Data.side.x == 1
 
 ### Handling animations
@@ -108,18 +99,8 @@ func play_anim(anim_name):
 
 	Status.action = anim_name
 	Data.anims.play(anim_name)
+	#Data.anims.queue("Still")
 	return true
 
 func stop_anims():
-	# If we don't have the reference to the AnimationPlayer nodes, fetch it
-	if Data.anims == null:
-		if !has_node("anims"):
-			return false
-		Data.anims = get_node("anims")
-
-	# Chercher tous les Nodes d'animation
-	var all_anims = Data.anims.get_children()
-	for anim in all_anims:
-		anim.stop()
-
-	return true
+	get_node("anims").stop()
