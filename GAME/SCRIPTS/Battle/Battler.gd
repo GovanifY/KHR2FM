@@ -13,7 +13,6 @@ var Data = {
 
 # Status des actions du Battler
 var Status = {
-	"action" : "",   # Currently executed Animation
 	"lock"   : false
 }
 
@@ -28,6 +27,7 @@ var Motion
 ######################
 func _ready():
 	Data.anims = get_node("anims")
+	play_anim("Still")
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -92,15 +92,17 @@ func is_facing(left, right):
 
 ### Handling animations
 func play_anim(anim_name):
-	if typeof(Status.action) != TYPE_STRING:
+	if Data.anims == null:
 		return false
-	if Status.action.matchn(anim_name):
+	if typeof(anim_name) != TYPE_STRING:
+		return false
+	if Data.anims.get_current_animation().matchn(anim_name):
 		return false
 
-	Status.action = anim_name
 	Data.anims.play(anim_name)
-	#Data.anims.queue("Still")
+	Data.anims.queue("Still")
 	return true
 
 func stop_anims():
-	get_node("anims").stop()
+	if Data.anims != null:
+		Data.anims.stop()
