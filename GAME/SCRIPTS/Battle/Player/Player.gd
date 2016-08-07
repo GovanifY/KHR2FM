@@ -20,13 +20,13 @@ func _ready():
 
 	for act in Actions:
 		# Connecting Actions' signals
-		Data.anims.connect("finished", Actions[act], "_end_action")
+		if Data.anims != null:
+			Data.anims.connect("finished", Actions[act], "_end_action")
 		var action_name = act.capitalize()
 		Actions[act].connect("combo", self, "action_play")
 		Actions[act].connect("finished", self, "action_unlock")
 
 	# Player gains control
-	play_anim("Still")
 	set_process_input(true)
 
 func _input(event):
@@ -41,6 +41,7 @@ func _input(event):
 		# Simple Input check
 		var left  = Input.is_action_pressed("ui_left")
 		var right = Input.is_action_pressed("ui_right")
+		var stopped = event.is_action_released("ui_left") || event.is_action_released("ui_right")
 
 		# déterminer la priorité de direction
 		if left && right:
@@ -51,7 +52,8 @@ func _input(event):
 		if left || right:
 			adjust_facing(left, right)
 			Motion = player_speed
-		else:
+		elif stopped && !(left || right):
+			play_anim("Still")
 			Motion = 0
 	else:
 		Motion = 0
