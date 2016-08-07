@@ -4,7 +4,7 @@
 
 resource/name = "Walk"
 length = 0.33
-loop = false
+loop = true
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Kiryoku_Sprite:frame")
