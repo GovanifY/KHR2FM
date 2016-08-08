@@ -10,11 +10,6 @@ var Data = {
 	"side"  : Vector2(1, 1),
 }
 
-# Status des actions du Battler
-var Status = {
-	"lock"   : false
-}
-
 # Lists
 var Actions = {}
 
@@ -56,13 +51,6 @@ func move_x(x):
 
 	x *= Data.side.x
 	return move(Vector2(x, 0))
-
-### Action control
-func action_lock():
-	Status.lock = true
-
-func action_unlock():
-	Status.lock = false
 
 ### Facing functions
 # Points the body towards the new direction

@@ -26,9 +26,4 @@ tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = { "times":FloatArray( 0.0333, 0.0666, 0.1, 0.1333 ), "transitions":FloatArray( 1, 1, 1, 1 ), "values":[ { "args":[ 15 ], "method":"move_x" }, { "args":[ 6 ], "method":"move_x" }, { "args":[ 6 ], "method":"move_x" }, { "args":[ 6 ], "method":"move_x" } ] }
-tracks/4/type = "method"
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/imported = false
-tracks/4/keys = { "times":FloatArray( 0.1333 ), "transitions":FloatArray( 1 ), "values":[ { "args":[  ], "method":"action_unlock" } ] }
 

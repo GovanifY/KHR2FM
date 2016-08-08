@@ -16,14 +16,9 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = { "times":FloatArray( 0.0666, 0.1, 0.1333, 0.1666, 0.2 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ { "args":[ 30 ], "method":"move_x" }, { "args":[ 20 ], "method":"move_x" }, { "args":[ 10 ], "method":"move_x" }, { "args":[ 6 ], "method":"move_x" }, { "args":[ 6 ], "method":"move_x" } ] }
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
+tracks/2/type = "value"
+tracks/2/path = NodePath("Weapon:play/play")
 tracks/2/interp = 1
 tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ { "args":[ StringArray( "Kiryoku_05", "Kiryoku_06", "Kiryoku_09" ) ], "method":"_random_voice" } ] }
-tracks/3/type = "value"
-tracks/3/path = NodePath("Weapon:play/play")
-tracks/3/interp = 1
-tracks/3/imported = false
-tracks/3/keys = { "times":FloatArray( 0.0666 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_Keyblade_Swing" ] }
+tracks/2/keys = { "times":FloatArray( 0.0666 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Kiryoku_Keyblade_Swing" ] }
 
