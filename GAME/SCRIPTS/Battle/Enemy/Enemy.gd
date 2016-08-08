@@ -21,8 +21,8 @@ func _ready():
 
 func _test_rules():
 	for rule in RuleSet:
-		if rule.test.callv("call_func:Variant", rule.args1):
-			rule.result.callv("call_func:Variant", rule.args2)
+		if rule.test.callv("call_func", rule.args1):
+			rule.result.callv("call_func", rule.args2)
 			RuleSet.erase(rule)
 			return true
 
