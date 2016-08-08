@@ -1,8 +1,5 @@
 extends "res://GAME/SCRIPTS/Battle/Battler.gd"
 
-# Export values
-export(int, 1, 20) var player_speed = 5
-
 var ComboTimer
 
 ######################
@@ -17,18 +14,10 @@ func _ready():
 	set_transition("walk", false)
 	set_process_input(true)
 
-func _input(event):
-	# Handling Pressed, Non-Repeat
-	if event.is_pressed() && !event.is_echo():
-		for act in Actions:
-			if event.is_action(act):
-				Actions[act].take()
-				return
-
+func _fixed_process(delta):
 	# Simple Input check
 	var left  = Input.is_action_pressed("ui_left")
 	var right = Input.is_action_pressed("ui_right")
-	var stopped = event.is_action_released("ui_left") || event.is_action_released("ui_right")
 
 	# déterminer la priorité de direction
 	if left && right:
@@ -38,11 +27,18 @@ func _input(event):
 	# Indiquer la direction finale
 	if left || right:
 		adjust_facing(left, right)
-		Motion = player_speed
+		move_x()
 		set_transition("walk", true)
-	elif stopped && !(left || right):
-		Motion = 0
+	else:
 		set_transition("walk", false)
+
+func _input(event):
+	# Handling Pressed, Non-Repeat
+	if event.is_pressed() && !event.is_echo():
+		for act in Actions:
+			if event.is_action(act):
+				Actions[act].take()
+				return
 
 ###############
 ### Methods ###

@@ -1,5 +1,8 @@
 extends KinematicBody2D
 
+# Export values
+export(int, 5, 10) var battler_speed = 5
+
 # Constants
 const Battle_Action = preload("res://GAME/SCRIPTS/Battle/Actions/Action.gd")
 
@@ -14,7 +17,7 @@ var Data = {
 var Actions = {}
 
 # Global variables
-var Motion
+var Motion = Vector2()
 
 ######################
 ### Core functions ###
@@ -25,8 +28,8 @@ func _ready():
 
 func _fixed_process(delta):
 	# If the Battler must move
-	if Motion != 0:
-		var motion = move_x(Motion)
+	Motion = move(Motion)
+	Motion.x = 0
 
 ###############
 ### Methods ###
@@ -39,12 +42,10 @@ func is_type(type):
 	return get_type() == type
 
 # Custom move() operation
-func move_x(x):
-	if typeof(x) != TYPE_INT:
-		return Vector2(0, 0)
-
-	x *= Data.side.x
-	return move(Vector2(x, 0))
+func move_x(specific = battler_speed):
+	if typeof(specific) != TYPE_INT:
+		specific = battler_speed
+	Motion.x = Data.side.x * specific
 
 ### Facing functions
 # Points the body towards the new direction
