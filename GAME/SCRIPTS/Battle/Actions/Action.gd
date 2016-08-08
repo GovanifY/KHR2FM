@@ -1,16 +1,12 @@
-# Signals
-signal combo(counter)
-signal finished
+const ACTION_GUARD  = 0
+const ACTION_COMBO  = 1
+const ACTION_FINISH = 2
 
 # Properties of the action to be setup
 var Properties = {
-	"name"   : null,
-	"count"  : 0     # Number of subsequent actions
-}
-var Callback = {
-	"active" : false,
-	"fn"     : null,
-	"args"   : null
+	"node"  : null,
+	"value" : false,
+	"count" : 0     # Number of subsequent actions
 }
 var Combo = {
 	"timer"   : null,
@@ -22,11 +18,15 @@ var Combo = {
 ### Core functions ###
 ######################
 # Assembles input data to create an action; shouldn't do a thing if data is insufficient
-func _init(count=1):
+func _init(node, value, count=1):
 	# Checking input
-	assert(typeof(count)  == TYPE_INT && count > 0)
+	assert(typeof(node) == TYPE_OBJECT && node.is_type("Battler"))
+	assert(typeof(value) == TYPE_BOOL)
+	assert(typeof(count) == TYPE_INT && count > 0)
 
 	# Assembling data
+	Properties.node = weakref(node)
+	Properties.value = value
 	Properties.count = count
 	return true
 
@@ -60,39 +60,36 @@ func _end_combo():
 	_end_action()
 
 func _end_action():
-	emit_signal("finished")
+	#var node = Properties.node.get_ref()
+	#node.set_transition("attack", 0)
+	pass
 
 ###############
 ### Methods ###
 ###############
 # Attaches a Timer node to the parent node
-func create_timer(parent):
-	if not (typeof(parent) == TYPE_OBJECT && parent.is_type("Battler")):
-		return
-
+func attach_timer(timer):
 	if Combo.timer != null:
 		Combo.timer.disconnect("timeout", self, "_end_combo")
-		Combo.timer.free()
 
-	Combo.timer = Timer.new()
-	Combo.timer.set_wait_time(0.3)
-	Combo.timer.set_one_shot(true)
-	Combo.timer.set_timer_process_mode(Timer.TIMER_PROCESS_FIXED)
-	Combo.timer.connect("timeout", self, "_end_combo")
-	parent.add_child(Combo.timer)
-
-func set_callback(node, callback, args):
-	Callback.active = true
-	Callback.fn     = funcref(node, callback)
-	Callback.args   = args
+	if typeof(timer) == TYPE_OBJECT && timer.is_type("Timer"):
+		Combo.timer = timer
+		Combo.timer.connect("timeout", self, "_end_combo")
 
 # Action control
-func take_event():
-	if Combo.counter < Properties.count:
-		emit_signal("combo", Combo.counter)
-		if Callback.active:
-			Callback.fn.call_func(Callback.args)
-		_inc_combo()
-		return true
+func take():
+	var node = Properties.node.get_ref()
+	node.set_transition("action", true)
+	if !Properties.value:
+		node.set_transition("attack", ACTION_GUARD)
+		return
 
-	return false
+	if 0 <= Combo.counter && Combo.counter < Properties.count:
+		node.set_transition("attack", ACTION_COMBO)
+		node.set_transition("combo", -1)
+	else:
+		node.set_transition("attack", ACTION_FINISH)
+		node.set_transition("finisher", -1)
+		_end_action()
+		return
+	_inc_combo()

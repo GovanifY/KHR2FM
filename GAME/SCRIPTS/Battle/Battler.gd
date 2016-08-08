@@ -28,12 +28,6 @@ func _fixed_process(delta):
 	if Motion != 0:
 		var motion = move_x(Motion)
 
-func _random_voice(snd_arr):
-	var voice = get_node("Voice")
-	if typeof(snd_arr) == TYPE_STRING_ARRAY && voice != null:
-		var rng = randi() % snd_arr.size()
-		voice.play(snd_arr[rng])
-
 ###############
 ### Methods ###
 ###############
@@ -80,11 +74,20 @@ func start_anims():
 		AnimTree.set_active(true)
 	return true
 
-func play_anim(anim_name, idx):
+func set_transition(anim_name, idx):
 	if typeof(idx) == TYPE_BOOL:
 		idx = int(idx)
+	elif idx == -1:
+		idx = randi() % AnimTree.transition_node_get_input_count(anim_name)
+
 	AnimTree.transition_node_set_current(anim_name, idx)
 
 func stop_anims():
 	if AnimTree != null:
 		AnimTree.set_active(false)
+
+func random_voice(snd_arr):
+	var voice = get_node("Voice")
+	if typeof(snd_arr) == TYPE_STRING_ARRAY && voice != null:
+		var rng = randi() % snd_arr.size()
+		voice.play(snd_arr[rng])
