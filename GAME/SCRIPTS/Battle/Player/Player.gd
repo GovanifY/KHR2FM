@@ -7,36 +7,21 @@ export(int, 1, 20) var player_speed = 5
 ### Core functions ###
 ######################
 func _ready():
-	# Adding "Guard"
-	Actions.guard = Battle_Action.new("Guard", "cancel")
-	Actions.guard.set_event("pressed", true)
-	Actions.guard.set_event("echo", false)
-
-	# Adding "Attack"
-	Actions.attack = Battle_Action.new("Attack", "enter", 3)
-	Actions.attack.create_timer(self)
-	Actions.attack.set_event("pressed", true)
-	Actions.attack.set_event("echo", false)
-
-	for act in Actions:
-		# Connecting Actions' signals
-		if Data.anims != null:
-			Data.anims.connect("finished", Actions[act], "_end_action")
-		var action_name = act.capitalize()
-		Actions[act].connect("combo", self, "action_play")
-		Actions[act].connect("finished", self, "action_unlock")
-
+	setup_controls()
 	# Player gains control
+	play_anim("walk", false)
 	set_process_input(true)
 
 func _input(event):
-	# Handling Actions
 	if !Status.lock:
-		for act in Actions:
-			if Actions[act].check_event(event):
-				action_lock()
-				Actions[act].take_event(event)
-				return
+		# Handling Pressed, Non-Repeat
+		if event.is_pressed() && !event.is_echo():
+			for key in Actions:
+				if event.is_action(key):
+					action_lock()
+					play_anim("action", true)
+					#Actions[key].take_event()
+					return
 
 		# Simple Input check
 		var left  = Input.is_action_pressed("ui_left")
@@ -52,8 +37,27 @@ func _input(event):
 		if left || right:
 			adjust_facing(left, right)
 			Motion = player_speed
+			play_anim("walk", true)
 		elif stopped && !(left || right):
-			play_anim("Still")
 			Motion = 0
+			play_anim("walk", false)
 	else:
 		Motion = 0
+
+###############
+### Methods ###
+###############
+func setup_controls():
+	if Globals.get("PlayerData"):
+		# TODO: Grab PlayerData's battler information
+		pass
+	else:
+		var key
+		# Adding Guard
+		key = "cancel"
+		Actions[key] = Battle_Action.new()
+
+		# Adding Attack
+		key = "enter"
+		#Actions[key] = Battle_Action.new(3)
+		#Actions[key].create_timer(self)

@@ -4,11 +4,10 @@ extends KinematicBody2D
 const Battle_Action = preload("res://GAME/SCRIPTS/Battle/Actions/Action.gd")
 
 # Important Battler data
+onready var AnimTree = get_node("AnimTree")
 var Data = {
 	# Various properties
 	"side"  : Vector2(1, 1),
-	# Nodes
-	"anims" : null   # AnimationPlayer node which contains all needed animations
 }
 
 # Status des actions du Battler
@@ -26,14 +25,12 @@ var Motion
 ### Core functions ###
 ######################
 func _ready():
-	Data.anims = get_node("anims")
-	play_anim("Still")
+	start_anims()
 	set_fixed_process(true)
 
 func _fixed_process(delta):
 	# If the Battler must move
 	if Motion != 0:
-		play_anim("Walk")
 		var motion = move_x(Motion)
 
 func _random_voice(snd_arr):
@@ -67,9 +64,6 @@ func action_lock():
 func action_unlock():
 	Status.lock = false
 
-func action_play(name):
-	play_anim(name)
-
 ### Facing functions
 # Points the body towards the new direction
 func adjust_facing(left, right):
@@ -77,7 +71,7 @@ func adjust_facing(left, right):
 
 	if left && !right:
 		Data.side.x = -1
-	else:
+	elif !left && right:
 		Data.side.x = 1
 	scale(Data.side)
 
@@ -87,22 +81,22 @@ func is_facing(left, right):
 
 	if left && !right:
 		return Data.side.x == -1
-	else:
+	elif !left && right:
 		return Data.side.x == 1
 
 ### Handling animations
-func play_anim(anim_name):
-	if Data.anims == null:
+func start_anims():
+	if AnimTree == null:
 		return false
-	if typeof(anim_name) != TYPE_STRING:
-		return false
-	if Data.anims.get_current_animation().matchn(anim_name):
-		return false
-
-	Data.anims.play(anim_name)
-	Data.anims.queue("Still")
+	if !AnimTree.is_active():
+		AnimTree.set_active(true)
 	return true
 
+func play_anim(anim_name, idx):
+	if typeof(idx) == TYPE_BOOL:
+		idx = int(idx)
+	AnimTree.transition_node_set_current(anim_name, idx)
+
 func stop_anims():
-	if Data.anims != null:
-		Data.anims.stop()
+	if AnimTree != null:
+		AnimTree.set_active(false)

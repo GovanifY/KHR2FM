@@ -1,10 +1,9 @@
 # Signals
-signal combo(name, counter)
+signal combo(counter)
 signal finished
 
 # Properties of the action to be setup
 var Properties = {
-	"action" : null,  # InputAction to be linked to
 	"name"   : null,
 	"count"  : 0     # Number of subsequent actions
 }
@@ -12,10 +11,6 @@ var Callback = {
 	"active" : false,
 	"fn"     : null,
 	"args"   : null
-}
-var IEvent = {
-	"pressed" : false,
-	"echo"    : false
 }
 var Combo = {
 	"timer"   : null,
@@ -27,18 +22,12 @@ var Combo = {
 ### Core functions ###
 ######################
 # Assembles input data to create an action; shouldn't do a thing if data is insufficient
-func _init(name, action, count=1):
+func _init(count=1):
 	# Checking input
-	assert(typeof(action) == TYPE_STRING && !action.empty())
-	assert(typeof(name)   == TYPE_STRING)
 	assert(typeof(count)  == TYPE_INT && count > 0)
 
 	# Assembling data
-	Properties.name = name
-	Properties.action = action
 	Properties.count = count
-
-	# TODO: abort if data is insufficient
 	return true
 
 func _start_timer():
@@ -76,10 +65,6 @@ func _end_action():
 ###############
 ### Methods ###
 ###############
-# Property modifiers
-func set_event(e, value):
-	IEvent[e] = value
-
 # Attaches a Timer node to the parent node
 func create_timer(parent):
 	if not (typeof(parent) == TYPE_OBJECT && parent.is_type("Battler")):
@@ -101,27 +86,10 @@ func set_callback(node, callback, args):
 	Callback.fn     = funcref(node, callback)
 	Callback.args   = args
 
-# InputEvent checks
-func is_echo(event):
-	if IEvent.echo:
-		return event.is_echo()
-	return !event.is_echo()
-
-func is_pressed(event):
-	if IEvent.pressed:
-		return event.is_pressed()
-	return !event.is_pressed()
-
 # Action control
-func check_event(event):
-	return event.is_action(Properties.action) && (is_pressed(event) && is_echo(event))
-
-func take_event(event):
+func take_event():
 	if Combo.counter < Properties.count:
-		var name = Properties.name
-		if Properties.count > 1:
-			name +=  str(Combo.counter+1)
-		emit_signal("combo", name)
+		emit_signal("combo", Combo.counter)
 		if Callback.active:
 			Callback.fn.call_func(Callback.args)
 		_inc_combo()
