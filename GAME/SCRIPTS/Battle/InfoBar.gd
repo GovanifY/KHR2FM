@@ -11,6 +11,16 @@ const TextScroll = preload("res://GAME/SCRIPTS/TextScroll.gd")
 ######################
 ### Core functions ###
 ######################
+func _ready():
+	# Instancing TextScroll
+	InfoText = TextScroll.new()
+	InfoText.set_text_node(get_node("InfoLabel"))
+	add_child(InfoText)
+
+	# Connecting signals
+	InfoText.connect("finished", self, "set_process_input", [true])
+	InfoText.connect("cleared", self, "_start_dismissal")
+
 func _input(event):
 	# Avoid repeated key captures
 	if event.is_pressed() && !event.is_echo():
@@ -36,17 +46,6 @@ func _end_dismissal():
 ###############
 ### Methods ###
 ###############
-# InfoBar initializer
-func init():
-	# Instancing TextScroll
-	InfoText = TextScroll.new()
-	InfoText.set_text_node(get_node("InfoLabel"))
-	add_child(InfoText)
-
-	# Connecting signals
-	InfoText.connect("finished", self, "set_process_input", [true])
-	InfoText.connect("cleared", self, "_start_dismissal")
-
 func display(messageID):
 	# Grabbing message from its ID
 	var message = tr(messageID)

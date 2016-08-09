@@ -32,19 +32,13 @@ func _ready():
 		Enemy.set_pos(default_pos[2])
 
 	translate_commands()
-	InfoBar.init()
 	init_battle()
 
 #######################
 ### Signal routines ###
 #######################
 func _battle_begin():
-	# Player gains control
-	if typeof(Player) == TYPE_OBJECT && Player.is_type("Battler"):
-		Player.set_process_input(true)
-
-	# Animate all Battlers
-	get_tree().call_group(0, "Battlers", "set_fixed_process", true)
+	get_tree().call_group(0, "Battlers", "fight")
 
 ########################
 ### Helper functions ###
@@ -74,19 +68,15 @@ static func _get_default_pos():
 ###############
 ### Methods ###
 ###############
-# Initializes pre-battle environment. Useful when controlling BattlePlan as a child
+# Initializes pre-battle environment
 func init_battle():
+	# InfoBar processing input means that this function has already been called
+	if InfoBar.is_processing_input():
+		return
 	# Battlers should stand down until further notice
-	if typeof(Player) == TYPE_OBJECT && Player.is_type("Battler"):
-		# Player not processing input means that this function has already been called
-		if !Player.is_processing_input():
-			return
-		Player.set_process_input(false)
-	get_tree().call_group(0, "Battlers", "set_fixed_process", false)
+	get_tree().call_group(0, "Battlers", "at_ease")
 
 	# Start Infobar animation
-	if !InfoBar.is_connected("dismiss", self, "_battle_begin"):
-		InfoBar.connect("dismiss", self, "_battle_begin")
 	InfoBar.display(info_message)
 
 # (Re)Translate all HUD Command text

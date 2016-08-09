@@ -44,6 +44,15 @@ func _input(event):
 ###############
 ### Methods ###
 ###############
+### Overloading functions
+func fight():
+	.fight()
+	set_process_input(true)
+
+func at_ease():
+	.at_ease()
+	set_process_input(false)
+
 func create_timer():
 	if ComboTimer != null:
 		ComboTimer.free()

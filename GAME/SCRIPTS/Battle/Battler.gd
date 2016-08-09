@@ -26,9 +26,7 @@ var Motion = Vector2()
 ######################
 func _ready():
 	add_to_group("Battlers")
-
-	start_anims()
-	set_fixed_process(true)
+	fight()
 
 func _fixed_process(delta):
 	# If the Battler must move
@@ -44,6 +42,18 @@ func get_type():
 
 func is_type(type):
 	return get_type() == type
+
+### Battler control
+func fight():
+	set_fixed_process(true)
+	if AnimTree != null:
+		if !AnimTree.is_active():
+			AnimTree.set_active(true)
+
+func at_ease():
+	set_fixed_process(false)
+	if AnimTree != null:
+		AnimTree.set_active(false)
 
 # Custom move() operation
 func move_x(specific = battler_speed):
@@ -72,13 +82,6 @@ func is_facing(left, right):
 		return Data.side.x == 1
 
 ### Handling animations
-func start_anims():
-	if AnimTree == null:
-		return false
-	if !AnimTree.is_active():
-		AnimTree.set_active(true)
-	return true
-
 func set_transition(anim_name, idx):
 	if typeof(idx) == TYPE_BOOL:
 		idx = int(idx)
@@ -86,10 +89,6 @@ func set_transition(anim_name, idx):
 		idx = randi() % AnimTree.transition_node_get_input_count(anim_name)
 
 	AnimTree.transition_node_set_current(anim_name, idx)
-
-func stop_anims():
-	if AnimTree != null:
-		AnimTree.set_active(false)
 
 func random_voice(snd_arr):
 	var voice = get_node("Voice")
