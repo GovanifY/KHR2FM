@@ -1750,4 +1750,14 @@ visibility/opacity = 0.0
 texture = ExtResource( 27 )
 centered = false
 
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+
+transform/scale = Vector2( 878.246, 479.509 )
+normal = null
+pressed = null
+bitmask = null
+passby_press = true
+action = "enter"
+visibility_mode = 0
+
 

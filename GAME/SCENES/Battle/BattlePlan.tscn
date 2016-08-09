@@ -59,7 +59,6 @@ scale = Vector2( 1, 1 )
 
 [node name="EnemyHP" type="Node2D" parent="HUD"]
 
-editor/display_folded = true
 script/script = ExtResource( 3 )
 
 [node name="Boss-Fond" type="Sprite" parent="HUD/EnemyHP"]
@@ -77,7 +76,8 @@ texture = ExtResource( 5 )
 centered = false
 offset = Vector2( -271, 0 )
 vframes = 2
-region_rect = Rect2( 10000, 10000, 10000, 10000 )
+region = true
+region_rect = Rect2( 0, 0, 271, 9 )
 
 [node name="GreenBar" type="Sprite" parent="HUD/EnemyHP"]
 
