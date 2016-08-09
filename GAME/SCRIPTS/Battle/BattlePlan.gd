@@ -20,7 +20,7 @@ func _ready():
 	# Preparing Player
 	if _is_nodepath(Player):
 		Player = get_node(Player)
-	if Player.is_type("Battler"):
+	if typeof(Player) == TYPE_OBJECT && Player.is_type("Battler"):
 		Player.set_pos(default_pos[0])
 		Battlers.push_back(Player)
 
@@ -28,11 +28,12 @@ func _ready():
 	# TODO: Prepare this setup for multiple, different enemies
 	if _is_nodepath(Enemy):
 		Enemy = get_node(Enemy)
-	if Enemy.is_type("Battler"):
+	if typeof(Enemy) == TYPE_OBJECT && Enemy.is_type("Battler"):
 		#Enemy.init_hp_or_something()
 		Enemy.set_pos(default_pos[2])
 		Battlers.push_back(Enemy)
 
+	translate_commands()
 	InfoBar.init()
 	init_battle()
 
@@ -41,7 +42,7 @@ func _ready():
 #######################
 func _battle_begin():
 	# Player gains control
-	if Player.is_type("Battler"):
+	if typeof(Player) == TYPE_OBJECT && Player.is_type("Battler"):
 		Player.set_process_input(true)
 
 	# Animate all Battlers
@@ -78,12 +79,11 @@ static func _get_default_pos():
 ###############
 # Initializes pre-battle environment. Useful when controlling BattlePlan as a child
 func init_battle():
-	# Player not processing input means that this function has already been called
-	if !Player.is_processing_input():
-		return
-
 	# Battlers should stand down until further notice
-	if Player.is_type("Battler"):
+	if typeof(Player) == TYPE_OBJECT && Player.is_type("Battler"):
+		# Player not processing input means that this function has already been called
+		if !Player.is_processing_input():
+			return
 		Player.set_process_input(false)
 	for battler in Battlers:
 		battler.set_fixed_process(false)
@@ -102,3 +102,11 @@ func stop_all_anims(battler = null):
 			battler.stop_anims()
 	else:
 		battler.stop_anims()
+
+# (Re)Translate all HUD Command text
+func translate_commands():
+	var commands = get_node("HUD/Commands")
+
+	var label_attack = commands.find_node("BATTLE_ATTACK")
+	if label_attack != null:
+		label_attack.set_text(tr("BATTLE_ATTACK"))

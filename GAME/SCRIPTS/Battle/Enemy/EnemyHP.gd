@@ -1,5 +1,3 @@
-extends CanvasLayer
-
 var oldHP = 100.0
 var maxHP = 100.0
 onready var GreenBar = get_node("GreenBar")

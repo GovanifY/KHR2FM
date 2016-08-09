@@ -1,14 +1,12 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://GAME/SCRIPTS/Battle/BattlePlan.gd" type="Script" id=1]
 [ext_resource path="res://GAME/SCENES/Battle/InfoBar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://GAME/SCRIPTS/Battle/Enemy/EnemyHP.gd" type="Script" id=3]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Boss/Boss-Fond.png" type="Texture" id=4]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Boss/Boss-Bubble.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Boss/Boss-Barre.png" type="Texture" id=6]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Commands/Commands_Lr_010.png" type="Texture" id=7]
-[ext_resource path="res://ASSETS/LANG/ASSETS/FONTS/Main.fnt" type="BitmapFont" id=8]
-
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Bubble.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barre.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Commands/Commands_Lr_010.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 
@@ -21,10 +19,6 @@ tracks/0/path = NodePath("RedBar:transform/scale")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 2 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 1, 1 ), Vector2( 1e-05, 1 ) ] }
-
-[sub_resource type="GDScript" id=2]
-
-script/source = "\nextends RichTextLabel\n\n# member variables here, example:\n# var a=2\n# var b=\"textvar\"\n\nfunc _ready():\n\tget_node(\".\").set_bbcode(tr(\"BATTLE_ATTACK\"))\n\t# Initialization here\n\tpass\n\n\n"
 
 [sub_resource type="RectangleShape2D" id=3]
 
@@ -61,13 +55,11 @@ offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 
-[node name="EnemyHP" type="CanvasLayer" parent="HUD"]
+[node name="PlayerHP" type="Node2D" parent="HUD"]
+
+[node name="EnemyHP" type="Node2D" parent="HUD"]
 
 editor/display_folded = true
-layer = 5
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
 script/script = ExtResource( 3 )
 
 [node name="Boss-Fond" type="Sprite" parent="HUD/EnemyHP"]
@@ -125,36 +117,31 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="Commands" type="CanvasLayer" parent="HUD"]
+[node name="Commands" type="Node2D" parent="HUD"]
 
 editor/display_folded = true
-layer = 5
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
+transform/pos = Vector2( 0, 448 )
 
 [node name="Selected" type="Sprite" parent="HUD/Commands"]
 
-editor/display_folded = true
-transform/pos = Vector2( 4.6391, 0.418818 )
 texture = ExtResource( 7 )
 centered = false
 
-[node name="BATTLE_ATTACK" type="RichTextLabel" parent="HUD/Commands/Selected"]
+[node name="BATTLE_ATTACK" type="Label" parent="HUD/Commands/Selected"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 32.0
-margin/top = 458.0
-margin/right = 207.0
-margin/bottom = 475.0
-custom_fonts/normal_font = ExtResource( 8 )
-bbcode/enabled = true
-bbcode/bbcode = ""
-visible_characters = -1
-script/script = SubResource( 2 )
+margin/left = 0.0
+margin/top = 10.0
+margin/right = 181.0
+margin/bottom = 24.0
+text = "BATTLE_ATTACK"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="Battlers" type="CanvasLayer" parent="."]
 
