@@ -36,4 +36,9 @@ func _set_cursor():
 	elif cursor == 3:
 		cursor += 1
 		Dialogue.speak("Kiryoku", 7)
+	elif cursor == 4:
+		cursor +=1
+		#TODO: Add music&stuff
+		SceneLoader.add_scene("Game/Intro/Battle_Yuugure.tscn")
+		SceneLoader.load_new_scene()
 	pass

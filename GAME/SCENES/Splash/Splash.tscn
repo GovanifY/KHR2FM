@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=1]
+[gd_scene load_steps=65 format=1]
 
 [ext_resource path="res://GAME/SCRIPTS/Splash/SplashAndMenu.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/Splash/SKYNISM.png" type="Texture" id=2]
@@ -44,6 +44,7 @@
 [ext_resource path="res://ASSETS/SE/System/System_03.wav" type="Sample" id=42]
 [ext_resource path="res://ASSETS/SE/System/System_04.wav" type="Sample" id=43]
 [ext_resource path="res://ASSETS/LANG/ASSETS/FONTS/Main.fnt" type="BitmapFont" id=44]
+[ext_resource path="res://ASSETS/GFX/Game/TouchIcons/null.png" type="Texture" id=45]
 
 [sub_resource type="Animation" id=1]
 
@@ -206,6 +207,41 @@ tracks/30/path = NodePath("Custom Title System/CTS_22:visibility/opacity")
 tracks/30/interp = 1
 tracks/30/imported = false
 tracks/30/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ 0.0 ] }
+tracks/31/type = "value"
+tracks/31/path = NodePath("up_touch:transform/pos")
+tracks/31/interp = 1
+tracks/31/imported = false
+tracks/31/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 0 ) ] }
+tracks/32/type = "value"
+tracks/32/path = NodePath("up_touch:transform/scale")
+tracks/32/interp = 1
+tracks/32/imported = false
+tracks/32/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 345 ) ] }
+tracks/33/type = "value"
+tracks/33/path = NodePath("down_touch:transform/pos")
+tracks/33/interp = 1
+tracks/33/imported = false
+tracks/33/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 373 ) ] }
+tracks/34/type = "value"
+tracks/34/path = NodePath("down_touch:transform/scale")
+tracks/34/interp = 1
+tracks/34/imported = false
+tracks/34/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 111 ) ] }
+tracks/35/type = "value"
+tracks/35/path = NodePath("enter_touch:transform/pos")
+tracks/35/interp = 1
+tracks/35/imported = false
+tracks/35/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 346 ) ] }
+tracks/36/type = "value"
+tracks/36/path = NodePath("cancel_touch:transform/scale")
+tracks/36/interp = 1
+tracks/36/imported = false
+tracks/36/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 1e-05, 1e-05 ) ] }
+tracks/37/type = "value"
+tracks/37/path = NodePath("enter_touch:transform/scale")
+tracks/37/interp = 1
+tracks/37/imported = false
+tracks/37/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 27 ) ] }
 
 [sub_resource type="Animation" id=2]
 
@@ -433,7 +469,7 @@ tracks/4/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "updat
 resource/name = "SplashNew"
 length = 0.13
 loop = false
-step = 0.1
+step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("BlackBG:visibility/visible")
 tracks/0/interp = 1
@@ -1750,13 +1786,45 @@ visibility/opacity = 0.0
 texture = ExtResource( 27 )
 centered = false
 
-[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+[node name="cancel_touch" type="TouchScreenButton" parent="."]
 
-transform/scale = Vector2( 878.246, 479.509 )
-normal = null
+transform/scale = Vector2( 1e-05, 1e-05 )
+normal = ExtResource( 45 )
 pressed = null
 bitmask = null
-passby_press = true
+passby_press = false
+action = "cancel"
+visibility_mode = 0
+
+[node name="up_touch" type="TouchScreenButton" parent="."]
+
+transform/scale = Vector2( 878, 345 )
+normal = ExtResource( 45 )
+pressed = null
+bitmask = null
+passby_press = false
+action = "ui_up"
+visibility_mode = 0
+
+[node name="down_touch" type="TouchScreenButton" parent="."]
+
+transform/pos = Vector2( 0, 373 )
+transform/scale = Vector2( 878, 111 )
+normal = ExtResource( 45 )
+pressed = null
+bitmask = null
+passby_press = false
+action = "ui_down"
+visibility_mode = 0
+
+[node name="enter_touch" type="TouchScreenButton" parent="."]
+
+transform/pos = Vector2( 0, 346 )
+transform/scale = Vector2( 878, 27 )
+normal = ExtResource( 45 )
+pressed = null
+bitmask = null
+passby_press = false
 action = "enter"
 visibility_mode = 0
 

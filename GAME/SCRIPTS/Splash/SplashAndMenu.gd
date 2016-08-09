@@ -82,12 +82,24 @@ func _process(delta):
 				if(ModeNew==2):
 					get_node("Custom Title System/Light_2").stop()
 					get_node("Custom Title System/Light_3").play("Light_3")
+					get_node("up_touch").set_scale(Vector2(878, 412))
+					get_node("down_touch").set_scale(Vector2(878, 47))
+					get_node("down_touch").set_pos(Vector2(0,441))
+					get_node("enter_touch").set_pos(Vector2(0,412))
 				elif(ModeNew==0):
 					get_node("Custom Title System/Light_3").stop()
 					get_node("Custom Title System/Light_1").play("Light_1")
+					get_node("up_touch").set_scale(Vector2(878, 345))
+					get_node("down_touch").set_scale(Vector2(878, 111))
+					get_node("down_touch").set_pos(Vector2(0,377))
+					get_node("enter_touch").set_pos(Vector2(0,346))
 				elif(ModeNew==1):
 					get_node("Custom Title System/Light_1").stop()
 					get_node("Custom Title System/Light_2").play("Light_2")
+					get_node("up_touch").set_scale(Vector2(878, 378))
+					get_node("down_touch").set_scale(Vector2(878, 79))
+					get_node("down_touch").set_pos(Vector2(0,409))
+					get_node("enter_touch").set_pos(Vector2(0,380))
 
 			if (up == true && keypressed == false):
 				get_node("Custom Title System/System").play("System_03")
@@ -98,12 +110,25 @@ func _process(delta):
 				if(ModeNew==2):
 					get_node("Custom Title System/Light_1").stop()
 					get_node("Custom Title System/Light_3").play("Light_3")
+					get_node("up_touch").set_scale(Vector2(878, 412))
+					get_node("down_touch").set_scale(Vector2(878, 47))
+					get_node("down_touch").set_pos(Vector2(0,441))
+					get_node("enter_touch").set_pos(Vector2(0,412))
 				elif(ModeNew==1):
 					get_node("Custom Title System/Light_3").stop()
 					get_node("Custom Title System/Light_2").play("Light_2")
+					get_node("up_touch").set_scale(Vector2(878, 378))
+					get_node("down_touch").set_scale(Vector2(878, 79))
+					get_node("down_touch").set_pos(Vector2(0,409))
+					get_node("enter_touch").set_pos(Vector2(0,380))
 				elif(ModeNew==0):
 					get_node("Custom Title System/Light_2").stop()
 					get_node("Custom Title System/Light_1").play("Light_1")
+					get_node("up_touch").set_scale(Vector2(878, 345))
+					get_node("down_touch").set_scale(Vector2(878, 111))
+					get_node("down_touch").set_pos(Vector2(0,377))
+					get_node("enter_touch").set_pos(Vector2(0,346))
+					
 
 			if (confirm == true && keypressed == false):
 				get_node("Custom Title System/System").play("System_04")
@@ -111,6 +136,7 @@ func _process(delta):
 				if(ModeNew==0):
 					get_node("Custom Title System/SplashNew").play("SplashNew")
 					New_Window=true
+					get_node("cancel_touch").set_scale(Vector2(188, 173))
 				elif(ModeNew==1):
 					get_node("Custom Title System/SplashSave").play("SplashSave")
 					get_node("Custom Title System/Cursor").play("Cursor")
@@ -122,6 +148,7 @@ func _process(delta):
 					#si la save existe on charge le reste(niveau, temps de jeu, endroit et visage)
 					#sinon label "Aucune Sauvegarde"
 					Save_Window_Anim=true
+					get_node("cancel_touch").set_scale(Vector2(230, 79))
 				elif(ModeNew==2):
 					get_node("Custom Title System/QuitGame").play("QuitGame")
 					Quitting=true
@@ -130,6 +157,13 @@ func _process(delta):
 		elif(New_Window==true):
 			if (cancel == true && keypressed == false):
 				keypressed=true
+				get_node("cancel_touch").set_scale(Vector2(0, 0))
+				get_node("up_touch").set_pos(Vector2(0, 0))
+				get_node("enter_touch").set_scale(Vector2(878, 27))
+				get_node("up_touch").set_scale(Vector2(878, 345))
+				get_node("down_touch").set_scale(Vector2(878, 111))
+				get_node("down_touch").set_pos(Vector2(0,377))
+				get_node("enter_touch").set_pos(Vector2(0,346))
 				get_node("Custom Title System/System").play("System_02")
 				if(SelectMode==0):
 					get_node("Custom Title System/UnsplashNew_1").play("UnsplashNew_1")
@@ -161,18 +195,37 @@ func _process(delta):
 					get_node("Custom Title System/NewGame_2").play("NewGame_2")
 				NewGameLaunched=true
 
-			if(SelectMode==1):
+			if(SelectMode==1 && New_Window==true):
 				get_node("Custom Title System/Mode_00").set_opacity(0)
 				get_node("Custom Title System/Mode_01").set_opacity(1)
-			elif(SelectMode==0):
+				get_node("up_touch").set_pos(Vector2(197,0))
+				get_node("up_touch").set_scale(Vector2(681,263))
+				get_node("down_touch").set_scale(Vector2(878, 185))
+				get_node("down_touch").set_pos(Vector2(0,299))
+				get_node("enter_touch").set_pos(Vector2(0,262))
+				get_node("enter_touch").set_scale(Vector2(878,38))
+			elif(SelectMode==0 && New_Window==true):
 				get_node("Custom Title System/Mode_01").set_opacity(0)
 				get_node("Custom Title System/Mode_00").set_opacity(1)
+				get_node("up_touch").set_pos(Vector2(197,0))
+				get_node("up_touch").set_scale(Vector2(681,221))
+				get_node("down_touch").set_scale(Vector2(878, 220))
+				get_node("down_touch").set_pos(Vector2(0,264))
+				get_node("enter_touch").set_pos(Vector2(0,224))
+				get_node("enter_touch").set_scale(Vector2(878,38))
 
 
 		#Et enfin si on est dans le menu de chargement les mêmes touches
 		elif(Save_Window==true):
 			if (cancel == true && keypressed == false):
 				keypressed=true
+				get_node("cancel_touch").set_scale(Vector2(0, 0))
+				get_node("up_touch").set_pos(Vector2(0, 0))
+				get_node("enter_touch").set_scale(Vector2(878, 27))
+				get_node("up_touch").set_scale(Vector2(878, 378))
+				get_node("down_touch").set_scale(Vector2(878, 79))
+				get_node("down_touch").set_pos(Vector2(0,409))
+				get_node("enter_touch").set_pos(Vector2(0,380))
 				get_node("Custom Title System/System").play("System_02")
 				get_node("Custom Title System/UnsplashSave").play("UnsplashSave")
 				get_node("Custom Title System/Cursor").stop()
@@ -219,11 +272,23 @@ func _process(delta):
 				get_node("Custom Title System/Save_Load_34").set_opacity(0)
 				get_node("Custom Title System/Save_Load_05").set_opacity(1)
 				get_node("Custom Title System/Save_Load_35").set_opacity(1)
+				get_node("down_touch").set_scale(Vector2(878, 149))
+				get_node("down_touch").set_pos(Vector2(0,331))
+				get_node("up_touch").set_scale(Vector2(878, 143))
+				get_node("up_touch").set_pos(Vector2(0, 79))
+				get_node("enter_touch").set_scale(Vector2(619, 103))
+				get_node("enter_touch").set_pos(Vector2(130,225))
 			elif(SelectSave==0 && Save_Window==true):
 				get_node("Custom Title System/Save_Load_04").set_opacity(1)
 				get_node("Custom Title System/Save_Load_34").set_opacity(1)
 				get_node("Custom Title System/Save_Load_05").set_opacity(0)
 				get_node("Custom Title System/Save_Load_35").set_opacity(0)
+				get_node("down_touch").set_scale(Vector2(878, 258))
+				get_node("down_touch").set_pos(Vector2(0,222))
+				get_node("up_touch").set_scale(Vector2(638, 119))
+				get_node("up_touch").set_pos(Vector2(240, 0))
+				get_node("enter_touch").set_scale(Vector2(619, 103))
+				get_node("enter_touch").set_pos(Vector2(130,120))
 
 		elif(Quitting==true):
 			if(!get_node("Custom Title System/QuitGame").is_playing()):

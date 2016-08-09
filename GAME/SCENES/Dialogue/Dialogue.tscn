@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=1]
+[gd_scene load_steps=21 format=1]
 
 [ext_resource path="res://GAME/SCRIPTS/Dialogue/Dialogue.gd" type="Script" id=1]
 [ext_resource path="res://GAME/SCRIPTS/Dialogue/Bubble.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://GAME/SCRIPTS/Dialogue/Mugshots.gd" type="Script" id=4]
 [ext_resource path="res://GAME/SCRIPTS/Dialogue/ConfirmKey.gd" type="Script" id=5]
 [ext_resource path="res://ASSETS/SE/System/MSG_SOUND.wav" type="Sample" id=6]
+[ext_resource path="res://ASSETS/GFX/Game/TouchIcons/null.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 
@@ -341,5 +342,15 @@ default/filter/gain = 1.0
 default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
+
+[node name="enter_touch" type="TouchScreenButton" parent="."]
+
+transform/scale = Vector2( 878, 480 )
+normal = ExtResource( 7 )
+pressed = null
+bitmask = null
+passby_press = false
+action = "enter"
+visibility_mode = 0
 
 

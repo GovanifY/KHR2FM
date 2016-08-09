@@ -4,6 +4,7 @@
 * Mettre plus de SE et les organiser par dossiers!
 * Réorganiser le système Battle de façon abstraite.
 * Ajouter Keyaku dans les remerciements ~~et avertir Kreiss~~
+* Meilleur gestion des TouchButton(CMS up coupé à cause du cancel)
 
 ### CE QUI SUIS EST LIE A L'EXPORT ET NON AU JEU EN SOIT
 

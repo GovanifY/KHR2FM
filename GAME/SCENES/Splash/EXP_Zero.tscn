@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=1]
+[gd_scene load_steps=18 format=1]
 
 [ext_resource path="res://GAME/SCRIPTS/Splash/EXP_Zero.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/EXP/Exp_zero_004.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://ASSETS/SE/System/System_03.wav" type="Sample" id=8]
 [ext_resource path="res://ASSETS/SE/System/System_04.wav" type="Sample" id=9]
 [ext_resource path="res://ASSETS/GFX/BackGround/Black.png" type="Texture" id=10]
+[ext_resource path="res://ASSETS/GFX/Game/TouchIcons/null.png" type="Texture" id=11]
 
 [sub_resource type="Animation" id=1]
 
@@ -20,55 +21,68 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("EXP_Zero_004:visibility/opacity")
 tracks/0/interp = 1
-tracks/0/keys = { "cont":true, "times":FloatArray( 0, 0.23 ), "transitions":FloatArray( 1, 1 ), "values":[ 0.0, 1.0 ] }
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.23 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("EXP_Zero_002:transform/pos")
 tracks/1/interp = 1
-tracks/1/keys = { "cont":true, "times":FloatArray( 0.46, 0.69 ), "transitions":FloatArray( 1, 1 ), "values":[ Vector2( -40, 0 ), Vector2( 0, 0 ) ] }
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0.46, 0.69 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( -40, 0 ), Vector2( 0, 0 ) ] }
 tracks/2/type = "value"
 tracks/2/path = NodePath("EXP_Zero_002:visibility/opacity")
 tracks/2/interp = 1
-tracks/2/keys = { "cont":true, "times":FloatArray( 0.46, 0.69 ), "transitions":FloatArray( 1, 1 ), "values":[ 0.0, 1.0 ] }
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0.46, 0.69 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/3/type = "value"
 tracks/3/path = NodePath("EXP_Zero_000:visibility/opacity")
 tracks/3/interp = 0
-tracks/3/keys = { "cont":true, "times":FloatArray( 0, 0.69 ), "transitions":FloatArray( 1, 0 ), "values":[ 0.0, 1.0 ] }
+tracks/3/imported = false
+tracks/3/keys = { "times":FloatArray( 0, 0.69 ), "transitions":FloatArray( 1, 0 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/4/type = "value"
 tracks/4/path = NodePath("EXPZ_DESC_00:visibility/opacity")
 tracks/4/interp = 1
-tracks/4/keys = { "cont":true, "times":FloatArray( 0, 0.23 ), "transitions":FloatArray( 1, 1 ), "values":[ 0.0, 1.0 ] }
+tracks/4/imported = false
+tracks/4/keys = { "times":FloatArray( 0, 0.23 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/5/type = "value"
 tracks/5/path = NodePath("EXPZ_DESC_00:rect/pos")
 tracks/5/interp = 1
-tracks/5/keys = { "cont":true, "times":FloatArray( 0, 0.23, 0.33 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 300, 209 ), Vector2( 300, 194 ), Vector2( 300, 189 ) ] }
+tracks/5/imported = false
+tracks/5/keys = { "times":FloatArray( 0, 0.23, 0.33 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ Vector2( 300, 209 ), Vector2( 300, 194 ), Vector2( 300, 189 ) ] }
 tracks/6/type = "value"
 tracks/6/path = NodePath("EXPZ_DESC_01:rect/pos")
 tracks/6/interp = 1
-tracks/6/keys = { "cont":true, "times":FloatArray( 0, 0.23, 0.33 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 338, 231 ), Vector2( 338, 216 ), Vector2( 338, 211 ) ] }
+tracks/6/imported = false
+tracks/6/keys = { "times":FloatArray( 0, 0.23, 0.33 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ Vector2( 338, 231 ), Vector2( 338, 216 ), Vector2( 338, 211 ) ] }
 tracks/7/type = "value"
 tracks/7/path = NodePath("EXPZ_DESC_01:visibility/opacity")
 tracks/7/interp = 1
-tracks/7/keys = { "cont":true, "times":FloatArray( 0, 0.23 ), "transitions":FloatArray( 1, 1 ), "values":[ 0.0, 1.0 ] }
+tracks/7/imported = false
+tracks/7/keys = { "times":FloatArray( 0, 0.23 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/8/type = "value"
 tracks/8/path = NodePath("EXPZ_CHOICE_00:rect/pos")
 tracks/8/interp = 1
-tracks/8/keys = { "cont":true, "times":FloatArray( 0, 0.23, 0.33 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 328, 288 ), Vector2( 328, 273 ), Vector2( 328, 268 ) ] }
+tracks/8/imported = false
+tracks/8/keys = { "times":FloatArray( 0, 0.23, 0.33 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ Vector2( 328, 288 ), Vector2( 328, 273 ), Vector2( 328, 268 ) ] }
 tracks/9/type = "value"
 tracks/9/path = NodePath("EXPZ_CHOICE_00:visibility/opacity")
 tracks/9/interp = 1
-tracks/9/keys = { "cont":true, "times":FloatArray( 0, 0.23 ), "transitions":FloatArray( 1, 1 ), "values":[ 0.0, 1.0 ] }
+tracks/9/imported = false
+tracks/9/keys = { "times":FloatArray( 0, 0.23 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/10/type = "value"
 tracks/10/path = NodePath("EXPZ_CHOICE_01:rect/pos")
 tracks/10/interp = 1
-tracks/10/keys = { "cont":true, "times":FloatArray( 0, 0.23, 0.33 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 529, 289 ), Vector2( 529, 274 ), Vector2( 529, 269 ) ] }
+tracks/10/imported = false
+tracks/10/keys = { "times":FloatArray( 0, 0.23, 0.33 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ Vector2( 529, 289 ), Vector2( 529, 274 ), Vector2( 529, 269 ) ] }
 tracks/11/type = "value"
 tracks/11/path = NodePath("EXPZ_CHOICE_01:visibility/opacity")
 tracks/11/interp = 1
-tracks/11/keys = { "cont":true, "times":FloatArray( 0, 0.23 ), "transitions":FloatArray( 1, 1 ), "values":[ 0.0, 1.0 ] }
+tracks/11/imported = false
+tracks/11/keys = { "times":FloatArray( 0, 0.23 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/12/type = "value"
 tracks/12/path = NodePath("EXP_Zero_004:transform/pos")
 tracks/12/interp = 1
-tracks/12/keys = { "cont":true, "times":FloatArray( 0, 0.23, 0.33 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 0, 20 ), Vector2( 0, 5 ), Vector2( 0, 0 ) ] }
+tracks/12/imported = false
+tracks/12/keys = { "times":FloatArray( 0, 0.23, 0.33 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ Vector2( 0, 20 ), Vector2( 0, 5 ), Vector2( 0, 0 ) ] }
 
 [sub_resource type="Animation" id=2]
 
@@ -79,11 +93,13 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("EXP_Zero_002:transform/pos")
 tracks/0/interp = 1
-tracks/0/keys = { "cont":true, "times":FloatArray( 0, 0.33, 0.66 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 0, 0 ), Vector2( -9, 0 ), Vector2( 0, 0 ) ] }
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.33, 0.66 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ Vector2( 0, 0 ), Vector2( -9, 0 ), Vector2( 0, 0 ) ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("EXP_Zero_003:transform/pos")
 tracks/1/interp = 1
-tracks/1/keys = { "cont":true, "times":FloatArray( 0, 0.33, 0.66 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 0, 0 ), Vector2( -9, 0 ), Vector2( 0, 0 ) ] }
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 0.33, 0.66 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ Vector2( 0, 0 ), Vector2( -9, 0 ), Vector2( 0, 0 ) ] }
 
 [sub_resource type="GDScript" id=3]
 
@@ -107,7 +123,8 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("BlackBG:visibility/opacity")
 tracks/0/interp = 1
-tracks/0/keys = { "cont":true, "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "values":[ 1.0 ] }
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ 1.0 ] }
 
 [node name="EXP_Zero" type="Node2D"]
 
@@ -209,6 +226,7 @@ visibility/opacity = 0.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
+size_flags/vertical = 0
 margin/left = 328.0
 margin/top = 288.0
 margin/right = 440.0
@@ -225,6 +243,7 @@ visibility/opacity = 0.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
+size_flags/vertical = 0
 margin/left = 529.0
 margin/top = 289.0
 margin/right = 641.0
@@ -268,5 +287,37 @@ playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
+
+[node name="left_touch" type="TouchScreenButton" parent="."]
+
+transform/scale = Vector2( 242, 480 )
+normal = ExtResource( 11 )
+pressed = null
+bitmask = null
+passby_press = false
+action = "ui_left"
+visibility_mode = 0
+
+[node name="right_touch" type="TouchScreenButton" parent="."]
+
+transform/pos = Vector2( 432, 0 )
+transform/scale = Vector2( 445, 480 )
+normal = ExtResource( 11 )
+pressed = null
+bitmask = null
+passby_press = false
+action = "ui_right"
+visibility_mode = 0
+
+[node name="enter_touch" type="TouchScreenButton" parent="."]
+
+transform/pos = Vector2( 253, 257 )
+transform/scale = Vector2( 173, 37 )
+normal = ExtResource( 11 )
+pressed = null
+bitmask = null
+passby_press = false
+action = ""
+visibility_mode = 0
 
 

@@ -44,11 +44,19 @@ func _process(delta):
 				get_node("EXP_Zero_003").set_opacity(1)
 				get_node("EXP_Zero_001").set_opacity(1)
 				get_node("EXP_Zero_000").set_opacity(0)
+				get_node("left_touch").set_scale(Vector2(450,480))
+				get_node("right_touch").set_pos(Vector2(630,0))
+				get_node("right_touch").set_scale(Vector2(248,480))
+				get_node("enter_touch").set_pos(Vector2(455,257))
 			elif SelectMode == 0:
 				get_node("EXP_Zero_002").set_opacity(1)
 				get_node("EXP_Zero_003").set_opacity(0)
 				get_node("EXP_Zero_001").set_opacity(0)
 				get_node("EXP_Zero_000").set_opacity(1)
+				get_node("left_touch").set_scale(Vector2(242,480))
+				get_node("right_touch").set_scale(Vector2(445,480))
+				get_node("right_touch").set_pos(Vector2(432,0))
+				get_node("enter_touch").set_pos(Vector2(253,257))
 			keypressed=true
 
 		if (right == true && keypressed == false):
@@ -62,11 +70,19 @@ func _process(delta):
 				get_node("EXP_Zero_003").set_opacity(1)
 				get_node("EXP_Zero_001").set_opacity(1)
 				get_node("EXP_Zero_000").set_opacity(0)
+				get_node("left_touch").set_scale(Vector2(450,480))
+				get_node("right_touch").set_pos(Vector2(630,0))
+				get_node("right_touch").set_scale(Vector2(248,480))
+				get_node("enter_touch").set_pos(Vector2(455,257))
 			elif SelectMode == 0:
 				get_node("EXP_Zero_002").set_opacity(1)
 				get_node("EXP_Zero_003").set_opacity(0)
 				get_node("EXP_Zero_001").set_opacity(0)
 				get_node("EXP_Zero_000").set_opacity(1)
+				get_node("left_touch").set_scale(Vector2(242,480))
+				get_node("right_touch").set_scale(Vector2(445,480))
+				get_node("right_touch").set_pos(Vector2(432,0))
+				get_node("enter_touch").set_pos(Vector2(253,257))
 			keypressed=true
 		if (confirm == true && keypressed == false):
 			if SelectMode==1:
