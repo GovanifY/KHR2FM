@@ -20,7 +20,7 @@ tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 2 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 1, 1 ), Vector2( 1e-05, 1 ) ] }
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
 extents = Vector2( 1, 240 )
@@ -154,10 +154,10 @@ scale = Vector2( 1, 1 )
 
 editor/display_folded = true
 input/pickable = false
-shapes/0/shape = SubResource( 3 )
+shapes/0/shape = SubResource( 2 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 240 )
 shapes/0/trigger = false
-shapes/1/shape = SubResource( 3 )
+shapes/1/shape = SubResource( 2 )
 shapes/1/transform = Matrix32( 1, 0, 0, 1, 878, 240 )
 shapes/1/trigger = false
 collision/layers = 1
@@ -170,14 +170,14 @@ bounce = 0.0
 [node name="Left" type="CollisionShape2D" parent="Battlers/Walls"]
 
 transform/pos = Vector2( 0, 240 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
 [node name="Right" type="CollisionShape2D" parent="Battlers/Walls"]
 
 transform/pos = Vector2( 878, 240 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 1
 

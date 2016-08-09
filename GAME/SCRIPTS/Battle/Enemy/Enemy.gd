@@ -10,6 +10,8 @@ var ActionTimer
 ### Core functions ###
 ######################
 func _ready():
+	add_to_group("Enemies")
+
 	ActionTimer = Timer.new()
 	ActionTimer.set_wait_time(0.5)
 	#ActionTimer.set_one_shot(false)

@@ -25,6 +25,8 @@ var Motion = Vector2()
 ### Core functions ###
 ######################
 func _ready():
+	add_to_group("Battlers")
+
 	start_anims()
 	set_fixed_process(true)
 

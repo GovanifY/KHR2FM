@@ -8,7 +8,6 @@ export(NodePath) var Enemy = null
 
 # Instance members
 onready var InfoBar = get_node("InfoBar")
-var Battlers = []
 
 ######################
 ### Core functions ###
@@ -22,7 +21,6 @@ func _ready():
 		Player = get_node(Player)
 	if typeof(Player) == TYPE_OBJECT && Player.is_type("Battler"):
 		Player.set_pos(default_pos[0])
-		Battlers.push_back(Player)
 
 	# Preparing Enemy
 	# TODO: Prepare this setup for multiple, different enemies
@@ -32,7 +30,6 @@ func _ready():
 		var EnemyHP = get_node("HUD/EnemyHP")
 		Enemy.set_hp_bar(EnemyHP)
 		Enemy.set_pos(default_pos[2])
-		Battlers.push_back(Enemy)
 
 	translate_commands()
 	InfoBar.init()
@@ -47,8 +44,7 @@ func _battle_begin():
 		Player.set_process_input(true)
 
 	# Animate all Battlers
-	for battler in Battlers:
-		battler.set_fixed_process(true)
+	get_tree().call_group(0, "Battlers", "set_fixed_process", true)
 
 ########################
 ### Helper functions ###
@@ -86,23 +82,12 @@ func init_battle():
 		if !Player.is_processing_input():
 			return
 		Player.set_process_input(false)
-	for battler in Battlers:
-		battler.set_fixed_process(false)
+	get_tree().call_group(0, "Battlers", "set_fixed_process", false)
 
 	# Start Infobar animation
 	if !InfoBar.is_connected("dismiss", self, "_battle_begin"):
 		InfoBar.connect("dismiss", self, "_battle_begin")
 	InfoBar.display(info_message)
-
-# Force-stop every single animation node from every battler on scene if unspecified
-func stop_all_anims(battler = null):
-	if battler == null:
-		# Iterating all registered Battlers
-		for battler in Battlers:
-			# Checking if the Battler has a Node named "anims"
-			battler.stop_anims()
-	else:
-		battler.stop_anims()
 
 # (Re)Translate all HUD Command text
 func translate_commands():
