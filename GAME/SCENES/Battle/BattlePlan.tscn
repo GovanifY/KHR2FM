@@ -4,8 +4,8 @@
 [ext_resource path="res://GAME/SCENES/Battle/InfoBar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://GAME/SCRIPTS/Battle/Enemy/EnemyHP.gd" type="Script" id=3]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.png" type="Texture" id=4]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Bubble.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barre.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barre.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Bubble.png" type="Texture" id=6]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Commands/Commands_Lr_010.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
@@ -68,22 +68,11 @@ texture = ExtResource( 4 )
 centered = false
 offset = Vector2( -316, 0 )
 
-[node name="FullBubbles" type="Sprite" parent="HUD/EnemyHP"]
-
-transform/pos = Vector2( 831, 22 )
-z/z = 1
-texture = ExtResource( 5 )
-centered = false
-offset = Vector2( -271, 0 )
-vframes = 2
-region = true
-region_rect = Rect2( 0, 0, 271, 9 )
-
 [node name="GreenBar" type="Sprite" parent="HUD/EnemyHP"]
 
 transform/pos = Vector2( 854.024, 15.0081 )
 z/z = 1
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 centered = false
 offset = Vector2( -312, 0 )
 vframes = 2
@@ -91,16 +80,27 @@ vframes = 2
 [node name="RedBar" type="Sprite" parent="HUD/EnemyHP"]
 
 transform/pos = Vector2( 854.022, 15.0143 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 centered = false
 offset = Vector2( -312, 0 )
 vframes = 2
 frame = 1
 
+[node name="FullBubbles" type="Sprite" parent="HUD/EnemyHP"]
+
+transform/pos = Vector2( 831, 22 )
+z/z = 1
+texture = ExtResource( 6 )
+centered = false
+offset = Vector2( -271, 0 )
+vframes = 2
+region = true
+region_rect = Rect2( 0, 0, 271, 9 )
+
 [node name="EmptyBubbles" type="Sprite" parent="HUD/EnemyHP"]
 
 transform/pos = Vector2( 831, 22 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 centered = false
 offset = Vector2( -271, 0 )
 vframes = 2
