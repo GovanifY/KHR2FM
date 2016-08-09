@@ -9,6 +9,7 @@ func _ready():
 	# Sets up basic controls
 	create_timer()
 	setup_controls()
+	setup_data()
 
 	# Player gains control
 	set_transition("walk", false)
@@ -67,3 +68,8 @@ func setup_controls():
 		key = "enter"
 		Actions[key] = Battle_Action.new(self, true, 3)
 		Actions[key].attach_timer(ComboTimer)
+
+func setup_data():
+	if Globals.get("PlayerData"):
+		# TODO: Grab PlayerData's battler information
+		pass

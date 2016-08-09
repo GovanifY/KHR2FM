@@ -20,7 +20,8 @@ Enemy = NodePath("Battlers/Yuugure")
 [node name="Yuugure" parent="BattlePlan/Battlers" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 750, 240 )
-battler_speed = 300
+battler_speed = 5
+hit_points = 100
 
 
 [editable path="BattlePlan"]

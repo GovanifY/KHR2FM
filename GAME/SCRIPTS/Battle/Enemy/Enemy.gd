@@ -31,8 +31,7 @@ func _test_rules():
 ######################
 # FIXME: These will be gone after the existence of lambda functions
 func HP_less_than(value):
-	# TODO
-	pass
+	return get_HP() < value
 
 ###############
 ### Methods ###
@@ -46,7 +45,6 @@ func HP_less_than(value):
 # result : The function to run when the condition set above has been met
 # args2  : Array of Variants to send to the function above
 ################################################################################
-
 func add_rule(test_func, test_args, result_func, result_args):
 	if ( # Adding checks is REALLY important here so as to not screw up
 	   typeof(test_func) == TYPE_OBJECT && test_func.is_type("FuncRef")

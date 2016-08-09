@@ -2,12 +2,14 @@ extends KinematicBody2D
 
 # Export values
 export(int, 5, 10) var battler_speed = 5
+export(int) var hit_points = 100 setget set_HP,get_HP
 
 # Constants
 const Battle_Action = preload("res://GAME/SCRIPTS/Battle/Actions/Action.gd")
 
 # Important Battler data
 onready var AnimTree = get_node("AnimTree")
+var HP_Bar setget set_hp_bar
 var Data = {
 	# Various properties
 	"side"  : Vector2(1, 1),
@@ -92,3 +94,18 @@ func random_voice(snd_arr):
 	if typeof(snd_arr) == TYPE_STRING_ARRAY && voice != null:
 		var rng = randi() % snd_arr.size()
 		voice.play(snd_arr[rng])
+
+# HP-related functions
+func set_HP(value):
+	if typeof(value) == TYPE_INT || typeof(value) == TYPE_REAL:
+		# Updating HP bar first
+		if HP_Bar != null:
+			HP_Bar.update(hit_points, value)
+		hit_points = value
+
+func get_HP():
+	return hit_points
+
+func set_hp_bar(value):
+	if typeof(value) == TYPE_OBJECT:
+		HP_Bar = value

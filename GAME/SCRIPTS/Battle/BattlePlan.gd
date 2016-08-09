@@ -29,7 +29,8 @@ func _ready():
 	if _is_nodepath(Enemy):
 		Enemy = get_node(Enemy)
 	if typeof(Enemy) == TYPE_OBJECT && Enemy.is_type("Battler"):
-		#Enemy.init_hp_or_something()
+		var EnemyHP = get_node("HUD/EnemyHP")
+		Enemy.set_hp_bar(EnemyHP)
 		Enemy.set_pos(default_pos[2])
 		Battlers.push_back(Enemy)
 
