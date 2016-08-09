@@ -105,6 +105,8 @@ centered = false
 offset = Vector2( -271, 0 )
 vframes = 2
 frame = 1
+region = true
+region_rect = Rect2( 0, 9, 271, 9 )
 
 [node name="SlideHit" type="AnimationPlayer" parent="HUD/EnemyHP"]
 
