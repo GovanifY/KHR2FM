@@ -24,12 +24,10 @@ func _init(battler, default):
 	Properties.default = default
 
 func _start_timer():
-	if Combo.timer != null:
-		Combo.timer.start()
+	Combo.timer.start()
 
 func _stop_timer():
-	if Combo.timer != null:
-		Combo.timer.stop()
+	Combo.timer.stop()
 
 func _inc_combo():
 	# Don't bother if there's no Combo.timer attached
@@ -40,8 +38,8 @@ func _inc_combo():
 		Combo.enabled = true
 
 	if Combo.enabled:
-		_start_timer()
 		Combo.counter += 1
+		_start_timer()
 	return true
 
 func _lock():
@@ -74,7 +72,7 @@ func attach_timer(timer):
 		Combo.timer.connect("timeout", self, "_end_combo")
 
 func set_max_combo(number):
-	if typeof(number) == TYPE_INT:
+	if typeof(number) == TYPE_INT && Combo.timer != null:
 		Combo.maxed = number
 
 func new_action(name, is_combo = true):
@@ -87,6 +85,11 @@ func is_locked():
 
 # Action control
 func take(action):
+	if is_locked():
+		# Reset the timer in case a combo was attempted
+		if ActionList[action]:
+			_start_timer()
+		return
 	_lock()
 	# If it's not part of a combo, set it apart
 	if !ActionList[action]:
@@ -99,4 +102,5 @@ func take(action):
 		_inc_combo()
 	else:
 		Properties.battler.set_transition(action, Combo.maxed+1)
+		_end_combo()
 	return
