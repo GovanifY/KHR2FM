@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=1]
+[gd_scene load_steps=32 format=1]
 
 [ext_resource path="res://GAME/SCRIPTS/Battle/Enemy/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Enemies/Yuugure/Yuugure_00.png" type="Texture" id=2]
@@ -23,9 +23,10 @@
 [ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_03.wav" type="Sample" id=21]
 [ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_04.wav" type="Sample" id=22]
 [ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_05.wav" type="Sample" id=23]
-[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_07.wav" type="Sample" id=24]
-[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_08.wav" type="Sample" id=25]
-[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_09.wav" type="Sample" id=26]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_06.wav" type="Sample" id=24]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_07.wav" type="Sample" id=25]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_08.wav" type="Sample" id=26]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_09.wav" type="Sample" id=27]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -66,9 +67,10 @@ samples/Yuugure_02 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 20 ) }
 samples/Yuugure_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 21 ) }
 samples/Yuugure_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 22 ) }
 samples/Yuugure_05 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 23 ) }
-samples/Yuugure_07 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 24 ) }
-samples/Yuugure_08 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 25 ) }
-samples/Yuugure_09 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 26 ) }
+samples/Yuugure_06 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 24 ) }
+samples/Yuugure_07 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 25 ) }
+samples/Yuugure_08 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 26 ) }
+samples/Yuugure_09 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 27 ) }
 
 [node name="Yuugure" type="KinematicBody2D"]
 
