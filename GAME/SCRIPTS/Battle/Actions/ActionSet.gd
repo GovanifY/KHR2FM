@@ -56,7 +56,6 @@ func _end_combo():
 	_end_action()
 
 func _end_action():
-	unlock()
 	Properties.battler.set_transition(Properties.default)
 
 ###############
