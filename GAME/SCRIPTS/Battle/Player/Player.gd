@@ -58,7 +58,6 @@ func setup_controls():
 		pass
 	else:
 		ActionSet = Battle_ActionSet.new(self, STILL_POSE)
-		AnimTree.connect("finished", ActionSet, "_end_action")
 		ActionSet.attach_timer(Data.timer)
 		ActionSet.set_max_combo(2) # Doesn't count finisher
 

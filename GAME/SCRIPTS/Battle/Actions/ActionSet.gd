@@ -20,6 +20,7 @@ func _init(battler, default):
 	assert(typeof(battler) == TYPE_OBJECT && battler.is_type("Battler"))
 	assert(typeof(default) == TYPE_STRING && !default.empty())
 
+	battler.AnimTree.connect("finished", self, "_end_action")
 	Properties.battler = battler
 	Properties.default = default
 
