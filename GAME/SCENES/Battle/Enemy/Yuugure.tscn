@@ -64,6 +64,7 @@ collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 AnimTree = NodePath("anims")
+finisher_voice_se = null
 battler_speed = 5
 hit_points = 100
 actions_holder = StringArray( "Attack1", "Attack2" )

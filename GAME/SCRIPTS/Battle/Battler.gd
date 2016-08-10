@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 # Export values
 export(NodePath) var AnimTree
+export(StringArray) var finisher_voice_se
 export(int, 5, 10) var battler_speed = 5
 export(int) var hit_points = 100 setget set_HP,get_HP
 
