@@ -5,6 +5,10 @@ export(int, 5, 10) var battler_speed = 5
 export(int) var hit_points = 100 setget set_HP,get_HP
 
 # Constants
+const STILL_POSE = "Still"
+const WALK_POSE = "Walk"
+
+# Instancing objects
 const Battle_ActionSet = preload("res://GAME/SCRIPTS/Battle/Actions/ActionSet.gd")
 
 # Important Battler data
@@ -44,7 +48,6 @@ func is_type(type):
 ### Battler control
 func fight():
 	set_fixed_process(true)
-	set_transition("Still")
 
 func at_ease():
 	set_fixed_process(false)

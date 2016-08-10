@@ -13,26 +13,26 @@ func _ready():
 	setup_data()
 
 	# Player gains control
-	set_transition("Still")
 	set_process_input(true)
 
 func _fixed_process(delta):
-	# Simple Input check
-	var left  = Input.is_action_pressed("ui_left")
-	var right = Input.is_action_pressed("ui_right")
+	if !ActionSet.is_locked():
+		# Simple Input check
+		var left  = Input.is_action_pressed("ui_left")
+		var right = Input.is_action_pressed("ui_right")
 
-	# déterminer la priorité de direction
-	if left && right:
-		left  = is_facing(true, false)
-		right = !left
+		# déterminer la priorité de direction
+		if left && right:
+			left  = is_facing(true, false)
+			right = !left
 
-	# Indiquer la direction finale
-	if left || right:
-		adjust_facing(left, right)
-		move_x()
-		set_transition("Walk")
-	else:
-		set_transition("Still")
+		# Indiquer la direction finale
+		if left || right:
+			adjust_facing(left, right)
+			move_x()
+			set_transition(WALK_POSE)
+		else:
+			set_transition(STILL_POSE)
 
 func _input(event):
 	for act in InputActions:
@@ -68,7 +68,8 @@ func setup_controls():
 		# TODO: Grab PlayerData's battler information
 		pass
 	else:
-		ActionSet = Battle_ActionSet.new(self, "Still")
+		ActionSet = Battle_ActionSet.new(self, STILL_POSE)
+		AnimTree.connect("finished", ActionSet, "_end_action")
 		ActionSet.set_max_combo(2) # Doesn't count finisher
 		ActionSet.attach_timer(ComboTimer)
 

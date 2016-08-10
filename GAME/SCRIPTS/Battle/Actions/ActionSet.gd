@@ -11,6 +11,7 @@ var Combo = {
 }
 
 var ActionList = {}
+var action_lock = false
 
 ######################
 ### Core functions ###
@@ -43,16 +44,22 @@ func _inc_combo():
 		Combo.counter += 1
 	return true
 
+func _lock():
+	action_lock = true
+
+func _unlock():
+	action_lock = false
+
 #######################
 ### Signal routines ###
 #######################
 func _end_combo():
 	Combo.enabled = false
 	Combo.counter = 0
-	_end_action()
 
 func _end_action():
-	Properties.battler.set_transition(Properties.default)
+	_unlock()
+	Properties.battler.set_transition(Properties.battler.STILL_POSE)
 
 ###############
 ### Methods ###
@@ -75,8 +82,13 @@ func new_action(name, is_combo = true):
 	ActionList[name] = is_combo
 	return name
 
+func is_locked():
+	return action_lock
+
 # Action control
 func take(action):
+	_lock()
+	# If it's not part of a combo, set it apart
 	if !ActionList[action]:
 		Properties.battler.set_transition(action)
 		return
@@ -86,6 +98,5 @@ func take(action):
 		Properties.battler.set_transition(action, Combo.counter+1)
 		_inc_combo()
 	else:
-		Properties.battler.set_transition(action, Combo.maxed)
-		_end_action()
+		Properties.battler.set_transition(action, Combo.maxed+1)
 	return
