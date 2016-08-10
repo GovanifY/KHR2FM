@@ -37,7 +37,7 @@ extents = Vector2( 25, 45 )
 
 animations = [ { "frames":[ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ], "loop":true, "name":"default", "speed":5.0 } ]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 
 resource/name = "Attack1"
 length = 0.8
@@ -59,7 +59,7 @@ tracks/2/interp = 1
 tracks/2/imported = false
 tracks/2/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Yuugure_01" ] }
 
-[sub_resource type="SampleLibrary" id=3]
+[sub_resource type="SampleLibrary" id=4]
 
 samples/Yuugure_00 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 18 ) }
 samples/Yuugure_01 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 19 ) }
@@ -97,14 +97,13 @@ _update_shape_index = 0
 
 frames = SubResource( 2 )
 animation = "default"
-frame = 12
 
 [node name="anims" type="AnimationPlayer" parent="."]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/Attack1 = SubResource( 4 )
+anims/Attack1 = SubResource( 3 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -113,7 +112,7 @@ autoplay = ""
 [node name="Voice" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 3 )
+config/samples = SubResource( 4 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0
