@@ -13,13 +13,19 @@ var RuleSet = []
 func _ready():
 	add_to_group("Enemies")
 
-	# Adding Timer
-	create_timer(0.5, false)
-	Data.timer.connect("timeout", self, "_test_rules")
-	Data.timer.start()
+	# Setting up imported actions_holder
+	ActionSet = Battle_ActionSet.new(self, STILL_POSE)
+	var anim_list = AnimTree.get_animation_list()
+	for anim in actions_holder:
+		if anim in anim_list:
+			ActionAnims.push_back(ActionSet.new_action(anim))
+	actions_holder = null
 
 func _fixed_process(delta):
-	pass
+	if !ActionSet.is_locked():
+		var random_action = ActionAnims[randi() % ActionAnims.size()]
+		ActionSet.take(random_action)
+		_test_rules()
 
 # Tests for any added rules given
 func _test_rules():
