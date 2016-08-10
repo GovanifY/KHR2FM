@@ -60,6 +60,7 @@ func setup_controls():
 		ActionSet = Battle_ActionSet.new(self, STILL_POSE)
 		ActionSet.attach_timer(Data.timer)
 		ActionSet.set_max_combo(2) # Doesn't count finisher
+		ActionSet.set_voice("finisher", StringArray(["Kiryoku_05", "Kiryoku_06", "Kiryoku_09"]))
 
 		# Adding actions
 		InputActions["cancel"] = ActionSet.new_action("Guard")

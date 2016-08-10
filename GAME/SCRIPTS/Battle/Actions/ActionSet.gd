@@ -3,6 +3,10 @@ var Properties = {
 	"battler" : null,
 	"default" : null
 }
+# Voice sound effects to be played at certain moments
+var Voice = {
+	"finisher" : null
+}
 var Combo = {
 	"timer"   : null,
 	"enabled" : false,
@@ -76,6 +80,10 @@ func set_max_combo(number):
 	if typeof(number) == TYPE_INT && Combo.timer != null:
 		Combo.maxed = number
 
+func set_voice(slot, snd_arr):
+	if typeof(snd_arr) == TYPE_STRING_ARRAY && Voice.has(slot):
+		Voice[slot] = snd_arr
+
 func new_action(name, is_combo = false):
 	# FIXME: Much of this code is redundant. Refactor all this shit later
 	ActionList[name] = is_combo
@@ -102,6 +110,8 @@ func take(action):
 		Properties.battler.set_transition(action, Combo.counter+1)
 		_inc_combo()
 	else:
+		if Voice.finisher != null:
+			Properties.battler.random_voice(Voice.finisher)
 		Properties.battler.set_transition(action, Combo.maxed+1)
 		_end_combo()
 	return

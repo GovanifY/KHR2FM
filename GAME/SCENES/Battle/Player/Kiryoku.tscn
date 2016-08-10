@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=1]
+[gd_scene load_steps=68 format=1]
 
 [ext_resource path="res://GAME/SCRIPTS/Battle/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_00.png" type="Texture" id=2]
@@ -55,11 +55,13 @@
 [ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_04.wav" type="Sample" id=53]
 [ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_05.wav" type="Sample" id=54]
 [ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_06.wav" type="Sample" id=55]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_09.wav" type="Sample" id=56]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Hit1.wav" type="Sample" id=57]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Hit2.wav" type="Sample" id=58]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Swing.wav" type="Sample" id=59]
-[ext_resource path="res://ASSETS/SE/Battle/General/Ground_walk.wav" type="Sample" id=60]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_07.wav" type="Sample" id=56]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_08.wav" type="Sample" id=57]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_09.wav" type="Sample" id=58]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Hit1.wav" type="Sample" id=59]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Hit2.wav" type="Sample" id=60]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Swing.wav" type="Sample" id=61]
+[ext_resource path="res://ASSETS/SE/Battle/General/Ground_walk.wav" type="Sample" id=62]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -77,17 +79,19 @@ samples/Kiryoku_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 52 ) }
 samples/Kiryoku_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 53 ) }
 samples/Kiryoku_05 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 54 ) }
 samples/Kiryoku_06 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 55 ) }
-samples/Kiryoku_09 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 56 ) }
+samples/Kiryoku_07 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 56 ) }
+samples/Kiryoku_08 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 57 ) }
+samples/Kiryoku_09 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 58 ) }
 
 [sub_resource type="SampleLibrary" id=4]
 
-samples/Kiryoku_Keyblade_Hit1 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 57 ) }
-samples/Kiryoku_Keyblade_Hit2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 58 ) }
-samples/Kiryoku_Keyblade_Swing = { "db":0.0, "pitch":1.0, "sample":ExtResource( 59 ) }
+samples/Kiryoku_Keyblade_Hit1 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 59 ) }
+samples/Kiryoku_Keyblade_Hit2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 60 ) }
+samples/Kiryoku_Keyblade_Swing = { "db":0.0, "pitch":1.0, "sample":ExtResource( 61 ) }
 
 [sub_resource type="SampleLibrary" id=5]
 
-samples/Ground_walk = { "db":-25.0, "pitch":1.0, "sample":ExtResource( 60 ) }
+samples/Ground_walk = { "db":-25.0, "pitch":1.0, "sample":ExtResource( 62 ) }
 
 [node name="Kiryoku" type="KinematicBody2D"]
 
