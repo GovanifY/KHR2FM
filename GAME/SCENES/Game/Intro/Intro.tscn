@@ -1,7 +1,80 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=13 format=1]
 
 [ext_resource path="res://GAME/SCRIPTS/Game/Intro/Intro.gd" type="Script" id=1]
 [ext_resource path="res://GAME/SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_01.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_02.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_03.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_04.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_05.png" type="Texture" id=7]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_06.png" type="Texture" id=8]
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "Kiryoku down"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Kiryoku_Down:playing")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ true ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Kiryoku_Down:visibility/opacity")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Kiryoku_Down:visibility/visible")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ true ] }
+
+[sub_resource type="Animation" id=3]
+
+resource/name = "Kiryoku vanish"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Darkness Fog:playing")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ true ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Darkness Fog:transform/scale")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 1, 1 ), Vector2( 3, 3 ) ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Kiryoku_Down:visibility/opacity")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 1.0, 0.0 ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Kiryoku_Down:playing")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ true, false ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Darkness Fog:visibility/visible")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ true, false ] }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Kiryoku_Down:visibility/visible")
+tracks/5/interp = 1
+tracks/5/imported = false
+tracks/5/keys = { "times":FloatArray( 1 ), "transitions":FloatArray( 1 ), "update":1, "values":[ false ] }
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ { "frames":[ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 4 ) ], "loop":true, "name":"default", "speed":7.0 } ]
+
+[sub_resource type="SpriteFrames" id=4]
+
+animations = [ { "frames":[ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ], "loop":true, "name":"default", "speed":10.0 } ]
 
 [node name="Intro" type="Node2D"]
 
@@ -10,5 +83,39 @@ script/script = ExtResource( 1 )
 [node name="Dialogue" parent="." instance=ExtResource( 2 )]
 
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
+
+[node name="Sequences" type="AnimationTreePlayer" parent="."]
+
+playback/process_mode = 1
+base_path = NodePath("..")
+master_player = NodePath("../Master")
+data = { "active":false, "connections":[ "anim1", "state", 0, "anim2", "state", 1, "state", "out", 0 ], "master":NodePath("../Master"), "nodes":[ { "id":"state", "pos":Vector2( 388, 42 ), "transitions":[ { "auto_advance":false }, { "auto_advance":false } ], "type":"transition", "xfade":0.0 }, { "id":"out", "pos":Vector2( 530, 42 ), "type":"output" }, { "filter":[  ], "from":"Kiryoku vanish", "id":"anim2", "pos":Vector2( 221, 106 ), "type":"animation" }, { "filter":[  ], "from":"Kiryoku down", "id":"anim1", "pos":Vector2( 215, 10 ), "type":"animation" } ] }
+
+[node name="Master" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+"anims/Kiryoku down" = SubResource( 2 )
+"anims/Kiryoku vanish" = SubResource( 3 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="Kiryoku_Down" type="AnimatedSprite" parent="."]
+
+visibility/visible = false
+frames = SubResource( 1 )
+animation = "default"
+centered = false
+
+[node name="Darkness Fog" type="AnimatedSprite" parent="."]
+
+visibility/visible = false
+transform/pos = Vector2( 360, 240 )
+transform/scale = Vector2( 1e-05, 1e-05 )
+frames = SubResource( 4 )
+animation = "default"
 
 
