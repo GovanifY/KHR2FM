@@ -63,8 +63,8 @@ func setup_controls():
 		ActionSet.set_max_combo(2) # Doesn't count finisher
 
 		# Adding actions
-		InputActions["cancel"] = ActionSet.new_action("Guard", false)
-		InputActions["enter"] = ActionSet.new_action("Attack")
+		InputActions["cancel"] = ActionSet.new_action("Guard")
+		InputActions["enter"] = ActionSet.new_action("Attack", true)
 
 func setup_data():
 	if Globals.get("PlayerData"):
