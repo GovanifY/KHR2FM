@@ -1,0 +1,24 @@
+[gd_resource type="Animation" format=1]
+
+[resource]
+
+resource/name = "Attack1"
+length = 0.8
+loop = false
+step = 0.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Yuugure_Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.06667 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ 11, 12 ] }
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0.13, 0.799196, 0.8 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ { "args":[  ], "method":"_laser1_yuugure" }, { "args":[  ], "method":"_random_yuugure" }, { "args":[  ], "method":"_random_yuugure" } ] }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Voice:play/play")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Yuugure_01" ] }
+

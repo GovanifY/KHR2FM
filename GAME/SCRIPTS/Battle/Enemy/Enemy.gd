@@ -1,5 +1,9 @@
 extends "res://GAME/SCRIPTS/Battle/Battler.gd"
 
+# Holds eligible Animation names at initialization time
+export(StringArray) var actions_holder
+
+var ActionAnims = []
 # Array where our rules will be held
 var RuleSet = []
 
@@ -9,10 +13,15 @@ var RuleSet = []
 func _ready():
 	add_to_group("Enemies")
 
+	# Adding Timer
 	create_timer(0.5, false)
 	Data.timer.connect("timeout", self, "_test_rules")
 	Data.timer.start()
 
+func _fixed_process(delta):
+	pass
+
+# Tests for any added rules given
 func _test_rules():
 	for rule in RuleSet:
 		if rule.test.callv("call_func", rule.args1):
@@ -30,20 +39,6 @@ func HP_less_than(value):
 ###############
 ### Methods ###
 ###############
-func attack():
-	
-	pass
-func _random_yuugure():
-	#Basically either it restarts the animation, either it jumps to attack2
-	#(only if player is at least 100 far from him otherwise do nothing)
-	#, either it jumps towards you
-	#Just after it gets back to the original random state
-	pass
-func _laser1_yuugure():
-	#It loads the laser attack with its own hitbox, enables hit back until
-	#0.8 time in Attack1(gives 3HP of damage by default to yuugure) and its hitbox
-	#is working until 0.8 where it does the random bs
-	pass
 
 ################################################################################
 #	Rules
