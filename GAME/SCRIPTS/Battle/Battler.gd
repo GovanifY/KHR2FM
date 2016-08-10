@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 # Export values
+export(NodePath) var AnimTree
 export(int, 5, 10) var battler_speed = 5
 export(int) var hit_points = 100 setget set_HP,get_HP
 
@@ -12,7 +13,6 @@ const WALK_POSE = "Walk"
 const Battle_ActionSet = preload("res://GAME/SCRIPTS/Battle/Actions/ActionSet.gd")
 
 # Important Battler data
-onready var AnimTree = get_node("anims")
 var HP_Bar setget set_hp_bar
 var Data = {
 	# Various properties
@@ -29,6 +29,10 @@ var Motion = Vector2()
 ######################
 func _ready():
 	add_to_group("Battlers")
+
+	if typeof(AnimTree) == TYPE_NODE_PATH && !AnimTree.is_empty():
+		AnimTree = get_node(AnimTree)
+
 	fight()
 
 func _fixed_process(delta):
