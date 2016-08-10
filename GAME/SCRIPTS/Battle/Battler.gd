@@ -16,7 +16,8 @@ onready var AnimTree = get_node("anims")
 var HP_Bar setget set_hp_bar
 var Data = {
 	# Various properties
-	"side" : Vector2(1, 1) # Scale data that will determine the Battler's side
+	"side"  : Vector2(1, 1), # Scale data that will determine the Battler's side
+	"timer" : null
 }
 var ActionSet
 
@@ -57,6 +58,17 @@ func move_x(specific = battler_speed):
 	if typeof(specific) != TYPE_INT:
 		specific = battler_speed
 	Motion.x = Data.side.x * specific
+
+# Battler timer
+func create_timer(wait_time = 0.5, one_shot = false):
+	if Data.timer != null:
+		Data.timer.free()
+
+	Data.timer = Timer.new()
+	Data.timer.set_wait_time(wait_time)
+	Data.timer.set_one_shot(one_shot)
+	Data.timer.set_timer_process_mode(Timer.TIMER_PROCESS_FIXED)
+	add_child(Data.timer)
 
 ### Facing functions
 # Points the body towards the new direction

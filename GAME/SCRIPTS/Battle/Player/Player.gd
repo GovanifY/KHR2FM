@@ -1,14 +1,13 @@
 extends "res://GAME/SCRIPTS/Battle/Battler.gd"
 
-var ComboTimer
 var InputActions = {}
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
+	create_timer(0.35, true)
 	# Sets up basic controls
-	create_timer()
 	setup_controls()
 	setup_data()
 
@@ -53,16 +52,6 @@ func at_ease():
 	.at_ease()
 	set_process_input(false)
 
-func create_timer():
-	if ComboTimer != null:
-		ComboTimer.free()
-
-	ComboTimer = Timer.new()
-	ComboTimer.set_wait_time(0.4)
-	ComboTimer.set_one_shot(true)
-	ComboTimer.set_timer_process_mode(Timer.TIMER_PROCESS_FIXED)
-	add_child(ComboTimer)
-
 func setup_controls():
 	if Globals.get("PlayerData"):
 		# TODO: Grab PlayerData's battler information
@@ -71,7 +60,7 @@ func setup_controls():
 		ActionSet = Battle_ActionSet.new(self, STILL_POSE)
 		AnimTree.connect("finished", ActionSet, "_end_action")
 		ActionSet.set_max_combo(2) # Doesn't count finisher
-		ActionSet.attach_timer(ComboTimer)
+		ActionSet.attach_timer(Data.timer)
 
 		# Adding actions
 		InputActions["cancel"] = ActionSet.new_action("Guard", false)

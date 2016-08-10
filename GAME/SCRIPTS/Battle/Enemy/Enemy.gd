@@ -3,23 +3,15 @@ extends "res://GAME/SCRIPTS/Battle/Battler.gd"
 # Array where our rules will be held
 var RuleSet = []
 
-# Timer that serves as a delay between actions
-var ActionTimer
-
 ######################
 ### Core functions ###
 ######################
 func _ready():
 	add_to_group("Enemies")
 
-	ActionTimer = Timer.new()
-	ActionTimer.set_wait_time(0.5)
-	#ActionTimer.set_one_shot(false)
-	ActionTimer.set_autostart(true)
-	ActionTimer.set_timer_process_mode(Timer.TIMER_PROCESS_FIXED)
-	ActionTimer.connect("timeout", self, "_test_rules")
-	add_child(ActionTimer)
-	ActionTimer.start()
+	create_timer(0.5, false)
+	Data.timer.connect("timeout", self, "_test_rules")
+	Data.timer.start()
 
 func _test_rules():
 	for rule in RuleSet:
