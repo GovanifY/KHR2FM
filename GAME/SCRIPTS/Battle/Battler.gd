@@ -5,18 +5,16 @@ export(int, 5, 10) var battler_speed = 5
 export(int) var hit_points = 100 setget set_HP,get_HP
 
 # Constants
-const Battle_Action = preload("res://GAME/SCRIPTS/Battle/Actions/Action.gd")
+const Battle_ActionSet = preload("res://GAME/SCRIPTS/Battle/Actions/ActionSet.gd")
 
 # Important Battler data
-onready var AnimTree = get_node("AnimTree")
+onready var AnimTree = get_node("anims")
 var HP_Bar setget set_hp_bar
 var Data = {
 	# Various properties
-	"side"  : Vector2(1, 1),
+	"side" : Vector2(1, 1) # Scale data that will determine the Battler's side
 }
-
-# Lists
-var Actions = {}
+var ActionSet
 
 # Global variables
 var Motion = Vector2()
@@ -46,14 +44,10 @@ func is_type(type):
 ### Battler control
 func fight():
 	set_fixed_process(true)
-	if AnimTree != null:
-		if !AnimTree.is_active():
-			AnimTree.set_active(true)
+	set_transition("Still")
 
 func at_ease():
 	set_fixed_process(false)
-	if AnimTree != null:
-		AnimTree.set_active(false)
 
 # Custom move() operation
 func move_x(specific = battler_speed):
@@ -82,13 +76,12 @@ func is_facing(left, right):
 		return Data.side.x == 1
 
 ### Handling animations
-func set_transition(anim_name, idx):
-	if typeof(idx) == TYPE_BOOL:
-		idx = int(idx)
-	elif idx == -1:
-		idx = randi() % AnimTree.transition_node_get_input_count(anim_name)
+func set_transition(anim_name, idx=0):
+	if idx > 0:
+		anim_name += str(idx)
 
-	AnimTree.transition_node_set_current(anim_name, idx)
+	if AnimTree.get_current_animation() != anim_name:
+		AnimTree.play(anim_name)
 
 func random_voice(snd_arr):
 	var voice = get_node("Voice")
