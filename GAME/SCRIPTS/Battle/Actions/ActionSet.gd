@@ -57,7 +57,7 @@ func _end_combo():
 
 func _end_action():
 	_unlock()
-	Properties.battler.set_transition(Properties.battler.STILL_POSE)
+	Properties.battler.set_transition(Properties.default)
 
 ###############
 ### Methods ###
