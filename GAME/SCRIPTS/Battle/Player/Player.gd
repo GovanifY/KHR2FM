@@ -17,23 +17,22 @@ func _ready():
 	set_process_input(true)
 
 func _fixed_process(delta):
-	if !ActionSet.is_locked():
-		# Simple Input check
-		var left  = Input.is_action_pressed("ui_left")
-		var right = Input.is_action_pressed("ui_right")
+	# Simple Input check
+	var left  = Input.is_action_pressed("ui_left")
+	var right = Input.is_action_pressed("ui_right")
 
-		# déterminer la priorité de direction
-		if left && right:
-			left  = is_facing(true, false)
-			right = !left
+	# déterminer la priorité de direction
+	if left && right:
+		left  = is_facing(true, false)
+		right = !left
 
-		# Indiquer la direction finale
-		if left || right:
-			adjust_facing(left, right)
-			move_x()
-			set_transition("Walk")
-		else:
-			set_transition("Still")
+	# Indiquer la direction finale
+	if left || right:
+		adjust_facing(left, right)
+		move_x()
+		set_transition("Walk")
+	else:
+		set_transition("Still")
 
 func _input(event):
 	for act in InputActions:

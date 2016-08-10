@@ -1,7 +1,3 @@
-const ATTACK_GUARD    = 0
-const ATTACK_COMBO    = 1
-const ATTACK_FINISHER = 2
-
 # Properties of the action to be setup
 var Properties = {
 	"battler" : null,
