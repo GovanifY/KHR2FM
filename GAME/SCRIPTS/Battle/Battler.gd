@@ -1,24 +1,37 @@
 extends KinematicBody2D
 
+# Signals
+signal zero_hp
+
 # Export values
 export(NodePath) var AnimTree
 export(StringArray) var finisher_voice_se
 export(int, 5, 10) var battler_speed = 5
-export(int) var hit_points = 100 setget set_HP,get_HP
+export(int) var max_health = 100
+
+# Instancing objects
+const Battle_ActionSet = preload("res://GAME/SCRIPTS/Battle/Actions/ActionSet.gd")
 
 # Constants
 const STILL_POSE = "Still"
 const WALK_POSE = "Walk"
 
-# Instancing objects
-const Battle_ActionSet = preload("res://GAME/SCRIPTS/Battle/Actions/ActionSet.gd")
+const STAT_HP  = 0
+const STAT_STR = 1
+const STAT_DEF = 2
 
 # Important Battler data
-var HP_Bar setget set_hp_bar
+var Stats = [
+	max_health, # HP
+	0,          # STR
+	0           # DEF
+]
 var Data = {
 	# Various properties
 	"side"  : Vector2(1, 1), # Scale data that will determine the Battler's side
-	"timer" : null
+	"timer" : null,
+	# Nodes
+	STAT_HP : null
 }
 var ActionSet
 
@@ -34,6 +47,7 @@ func _ready():
 	if typeof(AnimTree) == TYPE_NODE_PATH && !AnimTree.is_empty():
 		AnimTree = get_node(AnimTree)
 
+	init_stats()
 	fight()
 
 func _fixed_process(delta):
@@ -109,17 +123,27 @@ func random_voice(snd_arr):
 		var rng = randi() % snd_arr.size()
 		voice.play(snd_arr[rng])
 
-# HP-related functions
-func set_HP(value):
-	if typeof(value) == TYPE_INT || typeof(value) == TYPE_REAL:
-		# Updating HP bar first
-		if HP_Bar != null:
-			HP_Bar.update(hit_points, value)
-		hit_points = value
+### Stats-related functions
+func set_stat_representation(idx, node):
+	if typeof(idx) == TYPE_INT && typeof(node) == TYPE_OBJECT:
+		Data[idx] = node
 
-func get_HP():
-	return hit_points
+func init_stats():
+	set_stat(STAT_HP, max_health)
 
-func set_hp_bar(value):
-	if typeof(value) == TYPE_OBJECT:
-		HP_Bar = value
+func set_stat(idx, value):
+	# If there's a visual representation, update it with new values
+	if Data[idx] != null:
+		Data[idx].update(Stats[idx], value)
+	Stats[idx] = value
+
+func get_stat(idx):
+	return Stats[idx]
+
+# Specific helpers
+func drain_HP(value):
+	value = get_stat(STAT_HP) - int(value)
+	if value <= 0:
+		value = 0
+		emit_signal("zero_hp")
+	set_stat(STAT_HP, value)

@@ -28,7 +28,7 @@ func _ready():
 		Enemy = get_node(Enemy)
 	if typeof(Enemy) == TYPE_OBJECT && Enemy.is_type("Battler"):
 		var EnemyHP = get_node("HUD/EnemyHP")
-		Enemy.set_hp_bar(EnemyHP)
+		Enemy.set_stat_representation(Enemy.STAT_HP, EnemyHP)
 		Enemy.set_pos(default_pos[2])
 
 	translate_commands()

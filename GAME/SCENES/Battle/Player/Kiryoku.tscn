@@ -107,7 +107,7 @@ script/script = ExtResource( 1 )
 AnimTree = NodePath("anims")
 finisher_voice_se = StringArray( "Kiryoku_05", "Kiryoku_06", "Kiryoku_09" )
 battler_speed = 5
-hit_points = 100
+max_health = 100
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 
