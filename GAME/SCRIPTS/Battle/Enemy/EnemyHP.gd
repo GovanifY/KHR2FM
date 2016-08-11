@@ -1,32 +1,65 @@
+# Constants
+const SLIDE_DURATION = 1.0
+const DELAY_DURATION = 0.0
+
+# Instance members
 onready var GreenBar = get_node("GreenBar")
+onready var RedBar = get_node("SlideHit/RedBar")
+onready var FullBubbles = get_node("FullBubbles")
 onready var SlideHit = get_node("SlideHit")
+
+var state = {
+	"trans" : Tween.TRANS_LINEAR,
+	"eases" : Tween.EASE_IN_OUT,
+}
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	#set maxHP to Boss HP here
 	pass
 
-func _set_bar_length(curHP):
-	GreenBar.set_scale(Vector2(float(curHP)/100,1))
+func _set_bubbles(num):
+	var rect = FullBubbles.get_region_rect()
+	rect.pos.x = -270 + min(15 * num, 270)
+	FullBubbles.set_region_rect(rect)
+
+func _set_bar_length(value):
+	GreenBar.set_scale(Vector2(value, 1))
 
 ###############
 ### Methods ###
 ###############
-func update(oldHP, curHP):
-	var curLine = curHP
-	while curLine > 100:
-		#TODO: Update for bubbles here
-		curLine = curHP - 100
-	_set_bar_length(curLine)
+# The less this script knows about the target's HP, the better
+func init(curHP):
+	update(curHP, 0)
+	reset_tween()
 
-	if curLine > oldHP:
-		#Happens in debug or if heal or during one bubble shot
-		#SlideHit is 2secs long so *2
-		SlideHit.seek((curHP/100)*2)
-		#TODO: Update the HP background in case maxHP%100!=0
-		#and maxHP - curHP =< maxHP%100
-	#TODO: Add Timer for life drawing anim and play SlideHit!
-	# ^ Either this, or use Tweening!
-	oldHP = curLine
+# Updates values and Tween's position.
+# FIXME: Currently too heavy on division. Find better algorithm
+func update(curHP, value):
+	curHP += value
+	var num_bubbles = (curHP / 100)
+	var portion_hp = curHP % 100
+
+	# Readjust in case remainder is 0
+	if portion_hp == 0:
+		num_bubbles -= 1
+		portion_hp = 100
+
+	var pos = float(portion_hp) / 100
+	_set_bubbles(num_bubbles)
+	_set_bar_length(pos)
+
+	#reset_tween()
+
+func reset_tween():
+	SlideHit.reset_all()
+	SlideHit.remove_all()
+
+	SlideHit.follow_method(RedBar, "set_scale", Vector2(1, 1), GreenBar, "get_scale", SLIDE_DURATION, state.trans, state.eases, DELAY_DURATION)
+
+	var pos = GreenBar.get_scale().x
+	SlideHit.set_repeat(false)
+	SlideHit.seek(pos)
+	SlideHit.start()
