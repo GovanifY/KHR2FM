@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://GAME/SCENES/Cinema.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ASSETS/VIDEO/Intro_message.ogv" type="VideoStream" id=2]
+
+[node name="Cinema" instance=ExtResource( 1 )]
+
+video_file = ExtResource( 2 )
+next_scene = "res://GAME/SCENES/Game/Intro/Intro.tscn"
+
+

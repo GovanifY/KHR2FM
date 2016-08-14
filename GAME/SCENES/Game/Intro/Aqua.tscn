@@ -6,7 +6,7 @@
 [node name="Cinema" instance=ExtResource( 1 )]
 
 video_file = ExtResource( 2 )
-next_scene = "res://GAME/SCENES/Game/Intro/Intro.tscn"
+next_scene = "res://GAME/SCENES/Game/Intro/Intro_message.tscn"
 have_subtitles = true
 subtitles_file = "res://ASSETS/VIDEO/Aqua.srt"
 csv_file = "res://ASSETS/LANG/TEXT/Game/Intro/Aqua.csv"
