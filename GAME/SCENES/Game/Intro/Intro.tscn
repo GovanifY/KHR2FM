@@ -9,7 +9,7 @@
 [ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_05.png" type="Texture" id=7]
 [ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_06.png" type="Texture" id=8]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 
 resource/name = "Kiryoku down"
 length = 1.0
@@ -31,7 +31,7 @@ tracks/2/interp = 1
 tracks/2/imported = false
 tracks/2/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ true ] }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 
 resource/name = "Kiryoku vanish"
 length = 1.0
@@ -68,7 +68,7 @@ tracks/5/interp = 1
 tracks/5/imported = false
 tracks/5/keys = { "times":FloatArray( 1 ), "transitions":FloatArray( 1 ), "update":1, "values":[ false ] }
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=3]
 
 animations = [ { "frames":[ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 4 ) ], "loop":true, "name":"default", "speed":7.0 } ]
 
@@ -89,15 +89,15 @@ csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
 playback/process_mode = 1
 base_path = NodePath("..")
 master_player = NodePath("../Master")
-data = { "active":false, "connections":[ "anim1", "state", 0, "anim2", "state", 1, "state", "out", 0 ], "master":NodePath("../Master"), "nodes":[ { "id":"state", "pos":Vector2( 388, 42 ), "transitions":[ { "auto_advance":false }, { "auto_advance":false } ], "type":"transition", "xfade":0.0 }, { "id":"out", "pos":Vector2( 530, 42 ), "type":"output" }, { "filter":[  ], "from":"Kiryoku vanish", "id":"anim2", "pos":Vector2( 221, 106 ), "type":"animation" }, { "filter":[  ], "from":"Kiryoku down", "id":"anim1", "pos":Vector2( 215, 10 ), "type":"animation" } ] }
+data = { "active":false, "connections":[ "anim1", "state", 0, "anim2", "state", 1, "state", "out", 0 ], "master":NodePath("../Master"), "nodes":[ { "id":"state", "pos":Vector2( 388, 42 ), "transitions":[ { "auto_advance":false }, { "auto_advance":false } ], "type":"transition", "xfade":0.0 }, { "id":"out", "pos":Vector2( 530, 42 ), "type":"output" }, { "filter":[  ], "from":"Kiryoku down", "id":"anim1", "pos":Vector2( 215, 10 ), "type":"animation" }, { "filter":[  ], "from":"Kiryoku vanish", "id":"anim2", "pos":Vector2( 221, 106 ), "type":"animation" } ] }
 
 [node name="Master" type="AnimationPlayer" parent="."]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-"anims/Kiryoku down" = SubResource( 2 )
-"anims/Kiryoku vanish" = SubResource( 3 )
+"anims/Kiryoku down" = SubResource( 1 )
+"anims/Kiryoku vanish" = SubResource( 2 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -106,7 +106,7 @@ autoplay = ""
 [node name="Kiryoku_Down" type="AnimatedSprite" parent="."]
 
 visibility/visible = false
-frames = SubResource( 1 )
+frames = SubResource( 3 )
 animation = "default"
 centered = false
 

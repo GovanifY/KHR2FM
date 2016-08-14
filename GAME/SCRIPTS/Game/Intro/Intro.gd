@@ -16,12 +16,13 @@ func _ready():
 
 	# Setting all lines of dialogue
 	Dialogue.set_context("INTRO_FATHERSON")
-	Dialogue.collect_lines("", 9)
 	Dialogue.collect_lines("Yuugure", 13)
 	Dialogue.collect_lines("Kiryoku", 20)
 
 	# Starting first lines
-	Dialogue.speak("", 9)
+	_next_anim()
+	Dialogue.set_side("right")
+	Dialogue.speak("Yuugure", 5)
 
 func _inc_cursor():
 	_fetch_sequence()
@@ -35,17 +36,13 @@ func _next_anim():
 
 func _fetch_sequence():
 	if cursor == 0:
-		_next_anim()
-		Dialogue.set_side("right")
-		Dialogue.speak("Yuugure", 5)
-	elif cursor == 1:
 		Dialogue.speak("Kiryoku", 4)
-	elif cursor == 2:
+	elif cursor == 1:
 		Dialogue.speak("Yuugure", 2)
-	elif cursor == 3:
+	elif cursor == 2:
 		_next_anim()
 		Dialogue.speak("Kiryoku", 7)
-	elif cursor == 4:
+	elif cursor == 3:
 		#TODO: Add music&stuff
 		SceneLoader.add_scene("Game/Intro/Battle_Yuugure.tscn")
 		SceneLoader.load_new_scene()
