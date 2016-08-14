@@ -51,197 +51,187 @@
 resource/name = "Splash"
 length = 11.2
 loop = false
-step = 0.1
+step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("SkynismSplash:visibility/opacity")
+tracks/0/path = NodePath("WhiteBG:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0.66, 1.98, 1.98, 2.65, 2.9, 7 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1 ), "update":0, "values":[ 1.0, 1.0, 0.999994, 0.0, 0.0, 0.0 ] }
+tracks/0/keys = { "times":FloatArray( 4.63, 5.29 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/1/type = "value"
-tracks/1/path = NodePath("SkynismSplash:visibility/visible")
+tracks/1/path = NodePath("Custom Title System/CTS_00:visibility/opacity")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 3.97 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ true, false ] }
+tracks/1/keys = { "times":FloatArray( 7.93, 8.93 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/2/type = "value"
-tracks/2/path = NodePath("WhiteBG:visibility/opacity")
+tracks/2/path = NodePath("Custom Title System/CTS_06:visibility/opacity")
 tracks/2/interp = 1
 tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 4.63, 5.29 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/2/keys = { "times":FloatArray( 7.93, 8.42, 8.43 ), "transitions":FloatArray( 1, 1, 0 ), "update":0, "values":[ 0.0, 1.0, 1.0 ] }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Custom Title System/CTS_00:visibility/opacity")
+tracks/3/path = NodePath("Custom Title System/CTS_06:transform/pos")
 tracks/3/interp = 1
 tracks/3/imported = false
-tracks/3/keys = { "times":FloatArray( 7.93, 8.93 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/3/keys = { "times":FloatArray( 7.93, 8.43 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 100, 70 ), Vector2( 0, 0 ) ] }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Custom Title System/CTS_06:visibility/opacity")
+tracks/4/path = NodePath("Custom Title System/CTS_06:transform/scale")
 tracks/4/interp = 1
 tracks/4/imported = false
-tracks/4/keys = { "times":FloatArray( 7.93, 8.42, 8.43 ), "transitions":FloatArray( 1, 1, 0 ), "update":0, "values":[ 0.0, 1.0, 1.0 ] }
+tracks/4/keys = { "times":FloatArray( 7.93, 8.43 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ] }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Custom Title System/CTS_06:transform/pos")
+tracks/5/path = NodePath("Custom Title System/CTS_10:visibility/opacity")
 tracks/5/interp = 1
 tracks/5/imported = false
-tracks/5/keys = { "times":FloatArray( 7.93, 8.43 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 100, 70 ), Vector2( 0, 0 ) ] }
+tracks/5/keys = { "times":FloatArray( 7.93, 8.43 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Custom Title System/CTS_06:transform/scale")
+tracks/6/path = NodePath("Custom Title System/CTS_10:transform/pos")
 tracks/6/interp = 1
 tracks/6/imported = false
-tracks/6/keys = { "times":FloatArray( 7.93, 8.43 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ] }
+tracks/6/keys = { "times":FloatArray( 7.93, 8.43 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( -100, -70 ), Vector2( 0, 0 ) ] }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Custom Title System/CTS_10:visibility/opacity")
+tracks/7/path = NodePath("Custom Title System/CTS_10:transform/scale")
 tracks/7/interp = 1
 tracks/7/imported = false
-tracks/7/keys = { "times":FloatArray( 7.93, 8.43 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/7/keys = { "times":FloatArray( 7.93, 8.43 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ] }
 tracks/8/type = "value"
-tracks/8/path = NodePath("Custom Title System/CTS_10:transform/pos")
+tracks/8/path = NodePath("Custom Title System/CTS_07:visibility/opacity")
 tracks/8/interp = 1
 tracks/8/imported = false
-tracks/8/keys = { "times":FloatArray( 7.93, 8.43 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( -100, -70 ), Vector2( 0, 0 ) ] }
+tracks/8/keys = { "times":FloatArray( 8.43, 8.76 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/9/type = "value"
-tracks/9/path = NodePath("Custom Title System/CTS_10:transform/scale")
+tracks/9/path = NodePath("Custom Title System/CTS_11:visibility/opacity")
 tracks/9/interp = 1
 tracks/9/imported = false
-tracks/9/keys = { "times":FloatArray( 7.93, 8.43 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ] }
+tracks/9/keys = { "times":FloatArray( 8.43, 8.66 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/10/type = "value"
-tracks/10/path = NodePath("Custom Title System/CTS_07:visibility/opacity")
+tracks/10/path = NodePath("Custom Title System/CTS_10_bis:visibility/opacity")
 tracks/10/interp = 1
 tracks/10/imported = false
-tracks/10/keys = { "times":FloatArray( 8.43, 8.76 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/10/keys = { "times":FloatArray( 0, 8.42, 8.43, 8.93 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ 0.0, 0.0, 1.0, 0.0 ] }
 tracks/11/type = "value"
-tracks/11/path = NodePath("Custom Title System/CTS_11:visibility/opacity")
+tracks/11/path = NodePath("Custom Title System/CTS_10_bis:transform/pos")
 tracks/11/interp = 1
 tracks/11/imported = false
-tracks/11/keys = { "times":FloatArray( 8.43, 8.66 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/11/keys = { "times":FloatArray( 8.43, 8.93 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0, 0 ), Vector2( -100, -70 ) ] }
 tracks/12/type = "value"
-tracks/12/path = NodePath("Custom Title System/CTS_10_bis:visibility/opacity")
+tracks/12/path = NodePath("Custom Title System/CTS_10_bis:transform/scale")
 tracks/12/interp = 1
 tracks/12/imported = false
-tracks/12/keys = { "times":FloatArray( 0, 8.42, 8.43, 8.93 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ 0.0, 0.0, 1.0, 0.0 ] }
+tracks/12/keys = { "times":FloatArray( 8.43, 8.93 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ) ] }
 tracks/13/type = "value"
-tracks/13/path = NodePath("Custom Title System/CTS_10_bis:transform/pos")
+tracks/13/path = NodePath("Custom Title System/CTS_10_bis:visibility/visible")
 tracks/13/interp = 1
 tracks/13/imported = false
-tracks/13/keys = { "times":FloatArray( 8.43, 8.93 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0, 0 ), Vector2( -100, -70 ) ] }
+tracks/13/keys = { "times":FloatArray( 0, 9.09 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ true, false ] }
 tracks/14/type = "value"
-tracks/14/path = NodePath("Custom Title System/CTS_10_bis:transform/scale")
+tracks/14/path = NodePath("Custom Title System/CTS_08:transform/pos")
 tracks/14/interp = 1
 tracks/14/imported = false
-tracks/14/keys = { "times":FloatArray( 8.43, 8.93 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ) ] }
+tracks/14/keys = { "times":FloatArray( 9.09, 9.75 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0, -200 ), Vector2( 0, 0 ) ] }
 tracks/15/type = "value"
-tracks/15/path = NodePath("Custom Title System/CTS_10_bis:visibility/visible")
+tracks/15/path = NodePath("Custom Title System/CTS_08:visibility/opacity")
 tracks/15/interp = 1
 tracks/15/imported = false
-tracks/15/keys = { "times":FloatArray( 0, 9.09 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ true, false ] }
+tracks/15/keys = { "times":FloatArray( 9.09, 9.75 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/16/type = "value"
-tracks/16/path = NodePath("Custom Title System/CTS_08:transform/pos")
+tracks/16/path = NodePath("Custom Title System/CTS_09:transform/pos")
 tracks/16/interp = 1
 tracks/16/imported = false
-tracks/16/keys = { "times":FloatArray( 9.09, 9.75 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0, -200 ), Vector2( 0, 0 ) ] }
+tracks/16/keys = { "times":FloatArray( 9.09, 9.75 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0, 200 ), Vector2( 0, 0 ) ] }
 tracks/17/type = "value"
-tracks/17/path = NodePath("Custom Title System/CTS_08:visibility/opacity")
+tracks/17/path = NodePath("Custom Title System/CTS_09:visibility/opacity")
 tracks/17/interp = 1
 tracks/17/imported = false
 tracks/17/keys = { "times":FloatArray( 9.09, 9.75 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/18/type = "value"
-tracks/18/path = NodePath("Custom Title System/CTS_09:transform/pos")
+tracks/18/path = NodePath("Custom Title System/CTS_02:transform/pos")
 tracks/18/interp = 1
 tracks/18/imported = false
-tracks/18/keys = { "times":FloatArray( 9.09, 9.75 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0, 200 ), Vector2( 0, 0 ) ] }
+tracks/18/keys = { "times":FloatArray( 9.75, 10.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 20, 0 ), Vector2( 0, 0 ) ] }
 tracks/19/type = "value"
-tracks/19/path = NodePath("Custom Title System/CTS_09:visibility/opacity")
+tracks/19/path = NodePath("Custom Title System/CTS_02:visibility/opacity")
 tracks/19/interp = 1
 tracks/19/imported = false
-tracks/19/keys = { "times":FloatArray( 9.09, 9.75 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/19/keys = { "times":FloatArray( 9.75, 10.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/20/type = "value"
-tracks/20/path = NodePath("Custom Title System/CTS_02:transform/pos")
+tracks/20/path = NodePath("Custom Title System/CTS_15:transform/pos")
 tracks/20/interp = 1
 tracks/20/imported = false
-tracks/20/keys = { "times":FloatArray( 9.75, 10.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 20, 0 ), Vector2( 0, 0 ) ] }
+tracks/20/keys = { "times":FloatArray( 10.08, 10.31 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( -30, 0 ), Vector2( 0, 0 ) ] }
 tracks/21/type = "value"
-tracks/21/path = NodePath("Custom Title System/CTS_02:visibility/opacity")
+tracks/21/path = NodePath("Custom Title System/CTS_15:visibility/opacity")
 tracks/21/interp = 1
 tracks/21/imported = false
-tracks/21/keys = { "times":FloatArray( 9.75, 10.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/21/keys = { "times":FloatArray( 10.08, 10.31 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/22/type = "value"
-tracks/22/path = NodePath("Custom Title System/CTS_15:transform/pos")
+tracks/22/path = NodePath("Custom Title System/CTS_19:transform/pos")
 tracks/22/interp = 1
 tracks/22/imported = false
-tracks/22/keys = { "times":FloatArray( 10.08, 10.31 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( -30, 0 ), Vector2( 0, 0 ) ] }
+tracks/22/keys = { "times":FloatArray( 10.24, 10.57 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0, 20 ), Vector2( 0, 0 ) ] }
 tracks/23/type = "value"
-tracks/23/path = NodePath("Custom Title System/CTS_15:visibility/opacity")
+tracks/23/path = NodePath("Custom Title System/CTS_19:visibility/opacity")
 tracks/23/interp = 1
 tracks/23/imported = false
-tracks/23/keys = { "times":FloatArray( 10.08, 10.31 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/23/keys = { "times":FloatArray( 10.24, 10.57 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/24/type = "value"
-tracks/24/path = NodePath("Custom Title System/CTS_19:transform/pos")
+tracks/24/path = NodePath("Custom Title System/CTS_20:transform/pos")
 tracks/24/interp = 1
 tracks/24/imported = false
-tracks/24/keys = { "times":FloatArray( 10.24, 10.57 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0, 20 ), Vector2( 0, 0 ) ] }
+tracks/24/keys = { "times":FloatArray( 10.4, 10.73 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0, 20 ), Vector2( 0, 0 ) ] }
 tracks/25/type = "value"
-tracks/25/path = NodePath("Custom Title System/CTS_19:visibility/opacity")
+tracks/25/path = NodePath("Custom Title System/CTS_20:visibility/opacity")
 tracks/25/interp = 1
 tracks/25/imported = false
-tracks/25/keys = { "times":FloatArray( 10.24, 10.57 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/25/keys = { "times":FloatArray( 10.4, 10.73 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/26/type = "value"
-tracks/26/path = NodePath("Custom Title System/CTS_20:transform/pos")
+tracks/26/path = NodePath("Custom Title System/CTS_21:transform/pos")
 tracks/26/interp = 1
 tracks/26/imported = false
-tracks/26/keys = { "times":FloatArray( 10.4, 10.73 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0, 20 ), Vector2( 0, 0 ) ] }
+tracks/26/keys = { "times":FloatArray( 10.56, 10.88 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0, 20 ), Vector2( 0, 0 ) ] }
 tracks/27/type = "value"
-tracks/27/path = NodePath("Custom Title System/CTS_20:visibility/opacity")
+tracks/27/path = NodePath("Custom Title System/CTS_21:visibility/opacity")
 tracks/27/interp = 1
 tracks/27/imported = false
-tracks/27/keys = { "times":FloatArray( 10.4, 10.73 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/27/keys = { "times":FloatArray( 10.56, 10.88 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
 tracks/28/type = "value"
-tracks/28/path = NodePath("Custom Title System/CTS_21:transform/pos")
+tracks/28/path = NodePath("Custom Title System/CTS_22:visibility/opacity")
 tracks/28/interp = 1
 tracks/28/imported = false
-tracks/28/keys = { "times":FloatArray( 10.56, 10.88 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 0, 20 ), Vector2( 0, 0 ) ] }
+tracks/28/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ 0.0 ] }
 tracks/29/type = "value"
-tracks/29/path = NodePath("Custom Title System/CTS_21:visibility/opacity")
+tracks/29/path = NodePath("up_touch:transform/pos")
 tracks/29/interp = 1
 tracks/29/imported = false
-tracks/29/keys = { "times":FloatArray( 10.56, 10.88 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/29/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 0 ) ] }
 tracks/30/type = "value"
-tracks/30/path = NodePath("Custom Title System/CTS_22:visibility/opacity")
+tracks/30/path = NodePath("up_touch:transform/scale")
 tracks/30/interp = 1
 tracks/30/imported = false
-tracks/30/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ 0.0 ] }
+tracks/30/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 345 ) ] }
 tracks/31/type = "value"
-tracks/31/path = NodePath("up_touch:transform/pos")
+tracks/31/path = NodePath("down_touch:transform/pos")
 tracks/31/interp = 1
 tracks/31/imported = false
-tracks/31/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 0 ) ] }
+tracks/31/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 373 ) ] }
 tracks/32/type = "value"
-tracks/32/path = NodePath("up_touch:transform/scale")
+tracks/32/path = NodePath("down_touch:transform/scale")
 tracks/32/interp = 1
 tracks/32/imported = false
-tracks/32/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 345 ) ] }
+tracks/32/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 111 ) ] }
 tracks/33/type = "value"
-tracks/33/path = NodePath("down_touch:transform/pos")
+tracks/33/path = NodePath("enter_touch:transform/pos")
 tracks/33/interp = 1
 tracks/33/imported = false
-tracks/33/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 373 ) ] }
+tracks/33/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 346 ) ] }
 tracks/34/type = "value"
-tracks/34/path = NodePath("down_touch:transform/scale")
+tracks/34/path = NodePath("cancel_touch:transform/scale")
 tracks/34/interp = 1
 tracks/34/imported = false
-tracks/34/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 111 ) ] }
+tracks/34/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 1e-05, 1e-05 ) ] }
 tracks/35/type = "value"
-tracks/35/path = NodePath("enter_touch:transform/pos")
+tracks/35/path = NodePath("enter_touch:transform/scale")
 tracks/35/interp = 1
 tracks/35/imported = false
-tracks/35/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 346 ) ] }
-tracks/36/type = "value"
-tracks/36/path = NodePath("cancel_touch:transform/scale")
-tracks/36/interp = 1
-tracks/36/imported = false
-tracks/36/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 1e-05, 1e-05 ) ] }
-tracks/37/type = "value"
-tracks/37/path = NodePath("enter_touch:transform/scale")
-tracks/37/interp = 1
-tracks/37/imported = false
-tracks/37/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 27 ) ] }
+tracks/35/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 27 ) ] }
 
 [sub_resource type="Animation" id=2]
 
@@ -1190,6 +1180,7 @@ stream/buffering_ms = 500
 
 [node name="WhiteBG" type="Sprite" parent="."]
 
+visibility/opacity = 0.0
 texture = ExtResource( 4 )
 centered = false
 
@@ -1206,67 +1197,86 @@ margin/bottom = 478.0
 
 [node name="CTS_00" type="Sprite" parent="Custom Title System"]
 
+visibility/opacity = 0.0
 texture = ExtResource( 5 )
 centered = false
 region_rect = Rect2( 567, 41, 69, 106 )
 
 [node name="CTS_02" type="Sprite" parent="Custom Title System"]
 
+visibility/opacity = 0.0
+transform/pos = Vector2( 20, 0 )
 texture = ExtResource( 6 )
 centered = false
 
 [node name="CTS_06" type="Sprite" parent="Custom Title System"]
 
+visibility/opacity = 0.0
+transform/pos = Vector2( 100, 70 )
+transform/scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 7 )
 centered = false
 region_rect = Rect2( 233, 74, 295, 104 )
 
 [node name="CTS_08" type="Sprite" parent="Custom Title System"]
 
+visibility/opacity = 0.0
+transform/pos = Vector2( 0, -200 )
 texture = ExtResource( 8 )
 centered = false
 
 [node name="CTS_09" type="Sprite" parent="Custom Title System"]
 
+visibility/opacity = 0.0
+transform/pos = Vector2( 0, 200 )
 texture = ExtResource( 9 )
 centered = false
 
 [node name="CTS_10" type="Sprite" parent="Custom Title System"]
 
-texture = ExtResource( 10 )
-centered = false
-
-[node name="CTS_07" type="Sprite" parent="Custom Title System"]
-
-texture = ExtResource( 11 )
-centered = false
-
-[node name="CTS_10_bis" type="Sprite" parent="Custom Title System"]
-
-visibility/visible = false
 visibility/opacity = 0.0
 transform/pos = Vector2( -100, -70 )
 transform/scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 10 )
 centered = false
 
+[node name="CTS_07" type="Sprite" parent="Custom Title System"]
+
+visibility/opacity = 0.0
+texture = ExtResource( 11 )
+centered = false
+
+[node name="CTS_10_bis" type="Sprite" parent="Custom Title System"]
+
+visibility/opacity = 0.0
+texture = ExtResource( 10 )
+centered = false
+
 [node name="CTS_15" type="Sprite" parent="Custom Title System"]
 
+visibility/opacity = 0.0
+transform/pos = Vector2( -30, 0 )
 texture = ExtResource( 12 )
 centered = false
 
 [node name="CTS_19" type="Sprite" parent="Custom Title System"]
 
+visibility/opacity = 0.0
+transform/pos = Vector2( 0, 20 )
 texture = ExtResource( 13 )
 centered = false
 
 [node name="CTS_20" type="Sprite" parent="Custom Title System"]
 
+visibility/opacity = 0.0
+transform/pos = Vector2( 0, 20 )
 texture = ExtResource( 14 )
 centered = false
 
 [node name="CTS_21" type="Sprite" parent="Custom Title System"]
 
+visibility/opacity = 0.0
+transform/pos = Vector2( 0, 20 )
 texture = ExtResource( 15 )
 centered = false
 
@@ -1329,6 +1339,7 @@ centered = false
 
 [node name="CTS_11" type="Sprite" parent="Custom Title System"]
 
+visibility/opacity = 0.0
 texture = ExtResource( 25 )
 centered = false
 

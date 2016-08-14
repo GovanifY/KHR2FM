@@ -1,12 +1,14 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://GAME/SCRIPTS/Battle/BattlePlan.gd" type="Script" id=1]
 [ext_resource path="res://GAME/SCENES/Battle/InfoBar.tscn" type="PackedScene" id=2]
-[ext_resource path="res://GAME/SCRIPTS/Battle/Enemy/EnemyHP.gd" type="Script" id=3]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.png" type="Texture" id=4]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barre.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Bubble.png" type="Texture" id=6]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Commands/Commands_Lr_010.png" type="Texture" id=7]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Player/MP-Fond.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Player/Mp-Barre.png" type="Texture" id=4]
+[ext_resource path="res://GAME/SCRIPTS/Battle/Enemy/EnemyHP.gd" type="Script" id=5]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barre.png" type="Texture" id=7]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Bubble.png" type="Texture" id=8]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Commands/Commands_Lr_010.png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -45,14 +47,24 @@ scale = Vector2( 1, 1 )
 
 [node name="PlayerHP" type="Node2D" parent="HUD"]
 
+[node name="MP-Fond" type="Sprite" parent="HUD/PlayerHP"]
+
+texture = ExtResource( 3 )
+vframes = 2
+
+[node name="MP-Barre" type="Sprite" parent="HUD/PlayerHP"]
+
+texture = ExtResource( 4 )
+vframes = 3
+
 [node name="EnemyHP" type="Node2D" parent="HUD"]
 
-script/script = ExtResource( 3 )
+script/script = ExtResource( 5 )
 
 [node name="Boss-Fond" type="Sprite" parent="HUD/EnemyHP"]
 
 transform/pos = Vector2( 856, 13 )
-texture = ExtResource( 4 )
+texture = ExtResource( 6 )
 centered = false
 offset = Vector2( -316, 0 )
 
@@ -60,7 +72,7 @@ offset = Vector2( -316, 0 )
 
 transform/pos = Vector2( 854.024, 15.0081 )
 z/z = 1
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 centered = false
 offset = Vector2( -312, 0 )
 vframes = 2
@@ -75,7 +87,7 @@ playback/speed = 1.0
 [node name="RedBar" type="Sprite" parent="HUD/EnemyHP/SlideHit"]
 
 transform/pos = Vector2( 854.022, 15.0143 )
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 centered = false
 offset = Vector2( -312, 0 )
 vframes = 2
@@ -85,7 +97,7 @@ frame = 1
 
 transform/pos = Vector2( 831, 22 )
 z/z = 1
-texture = ExtResource( 6 )
+texture = ExtResource( 8 )
 centered = false
 offset = Vector2( -271, 0 )
 vframes = 2
@@ -95,7 +107,7 @@ region_rect = Rect2( 0, 0, 271, 9 )
 [node name="EmptyBubbles" type="Sprite" parent="HUD/EnemyHP"]
 
 transform/pos = Vector2( 831, 22 )
-texture = ExtResource( 6 )
+texture = ExtResource( 8 )
 centered = false
 offset = Vector2( -271, 0 )
 vframes = 2
@@ -110,7 +122,7 @@ transform/pos = Vector2( 0, 448 )
 
 [node name="Selected" type="Sprite" parent="HUD/Commands"]
 
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 centered = false
 
 [node name="BATTLE_ATTACK" type="Label" parent="HUD/Commands/Selected"]
