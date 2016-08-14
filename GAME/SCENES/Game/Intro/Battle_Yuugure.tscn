@@ -20,7 +20,6 @@ Enemy = NodePath("Battlers/Yuugure")
 [node name="Yuugure" parent="BattlePlan/Battlers" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 750, 240 )
-max_health = 100
 
 [connection signal="dismiss" from="BattlePlan/InfoBar" to="BattlePlan" method="_battle_begin"]
 
