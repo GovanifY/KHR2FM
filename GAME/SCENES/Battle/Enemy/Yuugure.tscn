@@ -18,18 +18,21 @@
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Enemies/Yuugure/Yuugure_50.png" type="Texture" id=16]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Enemies/Yuugure/Yuugure_62.png" type="Texture" id=17]
 [ext_resource path="res://GAME/SCENES/Battle/Enemy/Yuugure_tres/Attack1.tres" type="Animation" id=18]
-[ext_resource path="res://GAME/SCENES/Battle/Enemy/Yuugure_tres/Still.tres" type="Animation" id=19]
-[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_00.wav" type="Sample" id=20]
-[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_01.wav" type="Sample" id=21]
-[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_02.wav" type="Sample" id=22]
-[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_03.wav" type="Sample" id=23]
-[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_04.wav" type="Sample" id=24]
-[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_05.wav" type="Sample" id=25]
-[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_06.wav" type="Sample" id=26]
-[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_07.wav" type="Sample" id=27]
-[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_08.wav" type="Sample" id=28]
-[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_09.wav" type="Sample" id=29]
-[ext_resource path="res://ASSETS/SE/Battle/General/Teleportation2.wav" type="Sample" id=30]
+[ext_resource path="res://GAME/SCENES/Battle/Enemy/Yuugure_tres/Attack2.tres" type="Animation" id=19]
+[ext_resource path="res://GAME/SCENES/Battle/Enemy/Yuugure_tres/Attack3.tres" type="Animation" id=20]
+[ext_resource path="res://GAME/SCENES/Battle/Enemy/Yuugure_tres/Still.tres" type="Animation" id=21]
+[ext_resource path="res://GAME/SCENES/Battle/Enemy/Yuugure_tres/Teleport.tres" type="Animation" id=22]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_00.wav" type="Sample" id=23]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_01.wav" type="Sample" id=24]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_02.wav" type="Sample" id=25]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_03.wav" type="Sample" id=26]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_04.wav" type="Sample" id=27]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_05.wav" type="Sample" id=28]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_06.wav" type="Sample" id=29]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_07.wav" type="Sample" id=30]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_08.wav" type="Sample" id=31]
+[ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_09.wav" type="Sample" id=32]
+[ext_resource path="res://ASSETS/SE/Battle/General/Teleportation2.wav" type="Sample" id=33]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -40,68 +43,22 @@ extents = Vector2( 25, 45 )
 
 animations = [ { "frames":[ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ], "loop":true, "name":"default", "speed":5.0 } ]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="SampleLibrary" id=3]
 
-resource/name = "Attack2"
-length = 0.7
-loop = false
-step = 0.01
-tracks/0/type = "value"
-tracks/0/path = NodePath("Yuugure_Sprite:frame")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.16 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ 9, 10 ] }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Voice:play/play")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0.3 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Yuugure_03" ] }
+samples/Yuugure_00 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 23 ) }
+samples/Yuugure_01 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 24 ) }
+samples/Yuugure_02 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 25 ) }
+samples/Yuugure_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 26 ) }
+samples/Yuugure_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 27 ) }
+samples/Yuugure_05 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 28 ) }
+samples/Yuugure_06 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 29 ) }
+samples/Yuugure_07 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 30 ) }
+samples/Yuugure_08 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 31 ) }
+samples/Yuugure_09 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 32 ) }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="SampleLibrary" id=4]
 
-resource/name = "Attack3"
-length = 0.23
-loop = false
-step = 0.01
-tracks/0/type = "value"
-tracks/0/path = NodePath("Yuugure_Sprite:frame")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.03, 0.06 ), "transitions":FloatArray( 1, 1, 1 ), "update":1, "values":[ 1, 2, 3 ] }
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0.1, 0.13, 0.16, 0.2, 0.23 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ { "args":[ -100 ], "method":"move_x" }, { "args":[ -100 ], "method":"move_x" }, { "args":[ -100 ], "method":"move_x" }, { "args":[ -100 ], "method":"move_x" }, { "args":[ -20 ], "method":"move_x" } ] }
-tracks/2/type = "value"
-tracks/2/path = NodePath("General:play/play")
-tracks/2/interp = 1
-tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Teleportation2" ] }
-
-[sub_resource type="Animation" id=7]
-
-resource/name = "Teleport"
-length = 1.0
-loop = false
-step = 0.1
-
-[sub_resource type="SampleLibrary" id=5]
-
-samples/Yuugure_00 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 20 ) }
-samples/Yuugure_01 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 21 ) }
-samples/Yuugure_02 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 22 ) }
-samples/Yuugure_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 23 ) }
-samples/Yuugure_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 24 ) }
-samples/Yuugure_05 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 25 ) }
-samples/Yuugure_06 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 26 ) }
-samples/Yuugure_07 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 27 ) }
-samples/Yuugure_08 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 28 ) }
-samples/Yuugure_09 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 29 ) }
-
-[sub_resource type="SampleLibrary" id=6]
-
-samples/Teleportation2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 30 ) }
+samples/Teleportation2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 33 ) }
 
 [node name="Yuugure" type="KinematicBody2D"]
 
@@ -130,7 +87,6 @@ _update_shape_index = 0
 
 frames = SubResource( 2 )
 animation = "default"
-frame = 1
 
 [node name="anims" type="AnimationPlayer" parent="."]
 
@@ -138,10 +94,10 @@ playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/Attack1 = ExtResource( 18 )
-anims/Attack2 = SubResource( 3 )
-anims/Attack3 = SubResource( 4 )
-anims/Still = ExtResource( 19 )
-anims/Teleport = SubResource( 7 )
+anims/Attack2 = ExtResource( 19 )
+anims/Attack3 = ExtResource( 20 )
+anims/Still = ExtResource( 21 )
+anims/Teleport = ExtResource( 22 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -150,7 +106,7 @@ autoplay = ""
 [node name="Voice" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 5 )
+config/samples = SubResource( 3 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0
@@ -184,7 +140,7 @@ default/chorus_send = 0.0
 [node name="General" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 6 )
+config/samples = SubResource( 4 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0
