@@ -30,19 +30,24 @@ stream/paused = false
 expand = true
 __meta__ = { "_edit_lock_":true }
 
-[node name="Subtitles" type="RichTextLabel" parent="."]
+[node name="Subtitles" type="Label" parent="."]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 110.0
-margin/top = 400.0
+margin/top = 380.0
 margin/right = 788.0
 margin/bottom = 450.0
-custom_fonts/normal_font = ExtResource( 2 )
-bbcode/enabled = true
-bbcode/bbcode = ""
-visible_characters = -1
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 10
+align = 1
+valign = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = 2
 
 

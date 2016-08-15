@@ -5,7 +5,7 @@ extends Node2D
 # Scripts spécifiques à une certaine scène
 
 # Export values
-export(VideoStreamTheora) var video_file = null
+export(VideoStreamTheora) var video_file
 export(String, FILE, "tscn") var next_scene = ""
 export(bool) var have_subtitles = false
 export(String, FILE, "srt") var subtitles_file = ""
@@ -33,29 +33,29 @@ var Subtitles = {
 ######################
 func _process(delta):
 	if !Video.playing:
-		Video.node.play()
 		Video.playing = true
-	else:
-		# Write subtitles
-		if have_subtitles:
-			var cur_pos = Video.node.get_stream_pos()
+		Video.node.play()
 
-			if Subtitles.array[Subtitles.index][0] < cur_pos && cur_pos < Subtitles.array[Subtitles.index][1]:
-				if !Subtitles.shown:
-					Subtitles.label.set_bbcode(_format_string(Subtitles.array[Subtitles.index][2]))
-					Subtitles.shown = true
+	# Write subtitles
+	if have_subtitles:
+		var cur_pos = Video.node.get_stream_pos()
 
-			elif cur_pos >= Subtitles.array[Subtitles.index][1]:
-				Subtitles.label.clear()
-				Subtitles.shown = false
-				Subtitles.index += 1
-				# To avoid going out of bounds
-				if Subtitles.index >= Subtitles.array.size():
-					have_subtitles = false
+		if Subtitles.array[Subtitles.index][0] < cur_pos && cur_pos < Subtitles.array[Subtitles.index][1]:
+			if !Subtitles.shown:
+				Subtitles.label.set_text(Subtitles.array[Subtitles.index][2])
+				Subtitles.shown = true
 
-		# FIXME: Still no VideoStream signal? This needs to exist
-		if !Video.node.is_playing():
-			SceneLoader.next_scene()
+		elif cur_pos >= Subtitles.array[Subtitles.index][1]:
+			Subtitles.label.set_text("")
+			Subtitles.shown = false
+			Subtitles.index += 1
+			# To avoid going out of bounds
+			if Subtitles.index >= Subtitles.array.size():
+				have_subtitles = false
+
+	# FIXME: Still no VideoStream signal? This needs to exist
+	if !Video.node.is_playing():
+		SceneLoader.next_scene()
 	return
 
 func _enter_tree():
@@ -78,9 +78,6 @@ func _ready():
 
 	# Start playing
 	set_process(true)
-
-func _format_string(string):
-	return "[center]" + Subtitles.translator.translate(string) + "[/center]"
 
 ########################
 ### Helper functions ###
