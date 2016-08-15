@@ -13,14 +13,12 @@ onready var ALL_ANCHORS = [
 ]
 
 # Instance members
+onready var FadeIn = get_node("FadeIn")
+onready var FadeOut = get_node("FadeOut")
 var This = {
 	"text_box" : null,
 	"node"    : null,
-	"anchor"  : null,
-	"anims"   : {
-		"fadein"  : null,
-		"fadeout" : null
-	}
+	"anchor"  : null
 }
 
 ###############
@@ -31,8 +29,6 @@ func init(dialogue, confirmkey):
 	This.node = get_bubble_skin(0)
 	This.anchor = get_anchor(false)
 	This.anchor.show()
-	This.anims.fadein = get_node("FadeIn")
-	This.anims.fadeout = get_node("FadeOut")
 
 	# Setting This.text_box-related data
 	This.text_box = TextScroll.new()
@@ -41,8 +37,8 @@ func init(dialogue, confirmkey):
 	add_child(This.text_box)
 
 	# Connecting signals to parent
-	This.anims.fadein.connect("finished", dialogue, "_get_line")
-	This.anims.fadeout.connect("finished", dialogue, "emit_signal", ["no_more_lines"])
+	FadeIn.connect("finished", dialogue, "_get_line")
+	FadeOut.connect("finished", dialogue, "emit_signal", ["no_more_lines"])
 	This.text_box.connect("cleared", dialogue, "_next_line")
 	This.text_box.connect("started", confirmkey, "stop_anim")
 	This.text_box.connect("finished", confirmkey, "play_anim")
@@ -82,10 +78,10 @@ func is_speaker():
 
 # Animation control
 func play_anim():
-	This.anims.fadein.play(This.node.get_name())
+	FadeIn.play(This.node.get_name())
 
 func stop_anim():
-	This.anims.fadeout.play(This.node.get_name())
+	FadeOut.play(This.node.get_name())
 
 # Sneds "confirm" action to TextScroll
 func hit_confirm():

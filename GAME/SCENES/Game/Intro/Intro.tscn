@@ -70,7 +70,7 @@ tracks/5/interp = 1
 tracks/5/imported = false
 tracks/5/keys = { "times":FloatArray( 1 ), "transitions":FloatArray( 1 ), "update":1, "values":[ false ] }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 
 resource/name = "Water"
 length = 1.47
@@ -87,11 +87,11 @@ tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = { "times":FloatArray( 0.27 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Water_Drop" ] }
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=4]
 
 animations = [ { "frames":[ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 4 ) ], "loop":true, "name":"default", "speed":7.0 } ]
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=5]
 
 animations = [ { "frames":[ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ], "loop":true, "name":"default", "speed":10.0 } ]
 
@@ -107,13 +107,6 @@ script/script = ExtResource( 1 )
 
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
 
-[node name="Sequences" type="AnimationTreePlayer" parent="."]
-
-playback/process_mode = 1
-base_path = NodePath("..")
-master_player = NodePath("../Master")
-data = { "active":false, "connections":[ "anim", "state", 0, "anim1", "state", 1, "anim2", "state", 2, "state", "out", 0 ], "master":NodePath("../Master"), "nodes":[ { "id":"state", "pos":Vector2( 383, 42 ), "transitions":[ { "auto_advance":false }, { "auto_advance":false }, { "auto_advance":false } ], "type":"transition", "xfade":0.0 }, { "filter":[  ], "from":"Water", "id":"anim", "pos":Vector2( 134, 30 ), "type":"animation" }, { "id":"out", "pos":Vector2( 530, 42 ), "type":"output" }, { "filter":[  ], "from":"Kiryoku down", "id":"anim1", "pos":Vector2( 254, 105 ), "type":"animation" }, { "filter":[  ], "from":"Kiryoku vanish", "id":"anim2", "pos":Vector2( 240, 205 ), "type":"animation" } ] }
-
 [node name="Master" type="AnimationPlayer" parent="."]
 
 playback/process_mode = 1
@@ -121,7 +114,7 @@ playback/default_blend_time = 0.0
 root/root = NodePath("..")
 "anims/Kiryoku down" = SubResource( 1 )
 "anims/Kiryoku vanish" = SubResource( 2 )
-anims/Water = SubResource( 5 )
+anims/Water = SubResource( 3 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -130,7 +123,7 @@ autoplay = ""
 [node name="Kiryoku_Down" type="AnimatedSprite" parent="."]
 
 visibility/visible = false
-frames = SubResource( 3 )
+frames = SubResource( 4 )
 animation = "default"
 centered = false
 
@@ -139,7 +132,7 @@ centered = false
 visibility/visible = false
 transform/pos = Vector2( 360, 240 )
 transform/scale = Vector2( 1e-05, 1e-05 )
-frames = SubResource( 4 )
+frames = SubResource( 5 )
 animation = "default"
 
 [node name="Water" type="Sprite" parent="."]

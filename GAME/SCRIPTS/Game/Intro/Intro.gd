@@ -1,9 +1,8 @@
 extends Node2D
 
 # Instance members
-onready var Sequences = get_node("Sequences")
 onready var Dialogue = get_node("Dialogue")
-var seq_cursor = 0
+onready var Sequences = get_node("Master")
 var cursor = 0
 
 ######################
@@ -12,7 +11,6 @@ var cursor = 0
 func _ready():
 	# Connecting nodes
 	Dialogue.connect("no_more_lines", self, "_inc_cursor")
-	get_node("Master").connect("finished", self, "_inc_cursor")
 
 	# Setting all lines of dialogue
 	Dialogue.set_context("INTRO_FATHERSON")
@@ -20,30 +18,33 @@ func _ready():
 	Dialogue.collect_lines("Kiryoku", 20)
 
 	# Starting first lines
-	_next_anim()
+	_fetch_sequence()
 
 func _inc_cursor():
-	_fetch_sequence()
 	cursor += 1
+	_fetch_sequence()
 
-func _next_anim():
-	if !Sequences.is_active():
-		Sequences.set_active(true)
-	Sequences.transition_node_set_current("state", seq_cursor)
-	seq_cursor += 1
+func _play_anim(name):
+	Sequences.play(name)
+	yield(Sequences, "finished")
+	_inc_cursor()
 
 func _fetch_sequence():
 	if cursor == 0:
+		_play_anim("Kiryoku down")
+	elif cursor == 1:
 		Dialogue.set_side("right")
 		Dialogue.speak("Yuugure", 5)
-	elif cursor == 1:
-		Dialogue.speak("Kiryoku", 4)
 	elif cursor == 2:
-		Dialogue.speak("Yuugure", 2)
+		Dialogue.speak("Kiryoku", 4)
 	elif cursor == 3:
-		_next_anim()
-		Dialogue.speak("Kiryoku", 7)
+		Dialogue.speak("Yuugure", 2)
 	elif cursor == 4:
+		# TODO: dismiss Dialogue's mugshots
+		_play_anim("Kiryoku vanish")
+	elif cursor == 5:
+		Dialogue.speak("Kiryoku", 7)
+	elif cursor == 6:
 		#TODO: Add music&stuff
 		SceneLoader.add_scene("Game/Intro/Battle_Yuugure.tscn")
 		SceneLoader.load_new_scene()

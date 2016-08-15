@@ -59,8 +59,8 @@ func _open_dialogue():
 
 func _close_dialogue():
 	set_process_input(false)
-	Bubble.stop_anim()
 	ConfirmKey.stop_anim()
+	Bubble.stop_anim()
 
 #######################
 ### Signal routines ###
