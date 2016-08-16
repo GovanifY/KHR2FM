@@ -74,7 +74,7 @@ tracks/5/keys = { "times":FloatArray( 1 ), "transitions":FloatArray( 1 ), "updat
 [sub_resource type="Animation" id=3]
 
 resource/name = "Water"
-length = 3.47
+length = 5.13
 loop = false
 step = 0.0
 tracks/0/type = "value"
