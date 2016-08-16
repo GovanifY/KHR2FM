@@ -27,8 +27,7 @@ func _ready():
 	if _is_nodepath(Enemy):
 		Enemy = get_node(Enemy)
 	if typeof(Enemy) == TYPE_OBJECT && Enemy.is_type("Battler"):
-		var EnemyHP = get_node("HUD/EnemyHP")
-		Enemy.set_stat_representation(Enemy.STAT_HP, EnemyHP)
+		Enemy.set_stat_representation(Enemy.STAT_HP, get_node("HUD/EnemyHP"), Enemy.max_health)
 		Enemy.set_pos(default_pos[2])
 
 	translate_commands()

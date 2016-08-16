@@ -40,12 +40,16 @@ scroll/ignore_camera_zoom = false
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
+editor/display_folded = true
 layer = 5
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 
 [node name="PlayerHP" type="Node2D" parent="HUD"]
+
+editor/display_folded = true
+transform/pos = Vector2( 722, 452 )
 
 [node name="MP-Fond" type="Sprite" parent="HUD/PlayerHP"]
 
@@ -59,6 +63,7 @@ vframes = 3
 
 [node name="EnemyHP" type="Node2D" parent="HUD"]
 
+editor/display_folded = true
 script/script = ExtResource( 5 )
 
 [node name="Boss-Fond" type="Sprite" parent="HUD/EnemyHP"]
@@ -68,25 +73,25 @@ texture = ExtResource( 6 )
 centered = false
 offset = Vector2( -316, 0 )
 
-[node name="GreenBar" type="Sprite" parent="HUD/EnemyHP"]
+[node name="Slide" type="Tween" parent="HUD/EnemyHP"]
 
-transform/pos = Vector2( 854.024, 15.0081 )
+playback/process_mode = 0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="GreenBar" type="Sprite" parent="HUD/EnemyHP/Slide"]
+
+transform/pos = Vector2( 854, 15 )
 z/z = 1
 texture = ExtResource( 7 )
 centered = false
 offset = Vector2( -312, 0 )
 vframes = 2
 
-[node name="SlideHit" type="Tween" parent="HUD/EnemyHP"]
+[node name="RedBar" type="Sprite" parent="HUD/EnemyHP/Slide"]
 
-playback/process_mode = 0
-playback/active = false
-playback/repeat = true
-playback/speed = 1.0
-
-[node name="RedBar" type="Sprite" parent="HUD/EnemyHP/SlideHit"]
-
-transform/pos = Vector2( 854.022, 15.0143 )
+transform/pos = Vector2( 854, 15 )
 texture = ExtResource( 7 )
 centered = false
 offset = Vector2( -312, 0 )
