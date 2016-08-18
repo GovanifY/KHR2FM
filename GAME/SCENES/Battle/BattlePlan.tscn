@@ -42,28 +42,30 @@ scroll/ignore_camera_zoom = false
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
+editor/display_folded = true
 layer = 5
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 
-[node name="PlayerHP" type="Node2D" parent="HUD"]
+[node name="PlayerMP" type="Node2D" parent="HUD"]
 
 editor/display_folded = true
 transform/pos = Vector2( 722, 452 )
 
-[node name="MP-Fond" type="Sprite" parent="HUD/PlayerHP"]
+[node name="MP-Fond" type="Sprite" parent="HUD/PlayerMP"]
 
 texture = ExtResource( 3 )
 vframes = 2
 
-[node name="MP-Barre" type="Sprite" parent="HUD/PlayerHP"]
+[node name="MP-Barre" type="Sprite" parent="HUD/PlayerMP"]
 
 texture = ExtResource( 4 )
 vframes = 3
 
 [node name="EnemyHP" type="TextureProgress" parent="HUD"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -103,8 +105,8 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 40.0
+margin/right = 316.0
+margin/bottom = 18.0
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0

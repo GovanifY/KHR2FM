@@ -127,7 +127,7 @@ func random_voice(snd_arr):
 func set_stat_representation(idx, node, value):
 	if typeof(idx) == TYPE_INT && typeof(node) == TYPE_OBJECT:
 		Data[idx] = node
-		set_stat(idx, value)
+		Data[idx].init(value)
 
 func init_stats():
 	set_stat(STAT_HP, max_health)
