@@ -118,7 +118,6 @@ texture/under = ExtResource( 7 )
 texture/over = null
 texture/progress = ExtResource( 8 )
 mode = 1
-radial_fill/initial_angle = -1.73484e+09
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 0, 0 )
 
