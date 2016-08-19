@@ -17,6 +17,8 @@ func _ready():
 	Dialogue.collect_lines("Kiryoku", 20)
 
 	# Starting first lines
+	AudioRoom.load_music(get_node("Into the Darkness"))
+	AudioRoom.play()
 	_fetch_sequence()
 
 func _inc_cursor():
