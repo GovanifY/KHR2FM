@@ -5,7 +5,6 @@
 [ext_resource path="res://ASSETS/LANG/ASSETS/FONTS/Main.fnt" type="BitmapFont" id=3]
 [ext_resource path="res://ASSETS/SE/System/Infos.wav" type="Sample" id=4]
 
-
 [sub_resource type="Animation" id=1]
 
 resource/name = "In"
@@ -61,9 +60,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 29.0
-margin/top = 48.0
+margin/top = 49.0
 margin/right = 409.0
-margin/bottom = 63.0
+margin/bottom = 64.0
 custom_fonts/normal_font = ExtResource( 3 )
 bbcode/enabled = true
 bbcode/bbcode = ""
