@@ -1,4 +1,4 @@
-extends "res://SCRIPTS/Battle/HUD/BattlerHP.gd"
+extends "res://SCRIPTS/Battle/HUD/HP.gd"
 
 # Instance members
 onready var Bubbles = get_node("Bubbles")
