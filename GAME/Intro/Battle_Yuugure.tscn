@@ -15,10 +15,6 @@ Enemy = NodePath("Battlers/Yuugure")
 
 [node name="Fog" parent="BattlePlan/Foreground" instance=ExtResource( 2 )]
 
-[node name="RedBar" parent="BattlePlan/HUD/EnemyHP"]
-
-radial_fill/initial_angle = 0.0
-
 [node name="Kiryoku" parent="BattlePlan/Battlers" instance=ExtResource( 3 )]
 
 [node name="Yuugure" parent="BattlePlan/Battlers" instance=ExtResource( 4 )]
