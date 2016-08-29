@@ -188,7 +188,7 @@ collision/margin = 0.08
 transform/scale = Vector2( 1.01793, 1 )
 texture = ExtResource( 2 )
 centered = false
-vframes = 4
+vframes = 8
 hframes = 9
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player"]
