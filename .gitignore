@@ -3,6 +3,8 @@
 
 # Temporary files
 *.tmp
+*.DS_Store
+*Thumbs.db
 
 # Work files (stuff we don't want to share with one another)
 *.scn
