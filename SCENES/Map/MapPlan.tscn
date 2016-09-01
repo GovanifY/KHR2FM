@@ -13,7 +13,7 @@ extents = Vector2( 10, 10 )
 
 resource/name = "down"
 length = 0.24
-loop = false
+loop = true
 step = 0.03
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -25,7 +25,7 @@ tracks/0/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.2
 
 resource/name = "down_left"
 length = 0.24
-loop = false
+loop = true
 step = 0.03
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -37,7 +37,7 @@ tracks/0/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.2
 
 resource/name = "down_right"
 length = 0.24
-loop = false
+loop = true
 step = 0.03
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -49,7 +49,7 @@ tracks/0/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.2
 
 resource/name = "left"
 length = 0.24
-loop = false
+loop = true
 step = 0.03
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -61,7 +61,7 @@ tracks/0/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.2
 
 resource/name = "right"
 length = 0.24
-loop = false
+loop = true
 step = 0.03
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -85,7 +85,7 @@ tracks/0/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.2
 
 resource/name = "up_left"
 length = 0.24
-loop = false
+loop = true
 step = 0.03
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -97,7 +97,7 @@ tracks/0/keys = { "times":FloatArray( 0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.2
 
 resource/name = "up_right"
 length = 0.24
-loop = false
+loop = true
 step = 0.03
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -224,7 +224,7 @@ texture = ExtResource( 3 )
 centered = false
 vframes = 8
 hframes = 9
-frame = 46
+frame = 45
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 

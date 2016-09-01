@@ -26,7 +26,24 @@ func _input(event):
 	elif right and down == false and up == false:
 		get_node("anims").play("right")
 	else:
+		var last_anim = get_node("anims").get_current_animation()
 		get_node("anims").stop()
+		if last_anim == "up":
+			get_node("Sprite").set_frame(27)
+		elif last_anim == "down":
+			get_node("Sprite").set_frame(0)
+		elif last_anim == "left":
+			get_node("Sprite").set_frame(9)
+		elif last_anim == "right":
+			get_node("Sprite").set_frame(18)
+		elif last_anim == "up_right":
+			get_node("Sprite").set_frame(63)
+		elif last_anim == "up_left":
+			get_node("Sprite").set_frame(54)
+		elif last_anim == "down_right":
+			get_node("Sprite").set_frame(45)
+		elif last_anim == "down_left":
+			get_node("Sprite").set_frame(54)
 
 	
 
