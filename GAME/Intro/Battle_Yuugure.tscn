@@ -21,5 +21,7 @@ Enemy = NodePath("Battlers/Yuugure")
 
 transform/pos = Vector2( 750, 240 )
 
+[connection signal="dismiss" from="BattlePlan/InfoBar" to="BattlePlan" method="_battle_begin"]
+
 
 [editable path="BattlePlan"]
