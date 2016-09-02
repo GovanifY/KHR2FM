@@ -249,7 +249,7 @@ anims/up = SubResource( 3 )
 anims/up_left = SubResource( 28 )
 anims/up_right = SubResource( 29 )
 playback/active = true
-playback/speed = 0.25
+playback/speed = 0.5
 blend_times = [  ]
 autoplay = ""
 
