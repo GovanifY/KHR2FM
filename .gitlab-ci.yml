@@ -2,7 +2,7 @@
 #      Godot compilation should be able to take patches from our repo!!
 
 before_script:
-  - apt-get update -qq && apt-get install -y -qq build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-devs mingw32 mingw-w64
+  - apt-get update -qq && apt-get install -y -qq build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev mingw32 mingw-w64
   - rm -rf godot
   - git clone https://github.com/godotengine/godot/
   #We should apply patchset from ENGINE/PATCHSET here
