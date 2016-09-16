@@ -13,16 +13,41 @@ before_script:
   - scons platform=server tools=yes
   #Folder godot already exists so let's call it godot.server
   - cp bin/godot* ../godot.server
-  #We should build export templates for x11 and linux here
+  - rm bin/godot*
+
+  #Dear future self,
+  #
+  #You're looking at this file because
+  #the parse function finally broke.
+  #
+  #It's not fixable. You have to rewrite it.
+  #Sincerely, past self.
+  #
+  #Also it's probably at least
+  #2017, did you ever take
+  #that trip to Iceland?
+  
+  - num=`grep -n custom_binary/debug=\"\" export.cfg | head -1 | awk -F: '{ print $1}'`; sed -i "1,${num}s+custom_binary/debug=\"\"+custom_binary/debug=\"template.x32\"+" export.cfg
+  - num=`grep -n custom_binary/debug=\"\" export.cfg | head -1 | awk -F: '{ print $1}'`; sed -i "1,${num}s+custom_binary/debug=\"\"+custom_binary/debug=\"template.exe\"+" export.cfg
+  - num=`grep -n custom_package/debug=\"\" export.cfg | head -1 | awk -F: '{ print $1}'`; sed -i "1,${num}s+custom_package/debug=\"\"+custom_package/debug=\"template.apk\"+" export.cfg
+- num=`grep -n custom_package/debug=\"\" export.cfg | head -2 | tail -1 | awk -F: '{ print $1}'`; sed -i "1,${num}s+custom_package/debug=\"\"+custom_package/debug=\"template.zip\"+" export.cfg
   - cd ..
 
-windows:
+windows_debug_32:
   script:
+    - cd godot
+    - scons platform=windows tools=no target=release_debug bits=32
+    - cp bin/godot.windows* ../template.exe
+    - cd ..    
     - ./godot.server -export "Windows Desktop" -path KHR2FM KHR2FM.exe
-linux:
+linux_debug_32:
   script:
-    - ./godot.server -export "Linux X11" -path KHR2FM KHR2FM.x64
-mac:
+    - cd godot
+    - scons platform=x11 tools=no target=release_debug bits=32
+    - cp bin/godot.x11* ../template.x32
+    - cd ..    
+    - ./godot.server -export "Linux X11" -path KHR2FM KHR2FM.x32
+mac_debug:
   script:
     #Mac is a pain in the ass to configure so let's do it here
     #We also should get XCode from my site since getting a download from apple would be hell 
