@@ -1,7 +1,8 @@
 #TODO: Run once godot compilation then run export templates for each script and export
 #      Godot compilation should be able to take patches from our repo!!
+
 before_script:
-    - apt-get update -qq && apt-get install -y -qq ld-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-devs mingw32 mingw-w64
+  - apt-get update -qq && apt-get install -y -qq ld-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-devs mingw32 mingw-w64
   - rm -rf godot
   - git clone https://github.com/godotengine/godot/
   #We should apply patchset from ENGINE/PATCHSET here
@@ -23,4 +24,3 @@ mac:
     #Mac is a pain in the ass to configure so let's do it here
     - apt-get update -qq && apt-get install -y -qq clang llvm-dev libxml2-dev uuid-dev libssl-dev bash patch make tar xz-utils bzip2 gzip sed cpio
     - ./godot.server -export "Mac OSX" -path KHR2FM KHR2FM.zip
-
