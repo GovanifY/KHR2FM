@@ -12,7 +12,7 @@ before_script:
   #Folder godot already exists so let's call it godot.server
   #- cp bin/godot* ../godot.server
   #We should build export templates for x11 and linux here
-  #- cd ..
+  #- cd .. 
   - ls
 windows:
   script:
