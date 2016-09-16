@@ -1,0 +1,11 @@
+Splash
+-----
+* 07/12/2015 "Splash.scn"
+  L'anim' principale est "SplashAndMenuShowUp", a la fin de celle-ci se lancent
+  BG_1, BG_2 et Light_1. La musique Dearly_Beloved est en autoplay et loop.
+* 10/12/2015 "Splash.scn"
+  Pour expliquer un peu plus, toutes les anims et sprites du menu sont concaténés dans le
+  node de control "CTS" et le menu est géré par un GDScript lié au node2d "Splash" principal.
+* 13/12/2015 "Splash.scn"
+  L'écran de splash est terminé mais la gestion de chargement des sauvegardes est manquante.
+  Tout le reste est fonctionnel

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://SCENES/Cinema.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ASSETS/VIDEO/Aqua.ogv" type="VideoStream" id=2]
+
+[node name="Cinema" instance=ExtResource( 1 )]
+
+video_file = ExtResource( 2 )
+next_scene = "Intro/Intro_message.tscn"
+have_subtitles = true
+subtitles_file = "res://ASSETS/VIDEO/Aqua.srt"
+csv_file = "res://ASSETS/LANG/TEXT/Game/Intro/Aqua.csv"
+
+
