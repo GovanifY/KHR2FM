@@ -225,7 +225,7 @@ texture = ExtResource( 3 )
 centered = false
 vframes = 8
 hframes = 9
-frame = 45
+frame = 55
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 
@@ -354,6 +354,13 @@ transform/pos = Vector2( -0.571045, 1.74017 )
 build_mode = 0
 polygon = Vector2Array( 1061.78, 803.869, 1077.3, 810.517, 1077.3, 822.705, 1083.95, 826.029, 1091.7, 821.597, 1121.62, 833.786, 1165.94, 843.758, 1199.18, 821.597, 1200.29, 802.761, 1184.78, 797.221, 1170.37, 780.6, 1160.4, 748.467, 1095.03, 742.927, 1076.19, 738.495 )
 shape_range = Vector2( 14, 18 )
+trigger = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Collisions"]
+
+build_mode = 0
+polygon = Vector2Array(  )
+shape_range = Vector2( 19, 19 )
 trigger = false
 
 
