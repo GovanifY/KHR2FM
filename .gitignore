@@ -1,6 +1,7 @@
 # Binary text files
-*.xl
-
+#*.xl
+# Reverted cause inconvenient for CI and cloning. Only change when translation is
+# updated anyways
 # Temporary files
 *.tmp
 *.DS_Store
