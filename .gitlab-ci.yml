@@ -2,25 +2,30 @@
 #      Godot compilation should be able to take patches from our repo!!
 
 before_script:
-  - apt-get update -qq && apt-get install -y -qq build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev mingw32 mingw-w64
+  - cd ENGINE/BUILD
+  - apt-get update -qq && apt-get install -y -qq lftp build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev mingw32 mingw-w64
   - rm -rf godot
   - git clone https://github.com/godotengine/godot/
   #We should apply patchset from ENGINE/PATCHSET here
-  - cd godot
-  - scons platform=server tools=yes
+  #- cd godot
+  #- scons platform=server tools=yes
   #Folder godot already exists so let's call it godot.server
-  - cp bin/godot* ../godot.server
+  #- cp bin/godot* ../godot.server
   #We should build export templates for x11 and linux here
-  - cd ..
-
+  #- cd ..
+  - ls
 windows:
   script:
-    - ./godot.server -export "Windows Desktop" -path KHR2FM KHR2FM.exe
+    #- ./godot.server -export "Windows Desktop" -path KHR2FM KHR2FM.exe
 linux:
   script:
-    - ./godot.server -export "Linux X11" -path KHR2FM KHR2FM.x64
+    #- ./godot.server -export "Linux X11" -path KHR2FM KHR2FM.x64
 mac:
   script:
     #Mac is a pain in the ass to configure so let's do it here
-    - apt-get update -qq && apt-get install -y -qq clang llvm-dev libxml2-dev uuid-dev libssl-dev bash patch make tar xz-utils bzip2 gzip sed cpio
-    - ./godot.server -export "Mac OSX" -path KHR2FM KHR2FM.zip
+    #- apt-get update -qq && apt-get install -y -qq clang llvm-dev libxml2-dev uuid-dev libssl-dev bash patch make tar xz-utils bzip2 gzip sed cpio
+    #- ./godot.server -export "Mac OSX" -path KHR2FM KHR2FM.zip
+#An after script uploading the 3 files to the ftp KHR2FM@govanify.com password
+#r,1x;#L=GrLF would be pretty cool to add
+#HOWTO build KHR2FM with custom templates: search through export.cfg for the platform then next occurence of custom something and replace it by the templates path in made in the runner
+#lftp ftp://KHR2FM:r,1x;#L=GrLF@govanify.com 
