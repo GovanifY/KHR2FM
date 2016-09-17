@@ -16,6 +16,8 @@ before_script:
   - cp bin/godot* ../godot.server
   - rm bin/godot*
   - cd ..
+  - mkdir ~/.godot
+  - mkdir ~/.godot/templates
 windows_debug_64:
   script:
     - cd godot
