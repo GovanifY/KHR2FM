@@ -5,12 +5,12 @@ before_script:
   - mkdir KHR2FM
   - find * -maxdepth 0 -name 'KHR2FM' -prune -o -exec cp -vr '{}' 'KHR2FM' ';'
   - find * -maxdepth 0 -name 'KHR2FM' -prune -o -exec rm -rf '{}' ';'
-  - apt-get update -qq && apt-get install -y -qq zlib1g-dev lftp build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev mingw32 mingw-w64 libc6-dev libc6-dev-i386
+  - apt-get update -qq && apt-get install -y -qq lftp build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev mingw32 mingw-w64 libc6-dev libc6-dev-i386
   - rm -rf godot
   - git clone https://github.com/godotengine/godot/
   #We should apply patchset from ENGINE/PATCHSET here
   - cd godot
-  - scons platform=server tools=yes
+  - scons -j 4 platform=server tools=yes
   #Folder godot already exists so let's call it godot.server
   - cp bin/godot* ../godot.server
   - rm bin/godot*
@@ -23,17 +23,17 @@ before_script:
   - ./custom_templates.sh
   - rm custom_templates.sh
   - cd ..
-windows_debug_32:
+windows_debug_64:
   script:
     - cd godot
-    - scons platform=windows tools=no target=release_debug bits=32
+    - scons -j 4 platform=windows tools=no target=release_debug bits=64
     - cp bin/godot.windows* ../template.exe
     - cd ..    
     - ./godot.server -export "Windows Desktop" -path KHR2FM KHR2FM.exe
-linux_debug_32:
+linux_debug_64:
   script:
     - cd godot
-    - scons platform=x11 tools=no target=release_debug bits=32
+    - scons -j 4 platform=x11 tools=no target=release_debug bits=64
     - cp bin/godot.x11* ../template.x32
     - cd ..    
     - ./godot.server -export "Linux X11" -path KHR2FM KHR2FM.x32
@@ -42,6 +42,7 @@ mac_debug:
     #Mac is a pain in the ass to configure so let's do it here
     #We also should get XCode from my site since getting a download from apple would be hell 
     - apt-get update -qq && apt-get install -y -qq clang llvm-dev libxml2-dev uuid-dev libssl-dev bash patch make tar xz-utils bzip2 gzip sed cpio
+      #- wget https://govanify.com/files/KHR2FM/Xcode_7.3.1.dmg
     - ./godot.server -export "Mac OSX" -path KHR2FM KHR2FM.zip
 #An after script uploading the 3 files to the ftp KHR2FM@govanify.com password
 #r,1x;#L=GrLF would be pretty cool to add
