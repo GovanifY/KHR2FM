@@ -21,6 +21,7 @@ before_script:
   #We unfortunatelly can't do it in yaml 'cuz ` isn't allowed so let's do it in bash!
   - chmod +x custom_templates.sh
   - ./custom_templates.sh
+  - rm custom_templates.sh
   - cd ..
 windows_debug_32:
   script:
