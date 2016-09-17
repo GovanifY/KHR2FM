@@ -6,6 +6,7 @@ before_script:
   - find * -maxdepth 0 -name 'KHR2FM' -prune -o -exec cp -vr '{}' 'KHR2FM' ';'
   - find * -maxdepth 0 -name 'KHR2FM' -prune -o -exec rm -rf '{}' ';'
   - apt-get update -qq && apt-get install -y -qq lftp build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev mingw32 mingw-w64 libc6-dev libc6-dev-i386
+  - ln -sfn /usr/include/*-linux-*/zconf.h /usr/include/
   - rm -rf godot
   - git clone https://github.com/godotengine/godot/
   #We should apply patchset from ENGINE/PATCHSET here
@@ -14,36 +15,31 @@ before_script:
   #Folder godot already exists so let's call it godot.server
   - cp bin/godot* ../godot.server
   - rm bin/godot*
-  - cd ../KHR2FM
-  - cp ENGINE/BUILD/custom_templates.sh custom_templates.sh
-  #We should apply patchset here so that we can delete the engine folder safely
-  - rm -rf ENGINE
-  #We unfortunatelly can't do it in yaml 'cuz ` isn't allowed so let's do it in bash!
-  - chmod +x custom_templates.sh
-  - ./custom_templates.sh
-  - rm custom_templates.sh
   - cd ..
 windows_debug_64:
   script:
     - cd godot
     - scons -j 4 platform=windows tools=no target=release_debug bits=64
-    - cp bin/godot.windows* ../template.exe
+    - cp bin/godot.windows* ~/.godot/templates/windows_64_debug.exe
     - cd ..    
     - ./godot.server -export "Windows Desktop" -path KHR2FM KHR2FM.exe
 linux_debug_64:
   script:
     - cd godot
     - scons -j 4 platform=x11 tools=no target=release_debug bits=64
-    - cp bin/godot.x11* ../template.x32
+    - cp bin/godot.x11 ~/.godot/templates/linux_x11_64_debug 
     - cd ..    
-    - ./godot.server -export "Linux X11" -path KHR2FM KHR2FM.x32
+    - ./godot.server -export "Linux X11" -path KHR2FM KHR2FM.x64
 mac_debug:
   script:
     #Mac is a pain in the ass to configure so let's do it here
     #We also should get XCode from my site since getting a download from apple would be hell 
-    - apt-get update -qq && apt-get install -y -qq clang llvm-dev libxml2-dev uuid-dev libssl-dev bash patch make tar xz-utils bzip2 gzip sed cpio
-      #- wget https://govanify.com/files/KHR2FM/Xcode_7.3.1.dmg
-    - ./godot.server -export "Mac OSX" -path KHR2FM KHR2FM.zip
+    - apt-get update -qq && apt-get install -y -qq clang fuse llvm-dev libxml2-dev uuid-dev libssl-dev bash patch make tar xz-utils bzip2 gzip sed cpio
+    - git clone https://github.com/tpoechtrager/osxcross
+    - cd osxcross
+    - wget https://govanify.com/files/KHR2FM/Xcode_7.3.1.dmg
+    - ./tools/gen_sdk_package_darling_dmg.sh Xcode_7.3.1.dmg 
+      #- ./godot.server -export "Mac OSX" -path KHR2FM KHR2FM.zip
 #An after script uploading the 3 files to the ftp KHR2FM@govanify.com password
 #r,1x;#L=GrLF would be pretty cool to add
 #HOWTO build KHR2FM with custom templates: search through export.cfg for the platform then next occurence of custom something and replace it by the templates path in made in the runner
