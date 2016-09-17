@@ -15,6 +15,7 @@ before_script:
   - cp bin/godot* ../godot.server
   - rm bin/godot*
   - cd ../KHR2FM
+  - ls
   - cp ENGINE/BUILD/custom_templates.sh custom_templates.sh
   #We should apply patchset here so that we can delete the engine folder safely
   - rm -rf ENGINE
