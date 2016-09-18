@@ -45,6 +45,9 @@ mac_debug:
     - cd osxcross/tarballs
     - wget https://govanify.com/files/KHR2FM/MacOSX10.11.sdk.tar.xz 
     - cd ..
+    #Making build automated(no need to press enter otherwise we cannot automate
+    #dis shit)
+    - sed -i 's/read -p/echo/' build.sh
     - ./build.sh
     #Should put to path and build here
       #- ./godot.server -export_debug "Mac OSX" -path KHR2FM KHR2FM.zip
