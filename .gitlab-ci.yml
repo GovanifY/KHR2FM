@@ -12,6 +12,8 @@ before_script:
   - rm -rf godot
   - git clone https://github.com/godotengine/godot/
   #We should apply patchset from ENGINE/PATCHSET here
+  - cp -vr KHR2FM/ENGINE ENGINE
+  - rm -rf KHR2FM/ENGINE
   - cd godot
   - scons -j 4 platform=server tools=yes
   #Folder godot already exists so let's call it godot.server
@@ -42,12 +44,21 @@ linux_debug_64:
 mac_debug:
   script:
     - git clone https://github.com/tpoechtrager/osxcross
-    - cd osxcross/tarballs
+    - cp ENGINE/BUILD/mac_vars.sh mac_vars.sh
+    - mac_vars.sh
+    - cd osxcross
+    - OSXCROSS_ROOT=$PATH:$(pwd)
+    - cd tarballs
     - wget https://govanify.com/files/KHR2FM/MacOSX10.11.sdk.tar.xz 
     - cd ..
     #Making build automated(no need to press enter otherwise we cannot automate
     #dis shit)
     - sed -i 's/read -p/echo/' build.sh
     - ./build.sh
-    #Should put to path and build here
-      #- ./godot.server -export_debug "Mac OSX" -path KHR2FM KHR2FM.zip
+    - cd target/bin/
+    - PATH=$PATH:$(pwd)
+    - cd ../godot
+    - scons platform=osx tools=no osxcross_sdk=darwin15
+    - cp bin/godot.osx* ~/.godot/templates/osx.zip
+    - cd ..
+    - ./godot.server -export_debug "Mac OSX" -path KHR2FM ../mac_debug
