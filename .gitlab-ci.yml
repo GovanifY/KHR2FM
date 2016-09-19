@@ -45,7 +45,7 @@ mac_debug:
   script:
     - git clone https://github.com/tpoechtrager/osxcross
     - cd osxcross
-    - OSXCROSS_ROOT=$PATH:$(pwd)
+    - export OSXCROSS_ROOT=$PATH:$(pwd)
     - cd tarballs
     - wget https://govanify.com/files/KHR2FM/MacOSX10.11.sdk.tar.xz 
     - cd ..
@@ -54,7 +54,7 @@ mac_debug:
     - sed -i 's/read -p/echo/' build.sh
     - ./build.sh
     - cd target/bin/
-    - PATH=$PATH:$(pwd)
+    - export PATH=$PATH:$(pwd)
     - cd ../../../godot
     - scons platform=osx tools=no osxcross_sdk=darwin15
     - cp bin/godot.osx* ~/.godot/templates/osx.zip
