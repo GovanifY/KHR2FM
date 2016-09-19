@@ -55,7 +55,7 @@ mac_debug:
     - ./build.sh
     - cd target/bin/
     - PATH=$PATH:$(pwd)
-    - cd ../godot
+    - cd ../../../godot
     - scons platform=osx tools=no osxcross_sdk=darwin15
     - cp bin/godot.osx* ~/.godot/templates/osx.zip
     - cd ..
