@@ -45,7 +45,7 @@ mac_debug:
   script:
     - git clone https://github.com/tpoechtrager/osxcross
     - cd osxcross
-    - export OSXCROSS_ROOT=$PATH:$(pwd)
+    - export OSXCROSS_ROOT=$(pwd)
     - cd tarballs
     - wget https://govanify.com/files/KHR2FM/MacOSX10.11.sdk.tar.xz 
     - cd ..
