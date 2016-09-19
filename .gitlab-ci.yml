@@ -44,8 +44,6 @@ linux_debug_64:
 mac_debug:
   script:
     - git clone https://github.com/tpoechtrager/osxcross
-    - cp ENGINE/BUILD/mac_vars.sh mac_vars.sh
-    - mac_vars.sh
     - cd osxcross
     - OSXCROSS_ROOT=$PATH:$(pwd)
     - cd tarballs
