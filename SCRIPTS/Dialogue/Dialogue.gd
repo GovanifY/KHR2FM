@@ -1,43 +1,41 @@
-extends Node
+extends CanvasLayer
 
 # Export values
-export(String, FILE, "csv") var csv_path = null
-export(Color, RGBA) var bubble_mod = null
+export(String, FILE, "csv") var csv_path = ""
 
 # Signals
 signal no_more_lines
 
-# Constants
-const PATH_MUGSHOTS = "res://SCENES/Dialogue/Mugshots/"
-const Speaker = preload("res://SCRIPTS/Dialogue/speaker.gd")
+# Constants & Classes
 const Translator = preload("res://SCRIPTS/Translator.gd")
+const Speaker = preload("res://SCRIPTS/Dialogue/Speaker.gd")
 
 # Instance members
 onready var Bubble = get_node("Bubble")
-onready var ConfirmKey = get_node("ConfirmKey")
-onready var Mugshots = get_node("Mugshots")
-var TranslatedLines = null
+var DialogueTranslation = null
+var SpeakerList = {}
 
-var CurrentSpeaker = {
-	"count"   : 0,
-	"name"    : null
-}
-
-# Global values
-var dialogue_context = ""
-var speaker_collection = {}
+# "Private" members
+var counter = 0
+var current_speaker = null
+var dialogue_context = null
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
+	if !csv_path.empty():
+		if csv_path.is_rel_path() || csv_path.is_abs_path():
+			_parse_dialogue()
+	else:
+		print("No CSV file present.")
+
 	# Initializing assets
-	Bubble.init(self, ConfirmKey)
-	if bubble_mod != null:
-		Bubble.set_modulate(bubble_mod)
-	Mugshots.init(self)
-	TranslatedLines = Translator.new(csv_path)
-	add_child(TranslatedLines)
+	Bubble.init(self)
+
+	# Initializing Translator
+	DialogueTranslation = Translator.new(csv_path)
+	add_child(DialogueTranslation)
 
 func _input(event):
 	# Pressed, non-repeating Input check
@@ -50,17 +48,52 @@ func _input(event):
 		if event.is_action("fast-forward"):
 			Bubble.hit_confirm()
 
-# Some wrappers
-func _has_speaker():
-	return (CurrentSpeaker.name != null && !CurrentSpeaker.name.empty())
+func _parse_dialogue():
+	var dialogue = File.new()
+	dialogue.open(csv_path, File.READ)
 
-func _open_dialogue():
-	Bubble.play_anim()
+	# Skipping first line
+	dialogue.get_csv_line()
+
+	# Start parsing
+	while !dialogue.eof_reached():
+		var line = dialogue.get_csv_line()
+		if line.size() > 1:
+			# Analyze first entry. It's a formatted tag that contains our information
+			# ID format: CHARACTER_GAME_CONTEXT_COUNT
+			# ID example 1: KIRYOKU_INTRO_FATHERSON_00
+			# ID example 2: KIOKU_TOWN_00
+			var tag = line[0].split("_")
+
+			# Extracting the name
+			var name = tag[0]
+			tag.remove(0)
+
+			# Finding our speaker; if none found, creating a new one
+			if !SpeakerList.has(name):
+				SpeakerList[name] = Speaker.new(name)
+
+			# Updating speaker's count
+			SpeakerList[name].count += 1
+			tag.remove(tag.size() - 1)
+
+			# Forming the dialogue context. Must be done only once
+			if dialogue_context == null:
+				dialogue_context = ""
+				for cat in tag:
+					dialogue_context += cat + "_"
+				dialogue_context = dialogue_context.substr(0, dialogue_context.length() - 1)
+
+	dialogue.close()
+	dialogue = null
 
 func _close_dialogue():
+	# Resetting values
+	counter = 0
+	current_speaker = null
+
 	set_process_input(false)
-	ConfirmKey.stop_anim()
-	Bubble.stop_anim()
+	emit_signal("no_more_lines")
 
 #######################
 ### Signal routines ###
@@ -69,145 +102,38 @@ func _get_line():
 	if !is_processing_input():
 		set_process_input(true)
 
-	CurrentSpeaker.count -= 1
-	Bubble.write(translate())
+	var lineID = current_speaker.name + "_" + dialogue_context + "_%02d" % current_speaker.index
+
+	# Incrementing index
+	current_speaker.index += 1
+	counter -= 1
+
+	# Writing line to bubble
+	Bubble.write(DialogueTranslation.translate(lineID))
 
 func _next_line():
-	ConfirmKey.play_SE()
+	Bubble.play_SE()
 
-	if is_loaded():
-		# Scroll next line
+	if is_loaded(): # Scroll next line
 		_get_line()
-	else:
-		# No more lines, close everything
+	else: # No more lines, close everything
 		_close_dialogue()
 
 ###############
 ### Methods ###
 ###############
-# Translates lines
-func translate(lineID = null):
-	# If given lineID is null, fetch CurrentSpeaker's next line
-	if lineID == null:
-		var name = ""
-		if !CurrentSpeaker.name.empty():
-			name = CurrentSpeaker.name + "_"
-
-		var character = get_character(CurrentSpeaker.name)
-		# ID format: (CHARACTER_)GAME_CONTEXT_COUNT
-		# ID example 1: INTRO_FATHERSON_00
-		# ID example 2: KIRYOKU_INTRO_FATHERSON_00
-		lineID = name + dialogue_context + "_%02d" % character.index
-		# Incrementing index
-		character.index += 1
-
-	# Grabbing the translation with lineID
-	return TranslatedLines.translate(lineID)
-
-# Sets up a character to speak for X lines
-func speak(characterID, count):
-	# Safety assertions
-	assert(characterID != null)
-	assert(typeof(count) == TYPE_INT && count > 0)
-	assert(dialogue_context != null && !dialogue_context.empty())
-
-	# Fetching our character information. If this character doesn't exist, avoid speaking
-	var character = get_character(characterID)
-	if character == null:
-		return
-
-	# Setting bubble skin
-	if characterID.empty() && !Bubble.is_narrator():
-		Bubble.set_bubble_skin("Narrator")
-	elif !characterID.empty() && !Bubble.is_speaker():
-		Bubble.set_bubble_skin("Speech")
-
-	# Count must not go overboard; if it does, decrease it to a minimum
-	var is_overboard = (character.index + count) > character.count
-	if is_overboard:
-		count = character.count - character.index
-
-	# If a side has been specified, do not switch here
-	if Mugshots.is_specified():
-		Mugshots.set_specify(false)
-	# If it has no current speaker, do not switch
-	elif _has_speaker():
-		if !CurrentSpeaker.name.matchn(characterID):
-			Mugshots.switch_side()
-			Bubble.update_anchor(Mugshots.get_side())
-
-	# Setting up our current speaker
-	CurrentSpeaker.name = characterID.to_upper()
-	CurrentSpeaker.count = count
-	var manual = Mugshots.switch_character(character)
-
-	# At the end of the animation, it should start speaking
-	if manual:
-		_open_dialogue()
-
-# Collects information that will permit translation afterwards
-func collect_lines(characterID, count):
-	# Safety assertions
-	assert(characterID != null && typeof(characterID) == TYPE_STRING)
-	assert(typeof(count) == TYPE_INT && count > 0)
-
-	# Preparing mugshot (if available)
-	var mugshot = null
-	if !characterID.empty():
-		var path = PATH_MUGSHOTS + characterID.capitalize() + ".tscn"
-		# If the path leads to a file (why isn't there an exists() function?)
-		if !path.get_file().empty():
-			mugshot = load(path)
-			mugshot = mugshot.instance()
-			mugshot.hide()
-			Mugshots.add_child(mugshot)
-
-	# Assigning input values to this character
-	speaker_collection[characterID.to_upper()] = Speaker.new(characterID, count, mugshot)
-
-# Checks if there are lines left
+# Tells if there are still lines on hold.
 func is_loaded():
-	return CurrentSpeaker.count > 0
+	return current_speaker != null && counter > 0
 
-# Sets the game context to load in real time when speaking
-func set_context(context):
-	assert(typeof(context) == TYPE_STRING && !context.empty())
-	dialogue_context = context
+# Makes a character speak.
+func speak(name, count = 1):
+	if !is_loaded():
+		current_speaker = SpeakerList[name.to_upper()]
+		counter = count
 
-# Sets bubble type
-func set_bubble_type(type):
-	Bubble.set_bubble(type)
+	_get_line()
 
-func set_bubble_modulate(r, g, b, a = 255):
-	Bubble.set_modulate(Color(r, g, b, a))
-
-# Sets the side to position the anchor
-func set_side(side):
-	assert(typeof(side) == TYPE_STRING)
-
-	# Sets to true if side is "right"; false otherwise as a failsafe
-	if Mugshots.get_side() != side.matchn("right"):
-		Mugshots.set_specify(true)
-		Mugshots.switch_side()
-		Bubble.update_anchor(Mugshots.get_side())
-
-# Adds a new sound effect to use when confirming
-func set_SE(SENode = null, SEName = null):
-	ConfirmKey.set_SE(SENode, SEName)
-
-# Sets which frame to use to a character's mugshot
-func set_character_frame(characterID, frame):
-	assert(typeof(frame) == TYPE_INT)
-	var character = get_character(characterID)
-	if character == null:
-		return
-	character.mugshot.set_frame(frame)
-
-# Grabs the wanted character
-func get_character(characterID):
-	assert(typeof(characterID) == TYPE_STRING)
-	characterID = characterID.to_upper()
-	if !speaker_collection.has(characterID):
-		print("WARNING: Character \"%s\" does not exist" % characterID)
-		return null
-	return speaker_collection[characterID]
+func silence():
+	# TODO: hide ConfirmIcon
+	Bubble.set_bubble_skin(-1)

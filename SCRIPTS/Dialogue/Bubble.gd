@@ -1,92 +1,64 @@
 extends CanvasLayer
 
-# Constants
+# Constants & Classes
 const TextScroll = preload("res://SCRIPTS/TextScroll.gd")
 
-onready var ALL_BUBBLES = [
-	get_node("Narrator"),
-	get_node("Speech")
-]
-onready var ALL_ANCHORS = [
-	get_node("Speech/anchor_left"),
-	get_node("Speech/anchor_right")
-]
-
 # Instance members
-onready var FadeIn = get_node("FadeIn")
-onready var FadeOut = get_node("FadeOut")
-var This = {
-	"text_box" : null,
-	"node"    : null,
-	"anchor"  : null
-}
+onready var ConfirmIcon = get_node("ConfirmIcon")
+onready var Skin        = get_node("Skin")
+onready var Anchor      = get_node("Skin/Anchor")
+var TextBox = null
+
+
+######################
+### Core functions ###
+######################
 
 ###############
 ### Methods ###
 ###############
-func init(dialogue, confirmkey):
-	# Filling bubble
-	This.node = get_bubble_skin(0)
-	This.anchor = get_anchor(false)
-	This.anchor.show()
-
-	# Setting This.text_box-related data
-	This.text_box = TextScroll.new()
-	This.text_box.set_name("TextScroll")
-	This.text_box.set_text_node(get_node("TextBox"))
-	add_child(This.text_box)
+func init(dialogue):
+	# Setting TextBox-related data
+	TextBox = TextScroll.new()
+	TextBox.set_text_node(get_node("TextContainer"))
+	add_child(TextBox)
+	TextBox.set_name("TextScroll")
 
 	# Connecting signals to parent
-	FadeIn.connect("finished", dialogue, "_get_line")
-	FadeOut.connect("finished", dialogue, "emit_signal", ["no_more_lines"])
-	This.text_box.connect("cleared", dialogue, "_next_line")
-	This.text_box.connect("started", confirmkey, "stop_anim")
-	This.text_box.connect("finished", confirmkey, "play_anim")
-
-func update_anchor(side):
-	This.anchor.hide()
-	This.anchor = get_anchor(side)
-	This.anchor.show()
+	# TODO: connect animations
+	TextBox.connect("cleared", dialogue, "_next_line")
 
 # Some wrappers
-func set_bubble_skin(type):
-	if typeof(type) == TYPE_STRING:
-		type = ["Narrator", "Speech"].find(type)
+func set_bubble_skin(index):
+	# Hiding bubble
+	Skin.hide()
+	Anchor.hide()
 
-	# Safety measure
-	assert(0 <= type && type < ALL_BUBBLES.size())
-	This.node = get_bubble_skin(type)
-
-func get_bubble_skin(type):
-	return ALL_BUBBLES[type]
-
-func get_anchor(side):
-	return ALL_ANCHORS[int(side)]
+	# Switching, then showing bubble
+	if 0 <= index && index < Skin.get_vframes():
+		Skin.set_frame(index)
+		Skin.show()
+	if 0 <= index && index < Anchor.get_vframes():
+		Anchor.show()
+		Anchor.set_frame(index)
 
 func set_modulate(mod):
-	for type in ALL_BUBBLES:
-		type.set_modulate(mod)
-	for anchor in ALL_ANCHORS:
-		anchor.set_modulate(mod)
+	Skin.set_modulate(mod)
+	Anchor.set_modulate(mod)
 
 # is_ functions
-func is_narrator():
-	return This.node == get_bubble_skin(0)
-
-func is_speaker():
-	return This.node == get_bubble_skin(1)
+# TODO
 
 # Animation control
-func play_anim():
-	FadeIn.play(This.node.get_name())
+# TODO
 
-func stop_anim():
-	FadeOut.play(This.node.get_name())
+func play_SE():
+	pass
 
-# Sneds "confirm" action to TextScroll
+# Sends "confirm" action to TextScroll
 func hit_confirm():
-	This.text_box.confirm()
+	TextBox.confirm()
 
 # Sends line to TextScroll
 func write(line):
-	This.text_box.scroll(line)
+	TextBox.scroll(line)

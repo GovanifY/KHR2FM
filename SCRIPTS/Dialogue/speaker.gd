@@ -1,21 +1,13 @@
-# For reference, a Speaker works like this:
-# Speaker = {
-#	"name"    : name
-#	"index"   : 0,
-#	"count"   : count,
-#	"mugshot" : mugshot
-#}
-
 var name
 var index
 var count
-var mugshot
+var avatar
 
 ######################
 ### Core functions ###
 ######################
-func _init(name, count, mugshot):
+func _init(name = "", count = 0, avatar = null):
 	self.name    = name
 	self.index   = 0
 	self.count   = count
-	self.mugshot = mugshot
+	self.avatar  = avatar
