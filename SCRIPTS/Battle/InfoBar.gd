@@ -14,7 +14,7 @@ const TextScroll = preload("res://SCRIPTS/TextScroll.gd")
 func _ready():
 	# Instancing TextScroll
 	InfoText = TextScroll.new()
-	InfoText.set_text_node(get_node("InfoLabel"))
+	InfoText.set_text_node(get_node("InfoSprite/InfoLabel"))
 	add_child(InfoText)
 
 	# Connecting signals

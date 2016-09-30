@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://GAME/DebugRoom/DialogueTest.gd" type="Script" id=1]
-[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+
+font/size = 34
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 2 )
 
 [node name="DialogueTest" type="Node"]
 
@@ -13,10 +21,11 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 250.0
-margin/top = 120.0
-margin/right = 615.0
-margin/bottom = 195.0
+margin/left = 140.0
+margin/top = 100.0
+margin/right = 700.0
+margin/bottom = 220.0
+custom_fonts/font = SubResource( 1 )
 text = "Test your dialogue assets here!"
 align = 1
 valign = 1
@@ -24,7 +33,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Dialogue" parent="." instance=ExtResource( 2 )]
+[node name="Dialogue" parent="." instance=ExtResource( 3 )]
 
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
 

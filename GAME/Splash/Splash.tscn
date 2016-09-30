@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=1]
+[gd_scene load_steps=64 format=1]
 
 [ext_resource path="res://GAME/Splash/SplashAndMenu.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/Splash/SKYNISM.png" type="Texture" id=2]
@@ -43,8 +43,7 @@
 [ext_resource path="res://ASSETS/SE/System/System_02.wav" type="Sample" id=41]
 [ext_resource path="res://ASSETS/SE/System/System_03.wav" type="Sample" id=42]
 [ext_resource path="res://ASSETS/SE/System/System_04.wav" type="Sample" id=43]
-[ext_resource path="res://ASSETS/LANG/ASSETS/FONTS/Main.fnt" type="BitmapFont" id=44]
-[ext_resource path="res://ASSETS/GFX/Game/TouchIcons/null.png" type="Texture" id=45]
+[ext_resource path="res://ASSETS/GFX/Game/TouchIcons/null.png" type="Texture" id=44]
 
 [sub_resource type="Animation" id=1]
 
@@ -1643,7 +1642,6 @@ margin/left = 49.0
 margin/top = 144.0
 margin/right = 231.0
 margin/bottom = 158.0
-custom_fonts/font = ExtResource( 44 )
 text = "MENU_NEW_00"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1660,7 +1658,6 @@ margin/left = 153.0
 margin/top = 238.0
 margin/right = 255.0
 margin/bottom = 252.0
-custom_fonts/font = ExtResource( 44 )
 text = "MENU_NEW_01"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1677,7 +1674,6 @@ margin/left = 153.0
 margin/top = 274.0
 margin/right = 255.0
 margin/bottom = 288.0
-custom_fonts/font = ExtResource( 44 )
 text = "MENU_NEW_02"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1694,7 +1690,6 @@ margin/left = 291.0
 margin/top = 238.0
 margin/right = 421.0
 margin/bottom = 251.0
-custom_fonts/font = ExtResource( 44 )
 text = "MENU_NEW_01_DESC"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1711,7 +1706,6 @@ margin/left = 291.0
 margin/top = 273.0
 margin/right = 421.0
 margin/bottom = 286.0
-custom_fonts/font = ExtResource( 44 )
 text = "MENU_NEW_02_DESC"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1728,7 +1722,6 @@ margin/left = 287.0
 margin/top = 192.0
 margin/right = 408.0
 margin/bottom = 218.0
-custom_fonts/font = ExtResource( 44 )
 text = "MENU_NEW_DESC"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1800,7 +1793,7 @@ centered = false
 [node name="cancel_touch" type="TouchScreenButton" parent="."]
 
 transform/scale = Vector2( 1e-05, 1e-05 )
-normal = ExtResource( 45 )
+normal = ExtResource( 44 )
 pressed = null
 bitmask = null
 passby_press = false
@@ -1810,7 +1803,7 @@ visibility_mode = 0
 [node name="up_touch" type="TouchScreenButton" parent="."]
 
 transform/scale = Vector2( 878, 345 )
-normal = ExtResource( 45 )
+normal = ExtResource( 44 )
 pressed = null
 bitmask = null
 passby_press = false
@@ -1821,7 +1814,7 @@ visibility_mode = 0
 
 transform/pos = Vector2( 0, 373 )
 transform/scale = Vector2( 878, 111 )
-normal = ExtResource( 45 )
+normal = ExtResource( 44 )
 pressed = null
 bitmask = null
 passby_press = false
@@ -1832,7 +1825,7 @@ visibility_mode = 0
 
 transform/pos = Vector2( 0, 346 )
 transform/scale = Vector2( 878, 27 )
-normal = ExtResource( 45 )
+normal = ExtResource( 44 )
 pressed = null
 bitmask = null
 passby_press = false
