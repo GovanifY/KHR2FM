@@ -21,6 +21,6 @@ func _inc_cursor():
 
 func _fetch_sequence():
 	if cursor == 0:
-		Dialogue.speak("Dev", 0, 3)
+		Dialogue.speak("Govan", 0, 3)
 	else:
 		KHR2.quit_game()
