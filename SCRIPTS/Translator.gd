@@ -10,7 +10,6 @@ func _exit_tree():
 	close()
 
 func _init(csv_path = ""):
-	breakpoint
 	var proceed = true
 	if typeof(csv_path) != TYPE_STRING:
 		proceed = false
