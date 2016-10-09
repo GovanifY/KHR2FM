@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://GAME/Demo/End_Demo.gd" type="Script" id=1]
+[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=2]
+
+[node name="End_Demo" type="Node"]
+
+script/script = ExtResource( 1 )
+__meta__ = { "__editor_plugin_screen__":"Script" }
+
+[node name="Dialogue" parent="." instance=ExtResource( 2 )]
+
+csv_path = "res://ASSETS/LANG/TEXT/Game/End_Demo.csv"
+
+
