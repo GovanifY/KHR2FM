@@ -6,6 +6,8 @@ onready var Skin        = get_node("Skin")
 onready var Anchor      = get_node("Skin/Anchor")
 onready var TextBox     = get_node("TextContainer/TextScroll")
 
+# "Private" members
+var SE_node = null
 
 ######################
 ### Core functions ###
@@ -15,12 +17,20 @@ onready var TextBox     = get_node("TextContainer/TextScroll")
 ### Methods ###
 ###############
 func init(dialogue):
+	# Initializing Confirm Sound Effect
+	SE_node = ConfirmIcon.get_node("Click")
+
+	# Setting Hover animation
+	ConfirmIcon.get_node("Hover").play("Down_Up")
+	# Connecting signals
 	TextBox.connect("cleared", dialogue, "_next_line")
-	# TODO: connect animations
+	TextBox.connect("started", ConfirmIcon, "hide")
+	TextBox.connect("finished", ConfirmIcon, "show")
 
 # Some wrappers
 func set_skin(index):
 	# Hiding bubble
+	ConfirmIcon.hide()
 	Skin.hide()
 	Anchor.hide()
 
@@ -39,13 +49,7 @@ func set_modulate(mod):
 # Animation control
 # TODO
 
-func play_SE():
-	pass
-
-# Sends "confirm" action to TextScroll
-func hit_confirm():
-	TextBox.confirm()
-
-# Sends line to TextScroll
-func write(line):
-	TextBox.scroll(line)
+# Confirm Sound Effect control
+func play_SE(name = "MSG_SOUND"):
+	if SE_node != null:
+		SE_node.play(name)

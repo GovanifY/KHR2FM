@@ -33,12 +33,12 @@ func _input(event):
 	# Pressed, non-repeating Input check
 	if event.is_pressed() && !event.is_echo():
 		if event.is_action("enter"):
-			Bubble.hit_confirm()
+			Bubble.TextBox.confirm()
 
 	# Pressed, repeating Input check
 	elif event.is_pressed() && event.is_echo():
 		if event.is_action("fast-forward"):
-			Bubble.hit_confirm()
+			Bubble.TextBox.confirm()
 
 func _close_dialogue():
 	# Resetting values
@@ -67,7 +67,7 @@ func _get_line():
 	current_speaker.index += 1
 
 	# Writing line to bubble
-	Bubble.write(Translator.translate(lineID))
+	Bubble.TextBox.scroll(Translator.translate(lineID))
 
 func _next_line():
 	Bubble.play_SE()
@@ -102,6 +102,5 @@ func speak(name, begin, end):
 	_get_line()
 
 func silence():
-	# TODO: hide ConfirmIcon
 	# TODO: fade bubble
 	Bubble.set_skin(-1)
