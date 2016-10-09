@@ -113,4 +113,4 @@ func speak(name, begin, end):
 func silence():
 	# TODO: hide ConfirmIcon
 	# TODO: fade bubble
-	Bubble.set_bubble_skin(-1)
+	Bubble.set_skin(-1)
