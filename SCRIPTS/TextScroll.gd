@@ -17,7 +17,7 @@ var Text = {
 ### Core functions ###
 ######################
 func _ready():
-	# This automagically sets up this node the attached text container
+	# This automagically sets up this node to the attached text container
 	set_text_node(get_node(".."))
 
 func _process(delta):
