@@ -36,5 +36,6 @@ max_lines_visible = -1
 [node name="Dialogue" parent="." instance=ExtResource( 3 )]
 
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
+dialogue_context = ""
 
 

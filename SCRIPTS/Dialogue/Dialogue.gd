@@ -2,6 +2,7 @@ extends CanvasLayer
 
 # Export values
 export(String, FILE, "csv") var csv_path = ""
+export (String) var dialogue_context = ""
 
 # Signals
 signal no_more_lines
@@ -20,16 +21,13 @@ var current_speaker = {
 	"index" : -1,
 	"end"   : 0
 }
-var dialogue_context = null
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	if !csv_path.empty() && (csv_path.is_rel_path() || csv_path.is_abs_path()):
+	if !csv_path.get_file().empty() && dialogue_context.empty():
 		_parse_dialogue()
-	else:
-		print("No CSV file present.")
 
 	# Initializing assets
 	Bubble.init(self)
@@ -53,7 +51,6 @@ func _parse_dialogue():
 	var dialogue_file = File.new()
 	dialogue_file.open(csv_path, File.READ)
 
-	# Grabbing dialogue_context
 	while !dialogue_file.eof_reached():
 		var line = dialogue_file.get_csv_line()
 		if line.size() > 1:
@@ -111,7 +108,7 @@ func speak(name, begin, end):
 	# Check arguments
 	if (end - begin) < 0:
 		return
-	# If speak() has been issued already
+	# Check if speak() has been issued already
 	if is_loaded():
 		print("speak() isn't finished yet!")
 		return
