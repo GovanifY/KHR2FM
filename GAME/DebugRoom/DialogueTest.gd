@@ -20,8 +20,11 @@ func _inc_cursor():
 
 func _fetch_sequence():
 	if cursor == 0:
-		Dialogue.speak("Yuugure", 0, 4)
+		Dialogue.speak("Yuugure", 0, 2)
 	elif cursor == 1:
-		Dialogue.speak("Kiryoku", 0, 1)
+		Dialogue.set_csv("res://ASSETS/LANG/TEXT/Game/End_Demo.csv")
+		_inc_cursor()
 	elif cursor == 2:
+		Dialogue.speak("Kiryoku", 0, 1)
+	else:
 		Dialogue.silence()

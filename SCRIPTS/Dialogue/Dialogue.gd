@@ -80,6 +80,12 @@ func _next_line():
 ###############
 ### Methods ###
 ###############
+# Sets a (new) CSV path
+func set_csv(path):
+	csv_path = path
+	Translator.close()
+	Translator.init(csv_path)
+
 # Tells if there are still lines on hold.
 func is_loaded():
 	return (current_speaker.begin <= current_speaker.index
@@ -103,4 +109,5 @@ func speak(name, begin, end):
 
 func silence():
 	# TODO: fade bubble
+	set_process_input(false)
 	Bubble.set_skin(-1)

@@ -24,7 +24,7 @@ func init(dialogue):
 	ConfirmIcon.get_node("Hover").play("Down_Up")
 	# Connecting signals
 	TextBox.connect("cleared", dialogue, "_next_line")
-	TextBox.connect("started", ConfirmIcon, "hide")
+	TextBox.connect("cleared", ConfirmIcon, "hide")
 	TextBox.connect("finished", ConfirmIcon, "show")
 
 # Some wrappers
