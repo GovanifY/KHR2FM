@@ -41,22 +41,22 @@ linux_debug_64:
     - cd ..    
     - ./godot.server -export_debug "Linux X11" -path KHR2FM ../linux_debug_64
     - lftp -c "open -u KHR2FM@govanify.com,wg.B[_#n1rKb ftp.govanify.com; put -O . linux_debug_64" 
-mac_debug:
-  script:
-    - git clone https://github.com/tpoechtrager/osxcross
-    - cd osxcross
-    - export OSXCROSS_ROOT=$(pwd)
-    - cd tarballs
-    - wget https://govanify.com/files/KHR2FM/MacOSX10.11.sdk.tar.xz 
-    - cd ..
-    #Making build automated(no need to press enter otherwise we cannot automate
-    #dis shit)
-    - sed -i 's/read -p/echo/' build.sh
-    - ./build.sh
-    - cd target/bin/
-    - export PATH=$PATH:$(pwd)
-    - cd ../../../godot
-    - scons platform=osx tools=no osxcross_sdk=darwin15
-    - cp bin/godot.osx* ~/.godot/templates/osx.zip
-    - cd ..
-    - ./godot.server -export_debug "Mac OSX" -path KHR2FM ../mac_debug
+#mac_debug:
+#  script:
+#    - git clone https://github.com/tpoechtrager/osxcross
+#    - cd osxcross
+#    - export OSXCROSS_ROOT=$(pwd)
+#    - cd tarballs
+#    - wget https://govanify.com/files/KHR2FM/MacOSX10.11.sdk.tar.xz 
+#    - cd ..
+#    #Making build automated(no need to press enter otherwise we cannot automate
+#    #dis shit)
+#    - sed -i 's/read -p/echo/' build.sh
+#    - ./build.sh
+#    - cd target/bin/
+#    - export PATH=$PATH:$(pwd)
+#    - cd ../../../godot
+#    - scons platform=osx tools=no osxcross_sdk=darwin15
+#    - cp bin/godot.osx* ~/.godot/templates/osx.zip
+#    - cd ..
+#    - ./godot.server -export_debug "Mac OSX" -path KHR2FM ../mac_debug
