@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://SCRIPTS/Cinema.gd" type="Script" id=1]
-[ext_resource path="res://ASSETS/LANG/ASSETS/FONTS/Big.fnt" type="BitmapFont" id=2]
+[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+
+font/size = 26
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 2 )
 
 [node name="Cinema" type="Node2D"]
 
@@ -40,7 +47,7 @@ margin/left = 110.0
 margin/top = 380.0
 margin/right = 788.0
 margin/bottom = 450.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 10
 align = 1
