@@ -26,15 +26,17 @@ var current_speaker = {
 ### Core functions ###
 ######################
 func _ready():
-	if !csv_path.get_file().empty() && dialogue_context.empty():
-		_parse_dialogue()
-
-	# Initializing assets
-	Bubble.init(self)
+	if csv_path.get_file().empty():
+		print("No CSV file set. Global lines will be loaded.")
+	if dialogue_context.empty():
+		print("No dialogue context set. Expect gibberish.")
 
 	# Initializing Translator
 	DialogueTranslation = Translator.new(csv_path)
 	add_child(DialogueTranslation)
+
+	# Initializing assets
+	Bubble.init(self)
 
 func _input(event):
 	# Pressed, non-repeating Input check
@@ -46,24 +48,6 @@ func _input(event):
 	elif event.is_pressed() && event.is_echo():
 		if event.is_action("fast-forward"):
 			Bubble.hit_confirm()
-
-func _parse_dialogue():
-	var dialogue_file = File.new()
-	dialogue_file.open(csv_path, File.READ)
-
-	while !dialogue_file.eof_reached():
-		var line = dialogue_file.get_csv_line()
-		if line.size() > 1:
-			var left_index = line[0].find("_") + 1
-			if left_index == 0:
-				continue
-			var right_index = line[0].find_last("_") - left_index
-			# Analyze first entry. It's a formatted tag that contains our information
-			dialogue_context = line[0].substr(left_index, right_index)
-			break
-
-	dialogue_file.close()
-	dialogue_file = null
 
 func _close_dialogue():
 	# Resetting values
@@ -81,7 +65,12 @@ func _get_line():
 		set_process_input(true)
 
 	# Parsing lineID and incrementing index
-	var lineID = current_speaker.name + "_" + dialogue_context + "_%02d" % current_speaker.index
+	var lineID = ""
+	if !current_speaker.name.empty():
+		lineID += current_speaker.name + "_"
+	if !dialogue_context.empty():
+		lineID += dialogue_context + "_"
+	lineID += "%02d" % current_speaker.index
 	current_speaker.index += 1
 
 	# Writing line to bubble
