@@ -2,21 +2,13 @@
 signal dismiss
 
 # Instance members
-onready var Slide = get_node("Slide")
-var InfoText = null
-
-# Really Important Nodes
-const TextScroll = preload("res://SCRIPTS/TextScroll.gd")
+onready var Slide    = get_node("Slide")
+onready var InfoText = get_node("InfoSprite/InfoLabel/TextScroll")
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	# Instancing TextScroll
-	InfoText = TextScroll.new()
-	InfoText.set_text_node(get_node("InfoSprite/InfoLabel"))
-	add_child(InfoText)
-
 	# Connecting signals
 	InfoText.connect("finished", self, "set_process_input", [true])
 	InfoText.connect("cleared", self, "_start_dismissal")

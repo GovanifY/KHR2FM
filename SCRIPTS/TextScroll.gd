@@ -16,6 +16,10 @@ var Text = {
 ######################
 ### Core functions ###
 ######################
+func _ready():
+	# This automagically sets up this node the attached text container
+	set_text_node(get_node(".."))
+
 func _process(delta):
 	var chars_written = Text.node.get_visible_characters()
 
@@ -46,16 +50,17 @@ func _stop_scrolling():
 ###############
 # Sets the node to use when scrolling. Mandatory
 func set_text_node(node):
-	Text.node = node
+	if node == null:
+		return
+	if node.is_type("RichTextLabel"):
+		Text.node = node
 
 # Adds new text to scroll, then starts scrolling immediately
-func scroll(texttouse):
+func scroll(texttouse = ""):
 	# If Text.node is null, forget it
-	assert(Text.node != null);
-
-	# If there's no text, forget it as well
-	if texttouse == null:
+	if Text.node == null:
 		return
+	# If there's no text, forget it as well
 	if texttouse.empty():
 		return
 

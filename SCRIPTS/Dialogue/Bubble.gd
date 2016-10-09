@@ -1,8 +1,5 @@
 extends CanvasLayer
 
-# Constants & Classes
-const TextScroll = preload("res://SCRIPTS/TextScroll.gd")
-
 # Instance members
 onready var ConfirmIcon = get_node("ConfirmIcon")
 onready var Skin        = get_node("Skin")
@@ -17,14 +14,8 @@ onready var TextBox     = get_node("TextContainer/TextScroll")
 ###############
 ### Methods ###
 ###############
-func init(dialogue, initial_skin):
-	# Hiding nodes
-	set_skin(initial_skin)
-
-	# Setting TextBox
-	TextBox.set_text_node(get_node("TextContainer"))
+func init(dialogue):
 	TextBox.connect("cleared", dialogue, "_next_line")
-
 	# TODO: connect animations
 
 # Some wrappers

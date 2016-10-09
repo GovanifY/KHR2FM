@@ -35,7 +35,8 @@ func _ready():
 	add_child(DialogueTranslation)
 
 	# Initializing assets
-	Bubble.init(self, initial_skin)
+	Bubble.init(self)
+	Bubble.set_skin(initial_skin)
 
 func _input(event):
 	# Pressed, non-repeating Input check
