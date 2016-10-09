@@ -10,7 +10,6 @@ __meta__ = { "__editor_plugin_screen__":"Script" }
 
 [node name="Dialogue" parent="." instance=ExtResource( 2 )]
 
-csv_path = "res://ASSETS/LANG/TEXT/Game/End_Demo.csv"
 initial_skin = 1
 
 

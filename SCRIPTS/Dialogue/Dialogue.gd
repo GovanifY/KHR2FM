@@ -27,9 +27,6 @@ var current_speaker = {
 ### Core functions ###
 ######################
 func _ready():
-	if csv_path.get_file().empty():
-		print("No CSV file set. Global lines will be loaded.")
-
 	# Initializing Translator
 	DialogueTranslation = Translator.new(csv_path)
 	add_child(DialogueTranslation)

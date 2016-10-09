@@ -9,10 +9,18 @@ var Lines
 func _exit_tree():
 	close()
 
-func _init(csv_path):
-	if csv_path == null:
-		return false
+func _init(csv_path = ""):
+	breakpoint
+	var proceed = true
+	if typeof(csv_path) != TYPE_STRING:
+		proceed = false
 	elif csv_path.empty():
+		proceed = false
+	elif !(csv_path.is_rel_path() || csv_path.is_abs_path()) || !csv_path.ends_with(".csv"):
+		proceed = false
+
+	if !proceed:
+		print("No CSV file set. Global lines will be loaded.")
 		return false
 
 	var locale = TranslationServer.get_locale()
