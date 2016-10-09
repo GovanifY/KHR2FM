@@ -34,11 +34,8 @@ func init(csv_path = ""):
 	csv_file.open(csv_path, csv_file.READ)
 
 	# Iterating CSV lines
-	var strarr = csv_file.get_csv_line()
-	var locale_index = -1
-	for id in range(strarr.size()):
-		if strarr[id] == locale:
-			locale_index = id
+	var strarr = Array(csv_file.get_csv_line())
+	var locale_index = strarr.find(locale)
 
 	while !csv_file.eof_reached():
 		strarr = csv_file.get_csv_line()
