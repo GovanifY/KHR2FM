@@ -18,15 +18,16 @@ var TextBox = null
 ### Methods ###
 ###############
 func init(dialogue):
-	# Setting TextBox-related data
-	TextBox = TextScroll.new()
-	TextBox.set_text_node(get_node("TextContainer"))
-	add_child(TextBox)
-	TextBox.set_name("TextScroll")
+	if TextBox == null:
+		# Setting TextBox-related data
+		TextBox = TextScroll.new()
+		TextBox.set_text_node(get_node("TextContainer"))
+		add_child(TextBox)
+		TextBox.set_name("TextScroll")
 
-	# Connecting signals to parent
-	# TODO: connect animations
-	TextBox.connect("cleared", dialogue, "_next_line")
+		# Connecting signals to parent
+		# TODO: connect animations
+		TextBox.connect("cleared", dialogue, "_next_line")
 
 # Some wrappers
 func set_bubble_skin(index):

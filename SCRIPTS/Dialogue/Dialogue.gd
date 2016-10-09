@@ -8,25 +8,27 @@ signal no_more_lines
 
 # Constants & Classes
 const Translator = preload("res://SCRIPTS/Translator.gd")
-const Speaker = preload("res://SCRIPTS/Dialogue/Speaker.gd")
 
 # Instance members
 onready var Bubble = get_node("Bubble")
 var DialogueTranslation = null
-var SpeakerList = {}
+var SpeakerList = []
 
 # "Private" members
-var counter = 0
-var current_speaker = null
+var current_speaker = {
+	"name"  : null,
+	"begin" : 0,
+	"index" : -1,
+	"end"   : 0
+}
 var dialogue_context = null
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	if !csv_path.empty():
-		if csv_path.is_rel_path() || csv_path.is_abs_path():
-			_parse_dialogue()
+	if !csv_path.empty() && (csv_path.is_rel_path() || csv_path.is_abs_path()):
+		_parse_dialogue()
 	else:
 		print("No CSV file present.")
 
@@ -64,18 +66,16 @@ func _parse_dialogue():
 			# ID example 1: KIRYOKU_INTRO_FATHERSON_00
 			# ID example 2: KIOKU_TOWN_00
 			var tag = line[0].split("_")
+			tag.remove(tag.size()-1)
 
 			# Extracting the name
+			# FIXME: So, Array now has a Variant-returning pop_front(), but not StringArray?
 			var name = tag[0]
 			tag.remove(0)
 
 			# Finding our speaker; if none found, creating a new one
 			if !SpeakerList.has(name):
-				SpeakerList[name] = Speaker.new(name)
-
-			# Updating speaker's count
-			SpeakerList[name].count += 1
-			tag.remove(tag.size() - 1)
+				SpeakerList.push_back(name)
 
 			# Forming the dialogue context. Must be done only once
 			if dialogue_context == null:
@@ -89,8 +89,8 @@ func _parse_dialogue():
 
 func _close_dialogue():
 	# Resetting values
-	counter = 0
-	current_speaker = null
+	current_speaker.index = -1
+	current_speaker.name  = null
 
 	set_process_input(false)
 	emit_signal("no_more_lines")
@@ -102,11 +102,9 @@ func _get_line():
 	if !is_processing_input():
 		set_process_input(true)
 
+	# Parsing lineID and incrementing index
 	var lineID = current_speaker.name + "_" + dialogue_context + "_%02d" % current_speaker.index
-
-	# Incrementing index
 	current_speaker.index += 1
-	counter -= 1
 
 	# Writing line to bubble
 	Bubble.write(DialogueTranslation.translate(lineID))
@@ -124,16 +122,24 @@ func _next_line():
 ###############
 # Tells if there are still lines on hold.
 func is_loaded():
-	return current_speaker != null && counter > 0
+	return (current_speaker.begin <= current_speaker.index
+		&& current_speaker.index <= current_speaker.end)
 
 # Makes a character speak.
-func speak(name, count = 1):
-	if !is_loaded():
-		current_speaker = SpeakerList[name.to_upper()]
-		counter = count
+func speak(name, begin, end):
+	# Check arguments
+	if (end - begin) < 0:
+		return
 
-	_get_line()
+	if !is_loaded():
+		current_speaker.name  = name.to_upper()
+		current_speaker.index = begin
+		current_speaker.begin = begin
+		current_speaker.end   = end
+
+		_get_line()
 
 func silence():
 	# TODO: hide ConfirmIcon
+	# TODO: fade bubble
 	Bubble.set_bubble_skin(-1)

@@ -21,8 +21,8 @@ func _inc_cursor():
 
 func _fetch_sequence():
 	if cursor == 0:
-		Dialogue.speak("Yuugure", 1)
+		Dialogue.speak("Yuugure", 0, 4)
 	elif cursor == 1:
-		Dialogue.speak("Kiryoku", 1)
+		Dialogue.speak("Kiryoku", 0, 1)
 	elif cursor == 2:
 		Dialogue.silence()
