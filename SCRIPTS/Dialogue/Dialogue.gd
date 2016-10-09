@@ -8,12 +8,9 @@ export(int, "Speech", "Narration") var initial_skin = -1
 # Signals
 signal no_more_lines
 
-# Constants & Classes
-const Translator = preload("res://SCRIPTS/Translator.gd")
-
 # Instance members
-onready var Bubble = get_node("Bubble")
-var DialogueTranslation = null
+onready var Bubble     = get_node("Bubble")
+onready var Translator = get_node("Translator")
 
 # "Private" members
 var current_speaker = {
@@ -27,11 +24,8 @@ var current_speaker = {
 ### Core functions ###
 ######################
 func _ready():
-	# Initializing Translator
-	DialogueTranslation = Translator.new(csv_path)
-	add_child(DialogueTranslation)
-
 	# Initializing assets
+	Translator.init(csv_path)
 	Bubble.init(self)
 	Bubble.set_skin(initial_skin)
 
@@ -73,7 +67,7 @@ func _get_line():
 	current_speaker.index += 1
 
 	# Writing line to bubble
-	Bubble.write(DialogueTranslation.translate(lineID))
+	Bubble.write(Translator.translate(lineID))
 
 func _next_line():
 	Bubble.play_SE()

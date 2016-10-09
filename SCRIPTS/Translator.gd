@@ -9,7 +9,11 @@ var Lines
 func _exit_tree():
 	close()
 
-func _init(csv_path = ""):
+###############
+### Methods ###
+###############
+func init(csv_path = ""):
+	# Checking arguments
 	var proceed = true
 	if typeof(csv_path) != TYPE_STRING:
 		proceed = false
@@ -48,9 +52,6 @@ func _init(csv_path = ""):
 	TranslationServer.add_translation(Lines)
 	return true
 
-###############
-### Methods ###
-###############
 func translate(lineID):
 	if Lines == null:
 		tr(lineID)

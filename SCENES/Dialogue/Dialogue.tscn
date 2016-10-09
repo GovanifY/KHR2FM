@@ -1,19 +1,20 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://SCRIPTS/Dialogue/Dialogue.gd" type="Script" id=1]
-[ext_resource path="res://SCRIPTS/Dialogue/Bubble.gd" type="Script" id=2]
-[ext_resource path="res://ASSETS/GFX/Game/Text/box_tileset.png" type="Texture" id=3]
-[ext_resource path="res://ASSETS/GFX/Game/Text/anchor1.png" type="Texture" id=4]
-[ext_resource path="res://ASSETS/GFX/Game/Text/confirm_icon.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://SCRIPTS/TextScroll.gd" type="Script" id=7]
+[ext_resource path="res://SCRIPTS/Translator.gd" type="Script" id=2]
+[ext_resource path="res://SCRIPTS/Dialogue/Bubble.gd" type="Script" id=3]
+[ext_resource path="res://ASSETS/GFX/Game/Text/box_tileset.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/GFX/Game/Text/anchor1.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/GFX/Game/Text/confirm_icon.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://SCRIPTS/TextScroll.gd" type="Script" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 
 font/size = 18
 font/use_mipmaps = false
 font/use_filter = false
-font/font = ExtResource( 6 )
+font/font = ExtResource( 7 )
 
 [node name="Dialogue" type="CanvasLayer"]
 
@@ -26,34 +27,38 @@ csv_path = ""
 dialogue_context = ""
 initial_skin = -1
 
+[node name="Translator" type="Node" parent="."]
+
+script/script = ExtResource( 2 )
+
 [node name="Bubble" type="CanvasLayer" parent="."]
 
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-script/script = ExtResource( 2 )
+script/script = ExtResource( 3 )
 
 [node name="Skin" type="Sprite" parent="Bubble"]
 
 editor/display_folded = true
 visibility/visible = false
 transform/pos = Vector2( 30, 350 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 centered = false
 vframes = 2
 
 [node name="Anchor" type="Sprite" parent="Bubble/Skin"]
 
 transform/pos = Vector2( 37, -49 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 centered = false
 
 [node name="ConfirmIcon" type="Sprite" parent="Bubble"]
 
 visibility/visible = false
 transform/pos = Vector2( 750, 410 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 centered = false
 
 [node name="TextContainer" type="RichTextLabel" parent="Bubble"]
@@ -73,6 +78,6 @@ visible_characters = -1
 
 [node name="TextScroll" type="Node" parent="Bubble/TextContainer"]
 
-script/script = ExtResource( 7 )
+script/script = ExtResource( 8 )
 
 

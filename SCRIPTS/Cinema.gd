@@ -11,10 +11,8 @@ export(bool) var have_subtitles = false
 export(String, FILE, "srt") var subtitles_file = ""
 export(String, FILE, "csv") var csv_file = ""
 
-# Constant values
-const Translator = preload("res://SCRIPTS/Translator.gd")
-
 # Instance members
+onready var Translator = get_node("Translator")
 var Video = {
 	"playing" : false,
 	"node" : null
@@ -24,8 +22,7 @@ var Subtitles = {
 	"array"      : [],    # Array of 3-cell Arrays: 0->ON timer, 1->OFF timer, 2-> subtitle
 	"index"      : 0,     # index of the array
 	"shown"      : false, # showing the current subtitle
-	"label"      : null,  # Node where the text should reside
-	"translator" : null   # Translation node where all lines are saved
+	"label"      : null   # Node where the text should reside
 }
 
 ######################
@@ -136,5 +133,4 @@ func parse_subtitles():
 	subs = null
 
 	# Opening translation
-	Subtitles.translator = Translator.new(csv_file)
-	add_child(Subtitles.translator)
+	Translator.init(csv_file)
