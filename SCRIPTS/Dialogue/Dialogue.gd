@@ -3,6 +3,7 @@ extends CanvasLayer
 # Export values
 export(String, FILE, "csv") var csv_path = ""
 export(String) var dialogue_context = ""
+export(int, "Speech", "Narration") var initial_skin = -1
 
 # Signals
 signal no_more_lines
@@ -34,7 +35,7 @@ func _ready():
 	add_child(DialogueTranslation)
 
 	# Initializing assets
-	Bubble.init(self)
+	Bubble.init(self, initial_skin)
 
 func _input(event):
 	# Pressed, non-repeating Input check

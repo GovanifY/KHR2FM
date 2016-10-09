@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://SCRIPTS/Dialogue/Dialogue.gd" type="Script" id=1]
 [ext_resource path="res://SCRIPTS/Dialogue/Bubble.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://ASSETS/GFX/Game/Text/anchor1.png" type="Texture" id=4]
 [ext_resource path="res://ASSETS/GFX/Game/Text/confirm_icon.png" type="Texture" id=5]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://SCRIPTS/TextScroll.gd" type="Script" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -23,6 +24,7 @@ scale = Vector2( 1, 1 )
 script/script = ExtResource( 1 )
 csv_path = ""
 dialogue_context = ""
+initial_skin = -1
 
 [node name="Bubble" type="CanvasLayer" parent="."]
 
@@ -35,6 +37,7 @@ script/script = ExtResource( 2 )
 [node name="Skin" type="Sprite" parent="Bubble"]
 
 editor/display_folded = true
+visibility/visible = false
 transform/pos = Vector2( 30, 350 )
 texture = ExtResource( 3 )
 centered = false
@@ -48,6 +51,7 @@ centered = false
 
 [node name="ConfirmIcon" type="Sprite" parent="Bubble"]
 
+visibility/visible = false
 transform/pos = Vector2( 750, 410 )
 texture = ExtResource( 5 )
 centered = false
@@ -66,5 +70,9 @@ custom_fonts/normal_font = SubResource( 1 )
 bbcode/enabled = false
 bbcode/bbcode = ""
 visible_characters = -1
+
+[node name="TextScroll" type="Node" parent="Bubble/TextContainer"]
+
+script/script = ExtResource( 7 )
 
 

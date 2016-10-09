@@ -7,7 +7,7 @@ const TextScroll = preload("res://SCRIPTS/TextScroll.gd")
 onready var ConfirmIcon = get_node("ConfirmIcon")
 onready var Skin        = get_node("Skin")
 onready var Anchor      = get_node("Skin/Anchor")
-var TextBox = null
+onready var TextBox     = get_node("TextContainer/TextScroll")
 
 
 ######################
@@ -17,20 +17,18 @@ var TextBox = null
 ###############
 ### Methods ###
 ###############
-func init(dialogue):
-	if TextBox == null:
-		# Setting TextBox-related data
-		TextBox = TextScroll.new()
-		TextBox.set_text_node(get_node("TextContainer"))
-		add_child(TextBox)
-		TextBox.set_name("TextScroll")
+func init(dialogue, initial_skin):
+	# Hiding nodes
+	set_skin(initial_skin)
 
-		# Connecting signals to parent
-		# TODO: connect animations
-		TextBox.connect("cleared", dialogue, "_next_line")
+	# Setting TextBox
+	TextBox.set_text_node(get_node("TextContainer"))
+	TextBox.connect("cleared", dialogue, "_next_line")
+
+	# TODO: connect animations
 
 # Some wrappers
-func set_bubble_skin(index):
+func set_skin(index):
 	# Hiding bubble
 	Skin.hide()
 	Anchor.hide()
@@ -46,9 +44,6 @@ func set_bubble_skin(index):
 func set_modulate(mod):
 	Skin.set_modulate(mod)
 	Anchor.set_modulate(mod)
-
-# is_ functions
-# TODO
 
 # Animation control
 # TODO

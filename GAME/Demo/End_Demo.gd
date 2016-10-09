@@ -10,7 +10,6 @@ var cursor = 0
 func _ready():
 	# Connecting nodes
 	Dialogue.connect("no_more_lines", self, "_inc_cursor")
-	Dialogue.Bubble.set_bubble_skin(0)
 
 	# Starting first lines
 	_fetch_sequence()
