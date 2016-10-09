@@ -12,7 +12,6 @@ const Translator = preload("res://SCRIPTS/Translator.gd")
 # Instance members
 onready var Bubble = get_node("Bubble")
 var DialogueTranslation = null
-var SpeakerList = []
 
 # "Private" members
 var current_speaker = {
@@ -51,41 +50,23 @@ func _input(event):
 			Bubble.hit_confirm()
 
 func _parse_dialogue():
-	var dialogue = File.new()
-	dialogue.open(csv_path, File.READ)
+	var dialogue_file = File.new()
+	dialogue_file.open(csv_path, File.READ)
 
-	# Skipping first line
-	dialogue.get_csv_line()
-
-	# Start parsing
-	while !dialogue.eof_reached():
-		var line = dialogue.get_csv_line()
+	# Grabbing dialogue_context
+	while !dialogue_file.eof_reached():
+		var line = dialogue_file.get_csv_line()
 		if line.size() > 1:
+			var left_index = line[0].find("_") + 1
+			if left_index == 0:
+				continue
+			var right_index = line[0].find_last("_") - left_index
 			# Analyze first entry. It's a formatted tag that contains our information
-			# ID format: CHARACTER_GAME_CONTEXT_COUNT
-			# ID example 1: KIRYOKU_INTRO_FATHERSON_00
-			# ID example 2: KIOKU_TOWN_00
-			var tag = line[0].split("_")
-			tag.remove(tag.size()-1)
+			dialogue_context = line[0].substr(left_index, right_index)
+			break
 
-			# Extracting the name
-			# FIXME: So, Array now has a Variant-returning pop_front(), but not StringArray?
-			var name = tag[0]
-			tag.remove(0)
-
-			# Finding our speaker; if none found, creating a new one
-			if !SpeakerList.has(name):
-				SpeakerList.push_back(name)
-
-			# Forming the dialogue context. Must be done only once
-			if dialogue_context == null:
-				dialogue_context = ""
-				for cat in tag:
-					dialogue_context += cat + "_"
-				dialogue_context = dialogue_context.substr(0, dialogue_context.length() - 1)
-
-	dialogue.close()
-	dialogue = null
+	dialogue_file.close()
+	dialogue_file = null
 
 func _close_dialogue():
 	# Resetting values
@@ -130,14 +111,16 @@ func speak(name, begin, end):
 	# Check arguments
 	if (end - begin) < 0:
 		return
+	# If speak() has been issued already
+	if is_loaded():
+		print("speak() isn't finished yet!")
+		return
 
-	if !is_loaded():
-		current_speaker.name  = name.to_upper()
-		current_speaker.index = begin
-		current_speaker.begin = begin
-		current_speaker.end   = end
-
-		_get_line()
+	current_speaker.name  = name.to_upper()
+	current_speaker.index = begin
+	current_speaker.begin = begin
+	current_speaker.end   = end
+	_get_line()
 
 func silence():
 	# TODO: hide ConfirmIcon
