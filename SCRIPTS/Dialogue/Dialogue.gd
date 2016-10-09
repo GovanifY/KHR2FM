@@ -2,7 +2,7 @@ extends CanvasLayer
 
 # Export values
 export(String, FILE, "csv") var csv_path = ""
-export (String) var dialogue_context = ""
+export(String) var dialogue_context = ""
 
 # Signals
 signal no_more_lines
@@ -28,8 +28,6 @@ var current_speaker = {
 func _ready():
 	if csv_path.get_file().empty():
 		print("No CSV file set. Global lines will be loaded.")
-	if dialogue_context.empty():
-		print("No dialogue context set. Expect gibberish.")
 
 	# Initializing Translator
 	DialogueTranslation = Translator.new(csv_path)
@@ -64,13 +62,15 @@ func _get_line():
 	if !is_processing_input():
 		set_process_input(true)
 
-	# Parsing lineID and incrementing index
+	# Parsing lineID
 	var lineID = ""
 	if !current_speaker.name.empty():
 		lineID += current_speaker.name + "_"
 	if !dialogue_context.empty():
 		lineID += dialogue_context + "_"
 	lineID += "%02d" % current_speaker.index
+
+	# Incrementing index
 	current_speaker.index += 1
 
 	# Writing line to bubble
@@ -95,7 +95,7 @@ func is_loaded():
 # Makes a character speak.
 func speak(name, begin, end):
 	# Check arguments
-	if (end - begin) < 0:
+	if name == null || (end - begin) < 0:
 		return
 	# Check if speak() has been issued already
 	if is_loaded():
