@@ -63,6 +63,7 @@ func set_text_speed(speed):
 		speed = SPEED_FASTER
 	elif speed > SPEED_SLOWER:
 		speed = SPEED_SLOWER
+	text_wait = speed
 
 # Adds new text to scroll, then starts scrolling immediately
 func scroll(texttouse):
