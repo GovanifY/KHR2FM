@@ -6,10 +6,10 @@ signal finished
 signal cleared
 
 # Member instances
-const FRAME_TEXT_WAIT = 1
+var FRAME_TEXT_WAIT = 0.01
 var Text = {
-	"node" : null,
-	"timer" : 1,
+	"node"   : null,
+	"timer"  : 0,
 	"length" : 0
 }
 
@@ -21,21 +21,16 @@ func _ready():
 	set_text_node(get_node(".."))
 
 func _process(delta):
-	var chars_written = Text.node.get_visible_characters()
-
-	# Check for timer: write a character if it's gone to 0, wait otherwise
-	if Text.timer != 0:
-		Text.timer-=1
-	elif Text.timer == 0:
-		Text.timer = FRAME_TEXT_WAIT
-		if chars_written < Text.length:
-			chars_written+=1
-			Text.node.set_visible_characters(chars_written)
-
-	# In case all characters have been drawn
-	if chars_written == Text.length:
+	# In case all characters have been written
+	if Text.node.get_visible_characters() == Text.length:
 		_stop_scrolling()
-		return
+
+	# Check for timer
+	Text.timer += delta
+	if Text.timer >= FRAME_TEXT_WAIT:
+		Text.timer = 0
+		if Text.node.get_visible_characters() < Text.length:
+			Text.node.set_visible_characters(Text.node.get_visible_characters() + 1)
 
 func _start_scrolling():
 	set_process(true)
@@ -64,10 +59,9 @@ func scroll(texttouse = ""):
 	if texttouse.empty():
 		return
 
-	# If there's already text being displayed, do not replace it!
+	# If it's already processing, make sure the node is cleared before swapping
 	if is_processing():
-		print("TextScroll: Already scrolling text!")
-		return
+		Text.node.clear()
 
 	texttouse = texttouse.replace("\\n", "\n")
 	Text.node.set_bbcode(texttouse)
@@ -76,16 +70,11 @@ func scroll(texttouse = ""):
 
 	_start_scrolling()
 
-# Auto-checks whether to stop, or skip ahead
+# Checks whether to stop or to clear the text node
 func confirm():
-	var chars_written = Text.node.get_visible_characters()
-
-	if is_processing():
-		# if we're still writing, write everything
-		chars_written = Text.length
-		Text.node.set_visible_characters(chars_written)
+	if is_processing(): # if we're still writing, write everything
+		Text.node.set_visible_characters(-1)
 		_stop_scrolling()
-	else:
-		# if we're done writing, clear everything
+	else: # if we're done writing, clear everything
 		Text.node.clear()
 		emit_signal("cleared")
