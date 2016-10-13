@@ -52,7 +52,7 @@ func _stop_scrolling():
 ###############
 # Sets the node to use when scrolling. Mandatory
 func set_text_node(node):
-	if node.is_type("RichTextLabel"):
+	if node.is_type("Label") || node.is_type("RichTextLabel"):
 		Text.node = node
 	else:
 		print("TextScroll: Node not set!")
@@ -74,12 +74,12 @@ func scroll(texttouse):
 	if texttouse.empty():
 		return
 
-	# If it's already processing, make sure the node is cleared before swapping
-	if is_processing():
-		Text.node.clear()
-
 	texttouse = texttouse.replace("\\n", "\n")
-	Text.node.set_bbcode(texttouse)
+	if Text.node.is_type("RichTextLabel"):
+		Text.node.set_bbcode(texttouse)
+	elif Text.node.is_type("Label"):
+		Text.node.set_text(texttouse)
+
 	Text.node.set_visible_characters(1)
 	Text.length = Text.node.get_text().length()
 
@@ -91,5 +91,5 @@ func confirm():
 		Text.node.set_visible_characters(-1)
 		_stop_scrolling()
 	else: # if we're done writing, clear everything
-		Text.node.clear()
+		Text.node.set_visible_characters(0)
 		emit_signal("cleared")
