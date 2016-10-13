@@ -77,8 +77,10 @@ func scroll(texttouse):
 	texttouse = texttouse.replace("\\n", "\n")
 	if Text.node.is_type("RichTextLabel"):
 		Text.node.set_bbcode(texttouse)
+		Text.node.set_scroll_active(false)
 	elif Text.node.is_type("Label"):
 		Text.node.set_text(texttouse)
+		Text.node.set_autowrap(true)
 
 	Text.node.set_visible_characters(1)
 	Text.length = Text.node.get_text().length()
