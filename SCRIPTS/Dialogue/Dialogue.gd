@@ -52,9 +52,6 @@ func _close_dialogue():
 ### Signal routines ###
 #######################
 func _get_line():
-	if !is_processing_input():
-		set_process_input(true)
-
 	# Parsing lineID
 	var lineID = ""
 	if !current_speaker.name.empty():
@@ -71,7 +68,6 @@ func _get_line():
 
 func _next_line():
 	Bubble.play_SE()
-
 	if is_loaded(): # Scroll next line
 		_get_line()
 	else: # No more lines, close everything
@@ -96,15 +92,13 @@ func speak(name, begin, end):
 	# Check arguments
 	if name == null || (end - begin) < 0:
 		return
-	# Check if speak() has been issued already
-	if is_loaded():
-		print("speak() isn't finished yet!")
-		return
 
 	current_speaker.name  = name.to_upper()
 	current_speaker.index = begin
 	current_speaker.begin = begin
 	current_speaker.end   = end
+
+	set_process_input(true)
 	_get_line()
 
 func silence():

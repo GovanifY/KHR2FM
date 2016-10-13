@@ -4,7 +4,7 @@ extends CanvasLayer
 onready var ConfirmIcon = get_node("ConfirmIcon")
 onready var Skin        = get_node("Skin")
 onready var Anchor      = get_node("Skin/Anchor")
-onready var TextBox     = get_node("TextContainer/TextScroll")
+onready var TextBox     = get_node("Skin/TextContainer/TextScroll")
 
 # "Private" members
 var SE_node = null
@@ -17,11 +17,12 @@ var SE_node = null
 ### Methods ###
 ###############
 func init(dialogue):
-	# Initializing Confirm Sound Effect
+	# Initializing data
 	SE_node = ConfirmIcon.get_node("Click")
 
 	# Setting Hover animation
 	ConfirmIcon.get_node("Hover").play("Down_Up")
+
 	# Connecting signals
 	TextBox.connect("cleared", dialogue, "_next_line")
 	TextBox.connect("cleared", ConfirmIcon, "hide")
@@ -39,8 +40,8 @@ func set_skin(index):
 		Skin.set_frame(index)
 		Skin.show()
 	if 0 <= index && index < Anchor.get_vframes():
-		Anchor.show()
 		Anchor.set_frame(index)
+		Anchor.show()
 
 func set_modulate(mod):
 	Skin.set_modulate(mod)

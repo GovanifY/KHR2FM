@@ -5,18 +5,24 @@
 [ext_resource path="res://SCRIPTS/Dialogue/Bubble.gd" type="Script" id=3]
 [ext_resource path="res://ASSETS/GFX/Game/Text/box_tileset.png" type="Texture" id=4]
 [ext_resource path="res://ASSETS/GFX/Game/Text/anchor1.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/GFX/Game/Text/confirm_icon.png" type="Texture" id=6]
-[ext_resource path="res://ASSETS/SE/System/MSG_SOUND.wav" type="Sample" id=7]
-[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://SCRIPTS/TextScroll.gd" type="Script" id=9]
+[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://SCRIPTS/TextScroll.gd" type="Script" id=7]
+[ext_resource path="res://ASSETS/GFX/Game/Text/confirm_icon.png" type="Texture" id=8]
+[ext_resource path="res://ASSETS/SE/System/MSG_SOUND.wav" type="Sample" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+
+font/size = 18
+font/use_mipmaps = false
+font/use_filter = true
+font/font = ExtResource( 6 )
 
 [sub_resource type="SampleLibrary" id=2]
 
-samples/MSG_SOUND = { "db":0.0, "pitch":1.0, "sample":ExtResource( 7 ) }
+samples/MSG_SOUND = { "db":0.0, "pitch":1.0, "sample":ExtResource( 9 ) }
 
 [sub_resource type="Animation" id=3]
 
-resource/name = "Down_Up"
 length = 1.0
 loop = true
 step = 0.1
@@ -25,13 +31,6 @@ tracks/0/path = NodePath(".:transform/pos")
 tracks/0/interp = 2
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ Vector2( 750, 410 ), Vector2( 750, 420 ), Vector2( 750, 410 ) ] }
-
-[sub_resource type="DynamicFont" id=1]
-
-font/size = 18
-font/use_mipmaps = false
-font/use_filter = false
-font/font = ExtResource( 8 )
 
 [node name="Dialogue" type="CanvasLayer"]
 
@@ -58,7 +57,6 @@ script/script = ExtResource( 3 )
 
 [node name="Skin" type="Sprite" parent="Bubble"]
 
-editor/display_folded = true
 visibility/visible = false
 transform/pos = Vector2( 30, 350 )
 texture = ExtResource( 4 )
@@ -71,12 +69,39 @@ transform/pos = Vector2( 37, -49 )
 texture = ExtResource( 5 )
 centered = false
 
+[node name="TextContainer" type="Label" parent="Bubble/Skin"]
+
+editor/display_folded = true
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 100.0
+margin/top = 25.0
+margin/right = 100.0
+margin/bottom = 25.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 9
+custom_constants/shadow_as_outline = 1
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut risus nisi, venenatis vitae imperdiet non, rhoncus ac felis. Nunc iaculis ipsum ipsum, a vehicula massa commodo non."
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = 2
+
+[node name="TextScroll" type="Node" parent="Bubble/Skin/TextContainer"]
+
+script/script = ExtResource( 7 )
+
 [node name="ConfirmIcon" type="Sprite" parent="Bubble"]
 
 editor/display_folded = true
 visibility/visible = false
 transform/pos = Vector2( 750, 400 )
-texture = ExtResource( 6 )
+texture = ExtResource( 8 )
 centered = false
 
 [node name="Click" type="SamplePlayer" parent="Bubble/ConfirmIcon"]
@@ -106,25 +131,5 @@ playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
-
-[node name="TextContainer" type="RichTextLabel" parent="Bubble"]
-
-editor/display_folded = true
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 80.0
-margin/top = 380.0
-margin/right = 800.0
-margin/bottom = 420.0
-custom_fonts/normal_font = SubResource( 1 )
-bbcode/enabled = false
-bbcode/bbcode = ""
-visible_characters = -1
-
-[node name="TextScroll" type="Node" parent="Bubble/TextContainer"]
-
-script/script = ExtResource( 9 )
 
 
