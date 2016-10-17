@@ -45,7 +45,21 @@ linux_debug_64:
     - lftp -c "open -u KHR2FM@govanify.com,wg.B[_#n1rKb ftp.govanify.com; put -O . linux_debug_64" 
 3ds_debug:
   script:
-    - cd godot
+    #Building devkitPro
+    - wget http://govanify.com/files/KHR2FM/devkitARMupdate
+	- chmod +x devkitARMupdate
+	- ./devkitARMupdate external/devkitpro
+    - export DEVKITPRO=/builds/Skynism/KHR2FM/external/devkitpro
+    - export DEVKITARM=${DEVKITPRO}/devkitARM
+    - export CTRULIB=${DEVKITPRO}/libctru
+    - export PATH=${PATH}:${DEVKITARM}/bin
+    #After installing devkitpro we need to build at least zlib
+    - https://github.com/devkitPro/3ds_portlibs
+    - cd 3ds_portlibs
+    - make zlib
+    - make install-zlib
+    #Now we can finally build it
+    - cd ../godot    
     - scons -j 4 platform=3ds tools=no target=release_debug
     #- cp bin/godot.x11* ~/.godot/templates/linux_x11_64_debug 
     #- cd ..    
