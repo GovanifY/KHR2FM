@@ -58,6 +58,8 @@ linux_debug_64:
     - cd 3ds_portlibs
     - make zlib
     - make install-zlib
+	- make libpng
+    - make install
     #Now we can finally build it
     - cd ../godot    
     - scons -j 4 platform=3ds tools=no target=release_debug
