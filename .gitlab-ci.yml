@@ -15,7 +15,7 @@ before_script:
   - rm -rf KHR2FM/ENGINE
   #We're applying at this point the given patchset to master build of godot
   - cd godot
-  #- for i in ../ENGINE/PATCHSET/*.patch; do git apply $i; done
+  - for i in ../ENGINE/PATCHSET/*.patch; do git apply $i; done
   #Now we're building our own build
   - scons -j 4 platform=server tools=yes
   #Folder godot already exists so let's call it godot.server
@@ -53,22 +53,32 @@ linux_debug_64:
 #    - export DEVKITARM=${DEVKITPRO}/devkitARM
 #    - export CTRULIB=${DEVKITPRO}/libctru
 #    - export PATH=${PATH}:${DEVKITARM}/bin
-#    #After installing devkitpro we need to build at least zlib
+#    #After installing devkitpro we need to cross build some libraries 
 #    - https://github.com/devkitPro/3ds_portlibs
 #    - cd 3ds_portlibs
 #    - make -j 4 zlib
 #    - make install-zlib
 #	 - make -j 4 libpng
 #    - make -j 4 libjpeg-turbo
+#    - make -j 4 libvorbis
 #    - make install
-#	 #We need tools for cpp3ds
+#    - cd ..
+#	 #We need tools for cpp3ds and global 3ds dev
 #    - https://github.com/neobrain/nihstro
-#    - mkdir build && cd build && cmake .. && make -j 4
+#    - cd nihstro
+#    - mkdir build && cd build && cmake .. && make -j 4 && make install
+#    - cd ..
+#    - git clone --recursive https://github.com/Steveice10/bannertool
+#    - make -j 4 && make install
+#    - cd ..
+#    - git clone https://github.com/profi200/Project_CTR
+#    - cd Project_CTR/makerom
+#    - make -j 4 && cp makerom /builds/Skynism/KHR2FM/external/devkitpro/devkitARM/bin 
 #	 #We now require cpp3ds env.
 #    - git clone https://github.com/cpp3ds/cpp3ds/
 #    - cd cpp3ds
-#    - mkdir build && cd build && cmake ..
-#    #Now we can finally build it
+#    - mkdir build && cd build && cmake .. && make -j 4
+#    #Now we can finally build the template and get a working 3ds executable 
 #    - cd ../godot    
 #    - scons -j 4 platform=3ds tools=no target=release_debug
 #    #- cp bin/godot.x11* ~/.godot/templates/linux_x11_64_debug 
