@@ -62,7 +62,7 @@ linux_debug_64:
     - make -j 4 && make install
     - cd ../../../
     #After installing devkitpro we need to cross build some libraries 
-    - https://github.com/devkitPro/3ds_portlibs
+    - git clone https://github.com/devkitPro/3ds_portlibs
     - cd 3ds_portlibs
     - make -j 4 zlib
     - make install-zlib
