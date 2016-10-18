@@ -90,7 +90,7 @@ func is_loaded():
 # Makes a character speak.
 func speak(name, begin, end):
 	# Check arguments
-	if name == null || (end - begin) < 0:
+	if typeof(name) != TYPE_STRING || (end - begin) < 0:
 		return
 
 	current_speaker.name  = name.to_upper()
