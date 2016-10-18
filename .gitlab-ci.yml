@@ -6,7 +6,7 @@ before_script:
   - mkdir KHR2FM
   - find * -maxdepth 0 -name 'KHR2FM' -prune -o -exec cp -vr '{}' 'KHR2FM' ';'
   - find * -maxdepth 0 -name 'KHR2FM' -prune -o -exec rm -rf '{}' ';'
-  - apt-get update -qq && apt-get install -y -qq lftp build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev mingw32 mingw-w64 libc6-dev libc6-dev-i386 clang libboost-all-dev 
+  - apt-get update -qq && apt-get install -y -qq lftp build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev mingw32 mingw-w64 libc6-dev libc6-dev-i386 clang libboost-all-dev libsfml-dev 
   #Fix a zlib packaging issue for building 32bits ones
   - ln -sfn /usr/include/*-linux-*/zconf.h /usr/include/
   - rm -rf godot
@@ -43,51 +43,65 @@ linux_debug_64:
     - cd ..    
     - ./godot.server -export_debug "Linux X11" -path KHR2FM ../linux_debug_64
     - lftp -c "open -u KHR2FM@govanify.com,wg.B[_#n1rKb ftp.govanify.com; put -O . linux_debug_64" 
-#3ds_debug:
-#  script:
-#    #Building devkitPro
-#    - wget http://govanify.com/files/KHR2FM/devkitARMupdate
-#	 - chmod +x devkitARMupdate
-#	 - ./devkitARMupdate external/devkitpro
-#    - export DEVKITPRO=/builds/Skynism/KHR2FM/external/devkitpro
-#    - export DEVKITARM=${DEVKITPRO}/devkitARM
-#    - export CTRULIB=${DEVKITPRO}/libctru
-#    - export PATH=${PATH}:${DEVKITARM}/bin
-#    #After installing devkitpro we need to cross build some libraries 
-#    - https://github.com/devkitPro/3ds_portlibs
-#    - cd 3ds_portlibs
-#    - make -j 4 zlib
-#    - make install-zlib
-#	 - make -j 4 libpng
+3ds_debug:
+  script:
+    #Building devkitPro
+    - wget http://govanify.com/files/KHR2FM/devkitARMupdate
+	- chmod +x devkitARMupdate
+	- ./devkitARMupdate external/devkitpro
+    - export DEVKITPRO=/builds/Skynism/KHR2FM/external/devkitpro
+    - export DEVKITARM=${DEVKITPRO}/devkitARM
+    - export CTRULIB=${DEVKITPRO}/libctru
+    - export PATH=${PATH}:${DEVKITARM}/bin
+    #We need to update ctrulib
+    - cd external/devkitpro
+    - rm libctru
+    - git clone https://github.com/smealum/ctrulib 
+    - cd ctrulib && cp -rf libctru ../ && cd ../libctru
+    - make -j 4 && make install
+    - cd ../../../
+    #After installing devkitpro we need to cross build some libraries 
+    - https://github.com/devkitPro/3ds_portlibs
+    - cd 3ds_portlibs
+    - make -j 4 zlib
+    - make install-zlib
+	- make -j 4 libpng
 #    - make -j 4 libjpeg-turbo
 #    - make -j 4 libogg
+#    - make -j 4 freetype
 #    #This isn't set by default and is required for tremor build
 #    - chmod +x arm-none-eabi-pkg-config
 #    - make -j 4 tremor
-#    - make install
-#    - cd ..
+    - make install
+    - cd ..
 #	 #We need tools for cpp3ds and global 3ds dev
 #    - https://github.com/neobrain/nihstro
 #    - cd nihstro
 #    - mkdir build && cd build && cmake .. && make -j 4 && make install
 #    - cd ..
-#    - git clone --recursive https://github.com/Steveice10/bannertool
-#    - make -j 4 && make install
-#    - cd ..
-#    - git clone https://github.com/profi200/Project_CTR
-#    - cd Project_CTR/makerom
-#    - make -j 4 && cp makerom /builds/Skynism/KHR2FM/external/devkitpro/devkitARM/bin 
+    - git clone --recursive https://github.com/Steveice10/bannertool
+    - cd bannertool    
+    - make -j 4 && make install
+    - cd ..
+    - git clone https://github.com/profi200/Project_CTR
+    - cd Project_CTR/makerom
+    - make -j 4 && cp makerom /builds/Skynism/KHR2FM/external/devkitpro/devkitARM/bin 
+    - cd ../../
+    - git clone https://github.com/fincs/citro3d
+    - cd citro3d
+    - make -j 4 install
+    - cd ..
 #	 #We now require cpp3ds env.
 #    - git clone https://github.com/cpp3ds/cpp3ds/
 #    - cd cpp3ds
 #    - mkdir build && cd build && cmake .. && make -j 4
-#    #Now we can finally build the template and get a working 3ds executable 
-#    - cd ../godot    
-#    - scons -j 4 platform=3ds tools=no target=release_debug
-#    #- cp bin/godot.3ds* ~/.godot/templates/3ds_debug.elf 
-#    #- cd ..    
-#    #- ./godot.server -export_debug "Nintendo 3DS" -path KHR2FM ../3ds_debug
-#    #- lftp -c "open -u KHR2FM@govanify.com,wg.B[_#n1rKb ftp.govanify.com; put -O . 3ds_debug" 
+    #Now we can finally build the template and get a working 3ds executable 
+    - cd godot    
+    - scons -j 4 platform=3ds tools=no target=release_debug
+    - cp bin/godot.3ds* ~/.godot/templates/3ds_debug.elf 
+    - cd ..    
+    - ./godot.server -export_debug "Nintendo 3DS" -path KHR2FM ../3ds_debug
+    - lftp -c "open -u KHR2FM@govanify.com,wg.B[_#n1rKb ftp.govanify.com; put -O . 3ds_debug" 
 
 #mac_debug:
 #  script:
