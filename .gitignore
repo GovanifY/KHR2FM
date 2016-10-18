@@ -1,10 +1,11 @@
 # Binary text files
 
 
-# Temporary files
+# Temporary and system files
 *.tmp
 *.DS_Store
 *Thumbs.db
+*.icloud
 
 # Work files (stuff we don't want to share with one another)
 *.scn
