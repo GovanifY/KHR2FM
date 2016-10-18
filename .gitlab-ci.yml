@@ -48,6 +48,7 @@ linux_debug_64:
     #Building devkitPro
     - wget http://govanify.com/files/KHR2FM/devkitARMupdate
     - chmod +x devkitARMupdate
+	- mkdir -p external/devkitpro
     - ./devkitARMupdate external/devkitpro
     - export DEVKITPRO=/builds/Skynism/KHR2FM/external/devkitpro
     - export DEVKITARM=${DEVKITPRO}/devkitARM
