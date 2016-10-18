@@ -56,7 +56,7 @@ linux_debug_64:
     - export PATH=${PATH}:${DEVKITARM}/bin
     #We need to update ctrulib
     - cd external/devkitpro
-    - rm libctru
+    - rm -rf libctru
     - git clone https://github.com/smealum/ctrulib 
     - cd ctrulib && cp -rf libctru ../ && cd ../libctru
     - make -j 4 && make install
