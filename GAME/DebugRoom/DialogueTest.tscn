@@ -37,5 +37,7 @@ max_lines_visible = -1
 
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
 initial_skin = 0
+confirm_sound = null
+character_sound = null
 
 

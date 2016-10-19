@@ -3,11 +3,14 @@ extends CanvasLayer
 # Export values
 export(String, FILE, "csv") var csv_path = ""
 export(int, "Speech", "Narration") var initial_skin = -1
+export(Sample) var confirm_sound
+export(Sample) var character_sound
 
 # Signals
 signal no_more_lines
 
 # Instance members
+onready var SE_node    = get_node("SFX")
 onready var Bubble     = get_node("Bubble")
 onready var Translator = get_node("Translator")
 
@@ -23,10 +26,19 @@ var current_speaker = {
 ### Core functions ###
 ######################
 func _ready():
-	# Initializing assets
+	# Initializing Translator
 	Translator.init(csv_path)
+
+	# Initializing Bubble
 	Bubble.init(self)
 	Bubble.set_skin(initial_skin)
+
+	# Initializing sound
+	if confirm_sound != null:
+		SE_node.get_sample_library().add_sample("Confirm", confirm_sound)
+	if character_sound != null:
+		SE_node.get_sample_library().add_sample("Character", character_sound)
+		Bubble.TextBox.set_sound_node(SE_node)
 
 func _input(event):
 	# Pressed, non-repeating Input check
@@ -64,7 +76,9 @@ func _get_line():
 	Bubble.TextBox.scroll(Translator.translate(lineID))
 
 func _next_line():
-	Bubble.play_SE()
+	if confirm_sound != null:
+		SE_node.play("Confirm")
+
 	if is_loaded(): # Scroll next line
 		_get_line()
 	else: # No more lines, close everything

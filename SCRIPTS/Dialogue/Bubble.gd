@@ -6,9 +6,6 @@ onready var Skin        = get_node("Skin")
 onready var Anchor      = get_node("Skin/Anchor")
 onready var TextBox     = get_node("Skin/TextContainer/TextScroll")
 
-# "Private" members
-var SE_node = null
-
 ######################
 ### Core functions ###
 ######################
@@ -17,9 +14,6 @@ var SE_node = null
 ### Methods ###
 ###############
 func init(dialogue):
-	# Initializing data
-	SE_node = ConfirmIcon.get_node("Click")
-
 	# Setting Hover animation
 	ConfirmIcon.get_node("Hover").play("Down_Up")
 
@@ -49,8 +43,3 @@ func set_modulate(mod):
 
 # Animation control
 # TODO
-
-# Confirm Sound Effect control
-func play_SE(name = "MSG_SOUND"):
-	if SE_node != null:
-		SE_node.play(name)
