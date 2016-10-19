@@ -1,9 +1,90 @@
-commit 690b329f184f3a7afcbb7ccb5d1746dd8c45cb21
-Author: Gauvain Roussel-Tarbouriech <govanify@protonmail.com>
-Date:   Wed Oct 19 17:02:24 2016 +0200
+From 690b329f184f3a7afcbb7ccb5d1746dd8c45cb21 Mon Sep 17 00:00:00 2001
+From: Gauvain Roussel-Tarbouriech <govanify@protonmail.com>
+Date: Wed, 19 Oct 2016 17:02:24 +0200
+Subject: [PATCH 1/1] Fixing 3ds build and adding OpenSSL patches
 
-    Fixing 3ds build and adding OpenSSL patches
+---
+ .build.sh                                  |   13 +
+ drivers/3ds/SCsub                          |    7 +
+ drivers/3ds/citro3d/SCsub                  |    5 +
+ drivers/3ds/citro3d/rasterizer_citro3d.cpp | 1987 ++++++++++++++++++++++++++++
+ drivers/3ds/citro3d/rasterizer_citro3d.h   |  812 ++++++++++++
+ drivers/3ds/citro3d/shaders/2d.h           |    3 +
+ drivers/3ds/citro3d/shaders/2d.pica        |   48 +
+ drivers/3ds/citro3d/shaders/2d.shbin       |  Bin 0 -> 336 bytes
+ drivers/3ds/citro3d/shaders/3d.h           |    3 +
+ drivers/3ds/citro3d/shaders/3d.pica        |   71 +
+ drivers/3ds/citro3d/shaders/3d.shbin       |  Bin 0 -> 464 bytes
+ drivers/3ds/citro3d/shaders/SCsub          |   11 +
+ drivers/SCsub                              |    1 +
+ drivers/unix/dir_access_unix.cpp           |    9 +
+ modules/openssl/SCsub                      |    1 +
+ platform/3ds/SCsub                         |    8 +
+ platform/3ds/context_gl_x11.cpp            |  242 ++++
+ platform/3ds/context_gl_x11.h              |   80 ++
+ platform/3ds/detect.py                     |  187 +++
+ platform/3ds/export/export.cpp             |   50 +
+ platform/3ds/export/export.h               |   29 +
+ platform/3ds/godot_3ds.cpp                 |   56 +
+ platform/3ds/key_mapping_x11.cpp           | 1813 +++++++++++++++++++++++++
+ platform/3ds/key_mapping_x11.h             |   55 +
+ platform/3ds/logo.png                      |  Bin 0 -> 1406 bytes
+ platform/3ds/memory.h                      |    1 +
+ platform/3ds/os_3ds.cpp                    |  357 +++++
+ platform/3ds/os_3ds.h                      |  305 +++++
+ platform/3ds/platform_config.h             |   39 +
+ thirdparty/openssl/crypto/rand/rand_egd.c  |    5 +-
+ thirdparty/openssl/crypto/rand/rand_unix.c |    2 +
+ thirdparty/openssl/crypto/ui/ui_dummy.c    |   95 ++
+ thirdparty/openssl/crypto/ui/ui_openssl.c  |    3 +-
+ 33 files changed, 6296 insertions(+), 2 deletions(-)
+ create mode 100644 .build.sh
+ create mode 100644 drivers/3ds/SCsub
+ create mode 100644 drivers/3ds/citro3d/SCsub
+ create mode 100644 drivers/3ds/citro3d/rasterizer_citro3d.cpp
+ create mode 100644 drivers/3ds/citro3d/rasterizer_citro3d.h
+ create mode 100644 drivers/3ds/citro3d/shaders/2d.h
+ create mode 100644 drivers/3ds/citro3d/shaders/2d.pica
+ create mode 100644 drivers/3ds/citro3d/shaders/2d.shbin
+ create mode 100644 drivers/3ds/citro3d/shaders/3d.h
+ create mode 100644 drivers/3ds/citro3d/shaders/3d.pica
+ create mode 100644 drivers/3ds/citro3d/shaders/3d.shbin
+ create mode 100644 drivers/3ds/citro3d/shaders/SCsub
+ create mode 100644 platform/3ds/SCsub
+ create mode 100644 platform/3ds/context_gl_x11.cpp
+ create mode 100644 platform/3ds/context_gl_x11.h
+ create mode 100644 platform/3ds/detect.py
+ create mode 100644 platform/3ds/export/export.cpp
+ create mode 100644 platform/3ds/export/export.h
+ create mode 100644 platform/3ds/godot_3ds.cpp
+ create mode 100644 platform/3ds/key_mapping_x11.cpp
+ create mode 100644 platform/3ds/key_mapping_x11.h
+ create mode 100644 platform/3ds/logo.png
+ create mode 100644 platform/3ds/memory.h
+ create mode 100644 platform/3ds/os_3ds.cpp
+ create mode 100644 platform/3ds/os_3ds.h
+ create mode 100644 platform/3ds/platform_config.h
+ create mode 100644 thirdparty/openssl/crypto/ui/ui_dummy.c
 
+diff --git a/.build.sh b/.build.sh
+new file mode 100644
+index 0000000..2dddb44
+--- /dev/null
++++ b/.build.sh
+@@ -0,0 +1,13 @@
++#!/bin/sh
++set -ex
++
++export PATH=$DEVKITARM/bin:$PATH
++
++apt-get update
++apt-get -y install scons
++
++if [ "$1" = "x11" ] ; then
++	apt-get -y install libxcursor-dev libasound2-dev libssl-dev libxinerama-dev libxrandr-dev
++fi
++
++scons platform=$1 target=release tools=no -j 4
 diff --git a/drivers/3ds/SCsub b/drivers/3ds/SCsub
 new file mode 100644
 index 0000000..db562e0
@@ -2905,8 +2986,18 @@ index 0000000..c9d1c60
 +.end
 diff --git a/drivers/3ds/citro3d/shaders/2d.shbin b/drivers/3ds/citro3d/shaders/2d.shbin
 new file mode 100644
-index 0000000..db1cba5
-Binary files /dev/null and b/drivers/3ds/citro3d/shaders/2d.shbin differ
+index 0000000000000000000000000000000000000000..db1cba5d306b47697a6719ad3009d5ec294fc3b6
+GIT binary patch
+literal 336
+zcmZ<>^KoKiU|`q)#4cez0YHjD1BeBII0uN?fp`fJqX9q05A1$S9ZFoxGnBYkRw!|?
+z?oi@t@^Ip6j&R~?$#CLot#IOE;$-4rmSo~!(PZLawPfO86HxGBQ*iJBn$?lV3^8#b
+z7lh6@%m!wpK<OkXod~7#q3VHdbcN`ExDm#705U-S2!RTKXpk0=A3$^q5K99w6GJ?Z
+z1Oa;>-Ven4KpX~sAZ7-d0HT?I5JZE30D~|CH;@)#5N8kt(h@*Z3X1ZxQj<$E^Ya*T
+U^HWlD!ZK6K8B!}siV_(Z069x0-2eap
+
+literal 0
+HcmV?d00001
+
 diff --git a/drivers/3ds/citro3d/shaders/3d.h b/drivers/3ds/citro3d/shaders/3d.h
 new file mode 100644
 index 0000000..8f62661
@@ -2996,8 +3087,19 @@ index 0000000..754c40c
 +.end
 diff --git a/drivers/3ds/citro3d/shaders/3d.shbin b/drivers/3ds/citro3d/shaders/3d.shbin
 new file mode 100644
-index 0000000..3c22255
-Binary files /dev/null and b/drivers/3ds/citro3d/shaders/3d.shbin differ
+index 0000000000000000000000000000000000000000..3c22255082bad8c90b515b98045aa605f687eabe
+GIT binary patch
+literal 464
+zcmZ<>^KoKiU|`Sz5-wpr0YD~$1`x{u@d6+g0AdA@0#x9~_<`Mz$wP^YIYNnxB}0je
+zwL*!DO(4;yiGzuwS%Qh9MT3c>)q;tGT|mKy$?*_7bKoI%mc&EsOz#h}aU>kH<9vNk
+znG0wJ_y2Y#o?q=s9KV+D<#lMZ<N3c_i6N(9GoJ&a6@L_?5<5eq5BCRmAE5OedCU+;
+zEaZaF8Hd@xj1(xH1f>(9bUjpkK9uHwXk+k$^7)|x>$|kTGVkw0%;SfuV}jB-Q1gJ{
+z;|di5hYyVH0AzrIC<H11qFI5s28cms^Z>Cam>mx!LBJk}_XDvVh{FJ~j~QqJh-Lyp
+y5X}J;0nv;MEMOYQ1jdCh12>QsVGw61D9X=DO)kmI&tu5VPf5)Q%S<f?sR00z@jQJ1
+
+literal 0
+HcmV?d00001
+
 diff --git a/drivers/3ds/citro3d/shaders/SCsub b/drivers/3ds/citro3d/shaders/SCsub
 new file mode 100644
 index 0000000..9610658
@@ -5649,8 +5751,41 @@ index 0000000..e3aede8
 +#endif
 diff --git a/platform/3ds/logo.png b/platform/3ds/logo.png
 new file mode 100644
-index 0000000..4192ed1
-Binary files /dev/null and b/platform/3ds/logo.png differ
+index 0000000000000000000000000000000000000000..4192ed1d1f51658d545c8e24e49395bf73bd4e8e
+GIT binary patch
+literal 1406
+zcmV-^1%djBP)<h;3K|Lk000e1NJLTq001BW001Be1^@s6b9#F800006VoOIv0RI60
+z0RN!9r;`8x010qNS#tmY3labT3lag+-G2N4000McNliru;0gg25eXVHijV*R1q(?;
+zK~z}7wO3te990zl&bfE~b~oG1Cc8<~CMCr*m9$Mmn--+Bg8I@Q3ceVS<fT~qCIzh&
+zK@e&ML8MPUiS$Y7t1Sq9Q53OAe?)Awh8js@T8gxUWOrwGW{wY;36p7dH%M~eFw5+n
+z`+fJEbH8&h0T47cN<BH{6n!729I1I5VraCsB)A4(05GH990B?OY5?j0g2<`G;?_(c
+z32p;$0AvAl1Ly~EAHX93<;cB6RMuqDz?0x6fHor94B!xe>oJhlx~jGQnuuN?qAdXO
+z(RfZouPIJ50t7$-u$j3-DfJwHTgh=-w{Df)yLStK-<49klu{)CnJ8lan?N%EnuxN7
+zVRSR|OHC#cB06svMjtcBQJ_}Q<|akAY=&VF5orKhT-U{c0|#K5Cc3)1Fg`wx;o;$U
+z=wTwVlv45Psny)vY5)KtB4TDHB4c7=0v9e^K&e#1rAwEvZ{I$gJ$p7D+r!L8M3&b=
+zf)g*P;TB+yNmOTNXYtkNAL9IkkIdp#ym$UxFfXs8PDBO(#Y-=#$<`*UQYg=u<2X=C
+zfrv;%%1-%beERk*@|*Gq<q95uTf`SvFD@lmq*p0rhGA$hvkJqIT4_vE9ne}+E|-fl
+zz`pO72Z|4n%>@9>W3gPo{QN^`{|Q{z1re1hmCAtD`l*N*kvPTbD2)WBA-j%_4sskv
+zxvr}_Iy#K@_IB&H@=5vTyIq+1+sC81Di-q>vFF5fRI63=_xGb#tG%j}$`Fyo%tn)1
+z0HQs<D!Ah~R45db<2YtMpU=6jyJ>1_>W$NHp4qeg;Az~N9zxIPM;I76iQe8mOixea
+z+O=yCkpX7@k%%6LVOSTDpjiZ{$?Dm4U9+vNEn6rQ3R6>4M>{(^Ke=(^1_MB~T17US
+zUH;(a&70W2e}BAf{<Lj--1q%|>h=0OfJ)Ra(mJzh3P@{BnM_7$tqsR<oP~vjo|&1M
+z_m3Sr#zcf52q3aFPo+}9y?gi2-rkO(p`o}K2RzSvi<xuGY$qDm+G?P!t&Nyj*|u$E
+zGMVh;<m74Fw%y~$k3&RYnkF)t3;@8gEV!<Vxw$!vjg7%|U09ZdFbrSweSa?zIjP=2
+zExVy<nrvB?VOf?H1c9rRI&tdMDU6PeCbePtSu7S&EEch2#|~V+d>PD)TCK)m7@ko|
+z-65i~h}5DsEv=N0iAafvp_Fp&-o5*ZQYv@u+_{!*wNxtM$dMyhSXe+lpNEJX5|M4u
+z8G>6$F~zH|*Xue60xJlD%;MtW*v_3h(cRsh)aHghI5-H;^H8l;0f56WJRGazT6zJ8
+zVW>RMGd<6<CnqOg)>=P5GBUCPxS7R~ipPn__CyhKqZ**-PZb1#>HEH2sZ_FEZoT;8
+zK@V9+wFFLE6af&?6A?)_rxnMw7~BAm1JI?l9?WGkho-OQZpocNX?6x!qwfOH6&+Mo
+zq(Y}oKGsk#I^TKSKe2staI~+dXN30tfpxH70rW-~oIWp7L?j1b^Y@?OW4YZea=TCD
+zm%Zz;`lP!6tYj^4It_DkC<6w-MbPjath1@K7(Jtec^7)A95%!rH@g=I0P63<HiWZ)
+zlsAgRiiVU72?MZyx{Zh4zkxjXYe8T60i_Kf@IkUYC&6`e>*)s21E2)p%MBo)lLX=v
+zgi)iY0(clbpKMSH!n6pbBcUQU06g6Q0=yc5^evbY+Fe;^0xLBAKYIt$LJ+v54FCWD
+M07*qoM6N<$f`?*(?f?J)
+
+literal 0
+HcmV?d00001
+
 diff --git a/platform/3ds/memory.h b/platform/3ds/memory.h
 new file mode 100644
 index 0000000..3b2f590
@@ -6526,3 +6661,6 @@ index 9ab259b..de5f7d9 100644
  }
  #endif
 +#endif
+-- 
+2.7.3
+
