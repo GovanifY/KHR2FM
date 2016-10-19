@@ -2,7 +2,6 @@ extends CanvasLayer
 
 # Export values
 export(String, FILE, "csv") var csv_path = ""
-export(String) var dialogue_context = ""
 export(int, "Speech", "Narration") var initial_skin = -1
 
 # Signals
@@ -56,8 +55,6 @@ func _get_line():
 	var lineID = ""
 	if !current_speaker.name.empty():
 		lineID += current_speaker.name + "_"
-	if !dialogue_context.empty():
-		lineID += dialogue_context + "_"
 	lineID += "%02d" % current_speaker.index
 
 	# Incrementing index
