@@ -13,6 +13,7 @@ const SPEED_FAST   = 0.01
 const SPEED_FASTER = 0.001
 
 # Member instances
+var sound_node
 var text_wait = SPEED_FASTER
 var Text = {
 	"node"   : null,
@@ -38,6 +39,8 @@ func _process(delta):
 		Text.timer = 0
 		if Text.node.get_visible_characters() < Text.length:
 			Text.node.set_visible_characters(Text.node.get_visible_characters() + 1)
+			if sound_node != null:
+				sound_node.play("Character")
 
 func _start_scrolling():
 	set_process(true)
@@ -56,6 +59,10 @@ func set_text_node(node):
 		Text.node = node
 	else:
 		print("TextScroll: Node not set!")
+
+func set_sound_node(node):
+	if node.is_type("SamplePlayer") && node.get_sample_library().has_sample("Character"):
+		sound_node = node
 
 # Sets the speed of the scrolling. Will limit to any of the two delimiters.
 func set_text_speed(speed):
