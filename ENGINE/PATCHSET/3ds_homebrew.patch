@@ -1,71 +1,9 @@
-From 40ef882d22922ca320df3c34412872c0944004a3 Mon Sep 17 00:00:00 2001
-From: Thomas Edvalson <machin3@gmail.com>
-Date: Mon, 3 Oct 2016 16:26:38 -0400
-Subject: [PATCH 1/4] Add 3ds into build system
+commit 690b329f184f3a7afcbb7ccb5d1746dd8c45cb21
+Author: Gauvain Roussel-Tarbouriech <govanify@protonmail.com>
+Date:   Wed Oct 19 17:02:24 2016 +0200
 
----
- .build.sh                                  |   13 +
- .travis.yml                                |   71 +-
- core/variant_parser.cpp                    |    8 +-
- drivers/3ds/SCsub                          |    7 +
- drivers/3ds/citro3d/SCsub                  |    5 +
- drivers/3ds/citro3d/rasterizer_citro3d.cpp | 1987 ++++++++++++++++++++++++++++
- drivers/3ds/citro3d/rasterizer_citro3d.h   |  812 ++++++++++++
- drivers/SCsub                              |    1 +
- platform/3ds/SCsub                         |    8 +
- platform/3ds/context_gl_x11.cpp            |  242 ++++
- platform/3ds/context_gl_x11.h              |   80 ++
- platform/3ds/detect.py                     |  188 +++
- platform/3ds/export/export.cpp             |   50 +
- platform/3ds/export/export.h               |   29 +
- platform/3ds/godot_3ds.cpp                 |   56 +
- platform/3ds/key_mapping_x11.cpp           | 1813 +++++++++++++++++++++++++
- platform/3ds/key_mapping_x11.h             |   55 +
- platform/3ds/logo.png                      |  Bin 0 -> 1406 bytes
- platform/3ds/memory.h                      |    1 +
- platform/3ds/os_3ds.cpp                    |  357 +++++
- platform/3ds/os_3ds.h                      |  305 +++++
- platform/3ds/platform_config.h             |   39 +
- 22 files changed, 6057 insertions(+), 70 deletions(-)
- create mode 100644 .build.sh
- create mode 100644 drivers/3ds/SCsub
- create mode 100644 drivers/3ds/citro3d/SCsub
- create mode 100644 drivers/3ds/citro3d/rasterizer_citro3d.cpp
- create mode 100644 drivers/3ds/citro3d/rasterizer_citro3d.h
- create mode 100644 platform/3ds/SCsub
- create mode 100644 platform/3ds/context_gl_x11.cpp
- create mode 100644 platform/3ds/context_gl_x11.h
- create mode 100644 platform/3ds/detect.py
- create mode 100644 platform/3ds/export/export.cpp
- create mode 100644 platform/3ds/export/export.h
- create mode 100644 platform/3ds/godot_3ds.cpp
- create mode 100644 platform/3ds/key_mapping_x11.cpp
- create mode 100644 platform/3ds/key_mapping_x11.h
- create mode 100644 platform/3ds/logo.png
- create mode 100644 platform/3ds/memory.h
- create mode 100644 platform/3ds/os_3ds.cpp
- create mode 100644 platform/3ds/os_3ds.h
- create mode 100644 platform/3ds/platform_config.h
+    Fixing 3ds build and adding OpenSSL patches
 
-diff --git a/.build.sh b/.build.sh
-new file mode 100644
-index 0000000..dcc8c9f
---- /dev/null
-+++ b/.build.sh
-@@ -0,0 +1,13 @@
-+#!/bin/sh
-+set -ex
-+
-+export PATH=$DEVKITARM/bin:$PATH
-+
-+apt-get update
-+apt-get -y install scons
-+
-+if [ "$1" = "x11" ] ; then
-+	apt-get -y install libxcursor-dev libasound2-dev libssl-dev libxinerama-dev libxrandr-dev
-+fi
-+
-+scons platform=$1 target=release -j 4
 diff --git a/drivers/3ds/SCsub b/drivers/3ds/SCsub
 new file mode 100644
 index 0000000..db562e0
@@ -81,15 +19,15 @@ index 0000000..db562e0
 +Export('env')
 diff --git a/drivers/3ds/citro3d/SCsub b/drivers/3ds/citro3d/SCsub
 new file mode 100644
-index 0000000..1ffb312
+index 0000000..931c8ba
 --- /dev/null
 +++ b/drivers/3ds/citro3d/SCsub
 @@ -0,0 +1,5 @@
 +Import('env')
 +
-+env.add_source_files(env.drivers_sources,"*.cpp")
++SConscript("shaders/SCsub")
 +
-+#SConscript("shaders/SCsub")
++env.add_source_files(env.drivers_sources,"*.cpp")
 diff --git a/drivers/3ds/citro3d/rasterizer_citro3d.cpp b/drivers/3ds/citro3d/rasterizer_citro3d.cpp
 new file mode 100644
 index 0000000..bbf164d
@@ -2901,15 +2839,240 @@ index 0000000..f3c3e89
 +
 +
 +#endif // RASTERIZER_CITRO3D_H
+diff --git a/drivers/3ds/citro3d/shaders/2d.h b/drivers/3ds/citro3d/shaders/2d.h
+new file mode 100644
+index 0000000..f4382d4
+--- /dev/null
++++ b/drivers/3ds/citro3d/shaders/2d.h
+@@ -0,0 +1,3 @@
++/* Auto-generated from drivers/3ds/citro3d/shaders/2d.shbin */
++static uint8_t shader_builtin_2d[] =
++{68,86,76,66,1,0,0,0,176,0,0,0,68,86,76,80,0,0,0,0,40,0,0,0,17,0,0,0,108,0,0,0,7,0,0,0,164,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,78,1,240,7,78,2,136,34,10,3,152,34,10,4,168,34,10,5,184,34,10,130,72,66,10,131,88,66,10,132,104,66,10,133,120,66,10,2,9,2,8,3,25,2,8,4,41,2,8,5,57,2,8,6,16,32,76,6,32,64,76,0,0,0,136,110,3,0,0,0,0,0,0,161,10,0,0,0,0,0,0,104,195,6,0,0,0,0,0,100,195,6,0,0,0,0,0,98,195,6,0,0,0,0,0,97,195,6,0,0,0,0,0,111,3,0,0,0,0,0,0,68,86,76,69,0,0,0,0,0,0,0,0,17,0,0,0,0,0,0,0,0,0,0,0,64,0,0,0,1,0,0,0,84,0,0,0,0,0,0,0,84,0,0,0,3,0,0,0,108,0,0,0,3,0,0,0,132,0,0,0,27,0,0,0,2,0,95,0,0,0,0,0,0,0,63,0,0,0,191,0,0,0,190,0,0,0,0,0,15,0,0,0,3,0,1,0,15,0,0,0,2,0,2,0,15,0,0,0,0,0,0,0,16,0,19,0,11,0,0,0,20,0,23,0,21,0,0,0,24,0,27,0,112,114,111,106,101,99,116,105,111,110,0,109,111,100,101,108,86,105,101,119,0,101,120,116,114,97,0,0};
+\ No newline at end of file
+diff --git a/drivers/3ds/citro3d/shaders/2d.pica b/drivers/3ds/citro3d/shaders/2d.pica
+new file mode 100644
+index 0000000..c9d1c60
+--- /dev/null
++++ b/drivers/3ds/citro3d/shaders/2d.pica
+@@ -0,0 +1,48 @@
++; Uniforms
++.fvec projection[4], modelView[4], extra[4]
++
++; Constants
++.constf myconst(0.0, 1.0, -1.0, -0.5)
++;.constf myconst2(0.3, 0.0, 0.0, 0.0)
++.alias  zeros myconst.xxxx ; Vector full of zeros
++.alias  ones  myconst.yyyy ; Vector full of ones
++
++; Outputs
++.out outpos position
++.out outtc0 texcoord0
++.out outclr color
++
++; Inputs (defined as aliases for convenience)
++.alias inpos v0
++.alias intex v1
++.alias incol v2
++
++.proc main
++	; Force the w component of inpos to be 1.0
++	mov r0.xyz, inpos
++	mov r0.w,   ones
++	
++	; r1 = extra * inpos
++	dp4 r1.x, extra[0], r0
++	dp4 r1.y, extra[1], r0
++	dp4 r1.z, extra[2], r0
++	dp4 r1.w, extra[3], r0
++	
++	; r2 = modelView * r1
++	dp4 r2.x, modelView[0], r1
++	dp4 r2.y, modelView[1], r1
++	dp4 r2.z, modelView[2], r1
++	dp4 r2.w, modelView[3], r1
++
++	; outpos = projection * r2
++	dp4 outpos.x, projection[0], r2
++	dp4 outpos.y, projection[1], r2
++	dp4 outpos.z, projection[2], r2
++	dp4 outpos.w, projection[3], r2
++
++ 	mov outtc0, intex
++ 	
++ 	mov outclr, incol
++
++	end
++.end
+diff --git a/drivers/3ds/citro3d/shaders/2d.shbin b/drivers/3ds/citro3d/shaders/2d.shbin
+new file mode 100644
+index 0000000..db1cba5
+Binary files /dev/null and b/drivers/3ds/citro3d/shaders/2d.shbin differ
+diff --git a/drivers/3ds/citro3d/shaders/3d.h b/drivers/3ds/citro3d/shaders/3d.h
+new file mode 100644
+index 0000000..8f62661
+--- /dev/null
++++ b/drivers/3ds/citro3d/shaders/3d.h
+@@ -0,0 +1,3 @@
++/* Auto-generated from drivers/3ds/citro3d/shaders/3d.shbin */
++static uint8_t shader_builtin_3d[] =
++{68,86,76,66,1,0,0,0,44,1,0,0,68,86,76,80,0,0,0,0,40,0,0,0,30,0,0,0,160,0,0,0,16,0,0,0,32,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,78,1,240,7,78,2,72,34,10,3,88,34,10,4,104,34,10,5,120,34,10,6,16,97,76,130,8,2,8,131,24,2,8,132,40,2,8,133,56,2,8,7,16,32,76,2,65,194,7,3,81,194,7,4,97,194,7,2,239,193,6,8,96,193,62,9,235,193,35,10,240,7,78,11,255,135,2,12,250,135,34,8,250,167,189,13,64,129,62,12,255,167,34,0,108,128,179,14,64,1,58,15,90,1,34,7,0,129,76,11,240,71,76,0,0,0,136,110,3,0,0,0,0,0,0,161,10,0,0,0,0,0,0,104,195,6,0,0,0,0,0,100,195,6,0,0,0,0,0,98,195,6,0,0,0,0,0,97,195,6,0,0,0,0,0,127,3,0,0,0,0,0,0,111,3,0,0,0,0,0,0,8,0,0,0,0,0,0,0,78,3,0,0,0,0,0,0,15,8,0,0,0,0,0,0,175,138,42,0,0,0,0,0,239,223,6,0,0,0,0,0,15,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,108,195,6,0,0,0,0,0,68,86,76,69,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,64,0,0,0,1,0,0,0,84,0,0,0,0,0,0,0,84,0,0,0,5,0,0,0,124,0,0,0,2,0,0,0,140,0,0,0,21,0,0,0,2,0,95,0,0,0,0,0,0,0,63,0,0,0,191,0,0,0,62,0,0,0,0,0,15,0,0,0,3,0,1,0,15,0,0,0,2,0,2,0,15,0,0,0,8,0,3,0,15,0,0,0,1,0,4,0,15,0,0,0,0,0,0,0,16,0,19,0,11,0,0,0,20,0,23,0,112,114,111,106,101,99,116,105,111,110,0,109,111,100,101,108,86,105,101,119,0,0,0,0};
+\ No newline at end of file
+diff --git a/drivers/3ds/citro3d/shaders/3d.pica b/drivers/3ds/citro3d/shaders/3d.pica
+new file mode 100644
+index 0000000..754c40c
+--- /dev/null
++++ b/drivers/3ds/citro3d/shaders/3d.pica
+@@ -0,0 +1,71 @@
++; Uniforms
++.fvec projection[4], modelView[4]
++
++; Constants
++.constf myconst(0.0, 1.0, -1.0, 0.5)
++.alias  zeros myconst.xxxx ; Vector full of zeros
++.alias  ones  myconst.yyyy ; Vector full of ones
++.alias  half  myconst.wwww
++
++; Outputs
++.out outpos position
++.out outtc0 texcoord0
++.out outclr color
++.out outview view
++.out outnq normalquat
++
++; Inputs (defined as aliases for convenience)
++.alias inpos v0
++.alias intex v1
++.alias innrm v2
++
++.proc main
++	; Force the w component of inpos to be 1.0
++	mov r0.xyz, inpos
++	mov r0.w,   ones
++
++	; r1 = modelView * inpos
++	dp4 r1.x, modelView[0], r0
++	dp4 r1.y, modelView[1], r0
++	dp4 r1.z, modelView[2], r0
++	dp4 r1.w, modelView[3], r0
++
++	; outview = -r1
++	mov outview, -r1
++
++	; outpos = projection * r1
++	dp4 outpos.x, projection[0], r1
++	dp4 outpos.y, projection[1], r1
++	dp4 outpos.z, projection[2], r1
++	dp4 outpos.w, projection[3], r1
++
++	; outtex = intex
++	mov outtc0, intex
++
++	; Transform the normal vector with the modelView matrix
++	; TODO: use a separate normal matrix that is the transpose of the inverse of modelView
++	dp3 r14.x, modelView[0], innrm
++	dp3 r14.y, modelView[1], innrm
++	dp3 r14.z, modelView[2], innrm
++	dp3 r6.x, r14, r14
++	rsq r6.x, r6.x
++	mul r14.xyz, r14.xyz, r6.x
++
++	mov r0, myconst.yxxx
++	add r4, ones, r14.z
++	mul r4, half, r4
++	cmp zeros, ge, ge, r4.x
++	rsq r4, r4.x
++	mul r5, half, r14
++	jmpc cmp.x, degenerate
++
++	rcp r0.z, r4.x
++	mul r0.xy, r5, r4
++
++degenerate:
++	mov outnq, r0
++	mov outclr, ones
++
++	; We're finished
++	end
++.end
+diff --git a/drivers/3ds/citro3d/shaders/3d.shbin b/drivers/3ds/citro3d/shaders/3d.shbin
+new file mode 100644
+index 0000000..3c22255
+Binary files /dev/null and b/drivers/3ds/citro3d/shaders/3d.shbin differ
+diff --git a/drivers/3ds/citro3d/shaders/SCsub b/drivers/3ds/citro3d/shaders/SCsub
+new file mode 100644
+index 0000000..9610658
+--- /dev/null
++++ b/drivers/3ds/citro3d/shaders/SCsub
+@@ -0,0 +1,11 @@
++Import('env')
++
++shaders = [
++	'2d',
++	'3d',
++]
++
++if env['BUILDERS'].has_key('PICA'):
++	for shader in shaders:
++		env.PICA(shader)
++		env.PICA_HEADER(shader)
 diff --git a/drivers/SCsub b/drivers/SCsub
-index 8243483..3ed9b6b 100644
+index 255f143..551117b 100644
 --- a/drivers/SCsub
 +++ b/drivers/SCsub
-@@ -10,3 +10,4 @@ SConscript('windows/SCsub');
+@@ -10,6 +10,7 @@ if ("builtin_zlib" in env and env["builtin_zlib"] == "yes"):
+ # OS drivers
+ SConscript('unix/SCsub');
  SConscript('windows/SCsub');
 +SConscript('3ds/SCsub');
  
  # Sounds drivers
+ SConscript('alsa/SCsub');
+diff --git a/drivers/unix/dir_access_unix.cpp b/drivers/unix/dir_access_unix.cpp
+index b3bea8a..8f15c5f 100644
+--- a/drivers/unix/dir_access_unix.cpp
++++ b/drivers/unix/dir_access_unix.cpp
+@@ -38,6 +38,9 @@
+ #include "os/memory.h"
+ #include "print_string.h"
+ #include <errno.h>
++#ifdef _3DS
++#include <string.h>
++#endif
+ 
+ DirAccess *DirAccessUnix::create_fs() {
+ 
+@@ -242,6 +245,7 @@ Error DirAccessUnix::change_dir(String p_dir) {
+ 
+ 	char real_current_dir_name[2048];
+ 	getcwd(real_current_dir_name,2048);
++
+ 	String prev_dir;
+ 	if (prev_dir.parse_utf8(real_current_dir_name))
+ 		prev_dir=real_current_dir_name; //no utf8, maybe latin?
+@@ -262,6 +266,11 @@ Error DirAccessUnix::change_dir(String p_dir) {
+ 	if (worked) {
+ 
+ 		getcwd(real_current_dir_name,2048);
++#ifdef _3DS
++		int l = strlen(real_current_dir_name) - 1;
++		if (real_current_dir_name[l] == '/')
++			real_current_dir_name[l] = '\0';
++#endif
+ 		if (current_dir.parse_utf8(real_current_dir_name))
+ 			current_dir=real_current_dir_name; //no utf8, maybe latin?
+ 	}
+diff --git a/modules/openssl/SCsub b/modules/openssl/SCsub
+index 3cc6f21..9764e41 100644
+--- a/modules/openssl/SCsub
++++ b/modules/openssl/SCsub
+@@ -556,6 +556,7 @@ if (env["openssl"] != "system"): # builtin
+ 		"crypto/ui/ui_util.c",
+ 		"crypto/ui/ui_lib.c",
+ 		"crypto/ui/ui_err.c",
++                "crypto/ui/ui_dummy.c",
+ 		"crypto/ui/ui_openssl.c",
+ 		"crypto/bio/bf_buff.c",
+ 		"crypto/bio/bss_null.c",
 diff --git a/platform/3ds/SCsub b/platform/3ds/SCsub
 new file mode 100644
 index 0000000..3c78a7c
@@ -3260,10 +3423,10 @@ index 0000000..4474542
 +#endif
 diff --git a/platform/3ds/detect.py b/platform/3ds/detect.py
 new file mode 100644
-index 0000000..205c69b
+index 0000000..6d750fb
 --- /dev/null
 +++ b/platform/3ds/detect.py
-@@ -0,0 +1,188 @@
+@@ -0,0 +1,187 @@
 +
 +import os
 +import sys
@@ -3280,6 +3443,8 @@ index 0000000..205c69b
 +def can_build():
 +
 +	if (not os.environ.has_key("DEVKITPRO")):
++		return False
++	if (not os.environ.has_key("DEVKITARM")):
 +		return False
 +	if (not os.environ.has_key("CTRULIB")):
 +		return False
@@ -3310,15 +3475,37 @@ index 0000000..205c69b
 +def get_flags():
 +
 +	return [
-+	('builtin_zlib', 'no'),
 +	('tools', 'no'),
++	('squish', 'no'),
++	('theora', 'no'),
++	('speex', 'no'),
++	('dds', 'no'),
++	('pvr', 'no'),
++	('etc1', 'no'),
++	('builtin_zlib', 'no'),
 +	("openssl", "no"),
-+	('freetype','builtin'),
++	('musepack', 'no'),
 +	]
 +
++def build_shader_gen(target, source, env, for_signature):
++	return "picasso -o {} {}".format(target[0], source[0])
 +
++def build_shader_header(target, source, env):
++	import os
++	data = source[0].get_contents()
++	data_str = ",".join([str(ord(x)) for x in data])
++	name = os.path.basename(str(target[0]))[:-2]
++	target[0].prepare()
++	with open(str(target[0]), 'w') as f:
++		f.write("/* Auto-generated from {} */\n".format(str(source[0])))
++		f.write("static uint8_t shader_builtin_{}[] =\n{{{}}};".format(name, data_str))
 +
 +def configure(env):
++	
++	env.disabled_modules = ['enet']
++
++	env.Append( BUILDERS = { 'PICA' : env.Builder(generator = build_shader_gen, suffix = '.shbin', src_suffix = '.pica') } )
++	env.Append( BUILDERS = { 'PICA_HEADER' : env.Builder(action = build_shader_header, suffix = '.h', src_suffix = '.shbin') } )
 +	
 +	env["bits"]="32"
 +
@@ -3373,7 +3560,9 @@ index 0000000..205c69b
 +	#	env['OBJSUFFIX'] = ".nt"+env['OBJSUFFIX']
 +	#	env['LIBSUFFIX'] = ".nt"+env['LIBSUFFIX']
 +
-+	env.Append(CCFLAGS=['-D_3DS', '-DNEED_LONG_INT', '-DLIBC_FILEIO_ENABLED'])
++	env.Append(CCFLAGS=['-D_3DS', '-DNEED_LONG_INT',
++            '-DLIBC_FILEIO_ENABLED', '-DNO_SYS_UN_H', '-DOPENSSL_NO_TTY',
++            '-DOPENSSL_NO_SOCK', '-DNO_SYSLOG'])
 +
 +	if (env["target"]=="release"):
 +		if (env["debug_release"]=="yes"):
@@ -3425,33 +3614,6 @@ index 0000000..205c69b
 +	#if (platform.system() == "Linux"):
 +		#env.Append(LIBS='dl')
 +	#env.Append(CPPFLAGS=['-DMPC_FIXED_POINT'])
-+
-+#host compiler is default..
-+
-+	#if (is64 and env["bits"]=="32"):
-+		#env.Append(CPPFLAGS=['-m32'])
-+		#env.Append(LINKFLAGS=['-m32','-L/usr/lib/i386-linux-gnu'])
-+	#elif (not is64 and env["bits"]=="64"):
-+		#env.Append(CPPFLAGS=['-m64'])
-+		#env.Append(LINKFLAGS=['-m64','-L/usr/lib/i686-linux-gnu'])
-+
-+
-+	import methods
-+	
-+	env.disabled_modules = ['enet']
-+
-+	#env.Append( BUILDERS = { 'GLSL120' : env.Builder(action = methods.build_legacygl_headers, suffix = 'glsl.h',src_suffix = '.glsl') } )
-+	#env.Append( BUILDERS = { 'GLSL' : env.Builder(action = methods.build_glsl_headers, suffix = 'glsl.h',src_suffix = '.glsl') } )
-+	#env.Append( BUILDERS = { 'GLSL120GLES' : env.Builder(action = methods.build_gles2_headers, suffix = 'glsl.h',src_suffix = '.glsl') } )
-+	#env.Append( BUILDERS = { 'HLSL9' : env.Builder(action = methods.build_hlsl_dx9_headers, suffix = 'hlsl.h',src_suffix = '.hlsl') } )
-+
-+	#if (env["use_static_cpp"]=="yes"):
-+		#env.Append(LINKFLAGS=['-static-libstdc++'])
-+
-+	#list_of_x86 = ['x86_64', 'x86', 'i386', 'i586']
-+	#if any(platform.machine() in s for s in list_of_x86):
-+		#env["x86_opt_gcc"]=True
-+
 diff --git a/platform/3ds/export/export.cpp b/platform/3ds/export/export.cpp
 new file mode 100644
 index 0000000..ad28680
@@ -5487,41 +5649,8 @@ index 0000000..e3aede8
 +#endif
 diff --git a/platform/3ds/logo.png b/platform/3ds/logo.png
 new file mode 100644
-index 0000000000000000000000000000000000000000..4192ed1d1f51658d545c8e24e49395bf73bd4e8e
-GIT binary patch
-literal 1406
-zcmV-^1%djBP)<h;3K|Lk000e1NJLTq001BW001Be1^@s6b9#F800006VoOIv0RI60
-z0RN!9r;`8x010qNS#tmY3labT3lag+-G2N4000McNliru;0gg25eXVHijV*R1q(?;
-zK~z}7wO3te990zl&bfE~b~oG1Cc8<~CMCr*m9$Mmn--+Bg8I@Q3ceVS<fT~qCIzh&
-zK@e&ML8MPUiS$Y7t1Sq9Q53OAe?)Awh8js@T8gxUWOrwGW{wY;36p7dH%M~eFw5+n
-z`+fJEbH8&h0T47cN<BH{6n!729I1I5VraCsB)A4(05GH990B?OY5?j0g2<`G;?_(c
-z32p;$0AvAl1Ly~EAHX93<;cB6RMuqDz?0x6fHor94B!xe>oJhlx~jGQnuuN?qAdXO
-z(RfZouPIJ50t7$-u$j3-DfJwHTgh=-w{Df)yLStK-<49klu{)CnJ8lan?N%EnuxN7
-zVRSR|OHC#cB06svMjtcBQJ_}Q<|akAY=&VF5orKhT-U{c0|#K5Cc3)1Fg`wx;o;$U
-z=wTwVlv45Psny)vY5)KtB4TDHB4c7=0v9e^K&e#1rAwEvZ{I$gJ$p7D+r!L8M3&b=
-zf)g*P;TB+yNmOTNXYtkNAL9IkkIdp#ym$UxFfXs8PDBO(#Y-=#$<`*UQYg=u<2X=C
-zfrv;%%1-%beERk*@|*Gq<q95uTf`SvFD@lmq*p0rhGA$hvkJqIT4_vE9ne}+E|-fl
-zz`pO72Z|4n%>@9>W3gPo{QN^`{|Q{z1re1hmCAtD`l*N*kvPTbD2)WBA-j%_4sskv
-zxvr}_Iy#K@_IB&H@=5vTyIq+1+sC81Di-q>vFF5fRI63=_xGb#tG%j}$`Fyo%tn)1
-z0HQs<D!Ah~R45db<2YtMpU=6jyJ>1_>W$NHp4qeg;Az~N9zxIPM;I76iQe8mOixea
-z+O=yCkpX7@k%%6LVOSTDpjiZ{$?Dm4U9+vNEn6rQ3R6>4M>{(^Ke=(^1_MB~T17US
-zUH;(a&70W2e}BAf{<Lj--1q%|>h=0OfJ)Ra(mJzh3P@{BnM_7$tqsR<oP~vjo|&1M
-z_m3Sr#zcf52q3aFPo+}9y?gi2-rkO(p`o}K2RzSvi<xuGY$qDm+G?P!t&Nyj*|u$E
-zGMVh;<m74Fw%y~$k3&RYnkF)t3;@8gEV!<Vxw$!vjg7%|U09ZdFbrSweSa?zIjP=2
-zExVy<nrvB?VOf?H1c9rRI&tdMDU6PeCbePtSu7S&EEch2#|~V+d>PD)TCK)m7@ko|
-z-65i~h}5DsEv=N0iAafvp_Fp&-o5*ZQYv@u+_{!*wNxtM$dMyhSXe+lpNEJX5|M4u
-z8G>6$F~zH|*Xue60xJlD%;MtW*v_3h(cRsh)aHghI5-H;^H8l;0f56WJRGazT6zJ8
-zVW>RMGd<6<CnqOg)>=P5GBUCPxS7R~ipPn__CyhKqZ**-PZb1#>HEH2sZ_FEZoT;8
-zK@V9+wFFLE6af&?6A?)_rxnMw7~BAm1JI?l9?WGkho-OQZpocNX?6x!qwfOH6&+Mo
-zq(Y}oKGsk#I^TKSKe2staI~+dXN30tfpxH70rW-~oIWp7L?j1b^Y@?OW4YZea=TCD
-zm%Zz;`lP!6tYj^4It_DkC<6w-MbPjath1@K7(Jtec^7)A95%!rH@g=I0P63<HiWZ)
-zlsAgRiiVU72?MZyx{Zh4zkxjXYe8T60i_Kf@IkUYC&6`e>*)s21E2)p%MBo)lLX=v
-zgi)iY0(clbpKMSH!n6pbBcUQU06g6Q0=yc5^evbY+Fe;^0xLBAKYIt$LJ+v54FCWD
-M07*qoM6N<$f`?*(?f?J)
-
-literal 0
-HcmV?d00001
-
+index 0000000..4192ed1
+Binary files /dev/null and b/platform/3ds/logo.png differ
 diff --git a/platform/3ds/memory.h b/platform/3ds/memory.h
 new file mode 100644
 index 0000000..3b2f590
@@ -6248,341 +6377,152 @@ index 0000000..acb4f02
 +// #define GLES2_INCLUDE_H "gl_context/GL/glew.h"
 +
 +
--- 
-2.7.3
-
-
-From 73857da23c8c4f6bb9095b1cc80baa906c269e92 Mon Sep 17 00:00:00 2001
-From: Thomas Edvalson <machin3@gmail.com>
-Date: Fri, 7 Oct 2016 03:42:30 -0400
-Subject: [PATCH 2/4] Removing trailing slash from current work directory
-
----
- drivers/unix/dir_access_unix.cpp | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/unix/dir_access_unix.cpp b/drivers/unix/dir_access_unix.cpp
-index b3bea8a..8f15c5f 100644
---- a/drivers/unix/dir_access_unix.cpp
-+++ b/drivers/unix/dir_access_unix.cpp
-@@ -38,6 +38,9 @@
- #include "os/memory.h"
- #include "print_string.h"
- #include <errno.h>
-+#ifdef _3DS
-+#include <string.h>
+diff --git a/thirdparty/openssl/crypto/rand/rand_egd.c b/thirdparty/openssl/crypto/rand/rand_egd.c
+index 737aebf..23725b1 100644
+--- a/thirdparty/openssl/crypto/rand/rand_egd.c
++++ b/thirdparty/openssl/crypto/rand/rand_egd.c
+@@ -127,7 +127,10 @@ struct sockaddr_un {
+     short sun_family;           /* AF_UNIX */
+     char sun_path[108];         /* path name (gag) */
+ };
+-# endif                         /* NO_SYS_UN_H */
++# endif /* NO_SYS_UN_H */
++#ifndef AF_UNIX
++#define AF_UNIX 1
 +#endif
+ # include <string.h>
+ # include <errno.h>
  
- DirAccess *DirAccessUnix::create_fs() {
- 
-@@ -242,6 +245,7 @@ Error DirAccessUnix::change_dir(String p_dir) {
- 
- 	char real_current_dir_name[2048];
- 	getcwd(real_current_dir_name,2048);
-+
- 	String prev_dir;
- 	if (prev_dir.parse_utf8(real_current_dir_name))
- 		prev_dir=real_current_dir_name; //no utf8, maybe latin?
-@@ -262,6 +266,11 @@ Error DirAccessUnix::change_dir(String p_dir) {
- 	if (worked) {
- 
- 		getcwd(real_current_dir_name,2048);
-+#ifdef _3DS
-+		int l = strlen(real_current_dir_name) - 1;
-+		if (real_current_dir_name[l] == '/')
-+			real_current_dir_name[l] = '\0';
+diff --git a/thirdparty/openssl/crypto/rand/rand_unix.c b/thirdparty/openssl/crypto/rand/rand_unix.c
+index 266111e..1e68522 100644
+--- a/thirdparty/openssl/crypto/rand/rand_unix.c
++++ b/thirdparty/openssl/crypto/rand/rand_unix.c
+@@ -410,7 +410,9 @@ int RAND_poll(void)
+     /* put in some default random data, we need more than just this */
+     l = curr_pid;
+     RAND_add(&l, sizeof(l), 0.0);
++#  if !defined(_3DS) /* we will miss some entropy but it'll build at least */
+     l = getuid();
 +#endif
- 		if (current_dir.parse_utf8(real_current_dir_name))
- 			current_dir=real_current_dir_name; //no utf8, maybe latin?
- 	}
--- 
-2.7.3
-
-
-From d76be89b96e7a8a69e0394cd6e532a45fb201cb9 Mon Sep 17 00:00:00 2001
-From: Thomas Edvalson <machin3@gmail.com>
-Date: Fri, 7 Oct 2016 03:49:07 -0400
-Subject: [PATCH 3/4] Disable tools build in travis
-
----
- .build.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/.build.sh b/.build.sh
-index dcc8c9f..2dddb44 100644
---- a/.build.sh
-+++ b/.build.sh
-@@ -10,4 +10,4 @@ if [ "$1" = "x11" ] ; then
- 	apt-get -y install libxcursor-dev libasound2-dev libssl-dev libxinerama-dev libxrandr-dev
- fi
+     RAND_add(&l, sizeof(l), 0.0);
  
--scons platform=$1 target=release -j 4
-+scons platform=$1 target=release tools=no -j 4
--- 
-2.7.3
-
-
-From 2030306a9d9d521f1b0050fafd58b8bf3d932a91 Mon Sep 17 00:00:00 2001
-From: Thomas Edvalson <machin3@gmail.com>
-Date: Wed, 12 Oct 2016 03:37:42 -0400
-Subject: [PATCH 4/4] Add shader compiler to SCons
-
----
- drivers/3ds/citro3d/SCsub           |  4 +--
- drivers/3ds/citro3d/shaders/2d.pica | 48 +++++++++++++++++++++++++
- drivers/3ds/citro3d/shaders/3d.pica | 71 +++++++++++++++++++++++++++++++++++++
- drivers/3ds/citro3d/shaders/SCsub   | 11 ++++++
- platform/3ds/detect.py              | 55 ++++++++++++++--------------
- 5 files changed, 158 insertions(+), 31 deletions(-)
- create mode 100644 drivers/3ds/citro3d/shaders/2d.pica
- create mode 100644 drivers/3ds/citro3d/shaders/3d.pica
- create mode 100644 drivers/3ds/citro3d/shaders/SCsub
-
-diff --git a/drivers/3ds/citro3d/SCsub b/drivers/3ds/citro3d/SCsub
-index 1ffb312..931c8ba 100644
---- a/drivers/3ds/citro3d/SCsub
-+++ b/drivers/3ds/citro3d/SCsub
-@@ -1,5 +1,5 @@
- Import('env')
- 
--env.add_source_files(env.drivers_sources,"*.cpp")
-+SConscript("shaders/SCsub")
- 
--#SConscript("shaders/SCsub")
-+env.add_source_files(env.drivers_sources,"*.cpp")
-diff --git a/drivers/3ds/citro3d/shaders/2d.pica b/drivers/3ds/citro3d/shaders/2d.pica
+     l = time(NULL);
+diff --git a/thirdparty/openssl/crypto/ui/ui_dummy.c b/thirdparty/openssl/crypto/ui/ui_dummy.c
 new file mode 100644
-index 0000000..c9d1c60
+index 0000000..ba70206
 --- /dev/null
-+++ b/drivers/3ds/citro3d/shaders/2d.pica
-@@ -0,0 +1,48 @@
-+; Uniforms
-+.fvec projection[4], modelView[4], extra[4]
++++ b/thirdparty/openssl/crypto/ui/ui_dummy.c
+@@ -0,0 +1,95 @@
++/* ====================================================================
++ * Copyright (c) 2001 The OpenSSL Project.  All rights reserved.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer. 
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in
++ *    the documentation and/or other materials provided with the
++ *    distribution.
++ *
++ * 3. All advertising materials mentioning features or use of this
++ *    software must display the following acknowledgment:
++ *    "This product includes software developed by the OpenSSL Project
++ *    for use in the OpenSSL Toolkit. (http://www.openssl.org/)"
++ *
++ * 4. The names "OpenSSL Toolkit" and "OpenSSL Project" must not be used to
++ *    endorse or promote products derived from this software without
++ *    prior written permission. For written permission, please contact
++ *    openssl-core@openssl.org.
++ *
++ * 5. Products derived from this software may not be called "OpenSSL"
++ *    nor may "OpenSSL" appear in their names without prior written
++ *    permission of the OpenSSL Project.
++ *
++ * 6. Redistributions of any form whatsoever must retain the following
++ *    acknowledgment:
++ *    "This product includes software developed by the OpenSSL Project
++ *    for use in the OpenSSL Toolkit (http://www.openssl.org/)"
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE OpenSSL PROJECT ``AS IS'' AND ANY
++ * EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
++ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE OpenSSL PROJECT OR
++ * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
++ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
++ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
++ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
++ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
++ * OF THE POSSIBILITY OF SUCH DAMAGE.
++ * ====================================================================
++ *
++ * This product includes cryptographic software written by Eric Young
++ * (eay@cryptsoft.com).  This product includes software written by Tim
++ * Hudson (tjh@cryptsoft.com).
++ *
++ */
 +
-+; Constants
-+.constf myconst(0.0, 1.0, -1.0, -0.5)
-+;.constf myconst2(0.3, 0.0, 0.0, 0.0)
-+.alias  zeros myconst.xxxx ; Vector full of zeros
-+.alias  ones  myconst.yyyy ; Vector full of ones
 +
-+; Outputs
-+.out outpos position
-+.out outtc0 texcoord0
-+.out outclr color
++#ifdef OPENSSL_NO_TTY
 +
-+; Inputs (defined as aliases for convenience)
-+.alias inpos v0
-+.alias intex v1
-+.alias incol v2
++#include <openssl/e_os2.h>
++#include <evp.h>
++#include "ui_locl.h"
++#include "cryptlib.h"
 +
-+.proc main
-+	; Force the w component of inpos to be 1.0
-+	mov r0.xyz, inpos
-+	mov r0.w,   ones
-+	
-+	; r1 = extra * inpos
-+	dp4 r1.x, extra[0], r0
-+	dp4 r1.y, extra[1], r0
-+	dp4 r1.z, extra[2], r0
-+	dp4 r1.w, extra[3], r0
-+	
-+	; r2 = modelView * r1
-+	dp4 r2.x, modelView[0], r1
-+	dp4 r2.y, modelView[1], r1
-+	dp4 r2.z, modelView[2], r1
-+	dp4 r2.w, modelView[3], r1
++static int dummy_read_write_string(UI *ui, UI_STRING *uis);
++static int dummy_open_close(UI *ui);
 +
-+	; outpos = projection * r2
-+	dp4 outpos.x, projection[0], r2
-+	dp4 outpos.y, projection[1], r2
-+	dp4 outpos.z, projection[2], r2
-+	dp4 outpos.w, projection[3], r2
++static UI_METHOD ui_dummy =
++	{
++	"Dummy user interface",
++	dummy_open_close,
++	dummy_read_write_string,
++	NULL,
++	dummy_read_write_string,
++	dummy_open_close,
++	NULL
++	};
 +
-+ 	mov outtc0, intex
-+ 	
-+ 	mov outclr, incol
++UI_METHOD *UI_OpenSSL(void)
++	{
++	return &ui_dummy;
++	}
 +
-+	end
-+.end
-diff --git a/drivers/3ds/citro3d/shaders/3d.pica b/drivers/3ds/citro3d/shaders/3d.pica
-new file mode 100644
-index 0000000..754c40c
---- /dev/null
-+++ b/drivers/3ds/citro3d/shaders/3d.pica
-@@ -0,0 +1,71 @@
-+; Uniforms
-+.fvec projection[4], modelView[4]
++static int dummy_open_close(UI *ui)
++	{
++	/* Pretend that opening and closing the dummy UI succeeds. */
++	return 1;
++	}
 +
-+; Constants
-+.constf myconst(0.0, 1.0, -1.0, 0.5)
-+.alias  zeros myconst.xxxx ; Vector full of zeros
-+.alias  ones  myconst.yyyy ; Vector full of ones
-+.alias  half  myconst.wwww
++static int dummy_read_write_string(UI *ui, UI_STRING *uis)
++	{
++	/* Writing to and reading from the dummy UI is not possible. */
++	return 0;
++	}
 +
-+; Outputs
-+.out outpos position
-+.out outtc0 texcoord0
-+.out outclr color
-+.out outview view
-+.out outnq normalquat
 +
-+; Inputs (defined as aliases for convenience)
-+.alias inpos v0
-+.alias intex v1
-+.alias innrm v2
-+
-+.proc main
-+	; Force the w component of inpos to be 1.0
-+	mov r0.xyz, inpos
-+	mov r0.w,   ones
-+
-+	; r1 = modelView * inpos
-+	dp4 r1.x, modelView[0], r0
-+	dp4 r1.y, modelView[1], r0
-+	dp4 r1.z, modelView[2], r0
-+	dp4 r1.w, modelView[3], r0
-+
-+	; outview = -r1
-+	mov outview, -r1
-+
-+	; outpos = projection * r1
-+	dp4 outpos.x, projection[0], r1
-+	dp4 outpos.y, projection[1], r1
-+	dp4 outpos.z, projection[2], r1
-+	dp4 outpos.w, projection[3], r1
-+
-+	; outtex = intex
-+	mov outtc0, intex
-+
-+	; Transform the normal vector with the modelView matrix
-+	; TODO: use a separate normal matrix that is the transpose of the inverse of modelView
-+	dp3 r14.x, modelView[0], innrm
-+	dp3 r14.y, modelView[1], innrm
-+	dp3 r14.z, modelView[2], innrm
-+	dp3 r6.x, r14, r14
-+	rsq r6.x, r6.x
-+	mul r14.xyz, r14.xyz, r6.x
-+
-+	mov r0, myconst.yxxx
-+	add r4, ones, r14.z
-+	mul r4, half, r4
-+	cmp zeros, ge, ge, r4.x
-+	rsq r4, r4.x
-+	mul r5, half, r14
-+	jmpc cmp.x, degenerate
-+
-+	rcp r0.z, r4.x
-+	mul r0.xy, r5, r4
-+
-+degenerate:
-+	mov outnq, r0
-+	mov outclr, ones
-+
-+	; We're finished
-+	end
-+.end
-diff --git a/drivers/3ds/citro3d/shaders/SCsub b/drivers/3ds/citro3d/shaders/SCsub
-new file mode 100644
-index 0000000..9610658
---- /dev/null
-+++ b/drivers/3ds/citro3d/shaders/SCsub
-@@ -0,0 +1,11 @@
-+Import('env')
-+
-+shaders = [
-+	'2d',
-+	'3d',
-+]
-+
-+if env['BUILDERS'].has_key('PICA'):
-+	for shader in shaders:
-+		env.PICA(shader)
-+		env.PICA_HEADER(shader)
-diff --git a/platform/3ds/detect.py b/platform/3ds/detect.py
-index 205c69b..292fcb5 100644
---- a/platform/3ds/detect.py
-+++ b/platform/3ds/detect.py
-@@ -15,6 +15,8 @@ def can_build():
++#endif
+diff --git a/thirdparty/openssl/crypto/ui/ui_openssl.c b/thirdparty/openssl/crypto/ui/ui_openssl.c
+index 9ab259b..de5f7d9 100644
+--- a/thirdparty/openssl/crypto/ui/ui_openssl.c
++++ b/thirdparty/openssl/crypto/ui/ui_openssl.c
+@@ -115,7 +115,7 @@
+  * copied and put under another distribution licence
+  * [including the GNU Public Licence.]
+  */
+-
++#ifndef OPENSSL_NO_TTY
+ #include <openssl/e_os2.h>
  
- 	if (not os.environ.has_key("DEVKITPRO")):
- 		return False
-+	if (not os.environ.has_key("DEVKITARM")):
-+		return False
- 	if (not os.environ.has_key("CTRULIB")):
- 		return False
- 	if (os.name=="nt"):
-@@ -44,16 +46,38 @@ def get_opts():
- def get_flags():
- 
- 	return [
--	('builtin_zlib', 'no'),
- 	('tools', 'no'),
-+	('squish', 'no'),
-+	('theora', 'no'),
-+	('speex', 'no'),
-+	('dds', 'no'),
-+	('pvr', 'no'),
-+	('etc1', 'no'),
-+	('builtin_zlib', 'no'),
- 	("openssl", "no"),
--	('freetype','builtin'),
-+	('musepack', 'no'),
- 	]
- 
-+def build_shader_gen(target, source, env, for_signature):
-+	return "picasso -o {} {}".format(target[0], source[0])
- 
-+def build_shader_header(target, source, env):
-+	import os
-+	data = source[0].get_contents()
-+	data_str = ",".join([str(ord(x)) for x in data])
-+	name = os.path.basename(str(target[0]))[:-2]
-+	target[0].prepare()
-+	with open(str(target[0]), 'w') as f:
-+		f.write("/* Auto-generated from {} */\n".format(str(source[0])))
-+		f.write("static uint8_t shader_builtin_{}[] =\n{{{}}};".format(name, data_str))
- 
- def configure(env):
- 	
-+	env.disabled_modules = ['enet']
-+
-+	env.Append( BUILDERS = { 'PICA' : env.Builder(generator = build_shader_gen, suffix = '.shbin', src_suffix = '.pica') } )
-+	env.Append( BUILDERS = { 'PICA_HEADER' : env.Builder(action = build_shader_header, suffix = '.h', src_suffix = '.shbin') } )
-+	
- 	env["bits"]="32"
- 
- 	env.Append(CPPPATH=['#platform/3ds'])
-@@ -159,30 +183,3 @@ def configure(env):
- 	#if (platform.system() == "Linux"):
- 		#env.Append(LIBS='dl')
- 	#env.Append(CPPFLAGS=['-DMPC_FIXED_POINT'])
--
--#host compiler is default..
--
--	#if (is64 and env["bits"]=="32"):
--		#env.Append(CPPFLAGS=['-m32'])
--		#env.Append(LINKFLAGS=['-m32','-L/usr/lib/i386-linux-gnu'])
--	#elif (not is64 and env["bits"]=="64"):
--		#env.Append(CPPFLAGS=['-m64'])
--		#env.Append(LINKFLAGS=['-m64','-L/usr/lib/i686-linux-gnu'])
--
--
--	import methods
--	
--	env.disabled_modules = ['enet']
--
--	#env.Append( BUILDERS = { 'GLSL120' : env.Builder(action = methods.build_legacygl_headers, suffix = 'glsl.h',src_suffix = '.glsl') } )
--	#env.Append( BUILDERS = { 'GLSL' : env.Builder(action = methods.build_glsl_headers, suffix = 'glsl.h',src_suffix = '.glsl') } )
--	#env.Append( BUILDERS = { 'GLSL120GLES' : env.Builder(action = methods.build_gles2_headers, suffix = 'glsl.h',src_suffix = '.glsl') } )
--	#env.Append( BUILDERS = { 'HLSL9' : env.Builder(action = methods.build_hlsl_dx9_headers, suffix = 'hlsl.h',src_suffix = '.hlsl') } )
--
--	#if (env["use_static_cpp"]=="yes"):
--		#env.Append(LINKFLAGS=['-static-libstdc++'])
--
--	#list_of_x86 = ['x86_64', 'x86', 'i386', 'i586']
--	#if any(platform.machine() in s for s in list_of_x86):
--		#env["x86_opt_gcc"]=True
--
--- 
-2.7.3
-
+ /*
+@@ -715,3 +715,4 @@ static int noecho_fgets(char *buf, int size, FILE *tty)
+     return (strlen(buf));
+ }
+ #endif
++#endif

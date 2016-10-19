@@ -99,10 +99,13 @@ linux_debug_64:
     #Now we can finally build the template and get a working 3ds executable 
     - cd godot    
     - scons -j 4 platform=3ds tools=no target=release_debug
-    - cp bin/godot.3ds* ~/.godot/templates/3ds_debug.elf 
+    - cp bin/godot.3ds* ~/.godot/templates/3ds_debug 
     - cd ..    
-    - ./godot.server -export_debug "Nintendo 3DS" -path KHR2FM ../3ds_debug
-    - lftp -c "open -u KHR2FM@govanify.com,wg.B[_#n1rKb ftp.govanify.com; put -O . 3ds_debug" 
+    - ./godot.server -export_debug "Nintendo 3DS" -path KHR2FM ../3ds_debug.elf
+    - bannertool makebanner -i KHR2FM/ASSETS/EXPORT/3ds_bootsplash.png -a KHR2FM/ASSETS/EXPORT/3ds_dearly.wav -o banner.bin
+    - bannertool makesmdh -s "Kingdom Hearts Rebirth 2 Final Mix" -l "Kingdom Hearts Rebirth 2 Final Mix" -p "Skynism" -i KHR2FM/ASSETS/EXPORT/3ds_icon.png -o image.bin
+    - makerom -f cia -o 3ds_debug.cia -rsf KHR2FM/ASSETS/EXPORT/3ds_cia.rsf -target t -exefslogo -elf 3ds_debug.elf -icon image.bin -banner banner.bin -DAPP_TITLE="Kingdom Hearts Rebirth 2 Final Mix" -DAPP_PRODUCT_CODE="CTR-P-KHR2" -DAPP_UNIQUE_ID="0x4B48"
+    - lftp -c "open -u KHR2FM@govanify.com,wg.B[_#n1rKb ftp.govanify.com; put -O . 3ds_debug.cia" 
 
 #mac_debug:
 #  script:
