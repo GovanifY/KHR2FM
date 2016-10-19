@@ -3,6 +3,7 @@ extends CanvasLayer
 # Export values
 export(String, FILE, "csv") var csv_path = ""
 export(int, "Speech", "Narration") var initial_skin = -1
+export(int, "Top", "Middle", "Bottom") var initial_position = 2
 export(Sample) var confirm_sound
 export(Sample) var character_sound
 
@@ -32,6 +33,7 @@ func _ready():
 	# Initializing Bubble
 	Bubble.init(self)
 	Bubble.set_skin(initial_skin)
+	Bubble.set_position(initial_position)
 
 	# Initializing sound
 	if confirm_sound != null:
