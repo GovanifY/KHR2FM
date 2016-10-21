@@ -84,9 +84,9 @@ func set_hook_pos(x):
 
 	# Search for a switch
 	if x <= HOOK_SWITCH_POINT:
-		Hook.set_flip(false)
+		Hook.set_flip_h(false)
 	else:
-		Hook.set_flip(true)
+		Hook.set_flip_h(true)
 
 	if x <= HOOK_LIMIT_LEFT:
 		x = HOOK_LIMIT_LEFT
