@@ -84,9 +84,9 @@ func set_hook_pos(x):
 
 	# Search for a switch
 	if x <= HOOK_SWITCH_POINT:
-		Hook.set_scale(Vector2(1, 1))
+		Hook.set_flip(false)
 	else:
-		Hook.set_scale(Vector2(-1, 1))
+		Hook.set_flip(true)
 
 	if x <= HOOK_LIMIT_LEFT:
 		x = HOOK_LIMIT_LEFT
