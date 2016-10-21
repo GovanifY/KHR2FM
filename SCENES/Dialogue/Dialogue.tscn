@@ -82,9 +82,8 @@ vframes = 2
 
 [node name="Hook" type="Sprite" parent="Bubble/Skin"]
 
-transform/pos = Vector2( 26, -49 )
+transform/pos = Vector2( 55, -21 )
 texture = ExtResource( 6 )
-centered = false
 
 [node name="ConfirmIcon" type="Sprite" parent="Bubble/Skin"]
 

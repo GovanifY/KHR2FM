@@ -1,9 +1,9 @@
 extends CanvasLayer
 
 # Hook limitations
-const HOOK_LIMIT_LEFT   = 26
-const HOOK_LIMIT_RIGHT  = 794
-const HOOK_SWITCH_POINT = (HOOK_LIMIT_LEFT + 756) / 2
+const HOOK_LIMIT_LEFT   = 55
+const HOOK_LIMIT_RIGHT  = 765
+const HOOK_SWITCH_POINT = (HOOK_LIMIT_LEFT + HOOK_LIMIT_RIGHT) / 2
 
 # Instance members
 onready var Skin        = get_node("Skin")
@@ -80,7 +80,7 @@ func set_bubble_pos(index):
 		Skin.set_pos(skin_positions[index])
 
 func set_hook_pos(x):
-	var y = -49 # FIXME: Avoid fixed values like these
+	var y = -21 # FIXME: Avoid fixed values like these
 
 	# Search for a switch
 	if x <= HOOK_SWITCH_POINT:
@@ -88,7 +88,7 @@ func set_hook_pos(x):
 	else:
 		Hook.set_scale(Vector2(-1, 1))
 
-	if x < HOOK_LIMIT_LEFT:
+	if x <= HOOK_LIMIT_LEFT:
 		x = HOOK_LIMIT_LEFT
 	elif HOOK_LIMIT_RIGHT < x:
 		x = HOOK_LIMIT_RIGHT
