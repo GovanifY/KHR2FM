@@ -1,8 +1,13 @@
 extends CanvasLayer
 
+# Hook limitations
+const HOOK_LIMIT_LEFT   = 26
+const HOOK_LIMIT_RIGHT  = 794
+const HOOK_SWITCH_POINT = (HOOK_LIMIT_LEFT + 756) / 2
+
 # Instance members
 onready var Skin        = get_node("Skin")
-onready var Anchor      = get_node("Skin/Anchor")
+onready var Hook        = get_node("Skin/Hook")
 onready var ConfirmIcon = get_node("Skin/ConfirmIcon")
 onready var TextBox     = get_node("Skin/TextContainer/TextScroll")
 
@@ -60,23 +65,39 @@ func set_skin(index):
 	# Hiding bubble
 	ConfirmIcon.hide()
 	Skin.hide()
-	Anchor.hide()
+	Hook.hide()
 
 	# Switching, then showing bubble
 	if 0 <= index && index < Skin.get_vframes():
 		Skin.set_frame(index)
 		Skin.show()
-	if 0 <= index && index < Anchor.get_vframes():
-		Anchor.set_frame(index)
-		Anchor.show()
+	if 0 <= index && index < Hook.get_vframes():
+		Hook.set_frame(index)
+		Hook.show()
 
-func set_position(index):
+func set_bubble_pos(index):
 	if 0 <= index && index < skin_positions.size():
 		Skin.set_pos(skin_positions[index])
 
+func set_hook_pos(x):
+	var y = -49 # FIXME: Avoid fixed values like these
+
+	# Search for a switch
+	if x <= HOOK_SWITCH_POINT:
+		Hook.set_scale(Vector2(1, 1))
+	else:
+		Hook.set_scale(Vector2(-1, 1))
+
+	if x < HOOK_LIMIT_LEFT:
+		x = HOOK_LIMIT_LEFT
+	elif HOOK_LIMIT_RIGHT < x:
+		x = HOOK_LIMIT_RIGHT
+
+	Hook.set_pos(Vector2(x, y))
+
 func set_modulate(mod):
 	Skin.set_modulate(mod)
-	Anchor.set_modulate(mod)
+	Hook.set_modulate(mod)
 
 # Animation control
 # TODO

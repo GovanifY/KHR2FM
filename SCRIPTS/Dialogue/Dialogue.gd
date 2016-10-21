@@ -33,7 +33,7 @@ func _ready():
 	# Initializing Bubble
 	Bubble.init(self)
 	Bubble.set_skin(initial_skin)
-	Bubble.set_position(initial_position)
+	Bubble.set_bubble_pos(initial_position)
 
 	# Initializing sound
 	if confirm_sound != null:
