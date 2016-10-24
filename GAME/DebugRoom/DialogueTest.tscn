@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://GAME/DebugRoom/DialogueTest.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=3]
+[ext_resource path="res://SCENES/Dialogue/Character.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku/Kiryoku-spriteset.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure/Box_message_012.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -37,5 +40,21 @@ max_lines_visible = -1
 
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
 initial_skin = 0
+initial_position = 0
+
+[node name="Kiryoku" parent="." instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 210.443, 240 )
+texture = ExtResource( 5 )
+hframes = 2
+name = "Kiryoku"
+Bubble = null
+
+[node name="Yuugure" parent="." instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 651.371, 240 )
+texture = ExtResource( 6 )
+name = "Yuugure"
+Bubble = null
 
 

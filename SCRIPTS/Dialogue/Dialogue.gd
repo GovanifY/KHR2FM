@@ -16,12 +16,8 @@ onready var Bubble     = get_node("Bubble")
 onready var Translator = get_node("Translator")
 
 # "Private" members
-var current_speaker = {
-	"name"  : null,
-	"begin" : 0,
-	"index" : -1,
-	"end"   : 0
-}
+var index = -1
+var current_speaker = null
 
 ######################
 ### Core functions ###
@@ -55,8 +51,8 @@ func _input(event):
 
 func _close_dialogue():
 	# Resetting values
-	current_speaker.index = -1
-	current_speaker.name  = null
+	index = -1
+	current_speaker = null
 
 	set_process_input(false)
 	emit_signal("no_more_lines")
@@ -68,11 +64,11 @@ func _get_line():
 	# Parsing lineID
 	var lineID = ""
 	if !current_speaker.name.empty():
-		lineID += current_speaker.name + "_"
-	lineID += "%02d" % current_speaker.index
+		lineID += current_speaker.name.to_upper() + "_"
+	lineID += "%02d" % index
 
 	# Incrementing index
-	current_speaker.index += 1
+	index += 1
 
 	# Writing line to bubble
 	Bubble.TextBox.scroll(Translator.translate(lineID))
@@ -97,24 +93,30 @@ func set_csv(path):
 
 # Tells if there are still lines on hold.
 func is_loaded():
-	return (current_speaker.begin <= current_speaker.index
-		&& current_speaker.index <= current_speaker.end)
+	return current_speaker.begin <= index && index <= current_speaker.end
 
 # Makes a character speak.
-func speak(name, begin, end):
+func speak(character, begin, end):
 	# Check arguments
-	if typeof(name) != TYPE_STRING || (end - begin) < 0:
+	assert(typeof(character) == TYPE_OBJECT && character.is_type("Character"))
+	if (end - begin) < 0:
+		print("Dialogue: Invalid indexes.")
 		return
 
-	current_speaker.name  = name.to_upper()
-	current_speaker.index = begin
+	# Setting text iteration values
+	index = begin
+	current_speaker = character
 	current_speaker.begin = begin
 	current_speaker.end   = end
+
+	# Setting positions (for both hook and character)
+	Bubble.set_hook_pos(character.get_pos())
+	character.set_flip_h(character.get_pos() > Bubble.HOOK_SWITCH_POINT)
 
 	set_process_input(true)
 	_get_line()
 
 func silence():
-	# TODO: fade bubble
+	# TODO: fade animations
 	set_process_input(false)
 	Bubble.set_skin(-1)
