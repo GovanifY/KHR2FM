@@ -44,6 +44,7 @@ initial_position = 0
 
 [node name="Kiryoku" parent="." instance=ExtResource( 4 )]
 
+visibility/visible = false
 transform/pos = Vector2( 210.443, 240 )
 texture = ExtResource( 5 )
 hframes = 2
@@ -51,6 +52,7 @@ name = "Kiryoku"
 
 [node name="Yuugure" parent="." instance=ExtResource( 4 )]
 
+visibility/visible = false
 transform/pos = Vector2( 651.371, 240 )
 texture = ExtResource( 6 )
 name = "Yuugure"

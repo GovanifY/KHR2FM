@@ -41,6 +41,5 @@ func _fetch_sequence():
 		Dialogue.speak(Kiryoku, 1, 1)
 	else:
 		Dialogue.set_csv("res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv")
-		Dialogue.Bubble.set_skin(0)
 		cursor = 0
 		_fetch_sequence()
