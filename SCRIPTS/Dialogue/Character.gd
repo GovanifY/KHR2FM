@@ -5,7 +5,6 @@ var AVATAR_HEIGHT = 240 # Default value
 
 # Export values
 export(String) var name
-export(NodePath) var Bubble
 
 # Instance members
 var begin = 0

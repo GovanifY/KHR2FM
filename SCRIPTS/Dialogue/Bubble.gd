@@ -64,6 +64,8 @@ func init(dialogue):
 
 # Some wrappers
 func set_skin(index):
+	# Decrementing index to account for "None"
+	index -= 1
 	# Hiding bubble
 	ConfirmIcon.hide()
 	Skin.hide()
@@ -83,10 +85,7 @@ func set_bubble_pos(index):
 
 func set_hook_pos(x):
 	# Search for a switch
-	if x <= HOOK_SWITCH_POINT:
-		Hook.set_flip_h(false)
-	else:
-		Hook.set_flip_h(true)
+	Hook.set_flip_h(x > HOOK_SWITCH_POINT)
 
 	if x <= HOOK_LIMIT_LEFT:
 		x = HOOK_LIMIT_LEFT

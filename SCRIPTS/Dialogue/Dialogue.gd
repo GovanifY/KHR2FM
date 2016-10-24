@@ -2,8 +2,8 @@ extends CanvasLayer
 
 # Export values
 export(String, FILE, "csv") var csv_path = ""
-export(int, "Speech", "Narration") var initial_skin = -1
-export(int, "Top", "Middle", "Bottom") var initial_position = 2
+export(int, "None", "Speech", "Narration") var initial_skin = 0
+export(int, "Bottom", "Middle", "Top") var initial_position = 0
 export(Sample) var confirm_sound
 export(Sample) var character_sound
 

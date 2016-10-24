@@ -39,7 +39,7 @@ max_lines_visible = -1
 [node name="Dialogue" parent="." instance=ExtResource( 3 )]
 
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
-initial_skin = 0
+initial_skin = 1
 initial_position = 0
 
 [node name="Kiryoku" parent="." instance=ExtResource( 4 )]
@@ -48,13 +48,11 @@ transform/pos = Vector2( 210.443, 240 )
 texture = ExtResource( 5 )
 hframes = 2
 name = "Kiryoku"
-Bubble = null
 
 [node name="Yuugure" parent="." instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 651.371, 240 )
 texture = ExtResource( 6 )
 name = "Yuugure"
-Bubble = null
 
 
