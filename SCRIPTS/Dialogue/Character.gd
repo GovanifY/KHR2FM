@@ -36,15 +36,3 @@ func set_pos(x):
 
 func set_centered(value):
 	.set_centered(true)
-
-func show():
-	if !is_visible():
-		# TODO: slide animation
-		pass
-	.show()
-
-func hide():
-	if is_visible():
-		# TODO: slide animation
-		pass
-	.hide()
