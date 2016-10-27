@@ -114,6 +114,8 @@ func speak(character, begin, end):
 	Bubble.set_hook_pos(character.get_pos())
 	character.set_flip_h(character.get_pos() > Bubble.HOOK_SWITCH_POINT)
 
+	# Presenting character and fetching line
+	character.show()
 	set_process_input(true)
 	_get_line()
 
