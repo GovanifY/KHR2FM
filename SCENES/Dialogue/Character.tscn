@@ -5,6 +5,7 @@
 [node name="Character" type="Sprite"]
 
 script/script = ExtResource( 1 )
-name = null
+name = ""
+type = 0
 
 

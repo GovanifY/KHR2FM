@@ -44,7 +44,7 @@ initial_position = 2
 confirm_sound = ExtResource( 2 )
 character_sound = null
 
-[node name="SFX" type="SamplePlayer" parent="."]
+[node name="SE" type="SamplePlayer" parent="."]
 
 config/polyphony = 5
 config/samples = SubResource( 1 )

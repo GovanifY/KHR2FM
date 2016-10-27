@@ -1,10 +1,11 @@
 extends Sprite
 
 # Avatar Constraints
-var AVATAR_HEIGHT = 240 # Default value
+var AVATAR_HEIGHT = OS.get_video_mode_size().height / 2 # Default value
 
 # Export values
-export(String) var name
+export(String) var name = String()
+export(int, "Character", "Narrator") var type = 0
 
 # Instance members
 var begin = 0
@@ -14,12 +15,9 @@ var end   = 0
 ### Core functions ###
 ######################
 func _ready():
-	# Hide it initially
-	hide()
+	hide() # Hide it initially
 
-	# Aligning vertically
-	AVATAR_HEIGHT = OS.get_video_mode_size().height / 2
-	set_pos(0)
+	set_pos(0) # Aligning vertically
 
 ###############
 ### Methods ###

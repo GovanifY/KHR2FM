@@ -66,6 +66,7 @@ func init(dialogue):
 func set_skin(index):
 	# Decrementing index to account for "None"
 	index -= 1
+
 	# Hiding bubble
 	ConfirmIcon.hide()
 	Skin.hide()

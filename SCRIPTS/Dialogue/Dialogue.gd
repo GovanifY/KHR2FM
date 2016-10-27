@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 # Export values
-export(String, FILE, "csv") var csv_path = ""
+export(String, FILE, "csv") var csv_path = String()
 export(int, "None", "Speech", "Narration") var initial_skin = 0
 export(int, "Bottom", "Middle", "Top") var initial_position = 0
 export(Sample) var confirm_sound
@@ -11,7 +11,7 @@ export(Sample) var character_sound
 signal no_more_lines
 
 # Instance members
-onready var SE_node    = get_node("SFX")
+onready var SE_node    = get_node("SE")
 onready var Bubble     = get_node("Bubble")
 onready var Translator = get_node("Translator")
 
@@ -109,7 +109,8 @@ func speak(character, begin, end):
 	current_speaker.begin = begin
 	current_speaker.end   = end
 
-	# Setting positions (for both hook and character)
+	# Setting skin properties
+	Bubble.set_skin(character.type + 1)
 	Bubble.set_hook_pos(character.get_pos())
 	character.set_flip_h(character.get_pos() > Bubble.HOOK_SWITCH_POINT)
 
@@ -117,6 +118,5 @@ func speak(character, begin, end):
 	_get_line()
 
 func silence():
-	# TODO: fade animations
 	set_process_input(false)
-	Bubble.set_skin(-1)
+	Bubble.set_skin(0)
