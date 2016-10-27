@@ -15,7 +15,7 @@ var temp = 0
 ######################
 func _ready():
 	# Connecting nodes
-	Dialogue.connect("no_more_lines", self, "_inc_cursor")
+	Dialogue.connect("finished", self, "_inc_cursor")
 
 	# Setting up Characters
 	Kiryoku.show(); Kiryoku.set_pos(100)

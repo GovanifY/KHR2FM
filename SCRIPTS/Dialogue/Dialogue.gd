@@ -8,7 +8,7 @@ export(Sample) var confirm_sound
 export(Sample) var character_sound
 
 # Signals
-signal no_more_lines
+signal finished
 
 # Instance members
 onready var SE_node    = get_node("SE")
@@ -55,7 +55,7 @@ func _close_dialogue():
 	current_speaker = null
 
 	set_process_input(false)
-	emit_signal("no_more_lines")
+	emit_signal("finished")
 
 #######################
 ### Signal routines ###

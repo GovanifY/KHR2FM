@@ -10,7 +10,7 @@ var cursor = 0
 ######################
 func _ready():
 	# Connecting nodes
-	Dialogue.connect("no_more_lines", self, "_inc_cursor")
+	Dialogue.connect("finished", self, "_inc_cursor")
 	# Setting all lines of dialogue
 	Dialogue.set_context("INTRO_FATHERSON")
 	Dialogue.collect_lines("Yuugure", 13)
