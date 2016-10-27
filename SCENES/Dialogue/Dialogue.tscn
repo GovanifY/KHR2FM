@@ -39,7 +39,6 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 script/script = ExtResource( 1 )
 csv_path = ""
-initial_skin = 0
 initial_position = 2
 confirm_sound = ExtResource( 2 )
 character_sound = null

@@ -2,7 +2,6 @@ extends CanvasLayer
 
 # Export values
 export(String, FILE, "csv") var csv_path = String()
-export(int, "None", "Speech", "Narration") var initial_skin = 0
 export(int, "Bottom", "Middle", "Top") var initial_position = 0
 export(Sample) var confirm_sound
 export(Sample) var character_sound
@@ -28,7 +27,6 @@ func _ready():
 
 	# Initializing Bubble
 	Bubble.init(self)
-	Bubble.set_skin(initial_skin)
 	Bubble.set_bubble_pos(initial_position)
 
 	# Initializing sound
@@ -110,7 +108,7 @@ func speak(character, begin, end):
 	current_speaker.end   = end
 
 	# Setting skin properties
-	Bubble.set_skin(character.type + 1)
+	Bubble.set_skin(character.type)
 	Bubble.set_hook_pos(character.get_pos())
 	character.set_flip_h(character.get_pos() > Bubble.HOOK_SWITCH_POINT)
 
@@ -121,4 +119,4 @@ func speak(character, begin, end):
 
 func silence():
 	set_process_input(false)
-	Bubble.set_skin(0)
+	Bubble.set_skin(-1)
