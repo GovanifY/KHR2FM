@@ -16,15 +16,15 @@ func _ready():
 	_fetch_sequence()
 
 func _fetch_sequence():
-		Yuugure.set_pos(700)
-		Dialogue.speak(Yuugure, 0, 1)
-		yield(Dialogue, "finished")
+	Yuugure.set_pos(700)
+	Dialogue.speak(Yuugure, 0, 1)
+	yield(Dialogue, "finished")
 
-		Dialogue.speak(Narrator, 0, 0)
-		yield(Dialogue, "finished")
+	Dialogue.speak(Narrator, 0, 0)
+	yield(Dialogue, "finished")
 
-		Kiryoku.set_pos(200)
-		Dialogue.speak(Kiryoku, 0, 1)
-		yield(Dialogue, "finished")
+	Kiryoku.set_pos(200)
+	Dialogue.speak(Kiryoku, 0, 1)
+	yield(Dialogue, "finished")
 
-		Dialogue.silence()
+	Dialogue.silence()
