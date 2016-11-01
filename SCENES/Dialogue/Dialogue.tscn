@@ -13,7 +13,7 @@
 [sub_resource type="SampleLibrary" id=1]
 
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=5]
 
 length = 1.0
 loop = true
@@ -39,7 +39,7 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 script/script = ExtResource( 1 )
 csv_path = ""
-initial_position = 2
+initial_position = 0
 confirm_sound = ExtResource( 2 )
 character_sound = null
 
@@ -96,7 +96,7 @@ centered = false
 playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/Down_Up = SubResource( 2 )
+anims/Down_Up = SubResource( 5 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
