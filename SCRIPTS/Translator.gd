@@ -26,9 +26,9 @@ func init(csv_path = ""):
 		print("No CSV file set. Global lines will be loaded.")
 		return false
 
+	# Grabbing locale and locale_short version
 	var locale = TranslationServer.get_locale()
-	Lines = Translation.new()
-	Lines.set_locale(locale)
+	var locale_short = locale.split("_")[0]
 
 	var csv_file = File.new()
 	csv_file.open(csv_path, csv_file.READ)
@@ -37,13 +37,24 @@ func init(csv_path = ""):
 	var strarr = Array(csv_file.get_csv_line())
 	var locale_index = strarr.find(locale)
 
+	# If the current locale wasn't found, try using locale_short
+	if locale_index == -1:
+		locale_index = strarr.find(locale_short)
+
+		# If it still can't be found, falling back to "en"
+		if locale_index == -1:
+			locale = "en"
+			locale_index = strarr.find(locale)
+
+	Lines = Translation.new()
+	Lines.set_locale(locale)
+
 	while !csv_file.eof_reached():
 		strarr = csv_file.get_csv_line()
 		if 0 < locale_index && locale_index < strarr.size():
 			Lines.add_message(strarr[0], strarr[locale_index])
 
 	csv_file.close()
-	csv_file = null
 
 	# Adding translation to server
 	TranslationServer.add_translation(Lines)
