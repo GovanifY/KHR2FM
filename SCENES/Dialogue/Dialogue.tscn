@@ -2,7 +2,7 @@
 
 [ext_resource path="res://SCRIPTS/Dialogue/Dialogue.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/SE/System/MSG_SOUND.wav" type="Sample" id=2]
-[ext_resource path="res://SCRIPTS/Translator.gd" type="Script" id=3]
+[ext_resource path="res://SCENES/Translator.tscn" type="PackedScene" id=3]
 [ext_resource path="res://SCENES/Dialogue/box0.tres" type="StyleBox" id=4]
 [ext_resource path="res://SCRIPTS/Dialogue/Bubble.gd" type="Script" id=5]
 [ext_resource path="res://ASSETS/GFX/Game/Text/hook0.png" type="Texture" id=6]
@@ -66,9 +66,7 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
-[node name="Translator" type="Node" parent="."]
-
-script/script = ExtResource( 3 )
+[node name="Translator" parent="." instance=ExtResource( 3 )]
 
 [node name="Bubble" type="Panel" parent="."]
 
