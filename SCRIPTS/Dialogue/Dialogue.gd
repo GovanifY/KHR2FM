@@ -24,9 +24,6 @@ func _ready():
 	# Initializing Translator
 	Translator.init(csv_path)
 
-	# Initializing Bubble
-	Bubble.init(self)
-
 	# Initializing sound
 	if confirm_sound != null:
 		SE_node.get_sample_library().add_sample("Confirm", confirm_sound)
