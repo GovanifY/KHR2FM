@@ -67,7 +67,7 @@ func _get_line():
 	index += 1
 
 	# Writing line to bubble
-	Bubble.TextBox.scroll(Translator.translate(lineID))
+	Bubble.TextBox.scroll(lineID)
 
 func _next_line():
 	if confirm_sound != null:

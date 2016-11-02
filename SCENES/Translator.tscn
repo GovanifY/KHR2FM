@@ -6,4 +6,6 @@
 
 script/script = ExtResource( 1 )
 
+[connection signal="exit_tree" from="." to="." method="close"]
+
 
