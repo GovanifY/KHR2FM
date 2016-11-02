@@ -1,8 +1,7 @@
-extends CanvasLayer
+extends VBoxContainer
 
 # Export values
 export(String, FILE, "csv") var csv_path = String()
-export(int, "Top", "Middle", "Bottom") var initial_position = 2
 export(Sample) var confirm_sound = preload("res://ASSETS/SE/System/MSG_SOUND.wav")
 export(Sample) var character_sound
 
@@ -27,7 +26,6 @@ func _ready():
 
 	# Initializing Bubble
 	Bubble.init(self)
-	Bubble.set_alignment(initial_position)
 
 	# Initializing sound
 	if confirm_sound != null:

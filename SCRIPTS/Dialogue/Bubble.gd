@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Panel
 
 # Hook constraints
 # FIXME: Avoid fixed values like these
@@ -14,10 +14,9 @@ const ALL_SKINS = [
 ]
 
 # Instance members
-onready var Skin        = get_node("Skin")
-onready var Hook        = get_node("Skin/Hook")
-onready var ConfirmIcon = get_node("Skin/ConfirmIcon")
-onready var TextBox     = get_node("Skin/TextContainer/TextScroll")
+onready var Hook        = get_node("Hook")
+onready var ConfirmIcon = get_node("ConfirmIcon")
+onready var TextBox     = get_node("TextContainer/TextScroll")
 
 ######################
 ### Core functions ###
@@ -38,13 +37,13 @@ func init(dialogue):
 func set_skin(index):
 	# Hiding bubble
 	ConfirmIcon.hide()
-	Skin.hide()
+	hide()
 	Hook.hide()
 
 	# Switching, then showing bubble
 	if 0 <= index && index < ALL_SKINS.size():
-		Skin.add_style_override("panel", ALL_SKINS[index])
-		Skin.show()
+		add_style_override("panel", ALL_SKINS[index])
+		show()
 	if 0 <= index && index < Hook.get_vframes():
 		Hook.set_frame(index)
 		Hook.show()
@@ -61,5 +60,5 @@ func set_hook_pos(x):
 	Hook.set_pos(Vector2(x, HOOK_HEIGHT))
 
 func set_modulate(mod):
-	Skin.set_modulate(mod)
+	get_stylebox("panel").set_modulate(mod)
 	Hook.set_modulate(mod)
