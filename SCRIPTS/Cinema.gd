@@ -13,15 +13,27 @@ export(String, FILE, "csv") var csv_file = ""
 # Instance members
 onready var Translator = get_node("Translator")
 onready var Subtitles  = {
-	"label"      : get_node("Subtitles"), # Node where the text should reside
-	"array"      : [],    # Array of 3-cell Arrays: 0->ON timer, 1->OFF timer, 2-> subtitle
-	"index"      : 0,     # index of the array
-	"shown"      : false  # showing the current subtitle
+	"label" : get_node("Subtitles"), # Node where the text should reside
+	"array" : [],    # Array of 3-cell Arrays: 0->ON timer, 1->OFF timer, 2-> subtitle
+	"index" : 0,
+	"shown" : false  # showing the current subtitle
 }
 
 ######################
 ### Core functions ###
 ######################
+func _ready():
+	# Parsing subtitles (if any)
+	if have_subtitles:
+		_parse_subtitles()
+
+	# Loading next scene in the background (or instantly if there's no video)
+	SceneLoader.add_scene(next_scene)
+	SceneLoader.load_new_scene(get_stream() != null)
+
+	# Start playing
+	set_process(get_stream() != null)
+
 func _process(delta):
 	# Write subtitles
 	if have_subtitles:
@@ -45,43 +57,11 @@ func _process(delta):
 		SceneLoader.next_scene()
 	return
 
-func _ready():
-	# Parsing subtitles (if any)
-	parse_subtitles()
-
-	# Loading next scene in the background (or instantly if there's no video)
-	SceneLoader.add_scene(next_scene)
-	SceneLoader.load_new_scene(get_stream() != null)
-
-	# Start playing
-	set_process(get_stream() != null)
-
-########################
-### Helper functions ###
-########################
-static func timer_to_seconds(formatted):
-	var temp = formatted.split(":")
-	var hrs  = temp[0].to_int()
-	var mins = temp[1].to_int()
-	var secs = temp[2].replace(",", ".").to_float()
-
-	var ret = 0.0
-	# Using these conditions to avoid doing needless Maths, because GDscript.
-	if hrs > 0:
-		ret += hrs * 3600
-	if mins > 0:
-		ret += mins * 60
-	ret += secs
-	return ret
-
-###############
-### Methods ###
-###############
-func parse_subtitles():
+func _parse_subtitles():
 	var subs = File.new()
 
-	if !have_subtitles || !subs.file_exists(subtitles_file) || !subs.file_exists(csv_file):
-		print("Cinema: Cannot add subtitles. Check what went wrong.")
+	if !subs.file_exists(subtitles_file) || !subs.file_exists(csv_file):
+		print("Cinema: Cannot add subtitles. Check if you added the subtitles and CSV files.")
 		return
 
 	# I tried to make this as performant as possible, but it's still not enough.
@@ -109,3 +89,21 @@ func parse_subtitles():
 
 	# Opening translation
 	Translator.init(csv_file)
+
+########################
+### Helper functions ###
+########################
+static func timer_to_seconds(formatted):
+	var temp = formatted.split(":")
+	var hrs  = temp[0].to_int()
+	var mins = temp[1].to_int()
+	var secs = temp[2].replace(",", ".").to_float()
+
+	var ret = 0.0
+	# Using these conditions to avoid doing needless Maths, because GDscript.
+	if hrs > 0:
+		ret += hrs * 3600
+	if mins > 0:
+		ret += mins * 60
+	ret += secs
+	return ret
