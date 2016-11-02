@@ -1,12 +1,5 @@
 extends Panel
 
-# Hook constraints
-# FIXME: Avoid fixed values like these
-const HOOK_HEIGHT       = -21
-const HOOK_LIMIT_LEFT   = 55
-const HOOK_LIMIT_RIGHT  = 765
-const HOOK_SWITCH_POINT = (HOOK_LIMIT_LEFT + HOOK_LIMIT_RIGHT) / 2
-
 # Skin data
 const ALL_SKINS = [
 	preload("res://SCENES/Dialogue/box0.tres"),
@@ -30,7 +23,6 @@ func _ready():
 	TextBox.connect("cleared", ConfirmIcon, "hide")
 	TextBox.connect("finished", ConfirmIcon, "show")
 
-
 ###############
 ### Methods ###
 ###############
@@ -49,15 +41,20 @@ func set_skin(index):
 		Hook.show()
 
 func set_hook_pos(x):
+	var limit_left  = get_margin(MARGIN_LEFT)
+	var limit_right = get_margin(MARGIN_RIGHT)
+
 	# Search for a switch
-	Hook.set_flip_h(x > HOOK_SWITCH_POINT)
+	var flip = x > (int(limit_right) >> 1)
+	Hook.set_flip_h(flip)
 
-	if x <= HOOK_LIMIT_LEFT:
-		x = HOOK_LIMIT_LEFT
-	elif HOOK_LIMIT_RIGHT < x:
-		x = HOOK_LIMIT_RIGHT
+	if x < limit_left:
+		x = limit_left
+	elif x > limit_right:
+		x = limit_right
 
-	Hook.set_pos(Vector2(x, HOOK_HEIGHT))
+	Hook.set_pos(Vector2(x, 0))
+	return flip
 
 func set_modulate(mod):
 	get_stylebox("panel").set_modulate(mod)

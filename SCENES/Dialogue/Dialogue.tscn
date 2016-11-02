@@ -84,8 +84,8 @@ script/script = ExtResource( 5 )
 
 [node name="Hook" type="Sprite" parent="Bubble"]
 
-transform/pos = Vector2( 55, -21 )
 texture = ExtResource( 6 )
+offset = Vector2( 0, -21 )
 
 [node name="ConfirmIcon" type="Sprite" parent="Bubble"]
 

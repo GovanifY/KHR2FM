@@ -103,8 +103,8 @@ func speak(character, begin, end):
 
 	# Setting skin properties
 	Bubble.set_skin(character.type)
-	Bubble.set_hook_pos(character.get_pos())
-	character.set_flip_h(character.get_pos() > Bubble.HOOK_SWITCH_POINT)
+	var flip = Bubble.set_hook_pos(character.get_pos())
+	character.set_flip_h(flip)
 
 	# Presenting character and fetching line
 	character.show()
