@@ -3,7 +3,7 @@ extends CanvasLayer
 # Export values
 export(String, FILE, "csv") var csv_path = String()
 export(int, "Top", "Middle", "Bottom") var initial_position = 2
-export(Sample) var confirm_sound
+export(Sample) var confirm_sound = preload("res://ASSETS/SE/System/MSG_SOUND.wav")
 export(Sample) var character_sound
 
 # Signals
