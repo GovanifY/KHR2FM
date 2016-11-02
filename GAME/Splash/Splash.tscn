@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=1]
+[gd_scene load_steps=63 format=1]
 
 [ext_resource path="res://GAME/Splash/SplashAndMenu.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/Splash/SKYNISM.png" type="Texture" id=2]
@@ -43,7 +43,6 @@
 [ext_resource path="res://ASSETS/SE/System/System_02.wav" type="Sample" id=41]
 [ext_resource path="res://ASSETS/SE/System/System_03.wav" type="Sample" id=42]
 [ext_resource path="res://ASSETS/SE/System/System_04.wav" type="Sample" id=43]
-[ext_resource path="res://ASSETS/GFX/Game/TouchIcons/null.png" type="Texture" id=44]
 
 [sub_resource type="Animation" id=1]
 
@@ -197,40 +196,40 @@ tracks/28/interp = 1
 tracks/28/imported = false
 tracks/28/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ 0.0 ] }
 tracks/29/type = "value"
-tracks/29/path = NodePath("up_touch:transform/pos")
+tracks/29/path = NodePath("enter_touch:transform/scale")
 tracks/29/interp = 1
 tracks/29/imported = false
-tracks/29/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 0 ) ] }
+tracks/29/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 27 ) ] }
 tracks/30/type = "value"
-tracks/30/path = NodePath("up_touch:transform/scale")
+tracks/30/path = NodePath("cancel_touch:transform/scale")
 tracks/30/interp = 1
 tracks/30/imported = false
-tracks/30/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 345 ) ] }
+tracks/30/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 1e-05, 1e-05 ) ] }
 tracks/31/type = "value"
-tracks/31/path = NodePath("down_touch:transform/pos")
+tracks/31/path = NodePath("enter_touch:transform/pos")
 tracks/31/interp = 1
 tracks/31/imported = false
-tracks/31/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 373 ) ] }
+tracks/31/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 346 ) ] }
 tracks/32/type = "value"
 tracks/32/path = NodePath("down_touch:transform/scale")
 tracks/32/interp = 1
 tracks/32/imported = false
 tracks/32/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 111 ) ] }
 tracks/33/type = "value"
-tracks/33/path = NodePath("enter_touch:transform/pos")
+tracks/33/path = NodePath("down_touch:transform/pos")
 tracks/33/interp = 1
 tracks/33/imported = false
-tracks/33/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 346 ) ] }
+tracks/33/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 373 ) ] }
 tracks/34/type = "value"
-tracks/34/path = NodePath("cancel_touch:transform/scale")
+tracks/34/path = NodePath("up_touch:transform/scale")
 tracks/34/interp = 1
 tracks/34/imported = false
-tracks/34/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 1e-05, 1e-05 ) ] }
+tracks/34/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 345 ) ] }
 tracks/35/type = "value"
-tracks/35/path = NodePath("enter_touch:transform/scale")
+tracks/35/path = NodePath("up_touch:transform/pos")
 tracks/35/interp = 1
 tracks/35/imported = false
-tracks/35/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 878, 27 ) ] }
+tracks/35/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 0, 0 ) ] }
 
 [sub_resource type="Animation" id=2]
 
@@ -1793,7 +1792,7 @@ centered = false
 [node name="cancel_touch" type="TouchScreenButton" parent="."]
 
 transform/scale = Vector2( 1e-05, 1e-05 )
-normal = ExtResource( 44 )
+normal = null
 pressed = null
 bitmask = null
 passby_press = false
@@ -1803,7 +1802,7 @@ visibility_mode = 0
 [node name="up_touch" type="TouchScreenButton" parent="."]
 
 transform/scale = Vector2( 878, 345 )
-normal = ExtResource( 44 )
+normal = null
 pressed = null
 bitmask = null
 passby_press = false
@@ -1814,7 +1813,7 @@ visibility_mode = 0
 
 transform/pos = Vector2( 0, 373 )
 transform/scale = Vector2( 878, 111 )
-normal = ExtResource( 44 )
+normal = null
 pressed = null
 bitmask = null
 passby_press = false
@@ -1825,7 +1824,7 @@ visibility_mode = 0
 
 transform/pos = Vector2( 0, 346 )
 transform/scale = Vector2( 878, 27 )
-normal = ExtResource( 44 )
+normal = null
 pressed = null
 bitmask = null
 passby_press = false
