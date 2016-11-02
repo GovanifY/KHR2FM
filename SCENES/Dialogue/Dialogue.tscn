@@ -4,8 +4,8 @@
 [ext_resource path="res://ASSETS/SE/System/MSG_SOUND.wav" type="Sample" id=2]
 [ext_resource path="res://SCRIPTS/Translator.gd" type="Script" id=3]
 [ext_resource path="res://SCRIPTS/Dialogue/Bubble.gd" type="Script" id=4]
-[ext_resource path="res://ASSETS/GFX/Game/Text/box_tileset.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/GFX/Game/Text/anchor1.png" type="Texture" id=6]
+[ext_resource path="res://SCENES/Dialogue/box0.tres" type="StyleBox" id=5]
+[ext_resource path="res://ASSETS/GFX/Game/Text/hook0.png" type="Texture" id=6]
 [ext_resource path="res://ASSETS/GFX/Game/Text/confirm_icon.png" type="Texture" id=7]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://SCRIPTS/TextScroll.gd" type="Script" id=9]
@@ -13,7 +13,7 @@
 [sub_resource type="SampleLibrary" id=1]
 
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 
 length = 1.0
 loop = true
@@ -72,12 +72,19 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 script/script = ExtResource( 4 )
 
-[node name="Skin" type="Sprite" parent="Bubble"]
+[node name="Skin" type="Panel" parent="Bubble"]
 
-transform/pos = Vector2( 30, 350 )
-texture = ExtResource( 5 )
-centered = false
-vframes = 2
+anchor/right = 1
+rect/min_size = Vector2( 100, 100 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 30.0
+margin/top = 340.0
+margin/right = 30.0
+margin/bottom = 440.0
+custom_styles/panel = ExtResource( 5 )
 
 [node name="Hook" type="Sprite" parent="Bubble/Skin"]
 
@@ -87,7 +94,7 @@ texture = ExtResource( 6 )
 [node name="ConfirmIcon" type="Sprite" parent="Bubble/Skin"]
 
 editor/display_folded = true
-transform/pos = Vector2( 720, 55 )
+transform/pos = Vector2( 720, 50 )
 texture = ExtResource( 7 )
 centered = false
 
@@ -96,7 +103,7 @@ centered = false
 playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/Down_Up = SubResource( 5 )
+anims/Down_Up = SubResource( 2 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -107,14 +114,16 @@ autoplay = ""
 editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
-focus/ignore_mouse = false
+rect/min_size = Vector2( 60, 60 )
+focus/ignore_mouse = true
 focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
+size_flags/horizontal = 1
+size_flags/vertical = 1
+size_flags/stretch_ratio = 0.0
 margin/left = 100.0
-margin/top = 25.0
+margin/top = 20.0
 margin/right = 100.0
-margin/bottom = 25.0
+margin/bottom = 20.0
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/line_spacing = 9

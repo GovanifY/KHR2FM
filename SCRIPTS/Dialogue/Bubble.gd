@@ -1,11 +1,17 @@
 extends CanvasLayer
 
-# Hook limitations
+# Hook constraints
 # FIXME: Avoid fixed values like these
 const HOOK_HEIGHT       = -21
 const HOOK_LIMIT_LEFT   = 55
 const HOOK_LIMIT_RIGHT  = 765
 const HOOK_SWITCH_POINT = (HOOK_LIMIT_LEFT + HOOK_LIMIT_RIGHT) / 2
+
+# Skin data
+const ALL_SKINS = [
+	preload("res://SCENES/Dialogue/box0.tres"),
+	preload("res://SCENES/Dialogue/box1.tres")
+]
 
 # Instance members
 onready var Skin        = get_node("Skin")
@@ -21,8 +27,8 @@ var skin_positions = Vector2Array()
 ######################
 func _init_skin_positions():
 	# Grabbing basic data
-	var skin_width = Skin.get_texture().get_data().get_width()
-	var skin_height = Skin.get_texture().get_data().get_height() / Skin.get_vframes()
+	var skin_width = int(Skin.get_size().width)
+	var skin_height = int(Skin.get_size().height)
 	skin_positions.resize(3)
 	skin_positions[2] = OS.get_video_mode_size()
 	# 0 : Bottom
@@ -62,7 +68,6 @@ func init(dialogue):
 	TextBox.connect("cleared", ConfirmIcon, "hide")
 	TextBox.connect("finished", ConfirmIcon, "show")
 
-# Some wrappers
 func set_skin(index):
 	# Hiding bubble
 	ConfirmIcon.hide()
@@ -70,8 +75,8 @@ func set_skin(index):
 	Hook.hide()
 
 	# Switching, then showing bubble
-	if 0 <= index && index < Skin.get_vframes():
-		Skin.set_frame(index)
+	if 0 <= index && index < ALL_SKINS.size():
+		Skin.add_style_override("panel", ALL_SKINS[index])
 		Skin.show()
 	if 0 <= index && index < Hook.get_vframes():
 		Hook.set_frame(index)
@@ -95,6 +100,3 @@ func set_hook_pos(x):
 func set_modulate(mod):
 	Skin.set_modulate(mod)
 	Hook.set_modulate(mod)
-
-# Animation control
-# TODO

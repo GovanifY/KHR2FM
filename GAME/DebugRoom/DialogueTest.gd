@@ -20,9 +20,11 @@ func _fetch_sequence():
 	Dialogue.speak(Yuugure, 0, 1)
 	yield(Dialogue, "finished")
 
+	Dialogue.Bubble.set_bubble_pos(1)
 	Dialogue.speak(Narrator, 0, 0)
 	yield(Dialogue, "finished")
 
+	Dialogue.Bubble.set_bubble_pos(2)
 	Kiryoku.set_pos(200)
 	Dialogue.speak(Kiryoku, 0, 1)
 	yield(Dialogue, "finished")
