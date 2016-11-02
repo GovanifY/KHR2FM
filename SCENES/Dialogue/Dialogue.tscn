@@ -39,7 +39,7 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 script/script = ExtResource( 1 )
 csv_path = ""
-initial_position = 0
+initial_position = 2
 confirm_sound = ExtResource( 2 )
 character_sound = null
 
@@ -64,26 +64,32 @@ default/chorus_send = 0.0
 
 script/script = ExtResource( 3 )
 
-[node name="Bubble" type="CanvasLayer" parent="."]
-
-layer = 1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-script/script = ExtResource( 4 )
-
-[node name="Skin" type="Panel" parent="Bubble"]
+[node name="Bubble" type="VBoxContainer" parent="."]
 
 anchor/right = 1
-rect/min_size = Vector2( 100, 100 )
+anchor/bottom = 1
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 30.0
-margin/top = 340.0
+margin/top = 30.0
 margin/right = 30.0
-margin/bottom = 440.0
+margin/bottom = 30.0
+alignment = 2
+script/script = ExtResource( 4 )
+
+[node name="Skin" type="Panel" parent="Bubble"]
+
+rect/min_size = Vector2( 100, 100 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 320.0
+margin/right = 818.0
+margin/bottom = 420.0
 custom_styles/panel = ExtResource( 5 )
 
 [node name="Hook" type="Sprite" parent="Bubble/Skin"]

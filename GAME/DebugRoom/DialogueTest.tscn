@@ -1,22 +1,42 @@
 [gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://GAME/DebugRoom/DialogueTest.gd" type="Script" id=1]
-[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=3]
-[ext_resource path="res://SCENES/Dialogue/Character.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku/Kiryoku-spriteset.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure/Box_message_012.png" type="Texture" id=6]
+[ext_resource path="res://SCENES/Dialogue/Character.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku/Kiryoku-spriteset.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure/Box_message_012.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 
 font/size = 34
 font/use_mipmaps = false
 font/use_filter = false
-font/font = ExtResource( 2 )
+font/font = ExtResource( 5 )
 
 [node name="DialogueTest" type="Node"]
 
 script/script = ExtResource( 1 )
+
+[node name="Kiryoku" parent="." instance=ExtResource( 2 )]
+
+visibility/visible = false
+transform/pos = Vector2( 210.443, 240 )
+texture = ExtResource( 3 )
+hframes = 2
+name = "Kiryoku"
+
+[node name="Yuugure" parent="." instance=ExtResource( 2 )]
+
+visibility/visible = false
+transform/pos = Vector2( 651.371, 240 )
+texture = ExtResource( 4 )
+name = "Yuugure"
+
+[node name="Narrator" parent="." instance=ExtResource( 2 )]
+
+visibility/visible = false
+type = 1
 
 [node name="Warning" type="Label" parent="."]
 
@@ -29,6 +49,8 @@ margin/top = 100.0
 margin/right = 700.0
 margin/bottom = 220.0
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
 text = "Test your dialogue assets here!"
 align = 1
 valign = 1
@@ -36,28 +58,8 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Dialogue" parent="." instance=ExtResource( 3 )]
+[node name="Dialogue" parent="." instance=ExtResource( 6 )]
 
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
-
-[node name="Kiryoku" parent="." instance=ExtResource( 4 )]
-
-visibility/visible = false
-transform/pos = Vector2( 210.443, 240 )
-texture = ExtResource( 5 )
-hframes = 2
-name = "Kiryoku"
-
-[node name="Yuugure" parent="." instance=ExtResource( 4 )]
-
-visibility/visible = false
-transform/pos = Vector2( 651.371, 240 )
-texture = ExtResource( 6 )
-name = "Yuugure"
-
-[node name="Narrator" parent="." instance=ExtResource( 4 )]
-
-visibility/visible = false
-type = 1
 
 

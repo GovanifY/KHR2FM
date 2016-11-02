@@ -2,7 +2,7 @@ extends CanvasLayer
 
 # Export values
 export(String, FILE, "csv") var csv_path = String()
-export(int, "Bottom", "Middle", "Top") var initial_position = 0
+export(int, "Top", "Middle", "Bottom") var initial_position = 2
 export(Sample) var confirm_sound
 export(Sample) var character_sound
 
@@ -27,7 +27,7 @@ func _ready():
 
 	# Initializing Bubble
 	Bubble.init(self)
-	Bubble.set_bubble_pos(initial_position)
+	Bubble.set_alignment(initial_position)
 
 	# Initializing sound
 	if confirm_sound != null:
