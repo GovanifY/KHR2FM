@@ -62,6 +62,7 @@ func _parse_subtitles():
 
 	if !subs.file_exists(subtitles_file) || !subs.file_exists(csv_file):
 		print("Cinema: Cannot add subtitles. Check if you added the subtitles and CSV files.")
+		have_subtitles = false
 		return
 
 	# I tried to make this as performant as possible, but it's still not enough.
