@@ -11,32 +11,29 @@ font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 2 )
 
-[node name="Cinema" type="Node2D"]
+[node name="Cinema" type="VideoPlayer"]
 
-script/script = ExtResource( 1 )
-video_file = null
-next_scene = ""
-have_subtitles = false
-subtitles_file = ""
-csv_file = ""
-
-[node name="Video" type="VideoPlayer" parent="."]
-
+anchor/right = 1
+anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 878.0
-margin/bottom = 480.0
+margin/right = 0.0
+margin/bottom = 0.0
 stream/audio_track = 0
 stream/stream = null
 stream/volume_db = 0.0
-stream/autoplay = false
+stream/autoplay = true
 stream/paused = false
 expand = true
-__meta__ = { "_edit_lock_":true }
+script/script = ExtResource( 1 )
+next_scene = ""
+have_subtitles = false
+subtitles_file = ""
+csv_file = ""
 
 [node name="Subtitles" type="Label" parent="."]
 

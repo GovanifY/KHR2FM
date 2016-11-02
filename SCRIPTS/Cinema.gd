@@ -1,11 +1,10 @@
-extends Node2D
+extends VideoPlayer
 
 # Ce script est dédié à la Scene Cinema qui sera un container pour quelque
 # video que l'on veut jouer. Cela évitera la répétition de création de Scenes ou
 # Scripts spécifiques à une certaine scène
 
 # Export values
-export(VideoStreamTheora) var video_file
 export(String, FILE, "tscn") var next_scene = ""
 export(bool) var have_subtitles = false
 export(String, FILE, "srt") var subtitles_file = ""
@@ -13,29 +12,20 @@ export(String, FILE, "csv") var csv_file = ""
 
 # Instance members
 onready var Translator = get_node("Translator")
-var Video = {
-	"playing" : false,
-	"node" : null
-}
-
-var Subtitles = {
+onready var Subtitles  = {
+	"label"      : get_node("Subtitles"), # Node where the text should reside
 	"array"      : [],    # Array of 3-cell Arrays: 0->ON timer, 1->OFF timer, 2-> subtitle
 	"index"      : 0,     # index of the array
-	"shown"      : false, # showing the current subtitle
-	"label"      : null   # Node where the text should reside
+	"shown"      : false  # showing the current subtitle
 }
 
 ######################
 ### Core functions ###
 ######################
 func _process(delta):
-	if !Video.playing:
-		Video.playing = true
-		Video.node.play()
-
 	# Write subtitles
 	if have_subtitles:
-		var cur_pos = Video.node.get_stream_pos()
+		var cur_pos = get_stream_pos()
 
 		if Subtitles.array[Subtitles.index][0] < cur_pos && cur_pos < Subtitles.array[Subtitles.index][1]:
 			if !Subtitles.shown:
@@ -50,31 +40,21 @@ func _process(delta):
 			if Subtitles.index >= Subtitles.array.size():
 				have_subtitles = false
 
-	# FIXME: Still no VideoStream signal? This needs to exist
-	if !Video.node.is_playing():
+	# FIXME: Still no VideoStream.finished() signal? This needs to exist
+	if !is_playing():
 		SceneLoader.next_scene()
 	return
 
-func _enter_tree():
-	# Initial checks
-	assert(video_file != null)
-	assert(next_scene.get_file())
-
 func _ready():
-	# Setting video file
-	Video.node = get_node("Video")
-	Video.node.set_stream(video_file)
-
-	# Setting subtitles (if any)
-	Subtitles.label = get_node("Subtitles")
+	# Parsing subtitles (if any)
 	parse_subtitles()
 
-	# Loading next scene in the background
+	# Loading next scene in the background (or instantly if there's no video)
 	SceneLoader.add_scene(next_scene)
-	SceneLoader.load_new_scene(true)
+	SceneLoader.load_new_scene(get_stream() != null)
 
 	# Start playing
-	set_process(true)
+	set_process(get_stream() != null)
 
 ########################
 ### Helper functions ###
@@ -98,19 +78,15 @@ static func timer_to_seconds(formatted):
 ### Methods ###
 ###############
 func parse_subtitles():
-	if !have_subtitles || subtitles_file.empty() || csv_file.empty():
-		print("Current subtitle settings prohibit me from proceeding. Skipping.")
+	var subs = File.new()
+
+	if !have_subtitles || !subs.file_exists(subtitles_file) || !subs.file_exists(csv_file):
+		print("Cinema: Cannot add subtitles. Check what went wrong.")
 		return
 
-	assert(Subtitles.label != null)
+	# I tried to make this as performant as possible, but it's still not enough.
 
-	# All right, I tried to make this as performant as possible, but it's still
-	# not fast enough. So, either I switch to static programming on this one, or I
-	# let it be this slow.
-
-	# Opening subs file
-	var subs = File.new()
-	subs.open(subtitles_file, File.READ)
+	subs.open(subtitles_file, File.READ) #######################################
 
 	while !subs.eof_reached():
 		var line = subs.get_line()
@@ -129,8 +105,7 @@ func parse_subtitles():
 			# Pushing this array onto the main array
 			Subtitles.array.push_back(arr)
 
-	subs.close()
-	subs = null
+	subs.close() ###############################################################
 
 	# Opening translation
 	Translator.init(csv_file)
