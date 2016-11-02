@@ -26,7 +26,7 @@ before_script:
   - mkdir ~/.godot/templates
   #Avoid DNS verification on ftp, my domain does not have a correct one
   #apparently
-  - echo "set ssl:verify-certificate no" >> ~/.lftprc
+  #- echo "set ssl:verify-certificate no" >> ~/.lftprc
 windows_debug_64:
   script:
     - cd godot
