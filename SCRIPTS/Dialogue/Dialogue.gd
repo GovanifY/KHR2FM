@@ -84,7 +84,6 @@ func _next_line():
 # Sets a (new) CSV path
 func set_csv(path):
 	csv_path = path
-	Translator.close()
 	Translator.init(csv_path)
 
 # Tells if there are still lines on hold.

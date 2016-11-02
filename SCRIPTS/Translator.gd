@@ -26,6 +26,9 @@ func init(csv_path = ""):
 		print("No CSV file set. Global lines will be loaded.")
 		return false
 
+	# Closing previous lines
+	close()
+
 	# Grabbing locale and locale_short version
 	var locale = TranslationServer.get_locale()
 	var locale_short = locale.split("_")[0]
