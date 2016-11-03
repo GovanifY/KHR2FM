@@ -2,8 +2,8 @@ extends Node2D
 
 # Export values
 export(String) var info_message = "INFO_BATTLE_MESSAGE"
-export(NodePath) var Player = null
-export(NodePath) var Enemy = null
+export(NodePath) var Player
+export(NodePath) var Enemy
 #export(int, 0, 20) var enemy_multiplier
 
 # Instance members
@@ -30,7 +30,6 @@ func _ready():
 		Enemy.set_stat_representation(Enemy.STAT_HP, get_node("HUD/EnemyHP"), Enemy.max_health)
 		Enemy.set_pos(default_pos[2])
 
-	translate_commands()
 	init_battle()
 
 #######################
@@ -77,11 +76,3 @@ func init_battle():
 
 	# Start Infobar animation
 	InfoBar.display(info_message)
-
-# (Re)Translate all HUD Command text
-func translate_commands():
-	var commands = get_node("HUD/Commands")
-
-	var label_attack = commands.find_node("BATTLE_ATTACK")
-	if label_attack != null:
-		label_attack.set_text(tr("BATTLE_ATTACK"))

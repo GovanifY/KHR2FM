@@ -17,32 +17,45 @@
 custom_solver_bias = 0.0
 extents = Vector2( 1, 240 )
 
-[node name="BattlePlan" type="Node2D"]
+[node name="BattlePlan" type="StaticBody2D"]
 
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 240 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 1 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 878, 240 )
+shapes/1/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
 info_message = "INFO_BATTLE_MESSAGE"
 Player = null
 Enemy = null
 
+[node name="Left" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( 0, 240 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Right" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( 878, 240 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 1
+
 [node name="InfoBar" parent="." instance=ExtResource( 2 )]
-
-[node name="Foreground" type="ParallaxBackground" parent="."]
-
-layer = 4
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-scroll/offset = Vector2( 0, 0 )
-scroll/base_offset = Vector2( 0, 0 )
-scroll/base_scale = Vector2( 1, 1 )
-scroll/limit_begin = Vector2( 0, 0 )
-scroll/limit_end = Vector2( 0, 0 )
-scroll/ignore_camera_zoom = false
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-editor/display_folded = true
 layer = 5
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -181,44 +194,6 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-
-[node name="Battlers" type="CanvasLayer" parent="."]
-
-layer = 2
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-
-[node name="Walls" type="StaticBody2D" parent="Battlers"]
-
-editor/display_folded = true
-input/pickable = false
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 240 )
-shapes/0/trigger = false
-shapes/1/shape = SubResource( 1 )
-shapes/1/transform = Matrix32( 1, 0, 0, 1, 878, 240 )
-shapes/1/trigger = false
-collision/layers = 1
-collision/mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-
-[node name="Left" type="CollisionShape2D" parent="Battlers/Walls"]
-
-transform/pos = Vector2( 0, 240 )
-shape = SubResource( 1 )
-trigger = false
-_update_shape_index = 0
-
-[node name="Right" type="CollisionShape2D" parent="Battlers/Walls"]
-
-transform/pos = Vector2( 878, 240 )
-shape = SubResource( 1 )
-trigger = false
-_update_shape_index = 1
 
 [connection signal="dismiss" from="InfoBar" to="." method="_battle_begin"]
 
