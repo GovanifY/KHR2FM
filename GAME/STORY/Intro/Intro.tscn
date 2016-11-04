@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=1]
 
-[ext_resource path="res://GAME/Intro/Intro.gd" type="Script" id=1]
+[ext_resource path="res://GAME/STORY/Intro/Intro.gd" type="Script" id=1]
 [ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_01.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_02.png" type="Texture" id=4]
@@ -11,6 +11,7 @@
 [ext_resource path="res://ASSETS/GFX/Animations/Intro/Water.png" type="Texture" id=9]
 [ext_resource path="res://ASSETS/SE/Cutscenes/Water_Drop.wav" type="Sample" id=10]
 [ext_resource path="res://ASSETS/BGM/Into the darkness.ogg" type="AudioStream" id=11]
+
 
 [sub_resource type="Animation" id=1]
 

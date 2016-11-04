@@ -6,6 +6,6 @@
 [node name="Cinema" instance=ExtResource( 1 )]
 
 stream/stream = ExtResource( 2 )
-next_scene = "Intro/Intro.tscn"
+next_scene = "STORY/Intro/Intro.tscn"
 
 

@@ -39,7 +39,7 @@ func _process(delta):
 			if(SelectMode==0):
 				if(!get_node("Custom Title System/NewGame_1").is_playing()):
 					Globals.set("Critical", false)
-					SceneLoader.add_scene("Intro/Aqua.tscn")
+					SceneLoader.add_scene("STORY/Intro/Aqua.tscn")
 					SceneLoader.load_new_scene()
 			elif(SelectMode==1):
 				if(!get_node("Custom Title System/NewGame_2").is_playing()):
