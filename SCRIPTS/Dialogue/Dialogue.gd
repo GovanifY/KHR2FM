@@ -80,8 +80,7 @@ func _next_line():
 ###############
 # Sets a (new) CSV path
 func set_csv(path):
-	csv_path = path
-	Translator.init(csv_path)
+	Translator.init(path)
 
 # Tells if there are still lines on hold.
 func is_loaded():
