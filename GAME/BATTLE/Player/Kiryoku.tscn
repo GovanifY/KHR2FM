@@ -44,12 +44,12 @@
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_71.png" type="Texture" id=42]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_72.png" type="Texture" id=43]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_73.png" type="Texture" id=44]
-[ext_resource path="res://SCENES/Battle/Player/Kiryoku_tres/Attack1.tres" type="Animation" id=45]
-[ext_resource path="res://SCENES/Battle/Player/Kiryoku_tres/Attack2.tres" type="Animation" id=46]
-[ext_resource path="res://SCENES/Battle/Player/Kiryoku_tres/Attack3.tres" type="Animation" id=47]
-[ext_resource path="res://SCENES/Battle/Player/Kiryoku_tres/Guard.tres" type="Animation" id=48]
-[ext_resource path="res://SCENES/Battle/Player/Kiryoku_tres/Still.tres" type="Animation" id=49]
-[ext_resource path="res://SCENES/Battle/Player/Kiryoku_tres/Walk.tres" type="Animation" id=50]
+[ext_resource path="res://GAME/BATTLE/Player/Kiryoku_tres/Attack1.tres" type="Animation" id=45]
+[ext_resource path="res://GAME/BATTLE/Player/Kiryoku_tres/Attack2.tres" type="Animation" id=46]
+[ext_resource path="res://GAME/BATTLE/Player/Kiryoku_tres/Attack3.tres" type="Animation" id=47]
+[ext_resource path="res://GAME/BATTLE/Player/Kiryoku_tres/Guard.tres" type="Animation" id=48]
+[ext_resource path="res://GAME/BATTLE/Player/Kiryoku_tres/Still.tres" type="Animation" id=49]
+[ext_resource path="res://GAME/BATTLE/Player/Kiryoku_tres/Walk.tres" type="Animation" id=50]
 [ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_02.wav" type="Sample" id=51]
 [ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_03.wav" type="Sample" id=52]
 [ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_04.wav" type="Sample" id=53]
@@ -62,6 +62,7 @@
 [ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Hit2.wav" type="Sample" id=60]
 [ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Swing.wav" type="Sample" id=61]
 [ext_resource path="res://ASSETS/SE/Battle/General/Ground_walk.wav" type="Sample" id=62]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 

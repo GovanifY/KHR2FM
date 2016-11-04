@@ -17,11 +17,11 @@
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Enemies/Yuugure/Yuugure_48.png" type="Texture" id=15]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Enemies/Yuugure/Yuugure_50.png" type="Texture" id=16]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Enemies/Yuugure/Yuugure_62.png" type="Texture" id=17]
-[ext_resource path="res://SCENES/Battle/Enemy/Yuugure_tres/Attack1.tres" type="Animation" id=18]
-[ext_resource path="res://SCENES/Battle/Enemy/Yuugure_tres/Attack2.tres" type="Animation" id=19]
-[ext_resource path="res://SCENES/Battle/Enemy/Yuugure_tres/Attack3.tres" type="Animation" id=20]
-[ext_resource path="res://SCENES/Battle/Enemy/Yuugure_tres/Still.tres" type="Animation" id=21]
-[ext_resource path="res://SCENES/Battle/Enemy/Yuugure_tres/Teleport.tres" type="Animation" id=22]
+[ext_resource path="res://GAME/BATTLE/Enemy/Yuugure_tres/Attack1.tres" type="Animation" id=18]
+[ext_resource path="res://GAME/BATTLE/Enemy/Yuugure_tres/Attack2.tres" type="Animation" id=19]
+[ext_resource path="res://GAME/BATTLE/Enemy/Yuugure_tres/Attack3.tres" type="Animation" id=20]
+[ext_resource path="res://GAME/BATTLE/Enemy/Yuugure_tres/Still.tres" type="Animation" id=21]
+[ext_resource path="res://GAME/BATTLE/Enemy/Yuugure_tres/Teleport.tres" type="Animation" id=22]
 [ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_00.wav" type="Sample" id=23]
 [ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_01.wav" type="Sample" id=24]
 [ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_02.wav" type="Sample" id=25]
@@ -33,6 +33,7 @@
 [ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_08.wav" type="Sample" id=31]
 [ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_09.wav" type="Sample" id=32]
 [ext_resource path="res://ASSETS/SE/Battle/General/Teleportation2.wav" type="Sample" id=33]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 
