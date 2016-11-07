@@ -4,10 +4,8 @@ extends Node
 # tel que le timer, la save ou le fullscreen.
 # Le script est en autoload.
 
-
 # Un accumulateur pour le timer
 var accum = 0
-var debug = false
 
 ######################
 ### Core functions ###
@@ -16,9 +14,6 @@ func _ready():
 	Globals.set("PlayTimeMinutes", 0)
 	Globals.set("PlayTimeHours", 0)
 	Globals.set("TimerActivated", false)
-
-	# For extended debugging purposes
-	debug = OS.is_debug_build()
 
 	set_process_input(true)
 	set_process(true)
@@ -38,7 +33,7 @@ func _input(event):
 			return
 
 		# Debugging stuff, ignore this
-		if debug:
+		if OS.is_debug_build():
 			if event.is_action("debug"):
 				if !Globals.get("DebugCMD"):
 					load_node("DebugCMD", "res://SCENES/Debug/DebugCMD.tscn")
@@ -81,7 +76,7 @@ func load_node(name, path):
 		printerr(exts)
 		return false
 
-	var root = get_node("/root")
+	var root = get_tree().get_root()
 	var scene = load(path)
 
 	if scene == null:
@@ -108,7 +103,7 @@ func unload_node(path):
 			printerr("As a safety measure, I cannot unload \"%s\"" % global)
 			return false
 
-	var root = get_node("/root")
+	var root = get_tree().get_root()
 	var node = root.get_node(NodePath(path))
 	var name = node.get_name()
 
