@@ -13,9 +13,6 @@ var Scenes = {
 	"loader"  : null
 }
 var Loading = {
-	"length" : 0,
-	"animation" : null,
-	"sprite" : null,
 	"background" : false,
 	"complete" : true
 }
@@ -26,6 +23,9 @@ var Queue = []
 var SL_Threads = {
 	"loader"  : null
 }
+
+# "Private" members
+onready var root = get_tree().get_root()
 
 ######################
 ### Core functions ###
@@ -40,14 +40,7 @@ func _prepare_main_loader():
 
 	# If a MainLoader is NOT instanced, then something REALLY went wrong
 	assert(Scenes.loader != null)
-	# Grabbing important Loading data
-	Loading.sprite = Scenes.loader.get_node("Heart")
-	Loading.animation = Scenes.loader.get_node("HeartAnimation")
-	Loading.length = Loading.animation.get_animation("Rotation").get_length()
-	get_node("/root").add_child(Scenes.loader)
-
-	# Start playing the animation
-	_do_animation(true)
+	root.add_child(Scenes.loader)
 
 func _destroy_main_loader():
 	_stop_scene(Scenes.loader)
@@ -57,21 +50,13 @@ func _destroy_current_scene():
 	_stop_scene(Scenes.current)
 	Scenes.current = null
 
-func _do_animation(play):
-	if play:
-		Loading.animation.play("Rotation")
-		var step = randf() * Loading.length
-		Loading.animation.seek(step)
-	else:
-		Loading.animation.stop()
-
 func _set_new_scene():
 	# We don't need a ThreadLoader anymore
 	kill_thread(SL_Threads.loader)
 	# Instancing the new resource
 	var resource = Scenes.next.get_resource()
 	Scenes.next = null
-	get_node("/root").add_child(resource.instance())
+	root.add_child(resource.instance())
 
 	Scenes.path = null
 
@@ -102,7 +87,7 @@ static func _dequeue(queue):
 		print("Queue is empty")
 		return null
 
-	# Since Godot doesn't know the definition of "pop", I have to do it this way
+	# FIXME: Since Godot doesn't know how "pop" works, I have to do it this way
 	var temp = queue[0]
 	queue.pop_front()
 	return temp
@@ -132,8 +117,9 @@ func add_scene(path):
 	# Check if we were given a partial path
 	if !path.is_abs_path():
 		path = PATH_SCENES + path
-	# Now, if it still doesn't fit in the description, don't enqueue it
-	if path.is_abs_path():
+	# Only enqueue it if it's a valid path
+	var f = File.new()
+	if f.file_exists(path):
 		_enqueue(Queue, path)
 
 # Determines if a scene can be loaded
@@ -158,7 +144,6 @@ func load_new_scene(background = false):
 		return false
 
 	# Setting current scene (by grabbing root's last child)
-	var root = get_node("/root")
 	Scenes.current = root.get_child(root.get_child_count()-1)
 
 	# Are we doing background?
@@ -177,7 +162,7 @@ func load_new_scene(background = false):
 func start_thread():
 	SL_Threads.loader = ThreadLoader.new()
 	SL_Threads.loader.connect("scene_ready", self, "_finish_loading")
-	SL_Threads.loader.connect("scene_error", self, "kill_thread", [SL_Threads.loader])
+	SL_Threads.loader.connect("scene_error", self, "kill_all_threads")
 	SL_Threads.loader.add_scene(_load_scene(Scenes.path))
 	SL_Threads.loader.start_loader()
 
