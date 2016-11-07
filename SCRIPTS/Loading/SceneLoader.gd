@@ -2,7 +2,7 @@ extends Node
 
 # Constants
 const PATH_SCENES = "res://GAME/"
-const MainLoader = preload("res://SCENES/Loading/MainLoader.tscn")
+const LoadingScreen = preload("res://SCENES/Loading/LoadingScreen.tscn")
 const ThreadLoader = preload("res://SCRIPTS/Loading/ThreadLoader.gd")
 
 # Instance members
@@ -36,9 +36,9 @@ func _prepare_main_loader():
 		return
 
 	# Instance the loading scene
-	Scenes.loader = MainLoader.instance()
+	Scenes.loader = LoadingScreen.instance()
 
-	# If a MainLoader is NOT instanced, then something REALLY went wrong
+	# If a LoadingScreen is NOT instanced, then something REALLY went wrong
 	assert(Scenes.loader != null)
 	root.add_child(Scenes.loader)
 
@@ -65,7 +65,7 @@ func _finish_loading():
 	# Grabbing our latest result
 	Scenes.next = SL_Threads.loader.result()
 
-	# We destroy the MainLoader since we don't need it anymore
+	# We destroy the LoadingScreen since we don't need it anymore
 	_destroy_main_loader()
 	Loading.complete = true
 
@@ -178,7 +178,7 @@ func kill_all_threads():
 		SL_Threads[thread] = null
 
 # Erases current scene and jumps over to the next one. There are two scenarios:
-# 1. A scene is still loading, so it launches MainLoader
+# 1. A scene is still loading, so it launches LoadingScreen
 # 2. A scene is loaded, switch to it immediately
 func next_scene():
 	_destroy_current_scene()
