@@ -28,8 +28,7 @@ func _ready():
 		_parse_subtitles()
 
 	# Loading next scene in the background (or instantly if there's no video)
-	SceneLoader.add_scene(next_scene)
-	SceneLoader.load_new_scene(get_stream() != null)
+	SceneLoader.load_scene(next_scene, get_stream() != null)
 
 	# Start playing
 	set_process(get_stream() != null)
@@ -54,7 +53,7 @@ func _process(delta):
 
 	# FIXME: Still no VideoStream.finished() signal? This needs to exist
 	if !is_playing():
-		SceneLoader.next_scene()
+		SceneLoader.show_scene(next_scene, true)
 	return
 
 func _parse_subtitles():

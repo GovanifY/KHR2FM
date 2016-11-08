@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://ASSETS/GFX/Loading.png" type="Texture" id=1]
+[ext_resource path="res://SCRIPTS/Loading/SceneLoader.gd" type="Script" id=1]
+[ext_resource path="res://ASSETS/GFX/Loading.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=1]
 
@@ -16,6 +17,8 @@ tracks/0/keys = { "times":FloatArray( 0, 0.3, 0.31, 0.6 ), "transitions":FloatAr
 
 [node name="LoadingScreen" type="Control"]
 
+process/pause_mode = 2
+visibility/visible = false
 anchor/left = 1
 anchor/top = 1
 anchor/right = 1
@@ -28,14 +31,14 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
+script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
 
 [node name="Heart" type="Sprite" parent="."]
 
 transform/pos = Vector2( -50, -50 )
-transform/scale = Vector2( 1, 1 )
 z/z = 4096
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 
 [node name="HeartAnimation" type="AnimationPlayer" parent="."]
 

@@ -1,28 +1,16 @@
-extends Node
+extends Control
 
 # Constants
-const PATH_SCENES = "res://GAME/"
-const LoadingScreen = preload("res://SCENES/Loading/LoadingScreen.tscn")
-const ThreadLoader = preload("res://SCRIPTS/Loading/ThreadLoader.gd")
+const PATH_SCENES  = "res://GAME/"
 
 # Instance members
-var Scenes = {
-	"path"    : null,
-	"current" : null,
-	"next"    : null,
-	"loader"  : null
+onready var ThreadLoader = preload("res://SCRIPTS/Loading/ThreadLoader.gd").new(self)
+onready var Loading = {
+	"animation"  : get_node("HeartAnimation"),
+	"background" : false
 }
-var Loading = {
-	"background" : false,
-	"complete" : true
-}
-
-# Our FIFO Queue
-var Queue = []
-# Our magical threads
-var SL_Threads = {
-	"loader"  : null
-}
+var current_scene
+var next_scenes = Array()
 
 # "Private" members
 onready var root = get_tree().get_root()
@@ -30,162 +18,102 @@ onready var root = get_tree().get_root()
 ######################
 ### Core functions ###
 ######################
-func _prepare_main_loader():
-	# Skip in case it's already instanced
-	if Scenes.loader != null:
-		return
+func _show_screen():
+	show()
+	Loading.animation.set_active(true)
+	set_process(true)
 
-	# Instance the loading scene
-	Scenes.loader = LoadingScreen.instance()
+func _hide_screen():
+	set_process(false)
+	Loading.animation.set_active(false)
+	hide()
 
-	# If a LoadingScreen is NOT instanced, then something REALLY went wrong
-	assert(Scenes.loader != null)
-	root.add_child(Scenes.loader)
+func _process(delta):
+	for scene in next_scenes:
+		if is_ready(scene):
+			show_scene(scene)
+			next_scenes.erase(scene)
 
-func _destroy_main_loader():
-	_stop_scene(Scenes.loader)
-	Scenes.loader = null
-
-func _destroy_current_scene():
-	_stop_scene(Scenes.current)
-	Scenes.current = null
-
-func _set_new_scene():
-	# We don't need a ThreadLoader anymore
-	kill_thread(SL_Threads.loader)
-	# Instancing the new resource
-	var resource = Scenes.next.get_resource()
-	Scenes.next = null
-	root.add_child(resource.instance())
-
-	Scenes.path = null
-
-# Setup when loading was concluded
-func _finish_loading():
-	# Grabbing our latest result
-	Scenes.next = SL_Threads.loader.result()
-
-	# We destroy the LoadingScreen since we don't need it anymore
-	_destroy_main_loader()
-	Loading.complete = true
-
-	# Firing up the new scene
-	if !Loading.background:
-		_set_new_scene()
+	# If we're done here, stop processing
+	if next_scenes.empty():
+		_hide_screen()
 
 ########################
 ### Helper functions ###
 ########################
-static func _enqueue(queue, elem):
-	assert(typeof(queue) == TYPE_ARRAY && elem != null)
-	if not elem in queue:
-		queue.push_back(elem)
+static func complete_path(path):
+	# Check if we were given a partial path
+	if !path.is_abs_path():
+		path = PATH_SCENES + path
+	return path
 
-static func _dequeue(queue):
-	assert(typeof(queue) == TYPE_ARRAY)
-	if queue.size() == 0:
-		print("Queue is empty")
-		return null
-
-	# FIXME: Since Godot doesn't know how "pop" works, I have to do it this way
-	var temp = queue[0]
-	queue.pop_front()
-	return temp
-
-static func _load_scene(path):
-	var next = ResourceLoader.load_interactive(path)
-	# Check if something went wrong while loading the file
-	# TODO: use an "if" condition and output our error.
-	assert(next != null)
-	return next
-
-static func _stop_scene(scene):
-	if scene != null:
+static func halt_node(node):
+	if typeof(node) == TYPE_OBJECT:
 		# Stop every process from this node to avoid crashes
-		scene.set_process(false)
-		scene.set_process_input(false)
-		scene.queue_free()
+		node.set_process(false)
+		node.set_process_input(false)
+		node.set_fixed_process(false)
+		node.queue_free()
 
 ###############
 ### Methods ###
 ###############
-# Adds a scene's path to our queue
-func add_scene(path):
-	if !is_ready():
-		return
+# Adds the given resources to queue to load them immediately
+func load_scene(path, background = false):
+	path = complete_path(path)
 
-	# Check if we were given a partial path
-	if !path.is_abs_path():
-		path = PATH_SCENES + path
-	# Only enqueue it if it's a valid path
 	var f = File.new()
-	if f.file_exists(path):
-		_enqueue(Queue, path)
-
-# Determines if a scene can be loaded
-func is_there_a_scene():
-	return Queue.size() > 0
-
-# Checks if a new scene is ready
-func is_ready():
-	var ret = Loading.complete
-	if SL_Threads.loader != null:
-		return ret && !SL_Threads.loader.is_active()
-	return ret
-
-# Loads new scene.
-func load_new_scene(background = false):
-	if !is_ready():
-		return false
-
-	Scenes.path = _dequeue(Queue)
-	if Scenes.path == null || Scenes.path.empty():
-		print("SceneLoader: No available scene to load")
+	if !f.file_exists(path):
+		print("SceneLoader: Cannot load given path because it doesn't exist.")
 		return false
 
 	# Setting current scene (by grabbing root's last child)
-	Scenes.current = root.get_child(root.get_child_count()-1)
+	if current_scene == null:
+		current_scene = root.get_child(root.get_child_count()-1)
 
 	# Are we doing background?
 	Loading.background = background
 	if !background:
-		_destroy_current_scene()
-		_prepare_main_loader()
+		_show_screen()
+		halt_node(current_scene)
+		current_scene = null
 
-	# Manage the ThreadLoader with our material
+		# Pushing an additional scene for loading in foreground
+		next_scenes.push_back(path)
+
+	# Let ThreadLoader start working (prioritize if not running in background)
 	Loading.complete = false
-	start_thread()
+	ThreadLoader.queue_resource(path, !background)
 
 	return true
 
-# Fires up a new ThreadLoader
-func start_thread():
-	SL_Threads.loader = ThreadLoader.new()
-	SL_Threads.loader.connect("scene_ready", self, "_finish_loading")
-	SL_Threads.loader.connect("scene_error", self, "kill_all_threads")
-	SL_Threads.loader.add_scene(_load_scene(Scenes.path))
-	SL_Threads.loader.start_loader()
+# Checks if the given resource is ready
+func is_ready(path):
+	path = complete_path(path)
+	return ThreadLoader.is_ready(path)
 
-# Kills thread and decrements RefCount
-func kill_thread(thread):
-	if thread != null && thread.is_active():
-		thread.wait_to_finish()
-		thread.clear()
+# Unloads current scene and loads the currently loaded one
+func show_scene(path, halt_current = false):
+	path = complete_path(path)
 
+	# Halt current scene (if issued)
+	if halt_current:
+		halt_node(current_scene)
+		current_scene = null
+
+	# Instance the loaded scene and put it ahead all the others
+	var resource = ThreadLoader.result(path)
+	root.add_child(resource.instance())
+
+	# FIXME: Let the user decide for himself?
+	erase_scene(path)
+
+func erase_scene(path):
+	ThreadLoader.cancel_resource(path)
+
+# Kills all threads
 func kill_all_threads():
-	for thread in SL_Threads:
-		kill_thread(SL_Threads[thread])
-		SL_Threads[thread] = null
-
-# Erases current scene and jumps over to the next one. There are two scenarios:
-# 1. A scene is still loading, so it launches LoadingScreen
-# 2. A scene is loaded, switch to it immediately
-func next_scene():
-	_destroy_current_scene()
-	if !is_ready():
-		_prepare_main_loader()
-
-	SL_Threads.loader.wait_to_finish()
-	_destroy_main_loader()
-	_set_new_scene()
-	return
+	ThreadLoader.clear()
+	for thread in ThreadLoader.threads:
+		if thread.is_active():
+			thread.wait_to_finish()

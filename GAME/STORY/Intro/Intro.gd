@@ -49,5 +49,4 @@ func _fetch_sequence():
 		Dialogue.speak("Kiryoku", 7)
 	elif cursor == 7:
 		#TODO: Add music&stuff
-		SceneLoader.add_scene("Intro/Battle_Yuugure.tscn")
-		SceneLoader.load_new_scene()
+		SceneLoader.load_scene("Intro/Battle_Yuugure.tscn")

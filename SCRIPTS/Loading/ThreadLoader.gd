@@ -1,16 +1,14 @@
-extends Thread
-
-var scene_next = null
-
-var has_loaded = false
+# Instance members
+var processing = true
 var has_progress = false
 
-# Signal
-signal scene_ready
-signal scene_error
-
 # Multi-Threading material
+var queue   = Array()
+var pending = Dictionary()
+
 var mutex
+var sem
+var threads = Array()
 
 func _lock(caller):
 	mutex.lock()
@@ -18,91 +16,156 @@ func _lock(caller):
 func _unlock(caller):
 	mutex.unlock()
 
+func _post(caller):
+	sem.post()
+
+func _wait(caller):
+	sem.wait()
+
+
 ######################
 ### Core functions ###
 ######################
+func _init(loader):
+	mutex = Mutex.new()
+	sem   = Semaphore.new()
+
 func _print_progress():
-	_lock("print_progress")
 	if has_progress:
-		print("Loading: ", _get_progress())
-	_unlock("print_progress")
-	return
+		for path in queue: # FIXME: untested
+			print("Loading: ", _get_progress(path))
 
 # This function uses division, so it's best not to use it heavily
-func _get_progress():
+func _get_progress(path):
 	_lock("get_progress")
 	var ret = -1
-	if scene_next extends ResourceInteractiveLoader:
-		ret = float(scene_next.get_stage()) / float(scene_next.get_stage_count())
-	else:
-		ret = 1.0
+	if path in pending:
+		if pending[path] extends ResourceInteractiveLoader:
+			ret = float(pending[path].get_stage()) / float(pending[path].get_stage_count())
+		else:
+			ret = 1.0
 	_unlock("get_progress")
 
-	return ret
-
-func _set_readiness():
-	_lock("_set_readiness")
-	has_loaded = true
-	emit_signal("scene_ready")
-	_unlock("_set_readiness")
+func _wait_for_resource(res, path):
+	_unlock("wait_for_resource")
+	while true:
+		VS.flush()
+		OS.delay_usec(16000) # wait 1 frame
+		_lock("wait_for_resource")
+		if queue.size() == 0 || queue[0] != res:
+			return pending[path]
+		_unlock("wait_for_resource")
 
 # Thread-related
 func _thread_process():
+	_wait("thread_process")
+
 	_lock("process")
-	if is_ready(): # no more loading
-		_unlock("process")
-		return
+	while queue.size() > 0:
+		var res = queue[0]
 
-	# poll your next Scene
-	_unlock("process_poll")
-	var err = scene_next.poll()
-	_lock("process_check_queue")
+		_unlock("process_poll")
+		var err = res.poll()
+		_lock("process_check_queue")
 
-	if err == ERR_FILE_EOF: # load finished
-		_set_readiness()
-	elif err == OK: # Updating progress
-		_print_progress()
-	else:
-		# Loading error: some files probably weren't loaded.
-		# FIXME: Quitting is too much; think of an alternative scenario in
-		# FIXME: case of failure
-		OS.alert("There was a problem loading the next scene.", "Loading error!")
-		emit_signal("scene_error")
-		set_loop_mode(false)
-		return
+		if err == OK: # Updating progress
+			_print_progress()
+		elif err == ERR_FILE_EOF || err != OK:
+			var path = res.get_meta("path")
+			if path in pending: # else it was already retrieved
+				pending[res.get_meta("path")] = res.get_resource()
 
+			queue.erase(res) # something might have been put at the front of the queue while we polled, so use erase instead of remove
 	_unlock("process")
-	return
 
-func _thread_loop(nothing):
-	while !is_ready():
+func _thread_loop(path):
+	while !is_ready(path) && processing:
 		_thread_process()
-
+	print("ThreadLoader: Finished loading \"", path, "\"")
 
 ###############
 ### Methods ###
 ###############
 func clear():
-	scene_next = null
+	_lock("clearing")
+	processing = false
+	queue.clear()
+	pending.clear()
+	_unlock("clearing")
 
-func result():
-	return scene_next
+func is_ready(path):
+	var ret
 
-func add_scene(loaded_scene):
-	scene_next = loaded_scene
-	has_loaded = false
+	_lock("is_ready")
+	if path in pending:
+		ret = !(pending[path] extends ResourceInteractiveLoader)
+	else:
+		ret = false
+	_unlock("is_ready")
 
-func is_ready():
-	return has_loaded
+	return ret
 
-func start_loader(debug = false):
-	mutex = Mutex.new()
+func result(path):
+	_lock("get_result")
+	if path in pending:
+		if pending[path] extends ResourceInteractiveLoader:
+			var res = pending[path]
+			if res != queue[0]:
+				var pos = queue.find(res)
+				queue.remove(pos)
+				queue.insert(0, res)
 
-	if !debug:
-		var err = start(self, "_thread_loop", PRIORITY_LOW)
-		if err != OK:
-			OS.alert("Couldn't create a loading thread!", "ThreadLoader Error")
-			emit_signal("scene_error")
-	else: # Debug-only: Doesn't launch a thread.
-		_thread_loop(0)
-	return
+			res = _wait_for_resource(res, path)
+
+			pending.erase(path)
+			_unlock("return")
+			return res
+
+		else:
+			var res = pending[path]
+			pending.erase(path)
+			_unlock("return")
+			return res
+	else:
+		_unlock("return")
+		return ResourceLoader.load(path)
+
+func queue_resource(path, p_in_front = false):
+	# Create a thread for this resource
+	processing = true
+	var thread = Thread.new()
+
+	var err = thread.start(self, "_thread_loop", path, Thread.PRIORITY_LOW)
+	if err != OK:
+		OS.alert("Couldn't create a loading thread!", "ThreadLoader Error")
+		return false
+	threads.push_back(thread)
+
+	_lock("queue_resource")
+	if path in pending:
+		_unlock("queue_resource")
+		return
+	elif ResourceLoader.has(path):
+		var res = ResourceLoader.load(path)
+		pending[path] = res
+		_unlock("queue_resource")
+		return
+	else:
+		var res = ResourceLoader.load_interactive(path)
+		res.set_meta("path", path)
+		if p_in_front:
+			queue.insert(0, res)
+		else:
+			queue.push_back(res)
+		pending[path] = res
+		_post("queue_resource")
+		_unlock("queue_resource")
+		return
+
+func cancel_resource(path):
+	_lock("cancel_resource")
+	if path in pending:
+		if pending[path] extends ResourceInteractiveLoader:
+			queue.erase(pending[path])
+		pending.erase(path)
+	_unlock("cancel_resource")
