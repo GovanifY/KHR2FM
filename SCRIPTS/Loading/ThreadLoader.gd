@@ -26,7 +26,7 @@ func _wait(caller):
 ######################
 ### Core functions ###
 ######################
-func _init(loader):
+func _init():
 	mutex = Mutex.new()
 	sem   = Semaphore.new()
 
