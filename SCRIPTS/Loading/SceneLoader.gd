@@ -105,11 +105,6 @@ func show_scene(path, halt_current = false):
 	var resource = ThreadLoader.get_resource(path)
 	root.add_child(resource.instance())
 
-	# FIXME: Let the user decide for himself?
-	erase_scene(path)
-
-	print(ThreadLoader.threads)
-
 func erase_scene(path):
 	ThreadLoader.cancel_resource(path)
 
