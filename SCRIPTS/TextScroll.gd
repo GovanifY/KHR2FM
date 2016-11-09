@@ -68,7 +68,6 @@ func scroll(texttouse):
 		text_node.set_scroll_active(false)
 	elif text_node.is_type("Label"):
 		text_node.set_text(texttouse)
-		text_node.set_autowrap(true)
 
 	text_node.set_visible_characters(1)
 	# Regenerate word cache to avoid performance drop during scroll
