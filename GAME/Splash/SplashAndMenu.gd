@@ -63,10 +63,10 @@ func _process(delta):
 		if Input.is_action_pressed("ui_down"):
 			down = true
 
-		if Input.is_action_pressed("enter"):
+		if Input.is_action_pressed("ui_accept"):
 			confirm = true
 
-		if Input.is_action_pressed("cancel"):
+		if Input.is_action_pressed("ui_cancel"):
 			cancel = true
 
 		if(New_Window==false && Save_Window==false && Quitting==false):

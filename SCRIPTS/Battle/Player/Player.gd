@@ -65,8 +65,8 @@ func setup_controls():
 			finisher_voice_se = null
 
 		# Adding actions
-		InputActions["cancel"] = ActionSet.new_action("Guard")
-		InputActions["enter"] = ActionSet.new_action("Attack", true)
+		InputActions["ui_cancel"] = ActionSet.new_action("Guard")
+		InputActions["ui_accept"] = ActionSet.new_action("Attack", true)
 
 func setup_data():
 	if Globals.get("PlayerData"):

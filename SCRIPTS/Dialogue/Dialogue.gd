@@ -34,7 +34,7 @@ func _ready():
 func _input(event):
 	# Pressed, non-repeating Input check
 	if event.is_pressed() && !event.is_echo():
-		if event.is_action("enter"):
+		if event.is_action("ui_accept"):
 			Bubble.TextBox.confirm()
 
 	# Pressed, repeating Input check

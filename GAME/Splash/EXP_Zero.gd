@@ -29,7 +29,7 @@ func _process(delta):
 		if Input.is_action_pressed("ui_right"):
 			right = true
 
-		if Input.is_action_pressed("enter"):
+		if Input.is_action_pressed("ui_accept"):
 			confirm = true
 
 		if (left == true && keypressed == false):

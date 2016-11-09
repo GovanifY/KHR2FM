@@ -16,7 +16,7 @@ func _ready():
 func _input(event):
 	# Avoid repeated key captures
 	if event.is_pressed() && !event.is_echo():
-		if event.is_action("enter"):
+		if event.is_action("ui_accept"):
 			InfoText.confirm()
 
 #######################

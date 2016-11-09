@@ -1796,7 +1796,7 @@ normal = null
 pressed = null
 bitmask = null
 passby_press = false
-action = "cancel"
+action = "ui_cancel"
 visibility_mode = 0
 
 [node name="up_touch" type="TouchScreenButton" parent="."]
@@ -1828,7 +1828,7 @@ normal = null
 pressed = null
 bitmask = null
 passby_press = false
-action = "enter"
+action = "ui_accept"
 visibility_mode = 0
 
 
