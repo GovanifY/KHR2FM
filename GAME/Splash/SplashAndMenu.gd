@@ -290,7 +290,7 @@ func _process(delta):
 
 		elif(Quitting==true):
 			if(!get_node("Custom Title System/QuitGame").is_playing()):
-				KHR2.quit()
+				KHR2.quit_game()
 
 		if(keypressed==true && (up==false && down==false && confirm==false && cancel==false)):
 			keypressed=false
