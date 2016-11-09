@@ -3,7 +3,7 @@
 [ext_resource path="res://SCRIPTS/Battle/InfoBar.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Others/Info_00.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://SCRIPTS/TextScroll.gd" type="Script" id=4]
+[ext_resource path="res://SCENES/TextScroll.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ASSETS/SE/System/Infos.wav" type="Sample" id=5]
 
 [sub_resource type="DynamicFont" id=1]
@@ -75,9 +75,7 @@ bbcode/enabled = true
 bbcode/bbcode = ""
 visible_characters = -1
 
-[node name="TextScroll" type="Node" parent="InfoSprite/InfoLabel"]
-
-script/script = ExtResource( 4 )
+[node name="TextScroll" parent="InfoSprite/InfoLabel" instance=ExtResource( 4 )]
 
 [node name="Slide" type="AnimationPlayer" parent="."]
 

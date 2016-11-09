@@ -8,7 +8,7 @@
 [ext_resource path="res://ASSETS/GFX/Game/Text/hook0.png" type="Texture" id=6]
 [ext_resource path="res://ASSETS/GFX/Game/Text/confirm_icon.png" type="Texture" id=7]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://SCRIPTS/TextScroll.gd" type="Script" id=9]
+[ext_resource path="res://SCENES/TextScroll.tscn" type="PackedScene" id=9]
 
 [sub_resource type="SampleLibrary" id=1]
 
@@ -107,7 +107,6 @@ autoplay = ""
 
 [node name="TextContainer" type="Label" parent="Bubble"]
 
-editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 rect/min_size = Vector2( 60, 60 )
@@ -130,8 +129,6 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = 2
 
-[node name="TextScroll" type="Node" parent="Bubble/TextContainer"]
-
-script/script = ExtResource( 9 )
+[node name="TextScroll" parent="Bubble/TextContainer" instance=ExtResource( 9 )]
 
 
