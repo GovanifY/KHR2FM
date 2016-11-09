@@ -67,7 +67,6 @@ func scroll(texttouse):
 		text_node.set_bbcode(texttouse)
 	elif text_node.is_type("Label"):
 		text_node.set_text(texttouse)
-		text_node.set_clip_text(true)
 
 	text_node.set_visible_characters(1)
 	# Regenerate word cache to avoid performance drop during scroll
