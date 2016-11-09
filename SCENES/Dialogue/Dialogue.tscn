@@ -107,6 +107,7 @@ autoplay = ""
 
 [node name="TextContainer" type="Label" parent="Bubble"]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 rect/min_size = Vector2( 60, 60 )
@@ -125,6 +126,7 @@ custom_constants/line_spacing = 9
 custom_constants/shadow_as_outline = 1
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut risus nisi, venenatis vitae imperdiet non, rhoncus ac felis. Nunc iaculis ipsum ipsum, a vehicula massa commodo non."
 autowrap = true
+clip_text = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = 2
