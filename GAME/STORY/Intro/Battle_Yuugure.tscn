@@ -5,7 +5,6 @@
 [ext_resource path="res://SCENES/Battle/ForeGround/Fog.tscn" type="PackedScene" id=3]
 [ext_resource path="res://SCENES/Battle/BattlePlan.tscn" type="PackedScene" id=4]
 
-
 [node name="Battle_Yuugure" type="Node2D"]
 
 [node name="Kiryoku" parent="." instance=ExtResource( 1 )]
@@ -32,7 +31,6 @@ scroll/ignore_camera_zoom = false
 
 [node name="BattlePlan" parent="." instance=ExtResource( 4 )]
 
-info_message = "INFO_INTRO_YUUGURE"
 Player = NodePath("../Kiryoku")
 Enemy = NodePath("../Yuugure")
 

@@ -34,7 +34,6 @@ friction = 1.0
 bounce = 0.0
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
-info_message = "INFO_BATTLE_MESSAGE"
 Player = null
 Enemy = null
 
@@ -53,6 +52,8 @@ trigger = false
 _update_shape_index = 1
 
 [node name="InfoBar" parent="." instance=ExtResource( 2 )]
+
+autostart = false
 
 [node name="HUD" type="CanvasLayer" parent="."]
 

@@ -1,7 +1,6 @@
 extends Node2D
 
 # Export values
-export(String) var info_message = "INFO_BATTLE_MESSAGE"
 export(NodePath) var Player
 export(NodePath) var Enemy
 #export(int, 0, 20) var enemy_multiplier
@@ -75,4 +74,4 @@ func init_battle():
 	get_tree().call_group(0, "Battlers", "at_ease")
 
 	# Start Infobar animation
-	InfoBar.display(info_message)
+	InfoBar.play()

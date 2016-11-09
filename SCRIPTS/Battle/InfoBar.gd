@@ -1,34 +1,37 @@
 # Signals
 signal dismiss
 
+# Export values
+export(String) var info_message = "INFO_BATTLE_MESSAGE"
+export(bool) var autostart = true
+
 # Instance members
-onready var Slide    = get_node("Slide")
-onready var InfoText = get_node("InfoSprite/InfoLabel/TextScroll")
+onready var Slide      = get_node("Slide")
+onready var TextScroll = get_node("InfoLabel/TextScroll")
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	# Connecting signals
-	InfoText.connect("finished", self, "set_process_input", [true])
-	InfoText.connect("cleared", self, "_start_dismissal")
+	if autostart:
+		play()
 
 func _input(event):
 	# Avoid repeated key captures
 	if event.is_pressed() && !event.is_echo():
 		if event.is_action("ui_accept"):
-			InfoText.confirm()
+			TextScroll.confirm()
 
 #######################
 ### Signal routines ###
 #######################
-func _display(message):
+func _display():
 	Slide.disconnect("finished", self, "_display")
-	InfoText.scroll(message)
-	Slide.connect("finished", self, "_end_dismissal")
+	TextScroll.scroll(info_message)
 
 func _start_dismissal():
 	set_process_input(false)
+	Slide.connect("finished", self, "_end_dismissal")
 	Slide.play("Out")
 
 func _end_dismissal():
@@ -38,9 +41,6 @@ func _end_dismissal():
 ###############
 ### Methods ###
 ###############
-func display(messageID):
-	# Grabbing message from its ID
-	var message = tr(messageID)
-	Slide.connect("finished", self, "_display", [message])
-	# Begin!
+func play():
+	Slide.connect("finished", self, "_display")
 	Slide.play("In")
