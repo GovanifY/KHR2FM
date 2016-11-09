@@ -102,11 +102,13 @@ func show_scene(path, halt_current = false):
 		current_scene = null
 
 	# Instance the loaded scene and put it ahead all the others
-	var resource = ThreadLoader.result(path)
+	var resource = ThreadLoader.get_resource(path)
 	root.add_child(resource.instance())
 
 	# FIXME: Let the user decide for himself?
 	erase_scene(path)
+
+	print(ThreadLoader.threads)
 
 func erase_scene(path):
 	ThreadLoader.cancel_resource(path)
@@ -114,6 +116,3 @@ func erase_scene(path):
 # Kills all threads
 func kill_all_threads():
 	ThreadLoader.clear()
-	for thread in ThreadLoader.threads:
-		if thread.is_active():
-			thread.wait_to_finish()
