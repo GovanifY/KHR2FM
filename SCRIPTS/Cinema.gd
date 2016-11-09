@@ -54,7 +54,6 @@ func _process(delta):
 	# FIXME: Still no VideoStream.finished() signal? This needs to exist
 	if !is_playing():
 		SceneLoader.show_scene(next_scene, true)
-	return
 
 func _parse_subtitles():
 	var subs = File.new()
