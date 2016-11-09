@@ -9,7 +9,6 @@ onready var Loading = {
 	"animation"  : get_node("HeartAnimation"),
 	"background" : false
 }
-var current_scene
 var next_scenes = Array()
 
 # "Private" members
@@ -48,7 +47,7 @@ static func complete_path(path):
 	return path
 
 static func halt_node(node):
-	if typeof(node) == TYPE_OBJECT:
+	if node != null:
 		# Stop every process from this node to avoid crashes
 		node.set_process(false)
 		node.set_process_input(false)
@@ -67,24 +66,20 @@ func load_scene(path, background = false):
 		print("SceneLoader: Cannot load given path because it doesn't exist.")
 		return false
 
-	# Setting current scene (by grabbing root's last child)
-	if current_scene == null:
-		current_scene = root.get_child(root.get_child_count()-1)
+	# Setting current scene
+	get_tree().set_current_scene(root.get_child(root.get_child_count()-1))
 
 	# Are we doing background?
 	Loading.background = background
 	if !background:
 		_show_screen()
-		halt_node(current_scene)
-		current_scene = null
+		halt_node(get_tree().get_current_scene())
 
 		# Pushing an additional scene for loading in foreground
 		next_scenes.push_back(path)
 
 	# Let ThreadLoader start working (prioritize if not running in background)
-	Loading.complete = false
 	ThreadLoader.queue_resource(path, !background)
-
 	return true
 
 # Checks if the given resource is ready
@@ -96,14 +91,12 @@ func is_ready(path):
 func show_scene(path, halt_current = false):
 	path = complete_path(path)
 
-	# Halt current scene (if issued)
-	if halt_current:
-		halt_node(current_scene)
-		current_scene = null
-
 	# Instance the loaded scene and put it ahead all the others
-	var resource = ThreadLoader.get_resource(path)
-	root.add_child(resource.instance())
+	var res = ThreadLoader.get_resource(path)
+	if halt_current: # Halt current scene (if issued)
+		get_tree().change_scene_to(res)
+	else:
+		root.add_child(res.instance())
 
 func erase_scene(path):
 	ThreadLoader.cancel_resource(path)

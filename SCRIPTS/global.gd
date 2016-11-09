@@ -2,7 +2,6 @@ extends Node
 
 # Ce script gère les fonctions globales du jeu qui se font dans le background
 # tel que le timer, la save ou le fullscreen.
-# Le script est en autoload.
 
 # Un accumulateur pour le timer
 var accum = 0
@@ -27,14 +26,14 @@ func _input(event):
 		# Detect a quit ---> HIGH PRIORITY! Call the quit function right away
 		if event.is_action("quit"):
 			quit_game()
-
-		if event.is_action("fullscreen"):
+		elif event.is_action("fullscreen"):
 			OS.set_window_fullscreen(!OS.is_video_mode_fullscreen())
-			return
 
 		# Debugging stuff, ignore this
 		if OS.is_debug_build():
-			if event.is_action("debug"):
+			if event.is_action("reload_scene"):
+				get_tree().reload_current_scene()
+			elif event.is_action("debug"):
 				if !Globals.get("DebugCMD"):
 					load_node("DebugCMD", "res://SCENES/Debug/DebugCMD.tscn")
 				else:
@@ -54,7 +53,7 @@ func _process(delta):
 				Globals.set("PlayTimeHours", Globals.get("PlayTimeHours") + 1)
 
 # Determines if the given string is valid
-func _is_valid_string(string):
+static func _is_valid_string(string):
 	return typeof(string) == TYPE_STRING && !string.empty()
 
 ###############
