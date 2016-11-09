@@ -34,10 +34,17 @@ func _input(event):
 			if event.is_action("reload_scene"):
 				get_tree().reload_current_scene()
 			elif event.is_action("debug"):
-				if !Globals.get("DebugCMD"):
-					load_node("DebugCMD", "res://SCENES/Debug/DebugCMD.tscn")
+				var debug_path = "res://SCENES/Debug/DebugCMD.tscn"
+				var debug_name = "DebugCMD"
+
+				if !Globals.get(debug_name):
+					SceneLoader.load_scene(debug_path, true)
+					SceneLoader.show_scene(debug_path)
+					Globals.set(debug_name, true)
 				else:
-					unload_node("DebugCMD")
+					get_node("/root/" + debug_name).free()
+					SceneLoader.erase_scene(debug_path)
+					Globals.set(debug_name, false)
 		return
 
 func _process(delta):
@@ -52,10 +59,6 @@ func _process(delta):
 			if Globals.get("PlayTimeMinutes") >= 60:
 				Globals.set("PlayTimeHours", Globals.get("PlayTimeHours") + 1)
 
-# Determines if the given string is valid
-static func _is_valid_string(string):
-	return typeof(string) == TYPE_STRING && !string.empty()
-
 ###############
 ### Methods ###
 ###############
@@ -63,55 +66,3 @@ static func _is_valid_string(string):
 func quit_game():
 	SceneLoader.kill_all_threads()
 	get_tree().quit()
-
-# Loads a node via a path and puts it in /root above the current scene.
-func load_node(name, path):
-	var exts = ["gd", "tscn"]
-	if !_is_valid_string(name) || !_is_valid_string(path):
-		printerr("Given arguments aren't valid Strings")
-		return false
-	elif not (path.extension() in exts):
-		printerr("File must contain one of these extensions:")
-		printerr(exts)
-		return false
-
-	var root = get_tree().get_root()
-	var scene = load(path)
-
-	if scene == null:
-		printerr("Couldn't load file")
-		return false
-
-	# Unpacking
-	var node = scene.instance()
-
-	root.add_child(node)
-	root.move_child(node, 0)
-	node.set_name(name)
-
-	Globals.set(name, true)
-	return true
-
-# Unloads a node from /root. BE VERY CAREFUL WITH THIS!!!
-func unload_node(path):
-	var exceptions = ["KHR2", "AudioRoom", "SceneLoader"]
-	if !_is_valid_string(path):
-		return false
-	for global in exceptions:
-		if path.findn(global) != -1:
-			printerr("As a safety measure, I cannot unload \"%s\"" % global)
-			return false
-
-	var root = get_tree().get_root()
-	var node = root.get_node(NodePath(path))
-	var name = node.get_name()
-
-	if node == null:
-		printerr("Couldn't load node from root")
-		return false
-
-	root.remove_child(node)
-	node.free()
-
-	Globals.set(name, false)
-	return true
