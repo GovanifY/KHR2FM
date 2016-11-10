@@ -19,7 +19,7 @@ func _ready():
 	ConfirmIcon.get_node("Hover").play("Down_Up")
 
 	# Connecting signals
-	TextBox.connect("cleared", get_node(".."), "_next_line")
+	TextBox.connect("cleared", get_node("../.."), "_next_line")
 	TextBox.connect("cleared", ConfirmIcon, "hide")
 	TextBox.connect("finished", ConfirmIcon, "show")
 

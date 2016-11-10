@@ -1,7 +1,8 @@
-extends VBoxContainer
+extends Control
 
 # Export values
 export(String, FILE, "csv") var csv_path = String()
+export(int, "Top", "Middle", "Bottom") var position = 2
 export(Sample) var confirm_sound = preload("res://ASSETS/SE/System/MSG_SOUND.wav")
 export(Sample) var character_sound
 
@@ -10,7 +11,8 @@ signal finished
 
 # Instance members
 onready var SE_node    = get_node("SE")
-onready var Bubble     = get_node("Bubble")
+onready var SkinPos    = get_node("SkinPos")
+onready var Bubble     = get_node("SkinPos/Bubble")
 onready var Translator = get_node("Translator")
 
 # "Private" members
@@ -23,6 +25,9 @@ var current_speaker = null
 func _ready():
 	# Initializing Translator
 	Translator.init(csv_path)
+
+	# Initializing Bubble
+	SkinPos.set_alignment(position)
 
 	# Initializing sound
 	if confirm_sound != null:
@@ -81,6 +86,10 @@ func _next_line():
 # Sets a (new) CSV path
 func set_csv(path):
 	Translator.init(path)
+
+# Sets Bubble alignment
+func set_alignment(value):
+	SkinPos.set_alignment(value)
 
 # Tells if there are still lines on hold.
 func is_loaded():
