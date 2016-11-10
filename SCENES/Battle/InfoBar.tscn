@@ -6,7 +6,7 @@
 [ext_resource path="res://SCENES/TextScroll.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ASSETS/SE/System/Infos.wav" type="Sample" id=5]
 
-[sub_resource type="StyleBoxTexture" id=5]
+[sub_resource type="StyleBoxTexture" id=1]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -24,11 +24,11 @@ expand_margin/bottom = 0.0
 modulate/color = Color( 1, 1, 1, 1 )
 draw_center = true
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=5]
 
-font/size = 16
+font/size = 14
 font/use_mipmaps = false
-font/use_filter = false
+font/use_filter = true
 font/font = ExtResource( 3 )
 
 [sub_resource type="Animation" id=2]
@@ -73,13 +73,14 @@ margin/left = -450.0
 margin/top = 30.0
 margin/right = -5.0
 margin/bottom = 80.0
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 1 )
 script/script = ExtResource( 2 )
 info_message = "INFO_BATTLE_MESSAGE"
 autostart = true
 
-[node name="InfoLabel" type="RichTextLabel" parent="."]
+[node name="InfoLabel" type="Label" parent="."]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
@@ -87,14 +88,14 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 30.0
-margin/top = 23.0
+margin/top = 25.0
 margin/right = 30.0
 margin/bottom = 5.0
-custom_fonts/normal_font = SubResource( 1 )
-custom_constants/line_separation = 0
-bbcode/enabled = true
-bbcode/bbcode = ""
-visible_characters = -1
+custom_fonts/font = SubResource( 5 )
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = 1
 
 [node name="TextScroll" parent="InfoLabel" instance=ExtResource( 4 )]
 

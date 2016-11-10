@@ -2,7 +2,7 @@
 signal dismiss
 
 # Export values
-export(String) var info_message = "INFO_BATTLE_MESSAGE"
+export(String, MULTILINE) var info_message = "INFO_BATTLE_MESSAGE"
 export(bool) var autostart = true
 
 # Instance members
