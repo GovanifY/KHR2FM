@@ -2,7 +2,7 @@
 
 [ext_resource path="res://GAME/DebugRoom/DialogueTest.gd" type="Script" id=1]
 [ext_resource path="res://SCENES/Dialogue/Character.tscn" type="PackedScene" id=2]
-[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku/Kiryoku-spriteset.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku/Box_message_013.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure/Box_message_012.png" type="Texture" id=4]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=6]
@@ -24,14 +24,12 @@ visibility/visible = false
 transform/pos = Vector2( 210.443, 240 )
 texture = ExtResource( 3 )
 hframes = 2
-name = "Kiryoku"
 
 [node name="Yuugure" parent="." instance=ExtResource( 2 )]
 
 visibility/visible = false
 transform/pos = Vector2( 651.371, 240 )
 texture = ExtResource( 4 )
-name = "Yuugure"
 
 [node name="Narrator" parent="." instance=ExtResource( 2 )]
 
