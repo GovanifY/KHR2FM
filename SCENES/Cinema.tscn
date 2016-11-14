@@ -2,7 +2,7 @@
 
 [ext_resource path="res://SCRIPTS/Cinema.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://SCENES/Translator.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/translator/Translator.gd" type="Script" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -55,6 +55,8 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = 2
 
-[node name="Translator" parent="." instance=ExtResource( 3 )]
+[node name="Translator" type="Node" parent="."]
+
+script/script = ExtResource( 3 )
 
 

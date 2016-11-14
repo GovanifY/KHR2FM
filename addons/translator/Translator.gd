@@ -3,6 +3,9 @@ extends Node
 # Instance members
 var Lines
 
+func _exit_tree():
+	close()
+
 ###############
 ### Methods ###
 ###############
