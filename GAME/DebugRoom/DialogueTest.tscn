@@ -31,11 +31,6 @@ visibility/visible = false
 transform/pos = Vector2( 651.371, 240 )
 texture = ExtResource( 4 )
 
-[node name="Narrator" parent="." instance=ExtResource( 2 )]
-
-visibility/visible = false
-type = 1
-
 [node name="Warning" type="Label" parent="."]
 
 focus/ignore_mouse = true
