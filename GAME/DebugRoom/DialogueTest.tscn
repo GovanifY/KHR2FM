@@ -23,7 +23,6 @@ script/script = ExtResource( 1 )
 visibility/visible = false
 transform/pos = Vector2( 210.443, 240 )
 texture = ExtResource( 3 )
-hframes = 2
 
 [node name="Yuugure" parent="." instance=ExtResource( 2 )]
 
