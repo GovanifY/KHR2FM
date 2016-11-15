@@ -16,10 +16,10 @@ length = 1.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:offset")
+tracks/0/path = NodePath(".:margin/top")
 tracks/0/interp = 2
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ Vector2( 0, 0 ), Vector2( 0, 10 ), Vector2( 0, 0 ) ] }
+tracks/0/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 56, 67 ] }
 
 [sub_resource type="DynamicFont" id=2]
 
@@ -52,15 +52,17 @@ character_sound = null
 [node name="SkinPos" type="VBoxContainer" parent="."]
 
 editor/display_folded = true
-anchor/right = 1
+anchor/left = 2
+anchor/right = 2
 anchor/bottom = 1
-focus/ignore_mouse = false
-focus/stop_mouse = false
+rect/min_size = Vector2( 100, 100 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 30.0
+margin/left = 0.05
 margin/top = 30.0
-margin/right = 30.0
+margin/right = 0.95
 margin/bottom = 30.0
 alignment = 2
 
@@ -74,7 +76,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 320.0
-margin/right = 818.0
+margin/right = 791.0
 margin/bottom = 420.0
 custom_styles/panel = ExtResource( 3 )
 script/script = ExtResource( 4 )
@@ -84,12 +86,22 @@ script/script = ExtResource( 4 )
 texture = ExtResource( 5 )
 offset = Vector2( 0, -21 )
 
-[node name="ConfirmIcon" type="Sprite" parent="SkinPos/Bubble"]
+[node name="ConfirmIcon" type="Patch9Frame" parent="SkinPos/Bubble"]
 
 editor/display_folded = true
-transform/pos = Vector2( 720, 50 )
+anchor/left = 1
+anchor/right = 1
+anchor/bottom = 1
+rect/min_size = Vector2( 45, 59 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 96.0
+margin/top = 56.0
+margin/right = 51.0
+margin/bottom = 0.0
 texture = ExtResource( 6 )
-centered = false
 
 [node name="Hover" type="AnimationPlayer" parent="SkinPos/Bubble/ConfirmIcon"]
 
@@ -105,23 +117,25 @@ autoplay = ""
 [node name="TextContainer" type="Label" parent="SkinPos/Bubble"]
 
 editor/display_folded = true
-anchor/right = 1
+anchor/left = 2
+anchor/right = 2
 anchor/bottom = 1
 rect/min_size = Vector2( 60, 60 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
-size_flags/horizontal = 1
-size_flags/vertical = 1
+size_flags/horizontal = 0
+size_flags/vertical = 0
 size_flags/stretch_ratio = 0.0
-margin/left = 100.0
+margin/left = 0.15
 margin/top = 20.0
-margin/right = 100.0
+margin/right = 0.85
 margin/bottom = 20.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/line_spacing = 9
 custom_constants/shadow_as_outline = 1
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut risus nisi, venenatis vitae imperdiet non, rhoncus ac felis. Nunc iaculis ipsum ipsum, a vehicula massa commodo non."
+valign = 3
 autowrap = true
 clip_text = true
 percent_visible = 1.0
