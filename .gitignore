@@ -10,6 +10,5 @@
 *.kra
 
 # Temporarily adding stuff here before pushing it
-addons/avatar
 addons/godot-git-control.funabab
 addons/SMRT

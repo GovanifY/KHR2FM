@@ -1,18 +1,21 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://GAME/DebugRoom/DialogueTest.gd" type="Script" id=1]
 [ext_resource path="res://SCENES/Dialogue/Character.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku/Box_message_013.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure/Box_message_012.png" type="Texture" id=4]
-[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/avatar/Avatar.gd" type="Script" id=5]
+[ext_resource path="res://addons/avatar/icon.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure.tres" type="SpriteFrames" id=7]
+[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 
 font/size = 34
 font/use_mipmaps = false
 font/use_filter = false
-font/font = ExtResource( 5 )
+font/font = ExtResource( 8 )
 
 [node name="DialogueTest" type="Node"]
 
@@ -24,11 +27,24 @@ visibility/visible = false
 transform/pos = Vector2( 210.443, 240 )
 texture = ExtResource( 3 )
 
-[node name="Yuugure" parent="." instance=ExtResource( 2 )]
+[node name="Yuugure" type="TextureFrame" parent="."]
 
 visibility/visible = false
-transform/pos = Vector2( 651.371, 240 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 412.0
+margin/top = -3.0
+margin/right = 881.0
+margin/bottom = 491.0
 texture = ExtResource( 4 )
+stretch_mode = 0
+script/script = ExtResource( 5 )
+__meta__ = { "_editor_icon":ExtResource( 6 ) }
+type = 0
+face_sprites = ExtResource( 7 )
+frame = 0
 
 [node name="Warning" type="Label" parent="."]
 
@@ -49,8 +65,9 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+__meta__ = { "_edit_lock_":true }
 
-[node name="Dialogue" parent="." instance=ExtResource( 6 )]
+[node name="Dialogue" parent="." instance=ExtResource( 9 )]
 
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
 
