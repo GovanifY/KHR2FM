@@ -26,7 +26,8 @@ func set_face_sprites(frames):
 func set_frame(idx):
 	if 0 <= idx && idx < face_sprites.get_frame_count(SLOT):
 		frame = idx
-		Avatar.set_texture(face_sprites.get_frame(SLOT, idx))
+		if Avatar != null:
+			Avatar.set_texture(face_sprites.get_frame(SLOT, idx))
 
 #######################
 ### Signal routines ###
@@ -55,4 +56,5 @@ func is_type(istype):
 
 func set_flip_h(value):
 	flip_h = value
-	Avatar.set_flip_h(value)
+	if Avatar != null:
+		Avatar.set_flip_h(value)
