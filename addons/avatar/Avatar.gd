@@ -36,7 +36,7 @@ func set_frame(idx):
 ######################
 ### Core functions ###
 ######################
-func _ready():
+func _enter_tree():
 	add_child(Avatar)
 
 ###############
