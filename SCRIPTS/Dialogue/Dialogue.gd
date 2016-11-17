@@ -27,7 +27,7 @@ func _ready():
 	Translator.init(csv_path)
 
 	# Initializing Bubble
-	SkinPos.set_alignment(position)
+	set_alignment(position)
 
 	# Initializing sound
 	if confirm_sound != null:
@@ -46,6 +46,10 @@ func _input(event):
 	elif event.is_pressed() && event.is_echo():
 		if event.is_action("fast-forward"):
 			Bubble.TextBox.confirm()
+
+	# Touch events
+	elif event.type == InputEvent.SCREEN_TOUCH:
+		Bubble.TextBox.confirm()
 
 func _close_dialogue():
 	# Resetting values
