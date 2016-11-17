@@ -37,14 +37,17 @@ csv_file = ""
 
 [node name="Subtitles" type="Label" parent="."]
 
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 110.0
-margin/top = 380.0
-margin/right = 788.0
-margin/bottom = 450.0
+margin/left = 100.0
+margin/top = 100.0
+margin/right = 100.0
+margin/bottom = 30.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 10
