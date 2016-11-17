@@ -1,17 +1,24 @@
-[gd_scene load_steps=18 format=1]
+[gd_scene load_steps=22 format=1]
 
 [ext_resource path="res://GAME/STORY/Intro/Intro.gd" type="Script" id=1]
-[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=2]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_01.png" type="Texture" id=3]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_02.png" type="Texture" id=4]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_03.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_04.png" type="Texture" id=6]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_05.png" type="Texture" id=7]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_06.png" type="Texture" id=8]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/Water.png" type="Texture" id=9]
-[ext_resource path="res://ASSETS/SE/Cutscenes/Water_Drop.wav" type="Sample" id=10]
-[ext_resource path="res://ASSETS/BGM/Into the darkness.ogg" type="AudioStream" id=11]
+[ext_resource path="res://ASSETS/BGM/Into the darkness.ogg" type="AudioStream" id=2]
+[ext_resource path="res://ASSETS/SE/Cutscenes/Water_Drop.wav" type="Sample" id=3]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_01.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_02.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_03.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_04.png" type="Texture" id=7]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_05.png" type="Texture" id=8]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_06.png" type="Texture" id=9]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Water.png" type="Texture" id=10]
+[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=11]
+[ext_resource path="res://addons/avatar/Avatar.gd" type="Script" id=12]
+[ext_resource path="res://addons/avatar/icon.png" type="Texture" id=13]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku.tres" type="SpriteFrames" id=14]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure.tres" type="SpriteFrames" id=15]
 
+[sub_resource type="SampleLibrary" id=6]
+
+samples/Water_Drop = { "db":0.0, "pitch":1.0, "sample":ExtResource( 3 ) }
 
 [sub_resource type="Animation" id=1]
 
@@ -91,23 +98,43 @@ tracks/1/keys = { "times":FloatArray( 1.93733 ), "transitions":FloatArray( 1 ), 
 
 [sub_resource type="SpriteFrames" id=4]
 
-animations = [ { "frames":[ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 4 ) ], "loop":true, "name":"default", "speed":7.0 } ]
+animations = [ { "frames":[ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 5 ) ], "loop":true, "name":"default", "speed":7.0 } ]
 
 [sub_resource type="SpriteFrames" id=5]
 
-animations = [ { "frames":[ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ], "loop":true, "name":"default", "speed":10.0 } ]
+animations = [ { "frames":[ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ], "loop":true, "name":"default", "speed":10.0 } ]
 
-[sub_resource type="SampleLibrary" id=6]
-
-samples/Water_Drop = { "db":0.0, "pitch":1.0, "sample":ExtResource( 10 ) }
-
-[node name="Intro" type="Node2D"]
+[node name="Intro" type="Node"]
 
 script/script = ExtResource( 1 )
 
-[node name="Dialogue" parent="." instance=ExtResource( 2 )]
+[node name="Into the Darkness" type="StreamPlayer" parent="."]
 
-csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
+stream/stream = ExtResource( 2 )
+stream/play = false
+stream/loop = true
+stream/volume_db = 0.0
+stream/autoplay = false
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
+
+[node name="General" type="SamplePlayer" parent="."]
+
+config/polyphony = 1
+config/samples = SubResource( 6 )
+default/volume_db = 0.0
+default/pitch_scale = 1.0
+default/pan = 0.0
+default/depth = 0.0
+default/height = 0.0
+default/filter/type = 0
+default/filter/cutoff = 5000.0
+default/filter/resonance = 1.0
+default/filter/gain = 1.0
+default/reverb_room = 2
+default/reverb_send = 0.0
+default/chorus_send = 0.0
 
 [node name="Master" type="AnimationPlayer" parent="."]
 
@@ -140,37 +167,49 @@ animation = "default"
 [node name="Water" type="Sprite" parent="."]
 
 transform/pos = Vector2( 439, 240 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 vframes = 10
 hframes = 5
 frame = 49
 
-[node name="General" type="SamplePlayer" parent="."]
+[node name="Dialogue" parent="." instance=ExtResource( 11 )]
 
-config/polyphony = 1
-config/samples = SubResource( 6 )
-default/volume_db = 0.0
-default/pitch_scale = 1.0
-default/pan = 0.0
-default/depth = 0.0
-default/height = 0.0
-default/filter/type = 0
-default/filter/cutoff = 5000.0
-default/filter/resonance = 1.0
-default/filter/gain = 1.0
-default/reverb_room = 2
-default/reverb_send = 0.0
-default/chorus_send = 0.0
+csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
 
-[node name="Into the Darkness" type="StreamPlayer" parent="."]
+[node name="Kiryoku" type="Control" parent="Dialogue"]
 
-stream/stream = ExtResource( 11 )
-stream/play = false
-stream/loop = true
-stream/volume_db = 0.0
-stream/autoplay = false
-stream/paused = false
-stream/loop_restart_time = 0.0
-stream/buffering_ms = 500
+visibility/behind_parent = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 116.0
+margin/top = -310.0
+margin/right = 156.0
+margin/bottom = -270.0
+script/script = ExtResource( 12 )
+__meta__ = { "_editor_icon":ExtResource( 13 ) }
+type = 0
+face_sprites = ExtResource( 14 )
+frame = 0
+flip_h = false
+
+[node name="Yuugure" type="Control" parent="Dialogue"]
+
+visibility/behind_parent = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 747.0
+margin/top = -320.0
+margin/right = 787.0
+margin/bottom = -280.0
+script/script = ExtResource( 12 )
+__meta__ = { "_editor_icon":ExtResource( 13 ) }
+type = 0
+face_sprites = ExtResource( 15 )
+frame = 0
+flip_h = false
 
 
