@@ -9,5 +9,8 @@
 *.psd
 *.kra
 
+# Work directories
+ENGINE/godot_ios_xcode
+
 # Temporarily adding stuff here before pushing it
 addons/SMRT
