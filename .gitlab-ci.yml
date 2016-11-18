@@ -3,126 +3,127 @@
 #This allow quick and easy testing with added CI
 
 before_script:
-  - mkdir KHR2FM
-  - find * -maxdepth 0 -name 'KHR2FM' -prune -o -exec cp -vr '{}' 'KHR2FM' ';'
-  - find * -maxdepth 0 -name 'KHR2FM' -prune -o -exec rm -rf '{}' ';'
-  - apt-get update -qq && apt-get install -y -qq lftp build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev mingw32 mingw-w64 libc6-dev libc6-dev-i386 clang libboost-all-dev libsfml-dev
-  #Fix a zlib packaging issue for building 32bits ones
-  - ln -sfn /usr/include/*-linux-*/zconf.h /usr/include/
-  - rm -rf godot
-  - git clone https://github.com/godotengine/godot/
-  - cp -vr KHR2FM/ENGINE ENGINE
-  - rm -rf KHR2FM/ENGINE
-  #We're applying at this point the given patchset to master build of godot
-  - cd godot
-  - for i in ../ENGINE/PATCHSET/*.patch; do git apply $i; done
-  #Now we're building our own build
-  - scons -j 4 platform=server tools=yes
-  #Folder godot already exists so let's call it godot.server
-  - cp bin/godot* ../godot.server
-  - rm bin/godot*
-  - cd ..
-  - mkdir ~/.godot
-  - mkdir ~/.godot/templates
-  #Avoid DNS verification on ftp, my domain does not have a correct one
-  #apparently
-  #- echo "set ssl:verify-certificate no" >> ~/.lftprc
+    - mkdir KHR2FM
+    - find * -maxdepth 0 -name 'KHR2FM' -prune -o -exec cp -vr '{}' 'KHR2FM' ';'
+    - find * -maxdepth 0 -name 'KHR2FM' -prune -o -exec rm -rf '{}' ';'
+    - apt-get update -qq && apt-get install -y -qq lftp build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev mingw32 mingw-w64 libc6-dev libc6-dev-i386 clang libboost-all-dev libsfml-dev
+    #Fix a zlib packaging issue for building 32bits ones
+    - ln -sfn /usr/include/*-linux-*/zconf.h /usr/include/
+    - rm -rf godot
+    - git clone https://github.com/godotengine/godot/
+    - cp -vr KHR2FM/ENGINE ENGINE
+    - rm -rf KHR2FM/ENGINE
+    #We're applying at this point the given patchset to master build of godot
+    - cd godot
+    - for i in ../ENGINE/PATCHSET/*.patch; do git apply $i; done
+    #Now we're building our own build
+    - scons -j 4 platform=server tools=yes
+    #Folder godot already exists so let's call it godot.server
+    - cp bin/godot* ../godot.server
+    - rm bin/godot*
+    - cd ..
+    - mkdir ~/.godot
+    - mkdir ~/.godot/templates
+    #Avoid DNS verification on ftp, my domain does not have a correct one
+    #apparently
+    #- echo "set ssl:verify-certificate no" >> ~/.lftprc
 windows_debug_64:
-  script:
-    - cd godot
-    - scons -j 4 platform=windows tools=no target=release_debug bits=64
-    - cp bin/godot.windows* ~/.godot/templates/windows_64_debug.exe
-    - cd ..
-    - ./godot.server -export_debug "Windows Desktop" -path KHR2FM ../windows_debug_64
-    - lftp -c "open -u KHR2FM,wg.B[_#n1rKb govanify.com; put -O . windows_debug_64"
+    script:
+        - cd godot
+        - scons -j 4 platform=windows tools=no target=release_debug bits=64
+        - cp bin/godot.windows* ~/.godot/templates/windows_64_debug.exe
+        - cd ..
+        - ./godot.server -export_debug "Windows Desktop" -path KHR2FM ../windows_debug_64
+        - lftp -c "open -u KHR2FM,wg.B[_#n1rKb govanify.com; put -O . windows_debug_64"
 linux_debug_64:
-  script:
-    - cd godot
-    - scons -j 4 platform=x11 tools=no target=release_debug bits=64
-    - cp bin/godot.x11* ~/.godot/templates/linux_x11_64_debug
-    - cd ..
-    - ./godot.server -export_debug "Linux X11" -path KHR2FM ../linux_debug_64
-    - lftp -c "open -u KHR2FM,wg.B[_#n1rKb govanify.com; put -O . linux_debug_64"
+    script:
+        - cd godot
+        - scons -j 4 platform=x11 tools=no target=release_debug bits=64
+        - cp bin/godot.x11* ~/.godot/templates/linux_x11_64_debug
+        - cd ..
+        - ./godot.server -export_debug "Linux X11" -path KHR2FM ../linux_debug_64
+        - lftp -c "open -u KHR2FM,wg.B[_#n1rKb govanify.com; put -O . linux_debug_64"
+
 3ds_debug:
-  script:
-    #Building devkitPro
-    - wget http://govanify.com/files/KHR2FM/devkitARMupdate
-    - chmod +x devkitARMupdate
-    - mkdir -p external/devkitpro
-    #- ./devkitARMupdate external/devkitpro
-    - export DEVKITPRO=/builds/Skynism/KHR2FM/external/devkitpro
-    - export DEVKITARM=${DEVKITPRO}/devkitARM
-    - export CTRULIB=${DEVKITPRO}/libctru
-    - export PATH=${PATH}:${DEVKITARM}/bin
-    #We need to update ctrulib
-    - cd external/devkitpro
-    - rm -rf libctru
-    - git clone https://github.com/smealum/ctrulib
-    - cd ctrulib && cp -rf libctru ../ && cd ../libctru
-    - make -j 4 && make install
-    - cd ../../../
-    #After installing devkitpro we need to cross build some libraries
-    - git clone https://github.com/devkitPro/3ds_portlibs
-    - cd 3ds_portlibs
-    - make -j 4 zlib
-    - make install-zlib
-    - make -j 4 libpng
-    #- make -j 4 libjpeg-turbo
-    #- make -j 4 libogg
-    #- make -j 4 freetype
-    #This isn't set by default and is required for tremor build
-    #- chmod +x arm-none-eabi-pkg-config
-    #- make -j 4 tremor
-    - make install
-    - cd ..
-	#We need tools for cpp3ds and global 3ds dev
-    #- https://github.com/neobrain/nihstro
-    #- cd nihstro
-    #- mkdir build && cd build && cmake .. && make -j 4 && make install
-    #- cd ..
-    - git clone --recursive https://github.com/Steveice10/bannertool
-    - cd bannertool
-    - make -j 4 && cp bannertool /builds/Skynism/KHR2FM/external/devkitpro/devkitARM/bin
-    - cd ..
-    - git clone https://github.com/profi200/Project_CTR
-    - cd Project_CTR/makerom
-    - make -j 4 && cp makerom /builds/Skynism/KHR2FM/external/devkitpro/devkitARM/bin
-    - cd ../../
-    - git clone https://github.com/fincs/citro3d
-    - cd citro3d
-    - make -j 4 install
-    - cd ..
-	#We now require cpp3ds env.
-    #- git clone https://github.com/cpp3ds/cpp3ds/
-    #- cd cpp3ds
-    #- mkdir build && cd build && cmake .. && make -j 4
-    #Now we can finally build the template and get a working 3ds executable
-    - cd godot
-    - scons -j 4 platform=3ds tools=no target=release_debug
-    - cp bin/godot.3ds* ~/.godot/templates/3ds_debug
-    - cd ..
-    - ./godot.server -export_debug "Nintendo 3DS" -path KHR2FM ../3ds_debug.elf
-    - bannertool makebanner -i KHR2FM/ASSETS/EXPORT/3ds_bootsplash.png -a KHR2FM/ASSETS/EXPORT/3ds_dearly.wav -o banner.bin
-    - bannertool makesmdh -s "Kingdom Hearts Rebirth 2 Final Mix" -l "Kingdom Hearts Rebirth 2 Final Mix" -p "Skynism" -i KHR2FM/ASSETS/EXPORT/3ds_icon.png -o image.bin
-    - makerom -f cia -o 3ds_debug.cia -rsf KHR2FM/ASSETS/EXPORT/3ds_cia.rsf -target t -exefslogo -elf 3ds_debug.elf -icon image.bin -banner banner.bin -DAPP_TITLE="Kingdom Hearts Rebirth 2 Final Mix" -DAPP_PRODUCT_CODE="CTR-P-KHR2" -DAPP_UNIQUE_ID="0x4B48"
-    - lftp -c "open -u KHR2FM,wg.B[_#n1rKb govanify.com; put -O . 3ds_debug.cia"
+    script:
+        #Building devkitPro
+        - wget http://govanify.com/files/KHR2FM/devkitARMupdate
+        - chmod +x devkitARMupdate
+        - mkdir -p external/devkitpro
+        #- ./devkitARMupdate external/devkitpro
+        - export DEVKITPRO=/builds/Skynism/KHR2FM/external/devkitpro
+        - export DEVKITARM=${DEVKITPRO}/devkitARM
+        - export CTRULIB=${DEVKITPRO}/libctru
+        - export PATH=${PATH}:${DEVKITARM}/bin
+        #We need to update ctrulib
+        - cd external/devkitpro
+        - rm -rf libctru
+        - git clone https://github.com/smealum/ctrulib
+        - cd ctrulib && cp -rf libctru ../ && cd ../libctru
+        - make -j 4 && make install
+        - cd ../../../
+        #After installing devkitpro we need to cross build some libraries
+        - git clone https://github.com/devkitPro/3ds_portlibs
+        - cd 3ds_portlibs
+        - make -j 4 zlib
+        - make install-zlib
+        - make -j 4 libpng
+        #- make -j 4 libjpeg-turbo
+        #- make -j 4 libogg
+        #- make -j 4 freetype
+        #This isn't set by default and is required for tremor build
+        #- chmod +x arm-none-eabi-pkg-config
+        #- make -j 4 tremor
+        - make install
+        - cd ..
+        #We need tools for cpp3ds and global 3ds dev
+        #- https://github.com/neobrain/nihstro
+        #- cd nihstro
+        #- mkdir build && cd build && cmake .. && make -j 4 && make install
+        #- cd ..
+        - git clone --recursive https://github.com/Steveice10/bannertool
+        - cd bannertool
+        - make -j 4 && cp bannertool /builds/Skynism/KHR2FM/external/devkitpro/devkitARM/bin
+        - cd ..
+        - git clone https://github.com/profi200/Project_CTR
+        - cd Project_CTR/makerom
+        - make -j 4 && cp makerom /builds/Skynism/KHR2FM/external/devkitpro/devkitARM/bin
+        - cd ../../
+        - git clone https://github.com/fincs/citro3d
+        - cd citro3d
+        - make -j 4 install
+        - cd ..
+        #We now require cpp3ds env.
+        #- git clone https://github.com/cpp3ds/cpp3ds/
+        #- cd cpp3ds
+        #- mkdir build && cd build && cmake .. && make -j 4
+        #Now we can finally build the template and get a working 3ds executable
+        - cd godot
+        - scons -j 4 platform=3ds tools=no target=release_debug
+        - cp bin/godot.3ds* ~/.godot/templates/3ds_debug
+        - cd ..
+        - ./godot.server -export_debug "Nintendo 3DS" -path KHR2FM ../3ds_debug.elf
+        - bannertool makebanner -i KHR2FM/ASSETS/EXPORT/3ds_bootsplash.png -a KHR2FM/ASSETS/EXPORT/3ds_dearly.wav -o banner.bin
+        - bannertool makesmdh -s "Kingdom Hearts Rebirth 2 Final Mix" -l "Kingdom Hearts Rebirth 2 Final Mix" -p "Skynism" -i KHR2FM/ASSETS/EXPORT/3ds_icon.png -o image.bin
+        - makerom -f cia -o 3ds_debug.cia -rsf KHR2FM/ASSETS/EXPORT/3ds_cia.rsf -target t -exefslogo -elf 3ds_debug.elf -icon image.bin -banner banner.bin -DAPP_TITLE="Kingdom Hearts Rebirth 2 Final Mix" -DAPP_PRODUCT_CODE="CTR-P-KHR2" -DAPP_UNIQUE_ID="0x4B48"
+        - lftp -c "open -u KHR2FM,wg.B[_#n1rKb govanify.com; put -O . 3ds_debug.cia"
 
 #mac_debug:
-#  script:
-#    - git clone https://github.com/tpoechtrager/osxcross
-#    - cd osxcross
-#    - export OSXCROSS_ROOT=$(pwd)
-#    - cd tarballs
-#    - wget https://govanify.com/files/KHR2FM/MacOSX10.11.sdk.tar.xz
-#    - cd ..
-#    #Making build automated(no need to press enter otherwise we cannot automate
-#    #dis shit)
-#    - sed -i 's/read -p/echo/' build.sh
-#    - ./build.sh
-#    - cd target/bin/
-#    - export PATH=$PATH:$(pwd)
-#    - cd ../../../godot
-#    - scons platform=osx tools=no osxcross_sdk=darwin15
-#    - cp bin/godot.osx* ~/.godot/templates/osx.zip
-#    - cd ..
-#    - ./godot.server -export_debug "Mac OSX" -path KHR2FM ../mac_debug
+#   script:
+#       - git clone https://github.com/tpoechtrager/osxcross
+#       - cd osxcross
+#       - export OSXCROSS_ROOT=$(pwd)
+#       - cd tarballs
+#       - wget https://govanify.com/files/KHR2FM/MacOSX10.11.sdk.tar.xz
+#       - cd ..
+#       #Making build automated(no need to press enter otherwise we cannot automate
+#       #dis shit)
+#       - sed -i 's/read -p/echo/' build.sh
+#       - ./build.sh
+#       - cd target/bin/
+#       - export PATH=$PATH:$(pwd)
+#       - cd ../../../godot
+#       - scons platform=osx tools=no osxcross_sdk=darwin15
+#       - cp bin/godot.osx* ~/.godot/templates/osx.zip
+#       - cd ..
+#       - ./godot.server -export_debug "Mac OSX" -path KHR2FM ../mac_debug
