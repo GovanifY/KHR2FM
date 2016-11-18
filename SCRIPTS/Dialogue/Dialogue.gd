@@ -17,6 +17,8 @@ onready var Translator = get_node("Translator")
 
 # "Private" members
 var index = -1
+var first = 0
+var last  = 0
 var current_speaker = null
 
 ######################
@@ -97,7 +99,7 @@ func set_alignment(value):
 
 # Tells if there are still lines on hold.
 func is_loaded():
-	return current_speaker.begin <= index && index <= current_speaker.end
+	return first <= index && index <= last
 
 # Makes a character speak.
 func speak(character, begin, end):
@@ -109,9 +111,9 @@ func speak(character, begin, end):
 
 	# Setting text iteration values
 	index = begin
+	first = begin
+	last  = end
 	current_speaker = character
-	current_speaker.begin = begin
-	current_speaker.end   = end
 
 	# Setting skin properties
 	Bubble.set_skin(character.type)

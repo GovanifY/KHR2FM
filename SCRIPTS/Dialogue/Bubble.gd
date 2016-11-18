@@ -14,21 +14,12 @@ onready var TextBox     = get_node("TextContainer/TextScroll")
 ######################
 ### Core functions ###
 ######################
-func _ready():
-	# Setting Hover animation
-	ConfirmIcon.get_node("Hover").play("Down_Up")
-
-	# Connecting signals
-	TextBox.connect("cleared", get_node("../.."), "_next_line")
-	TextBox.connect("cleared", ConfirmIcon, "hide")
-	TextBox.connect("finished", ConfirmIcon, "show")
 
 ###############
 ### Methods ###
 ###############
 func set_skin(index):
 	# Hiding bubble
-	ConfirmIcon.hide()
 	hide()
 	Hook.hide()
 

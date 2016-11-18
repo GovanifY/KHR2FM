@@ -53,22 +53,24 @@ character_sound = null
 
 editor/display_folded = true
 anchor/left = 2
+anchor/top = 2
 anchor/right = 2
-anchor/bottom = 1
+anchor/bottom = 2
 rect/min_size = Vector2( 100, 100 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.05
-margin/top = 30.0
+margin/top = 0.05
 margin/right = 0.95
-margin/bottom = 30.0
+margin/bottom = 0.95
 alignment = 2
 
 [node name="Bubble" type="Panel" parent="SkinPos"]
 
 editor/display_folded = true
+visibility/visible = false
 rect/min_size = Vector2( 100, 100 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -112,7 +114,7 @@ anims/Down_Up = SubResource( 1 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
-autoplay = ""
+autoplay = "Down_Up"
 
 [node name="TextContainer" type="Label" parent="SkinPos/Bubble"]
 
@@ -164,5 +166,15 @@ default/chorus_send = 0.0
 [node name="Translator" type="Node" parent="."]
 
 script/script = ExtResource( 9 )
+
+[connection signal="draw" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="play" binds= [ "Down_Up" ]]
+
+[connection signal="hide" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="stop"]
+
+[connection signal="cleared" from="SkinPos/Bubble/TextContainer/TextScroll" to="SkinPos/Bubble/ConfirmIcon" method="hide"]
+
+[connection signal="cleared" from="SkinPos/Bubble/TextContainer/TextScroll" to="." method="_next_line"]
+
+[connection signal="finished" from="SkinPos/Bubble/TextContainer/TextScroll" to="SkinPos/Bubble/ConfirmIcon" method="show"]
 
 

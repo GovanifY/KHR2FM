@@ -13,8 +13,6 @@ const SLOT = "default"
 # Instance members
 onready var name = get_name()
 var Avatar = Sprite.new()
-var begin = 0
-var end   = 0
 
 ########################
 ### Export functions ###
@@ -24,10 +22,11 @@ func set_face_sprites(frames):
 	set_frame(0)
 
 func set_frame(idx):
+	if face_sprites == null || Avatar == null:
+		return
 	if 0 <= idx && idx < face_sprites.get_frame_count(SLOT):
 		frame = idx
-		if Avatar != null:
-			Avatar.set_texture(face_sprites.get_frame(SLOT, idx))
+		Avatar.set_texture(face_sprites.get_frame(SLOT, idx))
 
 #######################
 ### Signal routines ###
@@ -38,6 +37,8 @@ func set_frame(idx):
 ######################
 func _enter_tree():
 	add_child(Avatar)
+	set_focus_mode(FOCUS_NONE)
+	set_draw_behind_parent(true)
 
 ###############
 ### Methods ###
@@ -55,6 +56,7 @@ func is_type(istype):
 	return istype == get_type()
 
 func set_flip_h(value):
+	if Avatar == null:
+		return
 	flip_h = value
-	if Avatar != null:
-		Avatar.set_flip_h(value)
+	Avatar.set_flip_h(value)
