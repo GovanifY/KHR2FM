@@ -8,8 +8,6 @@
 
 texture = ExtResource( 2 )
 
-[node name="Kioku" parent="." instance=ExtResource( 3 )]
-
 [node name="1" type="CollisionPolygon2D" parent="Collisions"]
 
 build_mode = 0
@@ -52,5 +50,7 @@ build_mode = 0
 polygon = Vector2Array(  )
 shape_range = Vector2( 19, 19 )
 trigger = false
+
+[node name="Kioku" parent="." instance=ExtResource( 3 )]
 
 
