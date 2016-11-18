@@ -1,33 +1,42 @@
 extends KinematicBody2D
 
-const MOTION_SPEED = 300 # Pixels/seconds
+# Instance members
+onready var Anims     = get_node("anims")
+onready var Character = get_node("Character")
+
+const MOTION_SPEED = 300 # Pixels/second
+
+######################
+### Core functions ###
+######################
 func _ready():
 	set_process_input(true)
 	set_fixed_process(true)
 
-#Totally stolen from isometric exemple but eh
+# Totally stolen from isometric example but eh
 func _fixed_process(delta):
 	var motion = Vector2()
-	
-	if (Input.is_action_pressed("ui_up")):
+
+	if Input.is_action_pressed("ui_up"):
 		motion += Vector2(0, -1)
-	if (Input.is_action_pressed("ui_down")):
+	if Input.is_action_pressed("ui_down"):
 		motion += Vector2(0, 1)
-	if (Input.is_action_pressed("ui_left")):
+	if Input.is_action_pressed("ui_left"):
 		motion += Vector2(-1, 0)
-	if (Input.is_action_pressed("ui_right")):
+	if Input.is_action_pressed("ui_right"):
 		motion += Vector2(1, 0)
-	
-	motion = motion.normalized()*MOTION_SPEED*delta
+
+	motion = motion.normalized() * MOTION_SPEED * delta
 	motion = move(motion)
-	
+
 	# Make character slide nicely through the world
 	# tl;dr slides when collisions detected
 	var slide_attempts = 4
-	while(is_colliding() and slide_attempts > 0):
+	while is_colliding() and slide_attempts > 0:
 		motion = get_collision_normal().slide(motion)
 		motion = move(motion)
 		slide_attempts -= 1
+
 func _input(event):
 	var left  = Input.is_action_pressed("ui_left")
 	var right = Input.is_action_pressed("ui_right")
@@ -35,41 +44,37 @@ func _input(event):
 	var down = Input.is_action_pressed("ui_down")
 
 	if up and right == false and left== false:
-		get_node("anims").play("up")
+		Anims.play("up")
 	elif down and right == false and left == false:
-		get_node("anims").play("down")
+		Anims.play("down")
 	elif up and right and left == false:
-		get_node("anims").play("up_right")
+		Anims.play("up_right")
 	elif up and left and right == false:
-		get_node("anims").play("up_left")
+		Anims.play("up_left")
 	elif down and right and left == false:
-		get_node("anims").play("down_right")
+		Anims.play("down_right")
 	elif down and left and right == false:
-		get_node("anims").play("down_left")
+		Anims.play("down_left")
 	elif left and down == false and up == false:
-		get_node("anims").play("left")
+		Anims.play("left")
 	elif right and down == false and up == false:
-		get_node("anims").play("right")
+		Anims.play("right")
 	else:
-		var last_anim = get_node("anims").get_current_animation()
-		get_node("anims").stop()
+		var last_anim = Anims.get_current_animation()
+		Anims.stop()
 		if last_anim == "up":
-			get_node("Sprite").set_frame(27)
+			Character.set_frame(27)
 		elif last_anim == "down":
-			get_node("Sprite").set_frame(0)
+			Character.set_frame(0)
 		elif last_anim == "left":
-			get_node("Sprite").set_frame(9)
+			Character.set_frame(9)
 		elif last_anim == "right":
-			get_node("Sprite").set_frame(18)
+			Character.set_frame(18)
 		elif last_anim == "up_right":
-			get_node("Sprite").set_frame(63)
+			Character.set_frame(63)
 		elif last_anim == "up_left":
-			get_node("Sprite").set_frame(54)
+			Character.set_frame(54)
 		elif last_anim == "down_right":
-			get_node("Sprite").set_frame(45)
+			Character.set_frame(45)
 		elif last_anim == "down_left":
-			get_node("Sprite").set_frame(54)
-
-
-
-
+			Character.set_frame(54)
