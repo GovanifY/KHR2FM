@@ -43,6 +43,7 @@ margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
 script/script = ExtResource( 1 )
+__meta__ = { "_edit_lock_":true }
 csv_path = ""
 position = 2
 confirm_sound = ExtResource( 2 )
