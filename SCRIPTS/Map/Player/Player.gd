@@ -5,6 +5,7 @@ func _ready():
 	set_process_input(true)
 	set_fixed_process(true)
 
+#Totally stolen from isometric exemple but eh
 func _fixed_process(delta):
 	var motion = Vector2()
 	
@@ -19,6 +20,14 @@ func _fixed_process(delta):
 	
 	motion = motion.normalized()*MOTION_SPEED*delta
 	motion = move(motion)
+	
+	# Make character slide nicely through the world
+	# tl;dr slides when collisions detected
+	var slide_attempts = 4
+	while(is_colliding() and slide_attempts > 0):
+		motion = get_collision_normal().slide(motion)
+		motion = move(motion)
+		slide_attempts -= 1
 func _input(event):
 	var left  = Input.is_action_pressed("ui_left")
 	var right = Input.is_action_pressed("ui_right")
