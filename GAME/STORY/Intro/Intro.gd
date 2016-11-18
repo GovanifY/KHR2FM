@@ -45,4 +45,5 @@ func _fetch_sequence():
 	Dialogue.speak(Kiryoku, 4, 7)
 	yield(Dialogue, "finished")
 
-	SceneLoader.load_scene("Intro/Battle_Yuugure.tscn")
+	Dialogue.silence()
+	SceneLoader.load_scene("STORY/Intro/Battle_Yuugure.tscn")
