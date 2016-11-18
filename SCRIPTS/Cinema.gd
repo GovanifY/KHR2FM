@@ -11,7 +11,6 @@ export(String, FILE, "srt") var subtitles_file = ""
 export(String, FILE, "csv") var csv_file = ""
 
 # Instance members
-onready var Translator = get_node("Translator")
 onready var Subtitles  = {
 	"label" : get_node("Subtitles"), # Node where the text should reside
 	"array" : [],    # Array of 3-cell Arrays: 0->ON timer, 1->OFF timer, 2-> subtitle
@@ -87,7 +86,7 @@ func _parse_subtitles():
 	subs.close() ###############################################################
 
 	# Opening translation
-	Translator.init(csv_file)
+	Translator.set_csv(csv_file)
 
 ########################
 ### Helper functions ###

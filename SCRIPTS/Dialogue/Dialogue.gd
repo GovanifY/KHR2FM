@@ -13,7 +13,6 @@ signal finished
 onready var SE_node    = get_node("SE")
 onready var SkinPos    = get_node("SkinPos")
 onready var Bubble     = get_node("SkinPos/Bubble")
-onready var Translator = get_node("Translator")
 
 # "Private" members
 var index = -1
@@ -26,7 +25,7 @@ var current_speaker = null
 ######################
 func _ready():
 	# Initializing Translator
-	Translator.init(csv_path)
+	Translator.set_csv(csv_path)
 
 	# Initializing Bubble
 	set_alignment(position)
@@ -89,10 +88,6 @@ func _next_line():
 ###############
 ### Methods ###
 ###############
-# Sets a (new) CSV path
-func set_csv(path):
-	Translator.init(path)
-
 # Sets Bubble alignment
 func set_alignment(value):
 	SkinPos.set_alignment(value)

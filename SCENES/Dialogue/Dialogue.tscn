@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://SCRIPTS/Dialogue/Dialogue.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/SE/System/MSG_SOUND.wav" type="Sample" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://ASSETS/GFX/Game/Text/confirm_icon.png" type="Texture" id=6]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://SCENES/TextScroll.tscn" type="PackedScene" id=8]
-[ext_resource path="res://addons/translator/Translator.gd" type="Script" id=9]
 
 [sub_resource type="Animation" id=1]
 
@@ -162,10 +161,6 @@ default/filter/gain = 1.0
 default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
-
-[node name="Translator" type="Node" parent="."]
-
-script/script = ExtResource( 9 )
 
 [connection signal="draw" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="play" binds= [ "Down_Up" ]]
 

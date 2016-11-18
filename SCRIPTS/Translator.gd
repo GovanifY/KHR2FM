@@ -9,7 +9,7 @@ func _exit_tree():
 ###############
 ### Methods ###
 ###############
-func init(csv_path):
+func set_csv(csv_path):
 	var csv_file = File.new()
 
 	# Checking arguments
