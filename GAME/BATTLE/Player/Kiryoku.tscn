@@ -63,7 +63,6 @@
 [ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Swing.wav" type="Sample" id=61]
 [ext_resource path="res://ASSETS/SE/Battle/General/Ground_walk.wav" type="Sample" id=62]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0

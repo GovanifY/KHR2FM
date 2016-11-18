@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const MOTION_SPEED = 160 # Pixels/seconds
+const MOTION_SPEED = 300 # Pixels/seconds
 func _ready():
 	set_process_input(true)
 	set_fixed_process(true)
