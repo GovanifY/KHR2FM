@@ -40,24 +40,24 @@ func _fixed_process(delta):
 func _input(event):
 	var left  = Input.is_action_pressed("ui_left")
 	var right = Input.is_action_pressed("ui_right")
-	var up  = Input.is_action_pressed("ui_up")
-	var down = Input.is_action_pressed("ui_down")
+	var up    = Input.is_action_pressed("ui_up")
+	var down  = Input.is_action_pressed("ui_down")
 
-	if up and right == false and left== false:
+	if up && not right && not left:
 		Anims.play("up")
-	elif down and right == false and left == false:
+	elif down && not right && not left:
 		Anims.play("down")
-	elif up and right and left == false:
+	elif up && right && not left:
 		Anims.play("up_right")
-	elif up and left and right == false:
+	elif up && left && not right:
 		Anims.play("up_left")
-	elif down and right and left == false:
+	elif down && right && not left:
 		Anims.play("down_right")
-	elif down and left and right == false:
+	elif down && left && not right:
 		Anims.play("down_left")
-	elif left and down == false and up == false:
+	elif left && not down && not up:
 		Anims.play("left")
-	elif right and down == false and up == false:
+	elif right && not down && not up:
 		Anims.play("right")
 	else:
 		var last_anim = Anims.get_current_animation()
