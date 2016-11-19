@@ -10,7 +10,7 @@
 *.kra
 
 # Work directories
-ENGINE/khr2fm_xcode
+
 
 # Temporarily adding stuff here before pushing it
 addons/SMRT
