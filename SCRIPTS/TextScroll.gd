@@ -5,6 +5,10 @@ signal started
 signal finished
 signal cleared
 
+# Exported variables
+export(NodePath) var text_node  = NodePath("..")
+export(NodePath) var sound_node = NodePath()
+
 # Constants
 const SPEED_SLOWER = 0.04
 const SPEED_SLOW   = 0.03
@@ -12,16 +16,13 @@ const SPEED_MEDIUM = 0.02
 const SPEED_FAST   = 0.01
 const SPEED_FASTER = 0.001
 
-# Member instances
-var sound_node
-var text_node
-
 ######################
 ### Core functions ###
 ######################
 func _ready():
 	# This automagically sets up this node to the attached text container
-	set_text_node(get_node(".."))
+	set_text_node(get_node(text_node))
+	set_sound_node(get_node(sound_node))
 	set_wait_time(SPEED_FASTER)
 
 func _on_TextScroll_timeout():
@@ -50,11 +51,15 @@ func set_text_node(node):
 	if node.is_type("Label") || node.is_type("RichTextLabel"):
 		text_node = node
 	else:
-		print("TextScroll: Node not set!")
+		text_node = null
+		print("TextScroll: Text node not set!")
 
 func set_sound_node(node):
 	if node.is_type("SamplePlayer") && node.get_sample_library().has_sample("Character"):
 		sound_node = node
+	else:
+		sound_node = null
+		print("TextScroll: Sound node not set!")
 
 # Adds new text to scroll, then starts scrolling immediately
 func scroll(texttouse):
