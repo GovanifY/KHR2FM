@@ -67,8 +67,8 @@ func _close_dialogue():
 func _get_line():
 	# Parsing lineID
 	var lineID = ""
-	if !current_speaker.name.empty():
-		lineID += current_speaker.name.to_upper() + "_"
+	if !current_speaker.get_name().empty():
+		lineID += current_speaker.get_name().to_upper() + "_"
 	lineID += "%02d" % index
 
 	# Incrementing index

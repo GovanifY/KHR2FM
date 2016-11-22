@@ -11,7 +11,6 @@ export(bool)         var flip_h = false setget set_flip_h
 const SLOT = "default"
 
 # Instance members
-onready var name = get_name()
 var Avatar = Sprite.new()
 
 ########################
