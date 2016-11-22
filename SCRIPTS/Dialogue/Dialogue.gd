@@ -99,7 +99,7 @@ func is_loaded():
 # Makes a character speak.
 func speak(character, begin, end, right = false):
 	# Check arguments
-	assert(typeof(character) == TYPE_OBJECT && character.is_type("Character"))
+	assert(typeof(character) == TYPE_OBJECT && character.is_type("Avatar"))
 	if (end - begin) < 0:
 		print("Dialogue: Invalid indexes.")
 		return

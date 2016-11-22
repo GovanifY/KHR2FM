@@ -53,7 +53,7 @@ func get_center():
 	return int(Avatar.get_texture().get_size().x) >> 1
 
 func get_type():
-	return "Character"
+	return "Avatar"
 
 func is_type(istype):
 	return istype == get_type()
