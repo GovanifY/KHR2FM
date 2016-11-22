@@ -97,7 +97,7 @@ func is_loaded():
 	return first <= index && index <= last
 
 # Makes a character speak.
-func speak(character, begin, end):
+func speak(character, begin, end, right = false):
 	# Check arguments
 	assert(typeof(character) == TYPE_OBJECT && character.is_type("Character"))
 	if (end - begin) < 0:
@@ -112,7 +112,13 @@ func speak(character, begin, end):
 
 	# Setting skin properties
 	Bubble.set_skin(character.type)
-	var flip = Bubble.set_hook_pos(character.get_pos().x)
+
+	# Fitting avatars in the Dialogue window
+	# TODO: this is incomplete, finish the job
+	fit_child_in_rect(character, get_rect())
+
+	# Flipping sprites accordingly
+	var flip = Bubble.set_hook_pos(character.get_center())
 	character.set_flip_h(flip)
 
 	# Presenting character and fetching line

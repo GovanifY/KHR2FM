@@ -22,7 +22,7 @@ func set_face_sprites(frames):
 	set_frame(0)
 
 func set_frame(idx):
-	if face_sprites == null || Avatar == null:
+	if face_sprites == null:
 		return
 	if 0 <= idx && idx < face_sprites.get_frame_count(SLOT):
 		frame = idx
@@ -36,19 +36,22 @@ func set_frame(idx):
 ### Core functions ###
 ######################
 func _enter_tree():
+	Avatar.set_centered(false)
 	add_child(Avatar)
-	set_focus_mode(FOCUS_NONE)
 	set_draw_behind_parent(true)
+	set_size(Vector2(1, 1))
 
 ###############
 ### Methods ###
 ###############
-func set_pos(pos):
-	pos.y = int(OS.get_video_mode_size().height) >> 1
-	# We're only accepting the X value
-	.set_pos(pos)
+func get_size():
+	if face_sprites == null:
+		return get_size()
+	return Avatar.get_texture().get_size()
 
-### FIXME: temporary functions
+func get_center():
+	return int(Avatar.get_texture().get_size().x) >> 1
+
 func get_type():
 	return "Character"
 
