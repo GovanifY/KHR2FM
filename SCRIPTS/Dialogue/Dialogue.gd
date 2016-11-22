@@ -1,4 +1,4 @@
-extends Container
+extends Control
 
 # Export values
 export(String, FILE, "csv") var csv_path = String()
@@ -10,9 +10,10 @@ export(Sample) var character_sound
 signal finished
 
 # Instance members
-onready var SE_node    = get_node("SE")
-onready var SkinPos    = get_node("SkinPos")
-onready var Bubble     = get_node("SkinPos/Bubble")
+onready var SE_node   = get_node("SE")
+onready var CastLeft  = get_node("CastLeft")
+onready var CastRight = get_node("CastRight")
+onready var Bubble    = get_node("SkinPos/Bubble")
 
 # "Private" members
 var index = -1
@@ -90,7 +91,7 @@ func _next_line():
 ###############
 # Sets Bubble alignment
 func set_alignment(value):
-	SkinPos.set_alignment(value)
+	get_node("SkinPos").set_alignment(value)
 
 # Tells if there are still lines on hold.
 func is_loaded():
@@ -114,12 +115,20 @@ func speak(character, begin, end, right = false):
 	Bubble.set_skin(character.type)
 
 	# Fitting avatars in the Dialogue window
-	# TODO: this is incomplete, finish the job
-	fit_child_in_rect(character, get_rect())
+	if is_a_parent_of(character):
+		remove_child(character)
+		if right:
+			CastRight.add_child(character)
+		else:
+			CastLeft.add_child(character)
+
+	var center = character.get_center()
+	if right:
+		center += CastRight.get_pos().x
+	character.set_flip_h(right)
 
 	# Flipping sprites accordingly
-	var flip = Bubble.set_hook_pos(character.get_center())
-	character.set_flip_h(flip)
+	Bubble.set_hook_pos(center)
 
 	# Presenting character and fetching line
 	character.show()
