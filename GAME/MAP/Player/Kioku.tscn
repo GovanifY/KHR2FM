@@ -11,4 +11,12 @@ texture = ExtResource( 2 )
 vframes = 8
 hframes = 9
 
+[node name="IsoCam" parent="."]
+
+limit/left = 0
+limit/top = 0
+limit/right = 2000
+limit/bottom = 1000
+limit/smoothed = true
+
 
