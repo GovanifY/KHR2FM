@@ -1,4 +1,4 @@
-extends Control
+extends Container
 
 # Export values
 export(String, FILE, "csv") var csv_path = String()
