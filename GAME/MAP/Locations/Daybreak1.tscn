@@ -1,12 +1,17 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://SCENES/Map/MapPlan.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Maps/cds_000.png" type="Texture" id=2]
 [ext_resource path="res://GAME/MAP/Player/Kioku.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GAME/MAP/NPCs/NPC.tscn" type="PackedScene" id=4]
 
 [node name="Daybreak" instance=ExtResource( 1 )]
 
 texture = ExtResource( 2 )
+
+[node name="Collisions" parent="."]
+
+editor/display_folded = true
 
 [node name="1" type="CollisionPolygon2D" parent="Collisions"]
 
@@ -52,5 +57,9 @@ shape_range = Vector2( 19, 19 )
 trigger = false
 
 [node name="Kioku" parent="." instance=ExtResource( 3 )]
+
+[node name="NPC" parent="." instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 707.729, 543.042 )
 
 
