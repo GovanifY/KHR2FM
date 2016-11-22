@@ -1,6 +1,6 @@
 [gd_scene load_steps=63 format=1]
 
-[ext_resource path="res://GAME/Splash/SplashAndMenu.gd" type="Script" id=1]
+[ext_resource path="res://GAME/Splash/Splash.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/Splash/SKYNISM.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/BGM/Dearly_Beloved.ogg" type="AudioStream" id=3]
 [ext_resource path="res://ASSETS/GFX/BackGround/White.png" type="Texture" id=4]
