@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://GAME/DebugRoom/DialogueTest.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/avatar/Avatar.gd" type="Script" id=4]
 [ext_resource path="res://addons/avatar/icon.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku.tres" type="SpriteFrames" id=6]
-[ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure.tres" type="SpriteFrames" id=7]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure.tres" type="SpriteFrames" id=6]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku.tres" type="SpriteFrames" id=7]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kioku.tres" type="SpriteFrames" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -46,25 +47,6 @@ __meta__ = { "_edit_lock_":true }
 
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
 
-[node name="Kiryoku" type="Control" parent="Dialogue"]
-
-visibility/visible = false
-visibility/behind_parent = true
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 1.0
-margin/bottom = 1.0
-script/script = ExtResource( 4 )
-__meta__ = { "_editor_icon":ExtResource( 5 ) }
-type = 0
-face_sprites = ExtResource( 6 )
-frame = 0
-flip_h = false
-
 [node name="Yuugure" type="Control" parent="Dialogue"]
 
 visibility/visible = false
@@ -73,10 +55,29 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 1.0
-margin/bottom = 1.0
+margin/left = 233.0
+margin/top = 248.0
+margin/right = 313.0
+margin/bottom = 249.0
+script/script = ExtResource( 4 )
+__meta__ = { "_editor_icon":ExtResource( 5 ) }
+type = 0
+face_sprites = ExtResource( 6 )
+frame = 0
+flip_h = false
+
+[node name="Kiryoku" type="Control" parent="Dialogue"]
+
+visibility/visible = false
+visibility/behind_parent = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 218.0
+margin/top = 250.0
+margin/right = 298.0
+margin/bottom = 251.0
 script/script = ExtResource( 4 )
 __meta__ = { "_editor_icon":ExtResource( 5 ) }
 type = 0
@@ -94,12 +95,31 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 1.0
+margin/right = 80.0
 margin/bottom = 1.0
 script/script = ExtResource( 4 )
 __meta__ = { "_editor_icon":ExtResource( 5 ) }
 type = 1
 face_sprites = null
+frame = 0
+flip_h = false
+
+[node name="Kioku" type="Control" parent="Dialogue"]
+
+visibility/visible = false
+visibility/behind_parent = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 218.0
+margin/top = 239.0
+margin/right = 298.0
+margin/bottom = 240.0
+script/script = ExtResource( 4 )
+__meta__ = { "_editor_icon":ExtResource( 5 ) }
+type = 0
+face_sprites = ExtResource( 8 )
 frame = 0
 flip_h = false
 

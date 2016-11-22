@@ -11,7 +11,6 @@ export(bool)         var flip_h = false setget set_flip_h
 const SLOT = "default"
 
 # Instance members
-onready var name = get_name()
 var Avatar = Sprite.new()
 
 ########################
@@ -36,21 +35,16 @@ func set_frame(idx):
 ### Core functions ###
 ######################
 func _enter_tree():
-	Avatar.set_centered(false)
-	add_child(Avatar)
+	if !is_a_parent_of(Avatar):
+		add_child(Avatar)
 	set_draw_behind_parent(true)
 	set_size(Vector2(1, 1))
 
 ###############
 ### Methods ###
 ###############
-func get_size():
-	if face_sprites == null:
-		return get_size()
-	return Avatar.get_texture().get_size()
-
 func get_center():
-	return int(Avatar.get_texture().get_size().x) >> 1
+	return get_pos().x
 
 func get_type():
 	return "Avatar"
