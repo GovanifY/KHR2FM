@@ -36,22 +36,22 @@ func _ready():
 		SE_node.get_sample_library().add_sample("Confirm", confirm_sound)
 	if character_sound != null:
 		SE_node.get_sample_library().add_sample("Character", character_sound)
-		Bubble.TextBox.set_sound_node(SE_node)
+		Bubble.TextScroll.set_sound_node(SE_node)
 
 func _input(event):
 	# Pressed, non-repeating Input check
 	if event.is_pressed() && !event.is_echo():
 		if event.is_action("ui_accept"):
-			Bubble.TextBox.confirm()
+			Bubble.TextScroll.confirm()
 
 	# Pressed, repeating Input check
 	elif event.is_pressed() && event.is_echo():
 		if event.is_action("fast-forward"):
-			Bubble.TextBox.confirm()
+			Bubble.TextScroll.confirm()
 
 	# Touch events
 	elif event.type == InputEvent.SCREEN_TOUCH:
-		Bubble.TextBox.confirm()
+		Bubble.TextScroll.confirm()
 
 func _close_dialogue():
 	# Resetting values
@@ -75,7 +75,7 @@ func _get_line():
 	index += 1
 
 	# Writing line to bubble
-	Bubble.TextBox.scroll(lineID)
+	Bubble.TextScroll.scroll(lineID)
 
 func _next_line():
 	if confirm_sound != null:
@@ -111,29 +111,31 @@ func speak(character, begin, end, right = false):
 	last  = end
 	current_speaker = character
 
+	# if this character is actually a "character", then rearrange the scenery for it
+	if character.type == character.CHARACTER:
+		# Fitting avatars in the Dialogue window
+		if is_a_parent_of(character):
+			remove_child(character)
+			if right:
+				CastRight.add_child(character)
+			else:
+				CastLeft.add_child(character)
+
+		# Positioning the hook
+		var center = character.get_center()
+		if right:
+			center += CastRight.get_pos().x
+		Bubble.set_hook_pos(center)
+
+		# Presenting the character
+		character.set_flip_h(right)
+		character.show()
+
 	# Setting skin properties
 	Bubble.set_skin(character.type)
 
-	# Fitting avatars in the Dialogue window
-	if is_a_parent_of(character):
-		remove_child(character)
-		if right:
-			CastRight.add_child(character)
-		else:
-			CastLeft.add_child(character)
-
-	var center = character.get_center()
-	if right:
-		center += CastRight.get_pos().x
-	character.set_flip_h(right)
-
-	# Flipping sprites accordingly
-	Bubble.set_hook_pos(center)
-
-	# Presenting character and fetching line
-	character.show()
+	# Fetching line
 	set_process_input(true)
-	_get_line()
 
 func silence():
 	set_process_input(false)

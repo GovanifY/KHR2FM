@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://SCRIPTS/Dialogue/Dialogue.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/SE/System/MSG_SOUND.wav" type="Sample" id=2]
@@ -11,6 +11,40 @@
 
 [sub_resource type="Animation" id=1]
 
+resource/name = "In"
+length = 0.25
+loop = false
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visibility/visible")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ true ] }
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "Out"
+length = 0.25
+loop = false
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 1.0, 0.0 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visibility/visible")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0.25 ), "transitions":FloatArray( 1 ), "update":1, "values":[ false ] }
+
+[sub_resource type="Animation" id=3]
+
 length = 1.0
 loop = true
 step = 0.1
@@ -20,14 +54,14 @@ tracks/0/interp = 2
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 56, 67 ] }
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=4]
 
 font/size = 18
 font/use_mipmaps = false
 font/use_filter = true
 font/font = ExtResource( 7 )
 
-[sub_resource type="SampleLibrary" id=3]
+[sub_resource type="SampleLibrary" id=5]
 
 
 [node name="Dialogue" type="Control"]
@@ -87,7 +121,6 @@ __meta__ = { "_edit_lock_":true }
 
 [node name="SkinPos" type="VBoxContainer" parent="."]
 
-editor/display_folded = true
 anchor/left = 2
 anchor/top = 2
 anchor/right = 2
@@ -106,8 +139,8 @@ __meta__ = { "_edit_lock_":true }
 
 [node name="Bubble" type="Panel" parent="SkinPos"]
 
-editor/display_folded = true
 visibility/visible = false
+visibility/opacity = 0.0
 rect/min_size = Vector2( 100, 100 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -121,6 +154,18 @@ custom_styles/panel = ExtResource( 3 )
 script/script = ExtResource( 4 )
 __meta__ = { "_edit_lock_":true }
 
+[node name="Fade" type="AnimationPlayer" parent="SkinPos/Bubble"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/In = SubResource( 1 )
+anims/Out = SubResource( 2 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
 [node name="Hook" type="Sprite" parent="SkinPos/Bubble"]
 
 texture = ExtResource( 5 )
@@ -130,6 +175,7 @@ __meta__ = { "_edit_lock_":true }
 [node name="ConfirmIcon" type="Patch9Frame" parent="SkinPos/Bubble"]
 
 editor/display_folded = true
+visibility/visible = false
 anchor/left = 1
 anchor/right = 1
 anchor/bottom = 1
@@ -150,7 +196,7 @@ __meta__ = { "_edit_lock_":true }
 playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/Down_Up = SubResource( 1 )
+anims/Down_Up = SubResource( 3 )
 playback/active = false
 playback/speed = 1.0
 blend_times = [  ]
@@ -172,7 +218,7 @@ margin/left = 0.15
 margin/top = 20.0
 margin/right = 0.85
 margin/bottom = 20.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/line_spacing = 9
 custom_constants/shadow_as_outline = 1
@@ -193,7 +239,7 @@ sound_node = NodePath("")
 [node name="SE" type="SamplePlayer" parent="."]
 
 config/polyphony = 5
-config/samples = SubResource( 3 )
+config/samples = SubResource( 5 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0
@@ -206,6 +252,10 @@ default/filter/gain = 1.0
 default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
+
+[connection signal="changed_skin" from="SkinPos/Bubble" to="." method="_get_line" flags=3]
+
+[connection signal="kept_skin" from="SkinPos/Bubble" to="." method="_get_line" flags=3]
 
 [connection signal="draw" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="set_active" binds= [ true ]]
 

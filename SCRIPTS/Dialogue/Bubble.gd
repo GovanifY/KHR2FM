@@ -1,5 +1,9 @@
 extends Panel
 
+# Signals
+signal changed_skin
+signal kept_skin
+
 # Skin data
 const ALL_SKINS = [
 	preload("res://SCENES/Dialogue/box0.tres"),
@@ -7,29 +11,47 @@ const ALL_SKINS = [
 ]
 
 # Instance members
-onready var Hook        = get_node("Hook")
-onready var ConfirmIcon = get_node("ConfirmIcon")
-onready var TextBox     = get_node("TextContainer/TextScroll")
+onready var Fade       = get_node("Fade")
+onready var Hook       = get_node("Hook")
+onready var TextScroll = get_node("TextContainer/TextScroll")
+var current = -1
 
 ######################
 ### Core functions ###
 ######################
+func _ready():
+	get_node("TextContainer").set_visible_characters(0)
 
 ###############
 ### Methods ###
 ###############
 func set_skin(index):
-	# Hiding bubble
-	hide()
-	Hook.hide()
+	# If it's the same skin, avoid executing any more code
+	if index == current:
+		emit_signal("kept_skin")
+		return
 
-	# Switching, then showing bubble
-	if 0 <= index && index < ALL_SKINS.size():
-		add_style_override("panel", ALL_SKINS[index])
-		show()
+	# Hiding bubble
+	Fade.play("Out")
+	yield(Fade, "finished")
+
+	# Switching hook
 	if 0 <= index && index < Hook.get_vframes():
 		Hook.set_frame(index)
 		Hook.show()
+	else:
+		Hook.hide()
+
+	current = index
+	# Switching bubble, then presenting bubble
+	if 0 <= index && index < ALL_SKINS.size():
+		add_style_override("panel", ALL_SKINS[index])
+		Fade.play("In")
+		yield(Fade, "finished")
+	else:
+		return
+
+	emit_signal("changed_skin")
 
 func set_hook_pos(x):
 	var limit_left  = get_margin(MARGIN_LEFT)

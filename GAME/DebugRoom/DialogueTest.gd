@@ -16,6 +16,9 @@ func _ready():
 	Dialogue.speak(Yuugure, 0, 1, true)
 	yield(Dialogue, "finished")
 
+	Dialogue.speak(Narrator, 0, 1)
+	yield(Dialogue, "finished")
+
 	Dialogue.speak(Kiryoku, 0, 1)
 	yield(Dialogue, "finished")
 
