@@ -8,6 +8,7 @@ export(int) var frame = 0   setget set_frame
 
 # Instance members
 var Character = Sprite.new()
+var CanPlayerTalk = false
 
 ########################
 ### Export functions ###
@@ -37,7 +38,22 @@ func set_frame(idx):
 func _enter_tree():
 	if !is_a_parent_of(Character):
 		add_child(Character)
-
+	
+func _input(event):
+	if event.is_action("ui_select"):
+			print("I am a random debug NPC. Hi to you random great looking guy")
 ###############
 ### Methods ###
 ###############
+
+
+func _on_TalkArea_body_enter( body ):
+	if CanPlayerTalk == false:
+		CanPlayerTalk = true
+		set_process_input(true)
+
+
+func _on_TalkArea_body_exit( body ):
+	if CanPlayerTalk == true:
+		CanPlayerTalk = false
+		set_process_input(false)
