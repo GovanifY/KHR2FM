@@ -128,7 +128,7 @@ _update_shape_index = 0
 
 [node name="anims" type="AnimationPlayer" parent="."]
 
-playback/process_mode = 1
+playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/down = SubResource( 2 )

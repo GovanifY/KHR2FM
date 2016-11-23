@@ -1,29 +1,94 @@
 extends KinematicBody2D
 
+# Constants
+const MOTION_SPEED = 300 # Pixels/second
+
 # Instance members
 onready var Anims     = get_node("anims")
 onready var Character = get_node("Character")
 
-const MOTION_SPEED = 300 # Pixels/second
+# "Private" members
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	set_process_input(true)
 	set_fixed_process(true)
 
 # Totally stolen from isometric example but eh
 func _fixed_process(delta):
-	var motion = Vector2()
+	# Grabbing Input
+	var left  = Input.is_action_pressed("ui_left")
+	var right = Input.is_action_pressed("ui_right")
+	var up    = Input.is_action_pressed("ui_up")
+	var down  = Input.is_action_pressed("ui_down")
 
-	if Input.is_action_pressed("ui_up"):
+	# Character animation
+	animate_character(up, down, left, right)
+
+	# Character motion
+	move_character(up, down, left, right, delta)
+
+func _input(event):
+	pass
+
+###############
+### Methods ###
+###############
+func animate_character(up, down, left, right):
+	var current_anim = Anims.get_current_animation()
+	var new_anim = current_anim
+
+	# Order is key: first, the multiple inputs; then, the single ones
+	if up && right:
+		new_anim = "up_right"
+	elif up && left:
+		new_anim = "up_left"
+	elif down && right:
+		new_anim = "down_right"
+	elif down && left:
+		new_anim = "down_left"
+	elif up:
+		new_anim = "up"
+	elif down:
+		new_anim = "down"
+	elif left:
+		new_anim = "left"
+	elif right:
+		new_anim = "right"
+
+	# If not moving at all
+	if not up && not down && not left && not right:
+		Anims.stop()
+		if   new_anim == "up":
+			Character.set_frame(27)
+		elif new_anim == "down":
+			Character.set_frame(0)
+		elif new_anim == "left":
+			Character.set_frame(9)
+		elif new_anim == "right":
+			Character.set_frame(18)
+		elif new_anim == "up_left":
+			Character.set_frame(54)
+		elif new_anim == "up_right":
+			Character.set_frame(63)
+		elif new_anim == "down_left":
+			Character.set_frame(54)
+		elif new_anim == "down_right":
+			Character.set_frame(45)
+	else:
+		if new_anim != current_anim || !Anims.is_playing():
+			Anims.play(new_anim)
+
+func move_character(up, down, left, right, delta=0):
+	var motion = Vector2()
+	if up:
 		motion += Vector2(0, -1)
-	if Input.is_action_pressed("ui_down"):
+	if down:
 		motion += Vector2(0, 1)
-	if Input.is_action_pressed("ui_left"):
+	if left:
 		motion += Vector2(-1, 0)
-	if Input.is_action_pressed("ui_right"):
+	if right:
 		motion += Vector2(1, 0)
 
 	motion = motion.normalized() * MOTION_SPEED * delta
@@ -36,45 +101,3 @@ func _fixed_process(delta):
 		motion = get_collision_normal().slide(motion)
 		motion = move(motion)
 		slide_attempts -= 1
-
-func _input(event):
-	var left  = Input.is_action_pressed("ui_left")
-	var right = Input.is_action_pressed("ui_right")
-	var up    = Input.is_action_pressed("ui_up")
-	var down  = Input.is_action_pressed("ui_down")
-
-	if up && not right && not left:
-		Anims.play("up")
-	elif down && not right && not left:
-		Anims.play("down")
-	elif up && right && not left:
-		Anims.play("up_right")
-	elif up && left && not right:
-		Anims.play("up_left")
-	elif down && right && not left:
-		Anims.play("down_right")
-	elif down && left && not right:
-		Anims.play("down_left")
-	elif left && not down && not up:
-		Anims.play("left")
-	elif right && not down && not up:
-		Anims.play("right")
-	else:
-		var last_anim = Anims.get_current_animation()
-		Anims.stop()
-		if last_anim == "up":
-			Character.set_frame(27)
-		elif last_anim == "down":
-			Character.set_frame(0)
-		elif last_anim == "left":
-			Character.set_frame(9)
-		elif last_anim == "right":
-			Character.set_frame(18)
-		elif last_anim == "up_right":
-			Character.set_frame(63)
-		elif last_anim == "up_left":
-			Character.set_frame(54)
-		elif last_anim == "down_right":
-			Character.set_frame(45)
-		elif last_anim == "down_left":
-			Character.set_frame(54)
