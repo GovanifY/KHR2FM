@@ -23,10 +23,7 @@ func _fixed_process(delta):
 	var up    = Input.is_action_pressed("ui_up")
 	var down  = Input.is_action_pressed("ui_down")
 
-	# Character animation
 	animate_character(up, down, left, right)
-
-	# Character motion
 	move_character(up, down, left, right, delta)
 
 func _input(event):

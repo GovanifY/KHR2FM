@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://SCENES/Map/MapPlan.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Maps/cds_000.png" type="Texture" id=2]
@@ -6,6 +6,11 @@
 [ext_resource path="res://addons/map_npc/MapNPC.gd" type="Script" id=4]
 [ext_resource path="res://addons/map_npc/icon.png" type="Texture" id=5]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/NPCs/Pnj_06.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 15 )
 
 [node name="Daybreak" instance=ExtResource( 1 )]
 
@@ -42,12 +47,15 @@ trigger = false
 
 [node name="Kioku" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 559, 546 )
+transform/pos = Vector2( 635, 587 )
 
 [node name="MapNPC" type="StaticBody2D" parent="."]
 
 transform/pos = Vector2( 704, 580 )
-input/pickable = false
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 30 )
+shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
@@ -61,18 +69,13 @@ hframes = 4
 vframes = 4
 frame = 1
 
-[node name="TalkArea" type="Area2D" parent="MapNPC"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapNPC"]
 
-transform/pos = Vector2( 1.67459, 12.4987 )
-transform/scale = Vector2( 1.05233, 1.39058 )
-input/pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
+transform/pos = Vector2( 0, 30 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
 
-[connection signal="body_enter" from="MapNPC/TalkArea" to="MapNPC" method="_on_TalkArea_body_enter"]
-
-[connection signal="body_exit" from="MapNPC/TalkArea" to="MapNPC" method="_on_TalkArea_body_exit"]
+[connection signal="input_event" from="MapNPC" to="MapNPC" method="_on_NPC_interaction"]
 
 

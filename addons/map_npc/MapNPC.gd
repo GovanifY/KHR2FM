@@ -35,23 +35,18 @@ func set_frame(idx):
 ### Core functions ###
 ######################
 func _enter_tree():
+	# Adding children
 	if !is_a_parent_of(Character):
 		add_child(Character)
 
-func _input(event):
-	if event.is_action("ui_select"):
-		print("I am a random debug NPC. Hi to you random great looking guy")
+	# Setting up
+	set_pickable(true)
 
 #######################
 ### Signal routines ###
 #######################
-func _on_TalkArea_body_enter( body ):
-	if !is_processing_input():
-		set_process_input(true)
-
-func _on_TalkArea_body_exit( body ):
-	if is_processing_input():
-		set_process_input(false)
+func _on_NPC_interaction(viewport, event, shape_idx):
+	print("Why, hello there, random great looking guy")
 
 ###############
 ### Methods ###
