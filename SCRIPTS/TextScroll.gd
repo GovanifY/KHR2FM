@@ -52,19 +52,18 @@ func set_text_node(node):
 		text_node = node
 	else:
 		text_node = null
-		print("TextScroll: Text node not set!")
 
 func set_sound_node(node):
 	if node.is_type("SamplePlayer") && node.get_sample_library().has_sample("Character"):
 		sound_node = node
 	else:
 		sound_node = null
-		print("TextScroll: Sound node not set!")
 
 # Adds new text to scroll, then starts scrolling immediately
 func scroll(texttouse):
 	# If text_node is null or there's no text, forget it
 	if text_node == null || texttouse.empty():
+		print("TextScroll: Text node not set!")
 		return
 
 	texttouse = texttouse.replace("\\n", "\n")
