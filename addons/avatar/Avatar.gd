@@ -30,16 +30,15 @@ func set_frame(idx):
 		frame = idx
 		Avatar.set_texture(face_sprites.get_frame(SLOT, idx))
 
-#######################
-### Signal routines ###
-#######################
-
 ######################
 ### Core functions ###
 ######################
 func _enter_tree():
+	# Adding children nodes
 	if !is_a_parent_of(Avatar):
 		add_child(Avatar)
+
+	# Setting up
 	set_draw_behind_parent(true)
 	set_size(Vector2(1, 1))
 

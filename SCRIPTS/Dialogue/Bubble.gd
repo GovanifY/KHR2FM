@@ -1,8 +1,8 @@
 extends Panel
 
 # Signals
-signal changed_skin
-signal kept_skin
+signal shown
+signal hidden
 
 # Skin data
 const ALL_SKINS = [
@@ -25,16 +25,21 @@ func _ready():
 ###############
 ### Methods ###
 ###############
-func set_skin(index):
-	# If it's the same skin, avoid executing any more code
-	if index == current:
-		emit_signal("kept_skin")
-		return
+func show_skin():
+	Fade.play("In")
+	yield(Fade, "finished")
+	emit_signal("shown")
 
-	# Hiding bubble
+func hide_skin():
 	Fade.play("Out")
 	yield(Fade, "finished")
+	emit_signal("hidden")
 
+func get_skin():
+	return current
+
+func set_skin(index):
+	current = index
 	# Switching hook
 	if 0 <= index && index < Hook.get_vframes():
 		Hook.set_frame(index)
@@ -42,16 +47,9 @@ func set_skin(index):
 	else:
 		Hook.hide()
 
-	current = index
-	# Switching bubble, then presenting bubble
+	# Switching bubble
 	if 0 <= index && index < ALL_SKINS.size():
 		add_style_override("panel", ALL_SKINS[index])
-		Fade.play("In")
-		yield(Fade, "finished")
-	else:
-		return
-
-	emit_signal("changed_skin")
 
 func set_hook_pos(x):
 	var limit_left  = get_margin(MARGIN_LEFT)

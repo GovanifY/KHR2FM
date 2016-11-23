@@ -119,8 +119,16 @@ custom_constants/separation = 120
 alignment = 1
 __meta__ = { "_edit_lock_":true }
 
+[node name="CastAnim" type="Tween" parent="."]
+
+playback/process_mode = 1
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
 [node name="SkinPos" type="VBoxContainer" parent="."]
 
+editor/display_folded = true
 anchor/left = 2
 anchor/top = 2
 anchor/right = 2
@@ -140,7 +148,6 @@ __meta__ = { "_edit_lock_":true }
 [node name="Bubble" type="Panel" parent="SkinPos"]
 
 visibility/visible = false
-visibility/opacity = 0.0
 rect/min_size = Vector2( 100, 100 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -253,9 +260,9 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
-[connection signal="changed_skin" from="SkinPos/Bubble" to="." method="_get_line" flags=3]
+[connection signal="tween_complete" from="CastAnim" to="." method="_on_CastAnim_tween_complete"]
 
-[connection signal="kept_skin" from="SkinPos/Bubble" to="." method="_get_line" flags=3]
+[connection signal="shown" from="SkinPos/Bubble" to="." method="_get_line"]
 
 [connection signal="draw" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="set_active" binds= [ true ]]
 

@@ -1,5 +1,8 @@
 extends Control
 
+# Constants
+const ANIM_TIME = 0.35
+
 # Export values
 export(String, FILE, "csv") var csv_path = String()
 export(int, "Top", "Middle", "Bottom") var position = 2
@@ -13,6 +16,7 @@ signal finished
 onready var SE_node   = get_node("SE")
 onready var CastLeft  = get_node("CastLeft")
 onready var CastRight = get_node("CastRight")
+onready var CastAnim  = get_node("CastAnim")
 onready var Bubble    = get_node("SkinPos/Bubble")
 
 # "Private" members
@@ -61,9 +65,25 @@ func _close_dialogue():
 	set_process_input(false)
 	emit_signal("finished")
 
+func _hide_avatars():
+	var avatars = CastLeft.get_children()
+	avatars += CastRight.get_children()
+	for av in avatars:
+		CastAnim.interpolate_method(av, "set_opacity", 1.0, 0.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	CastAnim.start()
+
 #######################
 ### Signal routines ###
 #######################
+func _on_CastAnim_tween_complete(object, key):
+	# If the key was about setting offset, it's about speak()
+	if key == "set_offset":
+		if Bubble.is_hidden():
+			Bubble.show_skin()
+		else:
+			Bubble.emit_signal("shown")
+	# Otherwise, it's about _hide_avatars()
+
 func _get_line():
 	# Parsing lineID
 	var lineID = ""
@@ -76,6 +96,10 @@ func _get_line():
 
 	# Writing line to bubble
 	Bubble.TextScroll.scroll(lineID)
+
+	# Necessary checks
+	if !is_processing_input():
+		set_process_input(true)
 
 func _next_line():
 	if confirm_sound != null:
@@ -127,16 +151,30 @@ func speak(character, begin, end, right = false):
 			center += CastRight.get_pos().x
 		Bubble.set_hook_pos(center)
 
-		# Presenting the character
+		# Flipping the character's sprite
 		character.set_flip_h(right)
-		character.show()
+		# If character's invisible, make grand appearance
+		if character.is_hidden():
+			var off_bounds = character.Avatar.get_texture().get_size()
+			off_bounds.y = 0
+			if !right:
+				off_bounds.x *= -1
+
+			CastAnim.interpolate_method(character.Avatar, "set_offset", off_bounds, Vector2(), ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
+			CastAnim.start()
+			character.show()
 
 	# Setting skin properties
-	Bubble.set_skin(character.type)
+	if Bubble.get_skin() != character.type:
+		Bubble.hide_skin()
+		yield(Bubble, "hidden")
+		Bubble.set_skin(character.type)
 
-	# Fetching line
-	set_process_input(true)
+	if character.type == character.NARRATOR:
+		Bubble.show_skin()
 
+# Hides Bubble skin and dismisses all the avatars
 func silence():
 	set_process_input(false)
-	Bubble.set_skin(-1)
+	Bubble.hide_skin()
+	_hide_avatars()
