@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://GAME/Splash/EXP_Zero.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/EXP/Exp_zero_004.png" type="Texture" id=2]
@@ -6,11 +6,9 @@
 [ext_resource path="res://ASSETS/GFX/Title/EXP/Exp_zero_000.png" type="Texture" id=4]
 [ext_resource path="res://ASSETS/GFX/Title/EXP/Exp_zero_002.png" type="Texture" id=5]
 [ext_resource path="res://ASSETS/GFX/Title/EXP/Exp_zero_003.png" type="Texture" id=6]
-[ext_resource path="res://ASSETS/LANG/ASSETS/FONTS/Main.fnt" type="BitmapFont" id=7]
-[ext_resource path="res://ASSETS/SE/System/System_03.wav" type="Sample" id=8]
-[ext_resource path="res://ASSETS/SE/System/System_04.wav" type="Sample" id=9]
-[ext_resource path="res://ASSETS/GFX/BackGround/Black.png" type="Texture" id=10]
-[ext_resource path="res://ASSETS/GFX/Game/TouchIcons/null.png" type="Texture" id=11]
+[ext_resource path="res://ASSETS/SE/System/System_03.wav" type="Sample" id=7]
+[ext_resource path="res://ASSETS/SE/System/System_04.wav" type="Sample" id=8]
+[ext_resource path="res://ASSETS/GFX/BackGround/Black.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=1]
 
@@ -111,8 +109,8 @@ script/source = "\nextends RichTextLabel\n\n# member variables here, example:\n#
 
 [sub_resource type="SampleLibrary" id=5]
 
-samples/System_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 8 ) }
-samples/System_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 9 ) }
+samples/System_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 7 ) }
+samples/System_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 8 ) }
 
 [sub_resource type="Animation" id=6]
 
@@ -197,7 +195,6 @@ margin/left = 300.0
 margin/top = 209.0
 margin/right = 879.0
 margin/bottom = 225.0
-custom_fonts/normal_font = ExtResource( 7 )
 bbcode/enabled = true
 bbcode/bbcode = ""
 visible_characters = -1
@@ -214,7 +211,6 @@ margin/left = 338.0
 margin/top = 231.0
 margin/right = 896.0
 margin/bottom = 246.0
-custom_fonts/normal_font = ExtResource( 7 )
 bbcode/enabled = true
 bbcode/bbcode = ""
 visible_characters = -1
@@ -231,7 +227,6 @@ margin/left = 328.0
 margin/top = 288.0
 margin/right = 440.0
 margin/bottom = 302.0
-custom_fonts/font = ExtResource( 7 )
 text = "EXPZ_CHOICE_00"
 percent_visible = 1.0
 lines_skipped = 0
@@ -248,7 +243,6 @@ margin/left = 529.0
 margin/top = 289.0
 margin/right = 641.0
 margin/bottom = 303.0
-custom_fonts/font = ExtResource( 7 )
 text = "EXPZ_CHOICE_01"
 percent_visible = 1.0
 lines_skipped = 0
@@ -274,7 +268,7 @@ default/chorus_send = 0.0
 [node name="BlackBG" type="Sprite" parent="."]
 
 visibility/opacity = 0.0
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 centered = false
 
 [node name="End" type="AnimationPlayer" parent="."]
@@ -287,37 +281,5 @@ playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
-
-[node name="left_touch" type="TouchScreenButton" parent="."]
-
-transform/scale = Vector2( 242, 480 )
-normal = ExtResource( 11 )
-pressed = null
-bitmask = null
-passby_press = false
-action = "ui_left"
-visibility_mode = 0
-
-[node name="right_touch" type="TouchScreenButton" parent="."]
-
-transform/pos = Vector2( 432, 0 )
-transform/scale = Vector2( 445, 480 )
-normal = ExtResource( 11 )
-pressed = null
-bitmask = null
-passby_press = false
-action = "ui_right"
-visibility_mode = 0
-
-[node name="enter_touch" type="TouchScreenButton" parent="."]
-
-transform/pos = Vector2( 253, 257 )
-transform/scale = Vector2( 173, 37 )
-normal = ExtResource( 11 )
-pressed = null
-bitmask = null
-passby_press = false
-action = ""
-visibility_mode = 0
 
 
