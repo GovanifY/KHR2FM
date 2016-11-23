@@ -98,6 +98,7 @@ points = Vector2Array( 1077.3, 822.705, 1077.3, 810.517, 1091.7, 821.597, 1083.9
 [node name="Map" type="Sprite"]
 
 centered = false
+__meta__ = { "_edit_lock_":true }
 
 [node name="Collisions" type="StaticBody2D" parent="."]
 
@@ -165,5 +166,6 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
+__meta__ = { "_edit_lock_":true }
 
 
