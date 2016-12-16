@@ -8,6 +8,16 @@ onready var Anims     = get_node("anims")
 onready var Character = get_node("Character")
 
 # "Private" members
+onready var player_frame = {
+	"down"       : Character.hframes * 0,
+	"left"       : Character.hframes * 1,
+	"right"      : Character.hframes * 2,
+	"up"         : Character.hframes * 3,
+	"up_left"    : Character.hframes * 4,
+	"down_right" : Character.hframes * 5,
+	"down_left"  : Character.hframes * 6,
+	"up_right"   : Character.hframes * 7,
+}
 
 ######################
 ### Core functions ###
@@ -57,22 +67,9 @@ func animate_character(up, down, left, right):
 	# If not moving at all
 	if not up && not down && not left && not right:
 		Anims.stop()
-		if   new_anim == "up":
-			Character.set_frame(27)
-		elif new_anim == "down":
-			Character.set_frame(0)
-		elif new_anim == "left":
-			Character.set_frame(9)
-		elif new_anim == "right":
-			Character.set_frame(18)
-		elif new_anim == "up_left":
-			Character.set_frame(54)
-		elif new_anim == "up_right":
-			Character.set_frame(63)
-		elif new_anim == "down_left":
-			Character.set_frame(54)
-		elif new_anim == "down_right":
-			Character.set_frame(45)
+		if player_frame.has(new_anim):
+			Character.set_frame(player_frame[new_anim])
+
 	else:
 		if new_anim != current_anim || !Anims.is_playing():
 			Anims.play(new_anim)
