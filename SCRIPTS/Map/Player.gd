@@ -28,10 +28,10 @@ func _ready():
 # Totally stolen from isometric example but eh
 func _fixed_process(delta):
 	# Grabbing Input
-	var left  = Input.is_action_pressed("ui_left")
-	var right = Input.is_action_pressed("ui_right")
-	var up    = Input.is_action_pressed("ui_up")
-	var down  = Input.is_action_pressed("ui_down")
+	var left  = Input.is_action_pressed("left")
+	var right = Input.is_action_pressed("right")
+	var up    = Input.is_action_pressed("up")
+	var down  = Input.is_action_pressed("down")
 
 	animate_character(up, down, left, right)
 	move_character(up, down, left, right, delta)

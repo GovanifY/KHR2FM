@@ -17,8 +17,8 @@ func _ready():
 func _fixed_process(delta):
 	if !ActionSet.is_locked():
 		# Simple Input check
-		var left  = Input.is_action_pressed("ui_left")
-		var right = Input.is_action_pressed("ui_right")
+		var left  = Input.is_action_pressed("left")
+		var right = Input.is_action_pressed("right")
 
 		# déterminer la priorité de direction
 		if left && right:
