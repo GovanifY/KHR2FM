@@ -44,7 +44,7 @@ func _input(event):
 ###############
 func animate_character(up, down, left, right):
 	var current_anim = Anims.get_current_animation()
-	var new_anim = current_anim
+	var new_anim
 
 	# Order is key: first, the multiple inputs; then, the single ones
 	if up && right:
@@ -64,26 +64,30 @@ func animate_character(up, down, left, right):
 	elif right:
 		new_anim = "right"
 
-	# If not moving at all
-	if not up && not down && not left && not right:
-		Anims.stop()
-		if player_frame.has(new_anim):
-			Character.set_frame(player_frame[new_anim])
+	# If not moving at all or going separate ways
+	var opposite_ways = (left && right) || (up && down)
 
+	if not (up || down || left || right) || opposite_ways:
+		Anims.stop()
+		if player_frame.has(current_anim):
+			Character.set_frame(player_frame[current_anim])
 	else:
-		if new_anim != current_anim || !Anims.is_playing():
+		if current_anim != new_anim || !Anims.is_playing():
+			current_anim = new_anim
 			Anims.play(new_anim)
 
 func move_character(up, down, left, right, delta=0):
 	var motion = Vector2()
-	if up:
-		motion += Vector2(0, -1)
-	if down:
-		motion += Vector2(0, 1)
-	if left:
+
+	if left && !right:
 		motion += Vector2(-1, 0)
-	if right:
+	elif !left && right:
 		motion += Vector2(1, 0)
+
+	if up && !down:
+		motion += Vector2(0, -1)
+	elif !up && down:
+		motion += Vector2(0, 1)
 
 	motion = motion.normalized() * MOTION_SPEED * delta
 	motion = move(motion)
