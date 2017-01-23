@@ -1,29 +1,55 @@
 extends "res://SCRIPTS/Battle/HUD/HP.gd"
 
+# Constants
+const MAXIMUM_ENEMY_HP = 1800 # num_layers * get_max()
+
 # Instance members
-onready var Bubbles = get_node("Bubbles")
+onready var GreenBar = get_node("GreenBar")
+onready var UnderBar = get_node("UnderBar")
+
+# "Private" members
+var max_num_layers = 0
+
+###############
+### Methods ###
+###############
+func set_max_value(value):
+	value = value if value <= MAXIMUM_ENEMY_HP else MAXIMUM_ENEMY_HP
+	.set_max_value(value)
+
+	# Changing opacity of the background bar if value != max
+	if value != get_max():
+		UnderBar.set_opacity(0.1)
+		GreenBar.set_opacity(0.1)
 
 ######################
 ### Core functions ###
 ######################
-# FIXME: This function uses division 2 times. Find better algorithm
-func set_lifebar(curHP, both = false):
-	var len_lifebar = curHP % 100
-	var num_bubbles = curHP / 100
+func set_value(value, both = false):
+	var len_lifebar = value % 100
+	var num_layers = value / 100
 
-	if len_lifebar == 0 && num_bubbles > 0:
+	# If value reaches a multiple of 100, decrement num_layers
+	if len_lifebar == 0 && num_layers > 0:
 		len_lifebar = 100
-		num_bubbles -= 1
+		num_layers -= 1
 
-	set_bubbles(num_bubbles, both)
-	return .set_lifebar(len_lifebar, both)
+	if num_layers < max_num_layers:
+		UnderBar.set_opacity(1.0)
+		GreenBar.set_opacity(0)
 
-func set_bubbles(num_bubbles, max_bubbles = false):
-	Bubbles.set_value(num_bubbles * Bubbles.get_step())
+	set_layers(num_layers, both)
+	return .set_value(len_lifebar, both)
 
-	if max_bubbles:
-		var empty_bubbles = get_node("Bubbles/EmptyBubbles")
-		if empty_bubbles != null:
-			var rect = empty_bubbles.get_region_rect()
-			rect.pos.x = -271 + min(15 * num_bubbles, 271)
-			empty_bubbles.set_region_rect(rect)
+func set_layers(num_layers, num_layers_is_max = false):
+	var Layers = get_node("Layers")
+	var EmptyLayers = Layers.get_node("EmptyLayers")
+
+	Layers.set_value(num_layers * Layers.get_step())
+
+	if num_layers_is_max:
+		max_num_layers = num_layers
+		if EmptyLayers != null:
+			var rect = EmptyLayers.get_region_rect()
+			rect.pos.x = -271 + min(15 * num_layers, 271)
+			EmptyLayers.set_region_rect(rect)
