@@ -12,11 +12,6 @@
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Bubble-empty.png" type="Texture" id=10]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Commands/Commands_Lr_010.png" type="Texture" id=11]
 
-[sub_resource type="RectangleShape2D" id=3]
-
-custom_solver_bias = 0.0
-extents = Vector2( 1, 240 )
-
 [sub_resource type="StyleBoxFlat" id=2]
 
 content_margin/left = -1.0
@@ -30,21 +25,13 @@ border_size = 0
 border_blend = true
 draw_bg = true
 
-[node name="BattlePlan" type="StaticBody2D"]
+[sub_resource type="RectangleShape2D" id=3]
 
-input/pickable = false
-shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 240 )
-shapes/0/trigger = false
-shapes/1/shape = SubResource( 3 )
-shapes/1/transform = Matrix32( 1, 0, 0, 1, 853, 240 )
-shapes/1/trigger = false
-collision/layers = 1
-collision/mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
+custom_solver_bias = 0.0
+extents = Vector2( 1, 240 )
+
+[node name="BattlePlan" type="Node"]
+
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
 Player = null
@@ -52,6 +39,7 @@ Enemy = null
 
 [node name="TemporaryBackground" type="Panel" parent="."]
 
+visibility/behind_parent = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -60,24 +48,36 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = -790.0
-margin/bottom = -418.0
+margin/right = 0.0
+margin/bottom = 0.0
 custom_styles/panelf = SubResource( 2 )
 
-[node name="InfoBar" parent="." instance=ExtResource( 2 )]
+[node name="Ring" type="StaticBody2D" parent="."]
 
-autostart = false
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -1, 240 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 3 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 855, 240 )
+shapes/1/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
 
-[node name="Left" type="CollisionShape2D" parent="."]
+[node name="Left" type="CollisionShape2D" parent="Ring"]
 
-transform/pos = Vector2( 0, 240 )
+transform/pos = Vector2( -1, 240 )
 shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
 
-[node name="Right" type="CollisionShape2D" parent="."]
+[node name="Right" type="CollisionShape2D" parent="Ring"]
 
-transform/pos = Vector2( 853, 240 )
+transform/pos = Vector2( 855, 240 )
 shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 1
@@ -88,6 +88,10 @@ layer = 5
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
+
+[node name="InfoBar" parent="HUD" instance=ExtResource( 2 )]
+
+autostart = false
 
 [node name="PlayerMP" type="Node2D" parent="HUD"]
 
@@ -269,6 +273,6 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[connection signal="dismiss" from="InfoBar" to="." method="_battle_begin"]
+[connection signal="dismiss" from="HUD/InfoBar" to="." method="_battle_begin"]
 
 

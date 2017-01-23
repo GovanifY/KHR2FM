@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 # Export values
 export(NodePath) var Player
@@ -6,7 +6,7 @@ export(NodePath) var Enemy
 #export(int, 0, 20) var enemy_multiplier
 
 # Instance members
-onready var InfoBar = get_node("InfoBar")
+onready var InfoBar = get_node("HUD/InfoBar")
 
 ######################
 ### Core functions ###

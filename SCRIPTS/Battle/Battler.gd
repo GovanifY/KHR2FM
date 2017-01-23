@@ -127,7 +127,7 @@ func random_voice(snd_arr):
 func set_stat_representation(idx, node, value):
 	if typeof(idx) == TYPE_INT && typeof(node) == TYPE_OBJECT:
 		Data[idx] = node
-		Data[idx].init(value)
+		Data[idx].set_max_value(value)
 
 func init_stats():
 	set_stat(STAT_HP, max_health)
@@ -135,7 +135,7 @@ func init_stats():
 func set_stat(idx, value):
 	Stats[idx] = value
 	# If there's a visual representation, update it with new values
-	if Data[idx] != null:
+	if Data.has(idx) && Data[idx] != null:
 		Data[idx].update(value)
 
 func get_stat(idx):

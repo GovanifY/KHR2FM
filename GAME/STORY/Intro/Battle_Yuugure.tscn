@@ -15,8 +15,7 @@ transform/pos = Vector2( 700, 240 )
 
 [node name="Foreground" type="ParallaxBackground" parent="."]
 
-editor/display_folded = true
-layer = -1
+layer = 4
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
