@@ -1,11 +1,13 @@
 extends "res://SCRIPTS/Battle/HUD/HP.gd"
 
 # Constants
-const MAXIMUM_ENEMY_HP = 1800 # num_layers * get_max()
+const MAX_HP_MOD = 100		# A new layer is added every MAX_HP_MOD
+const MAX_HP_LAYERS = 20	# Maximum number of HP layers an enemy can have
+const LAYER_POS = Vector2(20, 12)
 
 # Instance members
-onready var GreenBar = get_node("GreenBar")
-onready var UnderBar = get_node("UnderBar")
+const OneLayer = preload("res://SCENES/Battle/Enemy/HPLayer.tscn")
+onready var Layers = get_node("Layers")
 
 # "Private" members
 var max_num_layers = 0
@@ -13,43 +15,64 @@ var max_num_layers = 0
 ###############
 ### Methods ###
 ###############
-func set_max_value(value):
-	value = value if value <= MAXIMUM_ENEMY_HP else MAXIMUM_ENEMY_HP
-	.set_max_value(value)
+func update(value, animate_red=true):
+	var data = _prepare_bar_data(value)
+	var num_layers_to_alter = max_num_layers - data[1]
 
-	# Changing opacity of the background bar if value != max
-	if value != get_max():
-		UnderBar.set_opacity(0.1)
-		GreenBar.set_opacity(0.1)
+	# Updating health bar
+	.update(data[0], animate_red && get_value() >= data[0])
+
+	# Updating layer bars
+	# FIXME: optimize this portion
+	var all_layers = Layers.get_children()
+	for i in range(max_num_layers):
+		var index = max_num_layers - (i+1)
+		if i < num_layers_to_alter:
+			all_layers[index].set_value(0)
+		else:
+			all_layers[index].set_value(1)
+
+func set_limit_value(value):
+	.set_limit_value(value)
+
+	# Preparing bars
+	var data = _prepare_bar_data(value)
+	_set_layers(data[1])
+	update(value, false)
 
 ######################
 ### Core functions ###
 ######################
-func set_value(value, both = false):
-	var len_lifebar = value % 100
-	var num_layers = value / 100
+func _set_layers(num_layers):
+	var different = max_num_layers != num_layers
+	max_num_layers = num_layers
 
-	# If value reaches a multiple of 100, decrement num_layers
-	if len_lifebar == 0 && num_layers > 0:
-		len_lifebar = 100
+	if different:
+		for child in Layers.get_children():
+			child.queue_free()
+
+		for i in range(num_layers):
+			# Creating node
+			var temp_node = OneLayer.instance()
+
+			# Setting its position
+			var new_pos = LAYER_POS
+			new_pos.x *= (i+1)
+			temp_node.set_pos(new_pos)
+			Layers.add_child(temp_node)
+
+func _prepare_bar_data(value):
+	# Grabbing data
+	var current_val = value % MAX_HP_MOD
+	var num_layers = int(value / MAX_HP_MOD)
+
+	# Correcting math in case mod of HP == 0
+	if current_val == 0:
+		current_val = MAX_HP_MOD
 		num_layers -= 1
 
-	if num_layers < max_num_layers:
-		UnderBar.set_opacity(1.0)
-		GreenBar.set_opacity(0)
+	# Limiting number of layers to avoid ridiculous amounts of HP
+	if num_layers > MAX_HP_LAYERS:
+		num_layers = MAX_HP_LAYERS
 
-	set_layers(num_layers, both)
-	return .set_value(len_lifebar, both)
-
-func set_layers(num_layers, num_layers_is_max = false):
-	var Layers = get_node("Layers")
-	var EmptyLayers = Layers.get_node("EmptyLayers")
-
-	Layers.set_value(num_layers * Layers.get_step())
-
-	if num_layers_is_max:
-		max_num_layers = num_layers
-		if EmptyLayers != null:
-			var rect = EmptyLayers.get_region_rect()
-			rect.pos.x = -271 + min(15 * num_layers, 271)
-			EmptyLayers.set_region_rect(rect)
+	return [current_val, num_layers]
