@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_selected_sbx.tres" type="StyleBox" id=1]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_normal_sbx.tres" type="StyleBox" id=2]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOptions_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_icon_normal.png" type="Texture" id=4]
+[ext_resource path="res://GAME/Splash/TitleOption.gd" type="Script" id=5]
+
+[node name="TITLE_OPTION" type="Button"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+size_flags/stretch_ratio = 128.0
+margin/left = 0.0
+margin/top = 79.0
+margin/right = 834.0
+margin/bottom = 93.0
+custom_styles/hover = ExtResource( 1 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 1 )
+custom_styles/disabled = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/hseparation = 10
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+icon = ExtResource( 4 )
+flat = false
+align = 0
+script/script = ExtResource( 5 )
+__meta__ = { "_edit_lock_":true }
+
+

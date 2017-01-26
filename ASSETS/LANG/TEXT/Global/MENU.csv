@@ -18,3 +18,7 @@ EXPZ_DESC_00,Voulez-vous désactiver [color=yellow]le gain d'expérience[/color]
 EXPZ_DESC_01,[color=yellow]Vos statistiques seront accrues[/color],[color=yellow]Your stats will be increased[/color],[color=yellow]Se incrementará tu estatus[/color]
 EXPZ_CHOICE_00,Oui,Yes,Si
 EXPZ_CHOICE_01,Non,No,No
+TITLE_NEW_GAME,"Nouveau Jeu","Start Game","Nueva Partida"
+TITLE_LOAD_GAME,"Charger Une Partie","Load Game","Cargar Partida"
+TITLE_QUIT_GAME,"Quitter Le Jeu","Quit Game","Salir Del Juego"
+TITLE_DEVELOPER,"Développé par SKYNISM","Developed by SKYNISM","Creado por SKYNISM"
