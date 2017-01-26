@@ -88,7 +88,7 @@ character_sound = null
 anchor/left = 2
 anchor/top = 2
 anchor/right = 2
-anchor/bottom = 2
+anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -96,7 +96,7 @@ size_flags/vertical = 2
 margin/left = 0.05
 margin/top = 0.5
 margin/right = 0.45
-margin/bottom = 0.95
+margin/bottom = 20.0
 custom_constants/separation = 120
 alignment = 1
 __meta__ = { "_edit_lock_":true }
@@ -106,7 +106,7 @@ __meta__ = { "_edit_lock_":true }
 anchor/left = 2
 anchor/top = 2
 anchor/right = 2
-anchor/bottom = 2
+anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -114,7 +114,7 @@ size_flags/vertical = 2
 margin/left = 0.55
 margin/top = 0.5
 margin/right = 0.95
-margin/bottom = 0.95
+margin/bottom = 20.0
 custom_constants/separation = 120
 alignment = 1
 __meta__ = { "_edit_lock_":true }
@@ -128,26 +128,22 @@ playback/speed = 1.0
 
 [node name="SkinPos" type="VBoxContainer" parent="."]
 
-editor/display_folded = true
-anchor/left = 2
-anchor/top = 2
-anchor/right = 2
-anchor/bottom = 2
+anchor/right = 1
+anchor/bottom = 1
 rect/min_size = Vector2( 100, 100 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.05
-margin/top = 0.05
-margin/right = 0.95
-margin/bottom = 0.95
+margin/left = 42.0
+margin/top = 24.0
+margin/right = 42.0
+margin/bottom = 24.0
 alignment = 2
 __meta__ = { "_edit_lock_":true }
 
 [node name="Bubble" type="Panel" parent="SkinPos"]
 
-visibility/visible = false
 rect/min_size = Vector2( 100, 100 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -155,7 +151,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 332.0
-margin/right = 769.0
+margin/right = 770.0
 margin/bottom = 432.0
 custom_styles/panel = ExtResource( 3 )
 script/script = ExtResource( 4 )
@@ -182,7 +178,6 @@ __meta__ = { "_edit_lock_":true }
 [node name="ConfirmIcon" type="Patch9Frame" parent="SkinPos/Bubble"]
 
 editor/display_folded = true
-visibility/visible = false
 anchor/left = 1
 anchor/right = 1
 anchor/bottom = 1
@@ -204,7 +199,7 @@ playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/Down_Up = SubResource( 3 )
-playback/active = false
+playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = "Down_Up"
@@ -268,9 +263,9 @@ default/chorus_send = 0.0
 
 [connection signal="hide" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="set_active" binds= [ false ]]
 
-[connection signal="cleared" from="SkinPos/Bubble/TextContainer/TextScroll" to="SkinPos/Bubble/ConfirmIcon" method="hide"]
-
 [connection signal="cleared" from="SkinPos/Bubble/TextContainer/TextScroll" to="." method="_next_line"]
+
+[connection signal="cleared" from="SkinPos/Bubble/TextContainer/TextScroll" to="SkinPos/Bubble/ConfirmIcon" method="hide"]
 
 [connection signal="finished" from="SkinPos/Bubble/TextContainer/TextScroll" to="SkinPos/Bubble/ConfirmIcon" method="show"]
 

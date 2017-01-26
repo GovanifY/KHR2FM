@@ -79,7 +79,7 @@ func _on_CastAnim_tween_complete(object, key):
 	# If the key was about setting offset, it's about speak()
 	if key == "set_offset":
 		if Bubble.is_hidden():
-			Bubble.show_skin()
+			Bubble.show_box()
 		else:
 			Bubble.emit_signal("shown")
 	# Otherwise, it's about _hide_avatars()
@@ -121,6 +121,9 @@ func set_alignment(value):
 func is_loaded():
 	return first <= index && index <= last
 
+func set_box(idx):
+	Bubble.set_box(idx)
+
 # Makes a character speak.
 func speak(character, begin, end, right = false):
 	# Check arguments
@@ -136,7 +139,7 @@ func speak(character, begin, end, right = false):
 	current_speaker = character
 
 	# if this character is actually a "character", then rearrange the scenery for it
-	if character.type == character.CHARACTER:
+	if Bubble.get_box() == 0:
 		# Fitting avatars in the Dialogue window
 		if is_a_parent_of(character):
 			remove_child(character)
@@ -154,7 +157,8 @@ func speak(character, begin, end, right = false):
 		# Flipping the character's sprite
 		character.set_flip_h(right)
 		# If character's invisible, make grand appearance
-		if character.is_hidden():
+		var avatar_texture = character.Avatar.get_texture()
+		if character.is_hidden() && avatar_texture != null:
 			var off_bounds = character.Avatar.get_texture().get_size()
 			off_bounds.y = 0
 			if !right:
@@ -164,17 +168,12 @@ func speak(character, begin, end, right = false):
 			CastAnim.start()
 			character.show()
 
-	# Setting skin properties
-	if Bubble.get_skin() != character.type:
-		Bubble.hide_skin()
-		yield(Bubble, "hidden")
-		Bubble.set_skin(character.type)
+	else:
+		Bubble.show_box()
 
-	if character.type == character.NARRATOR:
-		Bubble.show_skin()
 
-# Hides Bubble skin and dismisses all the avatars
+# Hides Bubble box and dismisses all the avatars
 func silence():
 	set_process_input(false)
-	Bubble.hide_skin()
+	Bubble.hide_box()
 	_hide_avatars()

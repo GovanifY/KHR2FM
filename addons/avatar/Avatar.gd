@@ -1,11 +1,7 @@
 tool
 extends Control
 
-# Avatar enum types
-enum AvatarTypes { CHARACTER, NARRATOR }
-
 # Export values
-export(int, "Character", "Narrator") var type = 0
 export(SpriteFrames) var face_sprites   setget set_face_sprites
 export(int, 0, 64)   var frame = 0      setget set_frame
 export(bool)         var flip_h = false setget set_flip_h
