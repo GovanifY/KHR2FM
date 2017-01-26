@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save.png" type="Texture" id=1]
-[ext_resource path="res://addons/map_npc/icon.png" type="Texture" id=2]
-[ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save_anim.png" type="Texture" id=3]
-[ext_resource path="res://SCRIPTS/Map/MapSave.gd" type="Script" id=4]
+[ext_resource path="res://SCRIPTS/Map/MapSave.gd" type="Script" id=2]
+[ext_resource path="res://addons/map_npc/icon.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save_anim.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=21]
 
@@ -41,7 +41,7 @@ extents = Vector2( 10, 10 )
 
 [sub_resource type="GDScript" id=19]
 
-script/source = "extends Control\n\n#Ok so I have no idea wtf to do with this so please\n#Keyaku find a better way than this, for now only thing\n#the mpe at 5am thougt was to get an integrated script for\n#each NPC which is NOT the way to go imo\nfunc play():\n\tprint(\"Why, hello there, random great looking guy\")"
+script/source = "extends Control\n\nfunc play():\n\t#Load save menu, pro\'lly\n\t"
 
 [node name="MapSave" type="Sprite"]
 
@@ -50,17 +50,17 @@ transform/pos = Vector2( 704, 580 )
 texture = ExtResource( 1 )
 hframes = 8
 frame = 6
-__meta__ = { "_editor_icon":ExtResource( 2 ) }
+script/script = ExtResource( 2 )
+__meta__ = { "_editor_icon":ExtResource( 3 ) }
 
 [node name="ApproachAnim" type="Sprite" parent="."]
 
 visibility/blend_mode = 1
 transform/pos = Vector2( -8.43262, -32.6765 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 4
 hframes = 5
 frame = 19
-script/script = ExtResource( 4 )
 
 [node name="animations" type="AnimationPlayer" parent="."]
 
