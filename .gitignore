@@ -3,7 +3,7 @@
 *.DS_Store
 *Thumbs.db
 *.icloud
-
+*.swp
 # Work files (stuff we don't want to share with one another)
 *.scn
 *.psd
