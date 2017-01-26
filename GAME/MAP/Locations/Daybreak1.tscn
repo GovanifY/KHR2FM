@@ -191,7 +191,7 @@ polygon = Vector2Array( 1061.78, 803.869, 1077.3, 810.517, 1077.3, 822.705, 1083
 shape_range = Vector2( 11, 15 )
 trigger = false
 
-[node name="Kioku" parent="." instance=ExtResource( 3 )]
+[node name="Player" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 450.536, 557.486 )
 
@@ -214,6 +214,7 @@ spriteset = ExtResource( 6 )
 hframes = 4
 vframes = 4
 frame = 1
+Interaction = NodePath("")
 
 [node name="collision" type="CollisionShape2D" parent="MapNPC"]
 

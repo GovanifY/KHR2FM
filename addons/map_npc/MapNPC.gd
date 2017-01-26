@@ -5,6 +5,7 @@ export(Texture) var spriteset setget set_spriteset
 export(int) var hframes = 1 setget set_hframes
 export(int) var vframes = 1 setget set_vframes
 export(int) var frame = 0   setget set_frame
+export(NodePath) var Interaction
 
 # Instance members
 var Character = Sprite.new()
@@ -41,18 +42,19 @@ func _enter_tree():
 
 	# Setting up
 	set_pickable(true)
-	set_process_input(false)
-	
+
 
 
 #######################
 ### Signal routines ###
 #######################
 func _on_TalkArea_body_enter( body ):
-	set_process_input(true)
+	if body.get_name() == "Player":
+		set_process_input(true)
 	
 func _on_TalkArea_body_exit( body ):
-	set_process_input(false)
+	if body.get_name() == "Player":
+		set_process_input(false)
 
 ###############
 ### Methods ###
