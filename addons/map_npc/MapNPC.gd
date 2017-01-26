@@ -61,4 +61,4 @@ func _on_TalkArea_body_exit( body ):
 ###############
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
-		print("Why, hello there, random great looking guy")
+		get_node(Interaction).play()

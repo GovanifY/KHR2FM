@@ -126,6 +126,7 @@ autoplay = ""
 visibility/opacity = 0.0
 frames = SubResource( 4 )
 animation = "default"
+frame = 1
 playing = true
 centered = false
 
