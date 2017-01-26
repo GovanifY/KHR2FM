@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save.png" type="Texture" id=1]
 [ext_resource path="res://addons/map_npc/icon.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save_anim.png" type="Texture" id=3]
+[ext_resource path="res://SCRIPTS/Map/MapSave.gd" type="Script" id=4]
 
 [sub_resource type="Animation" id=21]
 
@@ -59,6 +60,7 @@ texture = ExtResource( 3 )
 vframes = 4
 hframes = 5
 frame = 19
+script/script = ExtResource( 4 )
 
 [node name="animations" type="AnimationPlayer" parent="."]
 
