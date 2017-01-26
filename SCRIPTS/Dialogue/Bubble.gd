@@ -7,7 +7,8 @@ signal hidden
 # Skin data
 const ALL_SKINS = [
 	preload("res://SCENES/Dialogue/box0.tres"),
-	preload("res://SCENES/Dialogue/box1.tres")
+	preload("res://SCENES/Dialogue/box1.tres"),
+	preload("res://SCENES/Dialogue/box2.tres")
 ]
 
 # Instance members
