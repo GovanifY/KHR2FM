@@ -50,6 +50,7 @@ func _stop_scrolling():
 func set_text_node(node):
 	if node.is_type("Label") || node.is_type("RichTextLabel"):
 		text_node = node
+		text_node.set_visible_characters(0)
 	else:
 		text_node = null
 
