@@ -90,7 +90,7 @@ points = Vector2Array( 1077.3, 822.705, 1077.3, 810.517, 1091.7, 821.597, 1083.9
 [sub_resource type="RectangleShape2D" id=17]
 
 custom_solver_bias = 0.0
-extents = Vector2( 23.2843, 10 )
+extents = Vector2( 17.683, 10 )
 
 [sub_resource type="RectangleShape2D" id=18]
 
@@ -259,8 +259,6 @@ margin/top = 0.0
 margin/right = 40.0
 margin/bottom = 40.0
 script/script = SubResource( 19 )
-
-[connection signal="area_enter" from="MapNPC/TalkArea" to="MapNPC" method="_on_TalkArea_area_enter"]
 
 [connection signal="body_enter" from="MapNPC/TalkArea" to="MapNPC" method="_on_TalkArea_body_enter"]
 

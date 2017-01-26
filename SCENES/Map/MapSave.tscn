@@ -32,7 +32,7 @@ tracks/0/keys = { "times":FloatArray( 0, 0.06, 0.12, 0.18, 0.24, 0.3, 0.36, 0.42
 [sub_resource type="RectangleShape2D" id=17]
 
 custom_solver_bias = 0.0
-extents = Vector2( 23.2843, 10 )
+extents = Vector2( 17.683, 10 )
 
 [sub_resource type="RectangleShape2D" id=18]
 
@@ -41,7 +41,7 @@ extents = Vector2( 10, 10 )
 
 [sub_resource type="GDScript" id=19]
 
-script/source = "extends Control\n\nfunc play():\n\t#Load save menu, pro\'lly\n\t"
+script/source = "extends Control\n\n#Ok so I have no idea wtf to do with this so please\n#Keyaku find a better way than this, for now only thing\n#the mpe at 5am thougt was to get an integrated script for\n#each NPC which is NOT the way to go imo\nfunc play():\n\tprint(\"Why, hello there, random great looking guy\")"
 
 [node name="MapSave" type="Sprite"]
 
@@ -114,8 +114,6 @@ margin/top = 0.0
 margin/right = 39.0
 margin/bottom = 40.0
 script/script = SubResource( 19 )
-
-[connection signal="area_enter" from="TalkArea" to="." method="_on_TalkArea_area_enter"]
 
 [connection signal="body_enter" from="TalkArea" to="." method="_on_TalkArea_body_enter"]
 
