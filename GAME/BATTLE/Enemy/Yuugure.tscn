@@ -34,7 +34,6 @@
 [ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_09.wav" type="Sample" id=32]
 [ext_resource path="res://ASSETS/SE/Battle/General/Teleportation2.wav" type="Sample" id=33]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0

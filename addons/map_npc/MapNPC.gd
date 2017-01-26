@@ -41,13 +41,22 @@ func _enter_tree():
 
 	# Setting up
 	set_pickable(true)
+	set_process_input(false)
+	
+
 
 #######################
 ### Signal routines ###
 #######################
-func _on_NPC_interaction(viewport, event, shape_idx):
-	print("Why, hello there, random great looking guy")
+func _on_TalkArea_body_enter( body ):
+	set_process_input(true)
+	
+func _on_TalkArea_body_exit( body ):
+	set_process_input(false)
 
 ###############
 ### Methods ###
 ###############
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		print("Why, hello there, random great looking guy")
