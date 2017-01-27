@@ -126,13 +126,12 @@ autoplay = ""
 visibility/opacity = 0.0
 frames = SubResource( 4 )
 animation = "default"
-frame = 1
+frame = 3
 playing = true
 centered = false
 
 [node name="Darkness Fog" type="AnimatedSprite" parent="."]
 
-visibility/visible = false
 transform/pos = Vector2( 360, 240 )
 transform/scale = Vector2( 1e-05, 1e-05 )
 frames = SubResource( 5 )
@@ -180,6 +179,7 @@ csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
 
 [node name="Kiryoku" type="Control" parent="Dialogue"]
 
+visibility/visible = false
 visibility/behind_parent = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -191,13 +191,13 @@ margin/right = -311.0
 margin/bottom = -181.0
 script/script = ExtResource( 12 )
 __meta__ = { "_editor_icon":ExtResource( 13 ) }
-type = 0
 face_sprites = ExtResource( 14 )
 frame = 0
 flip_h = false
 
 [node name="Yuugure" type="Control" parent="Dialogue"]
 
+visibility/visible = false
 visibility/behind_parent = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -209,7 +209,6 @@ margin/right = -331.0
 margin/bottom = 275.0
 script/script = ExtResource( 12 )
 __meta__ = { "_editor_icon":ExtResource( 13 ) }
-type = 0
 face_sprites = ExtResource( 15 )
 frame = 0
 flip_h = false

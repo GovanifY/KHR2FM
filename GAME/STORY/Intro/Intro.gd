@@ -5,39 +5,42 @@ onready var Dialogue = get_node("Dialogue")
 onready var Sequences = get_node("Master")
 
 # Characters
-onready var Kiryoku  = get_node("Dialogue/Kiryoku")
-onready var Yuugure  = get_node("Dialogue/Yuugure")
+onready var Kiryoku  = Dialogue.get_node("Kiryoku")
+onready var Yuugure  = Dialogue.get_node("Yuugure")
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	# Begin cutscene
-	_fetch_sequence()
+	# Setting characters
+	Kiryoku.set_side(false)
+	Yuugure.set_side(true)
 
-func _fetch_sequence():
 	# Starting music
 	AudioRoom.load_music(get_node("Into the Darkness"))
 	AudioRoom.play()
 
+	# Begin cutscene
+	_fetch_sequence()
+
+func _fetch_sequence():
 	Sequences.play("Water")
 	yield(Sequences, "finished")
 
 	Sequences.play("Kiryoku down")
 	yield(Sequences, "finished")
 
-	#Yuugure.set_pos(Vector2(700, 0))
 	Dialogue.speak(Yuugure, 0, 1)
 	yield(Dialogue, "finished")
 
-	#Kiryoku.set_pos(Vector2(200, 0))
 	Dialogue.speak(Kiryoku, 0, 4)
 	yield(Dialogue, "finished")
 
 	Dialogue.speak(Yuugure, 5, 7)
 	yield(Dialogue, "finished")
 
-	# TODO: dismiss Dialogue's mugshots
+	Dialogue.silence()
+	yield(Dialogue, "finished")
 
 	Sequences.play("Kiryoku vanish")
 	yield(Sequences, "finished")

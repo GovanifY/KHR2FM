@@ -55,3 +55,29 @@ func set_flip_h(value):
 		return
 	flip_h = value
 	Avatar.set_flip_h(value)
+
+func set_side(right):
+	var Dialogue = get_node(Globals.get("Dialogue"))
+
+	if Dialogue == null:
+		print("No Dialogue node instanced. What are you even doing, foo??")
+		return
+
+	var CastLeft  = Dialogue.get_node("CastLeft")
+	var CastRight = Dialogue.get_node("CastRight")
+
+	# Fitting avatar in the Dialogue window
+	if Dialogue.is_a_parent_of(self):
+		Dialogue.remove_child(self)
+	elif CastLeft.is_a_parent_of(self) && right:
+		CastLeft.remove_child(self)
+	elif CastRight.is_a_parent_of(self) && !right:
+		CastRight.remove_child(self)
+
+	if right:
+		CastRight.add_child(self)
+	else:
+		CastLeft.add_child(self)
+
+	# Flipping the character's sprite by default (will always reset when)
+	set_flip_h(right)

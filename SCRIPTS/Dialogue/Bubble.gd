@@ -10,7 +10,7 @@ const ALL_BOXES = [
 	preload("res://SCENES/Dialogue/box1.tres"),
 	preload("res://SCENES/Dialogue/box2.tres")
 ]
-enum ALL_BOX_INDEXES { BOX_CHARACTER, BOX_NARRATOR, BOX2 }
+enum ALL_BOX_INDEXES { BOX_CHARACTER, BOX_NARRATOR1, BOX_NARRATOR2 }
 
 # Instance members
 onready var Fade       = get_node("Fade")
@@ -33,7 +33,6 @@ func _ready():
 ### Signal routines ###
 #######################
 func _fade_animation_finished():
-	# FIXME: Probably not the way I'll leave at the end
 	emit_signal(current_signal)
 
 ###############
@@ -51,18 +50,21 @@ func get_box():
 	return current_box
 
 func set_box(index):
-	current_box = index
-	# Switching hook
-	if 0 <= index && index < Hook.get_vframes():
-		Hook.set_frame(index)
+	if current_box != index:
+		current_box = index
+		Hook.hide()
+		if 0 <= current_box && current_box < ALL_BOXES.size():
+			add_style_override("panel", ALL_BOXES[current_box])
+
+func set_hook(character, center):
+	# Verify if showing a hook is even possible
+	if 0 <= get_box() && get_box() < Hook.get_vframes():
+		# Positioning the hook
+		set_hook_pos(center)
+		Hook.set_frame(get_box())
 		Hook.show()
 	else:
 		Hook.hide()
-
-	# Switching bubble
-	# FIXME: don't forget to look at this
-	if 0 <= index && index < ALL_BOXES.size():
-		add_style_override("panel", ALL_BOXES[index])
 
 func set_hook_pos(x):
 	var limit_left  = get_margin(MARGIN_LEFT)
