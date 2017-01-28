@@ -24,6 +24,7 @@ func _ready():
 	Sequences.play("Water")
 	yield(Sequences, "finished")
 
+	get_node("Kiryoku_down").play()
 	Sequences.play("Kiryoku down")
 	yield(Sequences, "finished")
 
