@@ -1,6 +1,6 @@
 extends StreamPlayer
 
-var audio_placeholder
+var current_audio
 
 # Core functions
 func _ready():
@@ -9,9 +9,10 @@ func _ready():
 # Methods
 func load_music(node):
 	# Free old one, if any
-	if audio_placeholder != null:
-		audio_placeholder.free()
+	if current_audio != null:
+		current_audio.stop()
+		current_audio.free()
 
-	audio_placeholder = node.duplicate()
-	set_stream(audio_placeholder.get_stream())
+	current_audio = node.duplicate()
+	set_stream(current_audio.get_stream())
 	return
