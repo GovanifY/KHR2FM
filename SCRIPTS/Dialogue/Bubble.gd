@@ -26,7 +26,8 @@ func _ready():
 	# Setting up manually any other necessary signals
 	Fade.connect("finished", self, "_fade_animation_finished")
 
-	# Hiding bubble
+	# Preparing bubble
+	set_box(BOX_CHARACTER)
 	hide()
 
 #######################

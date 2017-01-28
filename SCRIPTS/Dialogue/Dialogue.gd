@@ -107,6 +107,7 @@ func _on_CastAnim_tween_complete(object, key):
 	# Otherwise, it's about setting opacity
 	elif key == "set_opacity":
 		object.hide()
+		object.set_opacity(1.0)
 	emit_signal("finished")
 
 func _get_line():

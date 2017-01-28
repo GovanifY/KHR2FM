@@ -14,7 +14,6 @@ onready var Narrator = Dialogue.get_node("Narrator")
 ######################
 func _ready():
 	# Getting Dialogue box and Characters ready
-	Dialogue.set_box(0)
 	Kiryoku.set_side(false)
 	Kioku.set_side(false)
 	Yuugure.set_side(true)
