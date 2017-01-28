@@ -1,50 +1,48 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=8 format=1]
 
-[ext_resource path="res://addons/map_npc/MapNPC.gd" type="Script" id=1]
-[ext_resource path="res://addons/map_npc/icon.png" type="Texture" id=2]
+[ext_resource path="res://addons/map_event/MapEvent.gd" type="Script" id=1]
+[ext_resource path="res://addons/map_event/icon.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save_anim.png" type="Texture" id=4]
-[ext_resource path="res://SCRIPTS/Map/MapSave.gd" type="Script" id=5]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="CapsuleShape2D" id=4]
 
-resource/name = "main"
-length = 0.5
-loop = true
-step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 2
-tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0, 8 ] }
+custom_solver_bias = 0.0
+radius = 20.0
+height = 40.0
 
 [sub_resource type="Animation" id=2]
 
-resource/name = "approach"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0, 8 ] }
+
+[sub_resource type="Animation" id=3]
+
 length = 1.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Approach:frame")
+tracks/0/path = NodePath("ApproachSprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0, 19 ] }
 
-[sub_resource type="RectangleShape2D" id=3]
+[node name="MapSave" type="Area2D"]
 
-custom_solver_bias = 0.0
-extents = Vector2( 40, 40 )
-
-[node name="MapSave" type="StaticBody2D"]
-
-visibility/blend_mode = 1
 input/pickable = true
-collision/layers = 1
-collision/mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Matrix32( -4.37114e-08, -1, 1, -4.37114e-08, 0, 10 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
 script/script = ExtResource( 1 )
 __meta__ = { "_editor_icon":ExtResource( 2 ) }
 spriteset = ExtResource( 3 )
@@ -52,12 +50,23 @@ hframes = 8
 vframes = 1
 frame = 0
 blend_mode = 1
-Interaction = null
+Interaction = NodePath("")
+interaction_event = null
+Touch = NodePath("approach")
+touch_event = "approach"
 
-[node name="Approach" type="Sprite" parent="."]
+[node name="TouchArea" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( 0, 10 )
+transform/rot = 90.0
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
+
+[node name="ApproachSprite" type="Sprite" parent="."]
 
 visibility/blend_mode = 1
-transform/pos = Vector2( -8.62447, -15.9221 )
+transform/pos = Vector2( -15, -14 )
 texture = ExtResource( 4 )
 vframes = 4
 hframes = 5
@@ -68,9 +77,9 @@ frame = 19
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/main = SubResource( 1 )
+anims/main = SubResource( 2 )
 playback/active = true
-playback/speed = 1.0
+playback/speed = 1.4
 blend_times = [  ]
 autoplay = "main"
 
@@ -79,32 +88,10 @@ autoplay = "main"
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/approach = SubResource( 2 )
+anims/approach = SubResource( 3 )
 playback/active = true
-playback/speed = 1.0
+playback/speed = 0.8
 blend_times = [  ]
 autoplay = ""
-
-[node name="TalkArea" type="Area2D" parent="."]
-
-input/pickable = true
-shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-script/script = ExtResource( 5 )
-
-[node name="area" type="CollisionShape2D" parent="TalkArea"]
-
-shape = SubResource( 3 )
-trigger = false
-_update_shape_index = 0
-
-[connection signal="body_enter" from="TalkArea" to="TalkArea" method="_on_TalkArea_body_enter"]
-
-[connection signal="body_exit" from="TalkArea" to="TalkArea" method="_on_TalkArea_body_exit"]
 
 
