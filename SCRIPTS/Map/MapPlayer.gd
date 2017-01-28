@@ -53,6 +53,12 @@ func _fixed_process(delta):
 ###############
 ### Methods ###
 ###############
+func get_type():
+	return "MapPlayer"
+
+func is_type(type):
+	return type == get_type()
+
 func animate_character(directions):
 	# If it can move to this direction
 	if sprite_direction.has(directions):

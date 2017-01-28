@@ -196,12 +196,13 @@ polygon = Vector2Array( 1061.78, 803.869, 1077.3, 810.517, 1077.3, 822.705, 1083
 shape_range = Vector2( 11, 15 )
 trigger = false
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
+[node name="Kioku" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 450.536, 557.486 )
 
 [node name="MapNPC" type="StaticBody2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 704, 580 )
 input/pickable = true
 shapes/0/shape = SubResource( 17 )
@@ -219,6 +220,7 @@ spriteset = ExtResource( 6 )
 hframes = 4
 vframes = 4
 frame = 1
+blend_mode = 0
 Interaction = NodePath("Interaction")
 
 [node name="collision" type="CollisionShape2D" parent="MapNPC"]
@@ -264,7 +266,7 @@ script/script = SubResource( 19 )
 
 [node name="MapSave" parent="." instance=ExtResource( 7 )]
 
-transform/pos = Vector2( 600.825, 612.42 )
+transform/pos = Vector2( 614, 598 )
 
 [connection signal="body_enter" from="MapNPC/TalkArea" to="MapNPC" method="_on_TalkArea_body_enter"]
 
