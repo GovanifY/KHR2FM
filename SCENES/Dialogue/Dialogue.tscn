@@ -128,6 +128,7 @@ playback/speed = 1.0
 
 [node name="SkinPos" type="VBoxContainer" parent="."]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 rect/min_size = Vector2( 100, 100 )
@@ -144,6 +145,7 @@ __meta__ = { "_edit_lock_":true }
 
 [node name="Bubble" type="Panel" parent="SkinPos"]
 
+editor/display_folded = true
 rect/min_size = Vector2( 100, 100 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -255,17 +257,13 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
-[connection signal="tween_complete" from="CastAnim" to="." method="_on_CastAnim_tween_complete"]
-
-[connection signal="shown" from="SkinPos/Bubble" to="." method="_get_line"]
-
 [connection signal="draw" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="set_active" binds= [ true ]]
 
 [connection signal="hide" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="set_active" binds= [ false ]]
 
-[connection signal="cleared" from="SkinPos/Bubble/TextContainer/TextScroll" to="." method="_next_line"]
-
 [connection signal="cleared" from="SkinPos/Bubble/TextContainer/TextScroll" to="SkinPos/Bubble/ConfirmIcon" method="hide"]
+
+[connection signal="cleared" from="SkinPos/Bubble/TextContainer/TextScroll" to="." method="_next_line"]
 
 [connection signal="finished" from="SkinPos/Bubble/TextContainer/TextScroll" to="SkinPos/Bubble/ConfirmIcon" method="show"]
 

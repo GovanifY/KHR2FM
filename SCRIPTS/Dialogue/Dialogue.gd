@@ -28,6 +28,16 @@ var current_speaker = null
 ######################
 ### Core functions ###
 ######################
+func _enter_tree():
+	if Globals.get("Dialogue") != null:
+		print("One Dialogue node is already enough!")
+		queue_free()
+	else:
+		Globals.set("Dialogue", get_path())
+
+func _exit_tree():
+	Globals.set("Dialogue", null)
+
 func _ready():
 	# Initializing Translator
 	Translator.set_csv(csv_path)
@@ -41,6 +51,10 @@ func _ready():
 	if character_sound != null:
 		SE_node.get_sample_library().add_sample("Character", character_sound)
 		Bubble.TextScroll.set_sound_node(SE_node)
+
+	# Initializing signals
+	Bubble.connect("shown", self, "_get_line")
+	CastAnim.connect("tween_complete", self, "_on_CastAnim_tween_complete")
 
 func _input(event):
 	# Pressed, non-repeating Input check
@@ -78,11 +92,22 @@ func _hide_avatars():
 func _on_CastAnim_tween_complete(object, key):
 	# If the key was about setting offset, it's about speak()
 	if key == "set_offset":
+		var character = object.get_parent()
+		# Centering hook (whenever necessary)
+		var center = character.get_center()
+		if CastRight.is_a_parent_of(character):
+			center += CastRight.get_pos().x
+		Bubble.set_hook(character, center)
+
 		if Bubble.is_hidden():
 			Bubble.show_box()
 		else:
 			Bubble.emit_signal("shown")
-	# Otherwise, it's about _hide_avatars()
+		return
+	# Otherwise, it's about setting opacity
+	elif key == "set_opacity":
+		object.hide()
+	emit_signal("finished")
 
 func _get_line():
 	# Parsing lineID
@@ -125,7 +150,7 @@ func set_box(idx):
 	Bubble.set_box(idx)
 
 # Makes a character speak.
-func speak(character, begin, end, right = false):
+func speak(character, begin, end):
 	# Check arguments
 	assert(typeof(character) == TYPE_OBJECT && character.is_type("Avatar"))
 	if (end - begin) < 0:
@@ -138,42 +163,27 @@ func speak(character, begin, end, right = false):
 	last  = end
 	current_speaker = character
 
-	# if this character is actually a "character", then rearrange the scenery for it
-	if Bubble.get_box() == 0:
-		# Fitting avatars in the Dialogue window
-		if is_a_parent_of(character):
-			remove_child(character)
-			if right:
-				CastRight.add_child(character)
-			else:
-				CastLeft.add_child(character)
+	# If character's invisible, make grand appearance
+	var avatar_texture = character.Avatar.get_texture()
+	if character.is_hidden() && avatar_texture != null:
+		var off_bounds = character.Avatar.get_texture().get_size()
+		off_bounds.y = 0
+		if !CastRight.is_a_parent_of(character):
+			off_bounds.x *= -1
 
-		# Positioning the hook
-		var center = character.get_center()
-		if right:
-			center += CastRight.get_pos().x
-		Bubble.set_hook_pos(center)
-
-		# Flipping the character's sprite
-		character.set_flip_h(right)
-		# If character's invisible, make grand appearance
-		var avatar_texture = character.Avatar.get_texture()
-		if character.is_hidden() && avatar_texture != null:
-			var off_bounds = character.Avatar.get_texture().get_size()
-			off_bounds.y = 0
-			if !right:
-				off_bounds.x *= -1
-
-			CastAnim.interpolate_method(character.Avatar, "set_offset", off_bounds, Vector2(), ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
-			CastAnim.start()
-			character.show()
-
-	else:
-		Bubble.show_box()
-
+		# Drag animation from left or right depending on the situation
+		CastAnim.interpolate_method(character.Avatar, "set_offset", off_bounds, Vector2(), ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		CastAnim.start()
+		character.show()
+	elif !Bubble.Fade.is_playing() || !CastAnim.is_active():
+		Bubble.emit_signal("shown")
 
 # Hides Bubble box and dismisses all the avatars
 func silence():
 	set_process_input(false)
 	Bubble.hide_box()
 	_hide_avatars()
+
+# Dismisses specified Avatar
+func dismiss(character):
+	CastAnim.interpolate_method(character, "set_opacity", 1.0, 0.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
