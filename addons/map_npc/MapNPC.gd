@@ -5,6 +5,7 @@ export(Texture) var spriteset setget set_spriteset
 export(int) var hframes = 1 setget set_hframes
 export(int) var vframes = 1 setget set_vframes
 export(int) var frame = 0   setget set_frame
+export(int, "Mix", "Add", "Sub", "Mul", "PMAlpha") var blend_mode = 0 setget set_blend_mode
 export(NodePath) var Interaction
 
 # Instance members
@@ -32,6 +33,10 @@ func set_frame(idx):
 		frame = idx
 		Character.set_frame(idx)
 
+func set_blend_mode(value):
+	blend_mode = value
+	Character.set_blend_mode(value)
+
 ######################
 ### Core functions ###
 ######################
@@ -42,19 +47,6 @@ func _enter_tree():
 
 	# Setting up
 	set_pickable(true)
-
-
-
-#######################
-### Signal routines ###
-#######################
-func _on_TalkArea_body_enter( body ):
-	if body.get_name() == "Player":
-		set_process_input(true)
-	
-func _on_TalkArea_body_exit( body ):
-	if body.get_name() == "Player":
-		set_process_input(false)
 
 ###############
 ### Methods ###
