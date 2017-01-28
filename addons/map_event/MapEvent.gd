@@ -6,9 +6,9 @@ export(int) var hframes = 1 setget set_hframes
 export(int) var vframes = 1 setget set_vframes
 export(int) var frame = 0   setget set_frame
 export(int, "Mix", "Add", "Sub", "Mul", "PMAlpha") var blend_mode = 0 setget set_blend_mode
-export(NodePath) var Interaction
+export(NodePath) var Interaction = NodePath()
 export(String) var interaction_event
-export(NodePath) var Touch
+export(NodePath) var Touch = NodePath()
 export(String) var touch_event
 
 # Instance members
@@ -72,5 +72,6 @@ func _on_area_body_exit(body):
 ### Methods ###
 ###############
 func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		get_node(Interaction).play(interaction_event)
+	if event.is_pressed() && !event.is_echo():
+		if event.is_action("ui_accept"):
+			get_node(Interaction).play(interaction_event)
