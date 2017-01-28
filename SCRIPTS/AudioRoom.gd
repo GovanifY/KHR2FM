@@ -8,4 +8,3 @@ func _ready():
 func load_music(node):
 	stop()
 	set_stream(node.get_stream())
-	return
