@@ -223,6 +223,7 @@ Interaction = NodePath("Interaction")
 
 [node name="collision" type="CollisionShape2D" parent="MapNPC"]
 
+visibility/blend_mode = 3
 transform/pos = Vector2( 0, 36 )
 shape = SubResource( 17 )
 trigger = false

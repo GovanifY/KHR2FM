@@ -5,12 +5,12 @@
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save_anim.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save.png" type="Texture" id=4]
 
-[sub_resource type="RectangleShape2D" id=17]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 17.683, 10 )
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=2]
 
 resource/name = "main"
 length = 0.5
@@ -22,7 +22,7 @@ tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.06, 0.12, 0.18, 0.24, 0.3, 0.36, 0.42 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 0, 1, 2, 3, 4, 5, 6, 7 ] }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=3]
 
 resource/name = "approach"
 length = 1.14
@@ -34,7 +34,7 @@ tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.06, 0.12, 0.18, 0.24, 0.3, 0.36, 0.42, 0.48, 0.54, 0.6, 0.66, 0.72, 0.78, 0.84, 0.9, 0.96, 1, 1.08, 1.14 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ] }
 
-[sub_resource type="RectangleShape2D" id=18]
+[sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
@@ -43,7 +43,7 @@ extents = Vector2( 10, 10 )
 
 visibility/blend_mode = 1
 input/pickable = false
-shapes/0/shape = SubResource( 17 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1.55148, 0, 0, 2.06762, -0.944436, 14.0709 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -76,7 +76,7 @@ frame = 7
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/main = SubResource( 20 )
+anims/main = SubResource( 2 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -87,7 +87,7 @@ autoplay = "main"
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/approach = SubResource( 19 )
+anims/approach = SubResource( 3 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -95,9 +95,10 @@ autoplay = "main"
 
 [node name="collision" type="CollisionShape2D" parent="."]
 
+visibility/blend_mode = 3
 transform/pos = Vector2( -0.944436, 14.0709 )
 transform/scale = Vector2( 1.55148, 2.06762 )
-shape = SubResource( 17 )
+shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
@@ -106,7 +107,7 @@ _update_shape_index = 0
 transform/pos = Vector2( -0.59259, 14.7571 )
 transform/scale = Vector2( 0.691739, 1 )
 input/pickable = true
-shapes/0/shape = SubResource( 18 )
+shapes/0/shape = SubResource( 4 )
 shapes/0/transform = Matrix32( 6.73993, 0, 0, 3.85145, -3.90413, -10.2963 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -118,7 +119,7 @@ angular_damp = 1.0
 
 transform/pos = Vector2( -3.90413, -10.2963 )
 transform/scale = Vector2( 6.73993, 3.85145 )
-shape = SubResource( 18 )
+shape = SubResource( 4 )
 trigger = false
 _update_shape_index = 0
 
