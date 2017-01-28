@@ -47,19 +47,10 @@ func _fixed_process(delta):
 	directions    |= int(Input.is_action_pressed("right")) << 3
 
 	# If it can animate the character, then it can move
-	if animate_character(directions):
-		move_character(directions, delta)
+	if _animate_character(directions):
+		_move_character(directions, delta)
 
-###############
-### Methods ###
-###############
-func get_type():
-	return "MapPlayer"
-
-func is_type(type):
-	return type == get_type()
-
-func animate_character(directions):
+func _animate_character(directions):
 	# If it can move to this direction
 	if sprite_direction.has(directions):
 		var new_anim = sprite_direction[directions]
@@ -72,7 +63,7 @@ func animate_character(directions):
 
 	return Anims.is_playing()
 
-func move_character(directions, delta=0):
+func _move_character(directions, delta=0):
 	var motion = sprite_motion[directions]
 	motion = motion.normalized() * MOTION_SPEED * delta
 	motion = move(motion)
@@ -83,3 +74,12 @@ func move_character(directions, delta=0):
 		motion = get_collision_normal().slide(motion)
 		motion = move(motion)
 		slide_attempts -= 1
+
+###############
+### Methods ###
+###############
+func get_type():
+	return "MapPlayer"
+
+func is_type(type):
+	return type == get_type()
