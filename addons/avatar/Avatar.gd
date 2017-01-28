@@ -58,7 +58,6 @@ func set_flip_h(value):
 
 func set_side(right):
 	var Dialogue = get_node(Globals.get("Dialogue"))
-
 	if Dialogue == null:
 		print("No Dialogue node instanced. What are you even doing, foo??")
 		return
@@ -81,3 +80,11 @@ func set_side(right):
 
 	# Flipping the character's sprite by default (will always reset when)
 	set_flip_h(right)
+
+func dismiss():
+	var Dialogue = get_node(Globals.get("Dialogue"))
+	if Dialogue == null:
+		print("No Dialogue node instanced. What are you even doing, foo??")
+		return
+
+	Dialogue.dismiss(self)

@@ -92,19 +92,22 @@ func _hide_avatars():
 func _on_CastAnim_tween_complete(object, key):
 	# If the key was about setting offset, it's about speak()
 	if key == "set_offset":
+		var character = object.get_parent()
 		# Centering hook (whenever necessary)
-		var center = current_speaker.get_center()
-		if CastRight.is_a_parent_of(current_speaker):
+		var center = character.get_center()
+		if CastRight.is_a_parent_of(character):
 			center += CastRight.get_pos().x
-		Bubble.set_hook(current_speaker, center)
+		Bubble.set_hook(character, center)
 
 		if Bubble.is_hidden():
 			Bubble.show_box()
 		else:
 			Bubble.emit_signal("shown")
-	# Otherwise, it's about _hide_avatars()
-	else:
-		emit_signal("finished")
+		return
+	# Otherwise, it's about setting opacity
+	elif key == "set_opacity":
+		object.hide()
+	emit_signal("finished")
 
 func _get_line():
 	# Parsing lineID
@@ -168,6 +171,7 @@ func speak(character, begin, end):
 		if !CastRight.is_a_parent_of(character):
 			off_bounds.x *= -1
 
+		# Drag animation from left or right depending on the situation
 		CastAnim.interpolate_method(character.Avatar, "set_offset", off_bounds, Vector2(), ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		CastAnim.start()
 		character.show()
@@ -179,3 +183,7 @@ func silence():
 	set_process_input(false)
 	Bubble.hide_box()
 	_hide_avatars()
+
+# Dismisses specified Avatar
+func dismiss(character):
+	CastAnim.interpolate_method(character, "set_opacity", 1.0, 0.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)

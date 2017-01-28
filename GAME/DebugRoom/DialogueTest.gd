@@ -31,15 +31,16 @@ func _ready():
 	Dialogue.speak(Narrator, 0, 1)
 	yield(Dialogue, "finished")
 
-	# Recalibrate for speaker
 	Dialogue.set_box(1)
 	Dialogue.speak(Kiryoku, 0, 1)
+	yield(Dialogue, "finished")
+
+	Kiryoku.dismiss()
 	yield(Dialogue, "finished")
 
 	Dialogue.speak(Kioku, 0, 1)
 	yield(Dialogue, "finished")
 
-	Kioku.set_flip_h(true)
 	Dialogue.speak(Kioku, 1, 2)
 	yield(Dialogue, "finished")
 
