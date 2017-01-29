@@ -1,6 +1,6 @@
 [gd_scene load_steps=68 format=1]
 
-[ext_resource path="res://SCRIPTS/Battle/Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://SCRIPTS/Battle/Player/BattlePlayer.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_00.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_01.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_02.png" type="Texture" id=4]
@@ -44,103 +44,209 @@
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_71.png" type="Texture" id=42]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_72.png" type="Texture" id=43]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_73.png" type="Texture" id=44]
-[ext_resource path="res://GAME/BATTLE/Player/Kiryoku_tres/Attack1.tres" type="Animation" id=45]
-[ext_resource path="res://GAME/BATTLE/Player/Kiryoku_tres/Attack2.tres" type="Animation" id=46]
-[ext_resource path="res://GAME/BATTLE/Player/Kiryoku_tres/Attack3.tres" type="Animation" id=47]
-[ext_resource path="res://GAME/BATTLE/Player/Kiryoku_tres/Guard.tres" type="Animation" id=48]
-[ext_resource path="res://GAME/BATTLE/Player/Kiryoku_tres/Still.tres" type="Animation" id=49]
-[ext_resource path="res://GAME/BATTLE/Player/Kiryoku_tres/Walk.tres" type="Animation" id=50]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_02.wav" type="Sample" id=51]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_03.wav" type="Sample" id=52]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_04.wav" type="Sample" id=53]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_05.wav" type="Sample" id=54]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_06.wav" type="Sample" id=55]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_07.wav" type="Sample" id=56]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_08.wav" type="Sample" id=57]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_09.wav" type="Sample" id=58]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Hit1.wav" type="Sample" id=59]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Hit2.wav" type="Sample" id=60]
-[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Swing.wav" type="Sample" id=61]
-[ext_resource path="res://ASSETS/SE/Battle/General/Ground_walk.wav" type="Sample" id=62]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_02.wav" type="Sample" id=45]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_03.wav" type="Sample" id=46]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_04.wav" type="Sample" id=47]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_05.wav" type="Sample" id=48]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_06.wav" type="Sample" id=49]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_07.wav" type="Sample" id=50]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_08.wav" type="Sample" id=51]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_09.wav" type="Sample" id=52]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Hit1.wav" type="Sample" id=53]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Hit2.wav" type="Sample" id=54]
+[ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_Keyblade_Swing.wav" type="Sample" id=55]
+[ext_resource path="res://ASSETS/SE/Battle/General/Ground_walk.wav" type="Sample" id=56]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 20, 30 )
+extents = Vector2( 20, 35 )
 
 [sub_resource type="SpriteFrames" id=2]
 
 animations = [ { "frames":[ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ) ], "loop":true, "name":"default", "speed":5.0 } ]
 
-[sub_resource type="SampleLibrary" id=3]
+[sub_resource type="Animation" id=3]
 
-samples/Kiryoku_02 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 51 ) }
-samples/Kiryoku_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 52 ) }
-samples/Kiryoku_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 53 ) }
-samples/Kiryoku_05 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 54 ) }
-samples/Kiryoku_06 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 55 ) }
-samples/Kiryoku_07 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 56 ) }
-samples/Kiryoku_08 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 57 ) }
-samples/Kiryoku_09 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 58 ) }
+resource/name = "Still"
+length = 0.5
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.3 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0, 3 ] }
 
-[sub_resource type="SampleLibrary" id=4]
+[sub_resource type="Animation" id=4]
 
-samples/Kiryoku_Keyblade_Hit1 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 59 ) }
-samples/Kiryoku_Keyblade_Hit2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 60 ) }
-samples/Kiryoku_Keyblade_Swing = { "db":0.0, "pitch":1.0, "sample":ExtResource( 61 ) }
+resource/name = "Walk"
+length = 0.5
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 3, 11 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("General:play/play")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 0.3 ), "transitions":FloatArray( 1, 1 ), "update":2, "values":[ "Ground_walk", "Ground_walk" ] }
 
-[sub_resource type="SampleLibrary" id=5]
+[sub_resource type="Animation" id=5]
 
-samples/Ground_walk = { "db":-25.0, "pitch":1.0, "sample":ExtResource( 62 ) }
+resource/name = "Guard"
+length = 0.35
+loop = false
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Voice:play/play")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0.1 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Kiryoku_02" ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 0.15 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 23, 26 ] }
+
+[sub_resource type="Animation" id=11]
+
+resource/name = "Attack1"
+length = 0.3
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.2 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 14, 17 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Voice:play/play")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Kiryoku_03" ] }
+
+[sub_resource type="Animation" id=12]
+
+resource/name = "Attack2"
+length = 0.3
+loop = false
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 18, 22 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Voice:play/play")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Kiryoku_04" ] }
+
+[sub_resource type="Animation" id=13]
+
+resource/name = "Attack3"
+length = 0.4
+loop = false
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.24, 0.31, 0.4 ), "transitions":FloatArray( 1, 0, 0, 1 ), "update":0, "values":[ 23, 30, 26, 22 ] }
+
+[sub_resource type="SampleLibrary" id=8]
+
+samples/Kiryoku_02 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 45 ) }
+samples/Kiryoku_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 46 ) }
+samples/Kiryoku_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 47 ) }
+samples/Kiryoku_05 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 48 ) }
+samples/Kiryoku_06 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 49 ) }
+samples/Kiryoku_07 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 50 ) }
+samples/Kiryoku_08 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 51 ) }
+samples/Kiryoku_09 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 52 ) }
+
+[sub_resource type="SampleLibrary" id=9]
+
+samples/Kiryoku_Keyblade_Hit1 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 53 ) }
+samples/Kiryoku_Keyblade_Hit2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 54 ) }
+samples/Kiryoku_Keyblade_Swing = { "db":0.0, "pitch":1.0, "sample":ExtResource( 55 ) }
+
+[sub_resource type="SampleLibrary" id=10]
+
+samples/Ground_walk = { "db":-25.0, "pitch":1.0, "sample":ExtResource( 56 ) }
 
 [node name="Kiryoku" type="KinematicBody2D"]
 
-transform/pos = Vector2( 120, 240 )
+transform/pos = Vector2( 192, 215 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -12, 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -11, 0 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
-AnimTree = NodePath("anims")
-finisher_voice_se = StringArray( "Kiryoku_05", "Kiryoku_06", "Kiryoku_09" )
-battler_speed = 5
+battler_speed = 250
 max_health = 100
+finisher_voice_se = null
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -12, 3 )
+transform/pos = Vector2( -11, 0 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="Kiryoku_Sprite" type="AnimatedSprite" parent="."]
+[node name="Sprite" type="AnimatedSprite" parent="."]
 
+transform/pos = Vector2( 0, -1 )
 frames = SubResource( 2 )
 animation = "default"
 
-[node name="anims" type="AnimationPlayer" parent="."]
+[node name="movement" type="AnimationPlayer" parent="."]
 
-playback/process_mode = 0
+playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/Attack1 = ExtResource( 45 )
-anims/Attack2 = ExtResource( 46 )
-anims/Attack3 = ExtResource( 47 )
-anims/Guard = ExtResource( 48 )
-anims/Still = ExtResource( 49 )
-anims/Walk = ExtResource( 50 )
+anims/Still = SubResource( 3 )
+anims/Walk = SubResource( 4 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = "Still"
 
+[node name="methodical" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/Guard = SubResource( 5 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="attack" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/Attack1 = SubResource( 11 )
+anims/Attack2 = SubResource( 12 )
+anims/Attack3 = SubResource( 13 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
 [node name="Voice" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 3 )
+config/samples = SubResource( 8 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0
@@ -157,7 +263,7 @@ default/chorus_send = 0.0
 [node name="Weapon" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 4 )
+config/samples = SubResource( 9 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0
@@ -174,7 +280,7 @@ default/chorus_send = 0.0
 [node name="General" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 5 )
+config/samples = SubResource( 10 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0
