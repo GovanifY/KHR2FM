@@ -117,7 +117,7 @@ tracks/1/keys = { "times":FloatArray( 0, 0.15 ), "transitions":FloatArray( 1, 1 
 resource/name = "Attack1"
 length = 0.3
 loop = false
-step = 0.1
+step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -128,6 +128,11 @@ tracks/1/path = NodePath("Voice:play/play")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Kiryoku_03" ] }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0.2 ), "transitions":FloatArray( 1 ), "values":[ { "args":[ true ], "method":"set_process_unhandled_input" } ] }
 
 [sub_resource type="Animation" id=12]
 
@@ -145,6 +150,11 @@ tracks/1/path = NodePath("Voice:play/play")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Kiryoku_04" ] }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = { "times":FloatArray( 0.25 ), "transitions":FloatArray( 1 ), "values":[ { "args":[ true ], "method":"set_process_unhandled_input" } ] }
 
 [sub_resource type="Animation" id=13]
 

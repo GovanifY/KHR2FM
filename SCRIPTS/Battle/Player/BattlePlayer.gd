@@ -5,7 +5,8 @@ const STILL_POSE = "Still"
 const WALK_POSE = "Walk"
 
 enum {
-	ACT_LEFT = 1, ACT_RIGHT = 2, ACT_ACCEPT = 4, ACT_CANCEL = 8,
+	ACT_UP = 0x1, ACT_DOWN = 0x2, ACT_LEFT = 0x4, ACT_RIGHT = 0x8,
+	ACT_ACCEPT = 0x10, ACT_CANCEL = 0x20,
 }
 
 # Export values
@@ -22,11 +23,16 @@ var battler_action = {
 	ACT_RIGHT              : WALK_POSE ,
 	ACT_CANCEL             : "Guard",
 	#ACT_CANCEL | ACT_LEFT : "Roll",
-	ACT_ACCEPT             : "Attack"
+	ACT_ACCEPT             : "Attack",
 }
 var battler_motion = {
 	ACT_LEFT             : Vector2(-1,  0),
 	ACT_RIGHT            : Vector2( 1,  0),
+}
+
+var combo = {
+	"counter" : 0,
+	"maxed"   : 3,
 }
 
 ######################
@@ -35,6 +41,9 @@ var battler_motion = {
 func _ready():
 	# Setup player data
 	setup_data()
+
+	create_timer(0.4, true)
+	Data.timer.connect("timeout", self, "_end_combo")
 
 	# Connecting signals
 	AnimMethodical.connect("animation_started", self, "_action_started")
@@ -47,8 +56,8 @@ func _ready():
 
 func _fixed_process(delta):
 	# Simple Input check
-	var actions = int(Input.is_action_pressed("left"))  << 0
-	actions    |= int(Input.is_action_pressed("right")) << 1
+	var actions = int(Input.is_action_pressed("left"))  << 2
+	actions    |= int(Input.is_action_pressed("right")) << 3
 
 	# Acting
 	if battler_action.has(actions):
@@ -64,8 +73,8 @@ func _unhandled_input(event):
 	# If pressed, non-hold
 	if event.is_pressed() && !event.is_echo():
 		# FIXME: Check if these input maps are correct
-		actions |= int(event.is_action("ui_accept")) << 2
-		actions |= int(event.is_action("ui_cancel")) << 3
+		actions |= int(event.is_action("ui_accept")) << 4
+		actions |= int(event.is_action("ui_cancel")) << 5
 
 	# Acting
 	if battler_action.has(actions):
@@ -84,8 +93,8 @@ func _act_battler(actions):
 
 	# If it's about attacking
 	elif actions & ACT_ACCEPT:
-		# FIXME: adapt to all possible attack animations
-		AnimAttack.play(new_anim + "1")
+		_increment_combo()
+		AnimAttack.play(new_anim + String(combo.counter))
 
 func _move_battler(actions, delta):
 	var direction = battler_motion[actions]
@@ -97,17 +106,29 @@ func _move_battler(actions, delta):
 	direction.y = 1
 	set_scale(direction)
 
+### Combo-related
+func _increment_combo():
+	Data.timer.start()
+
+	if combo.counter < combo.maxed:
+		combo.counter += 1
+	else:
+		_end_combo()
+
 #######################
 ### Signal routines ###
 #######################
 func _action_started(name):
-	if name == "Guard":
-		set_process_unhandled_input(false)
-	if name.begins_with("Attack"):
+	# TODO: rename animations to support Beginners, Combos and Finishers
+	if name == "Guard" || name.begins_with("Attack"):
 		set_process_unhandled_input(false)
 
 func _action_finished():
 	set_process_unhandled_input(true)
+
+func _end_combo():
+	Data.timer.stop()
+	combo.counter = 0
 
 ###############
 ### Methods ###

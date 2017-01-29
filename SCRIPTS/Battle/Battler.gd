@@ -54,7 +54,7 @@ func fight():
 func at_ease():
 	set_fixed_process(false)
 
-# Battler timer
+### Battler timer
 func create_timer(wait_time = 0.5, one_shot = false):
 	if Data.timer != null:
 		Data.timer.free()
