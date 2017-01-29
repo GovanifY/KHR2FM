@@ -209,7 +209,7 @@ animation = "default"
 
 [node name="movement" type="AnimationPlayer" parent="."]
 
-playback/process_mode = 1
+playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/Still = SubResource( 3 )
@@ -221,7 +221,7 @@ autoplay = "Still"
 
 [node name="methodical" type="AnimationPlayer" parent="."]
 
-playback/process_mode = 1
+playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/Guard = SubResource( 5 )
@@ -232,7 +232,7 @@ autoplay = ""
 
 [node name="attack" type="AnimationPlayer" parent="."]
 
-playback/process_mode = 1
+playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/Attack1 = SubResource( 11 )
