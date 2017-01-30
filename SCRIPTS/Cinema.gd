@@ -9,6 +9,9 @@ export(String, FILE, "tscn") var next_scene = ""
 export(String, FILE, "srt") var subtitles_file = ""
 export(String, FILE, "csv") var csv_file = ""
 
+# Constants
+enum { PAUSE_BUTTON_CONTINUE, PAUSE_BUTTON_SKIP }
+
 # Instance members
 onready var Subtitles  = {
 	"label" : get_node("Subtitles"), # Node where the text should reside
@@ -24,6 +27,7 @@ var have_subtitles = false
 func _ready():
 	# Connecting signals
 	KHR2.connect("toggle_pause", self, "_toggled_pause")
+	get_node("VideoControls/Options").connect("button_selected", self, "_pause_controls")
 
 	# Parsing subtitles (if any)
 	_parse_subtitles()
@@ -54,7 +58,6 @@ func _process(delta):
 			if Subtitles.index >= Subtitles.array.size():
 				have_subtitles = false
 
-	# FIXME: Still no VideoStream.finished() signal? This needs to exist
 	if !is_playing():
 		SceneLoader.show_scene(next_scene, true)
 
@@ -95,6 +98,11 @@ func _toggled_pause():
 	var paused = get_tree().is_paused()
 	set_paused(paused)
 	get_node("VideoControls").set_hidden(!paused)
+
+func _pause_controls(button_idx):
+	if button_idx == PAUSE_BUTTON_SKIP: # I cheated when I wrote this function
+		stop()
+	KHR2.pause_game()
 
 ########################
 ### Helper functions ###

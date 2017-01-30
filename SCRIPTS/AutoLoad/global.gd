@@ -35,8 +35,7 @@ func _input(event):
 		elif event.is_action("fullscreen"):
 			OS.set_window_fullscreen(!OS.is_video_mode_fullscreen())
 		elif event.is_action("pause"):
-			get_tree().set_pause(!get_tree().is_paused())
-			emit_signal("toggle_pause")
+			pause_game()
 
 		# Debugging stuff, ignore this
 		if OS.is_debug_build():
@@ -75,3 +74,7 @@ func _process(delta):
 func quit_game():
 	SceneLoader.kill_all_threads()
 	get_tree().quit()
+
+func pause_game():
+	get_tree().set_pause(!get_tree().is_paused())
+	emit_signal("toggle_pause")
