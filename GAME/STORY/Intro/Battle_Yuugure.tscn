@@ -40,6 +40,6 @@ max_health = 150
 
 [connection signal="dismiss" from="BattlePlan/InfoBar" to="BattlePlan" method="_battle_begin"]
 
-[connection signal="displayed" from="BattlePlan/InfoBar" to="BattlePlan" method="_battle_stop"]
+[connection signal="displayed" from="BattlePlan/InfoBar" to="BattlePlan" method="_battle_halt"]
 
 

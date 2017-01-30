@@ -47,7 +47,7 @@ func _ready():
 func _battle_begin():
 	get_tree().call_group(SceneTree.GROUP_CALL_DEFAULT, "Battler", "fight")
 
-func _battle_stop():
+func _battle_halt():
 	get_tree().call_group(SceneTree.GROUP_CALL_DEFAULT, "Battler", "at_ease")
 
 ###############
