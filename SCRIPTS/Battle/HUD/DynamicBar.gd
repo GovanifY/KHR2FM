@@ -31,6 +31,13 @@ func _reset_anim():
 ###############
 ### Methods ###
 ###############
+### Overloading functions
+func get_type():
+	return "DynamicBar"
+
+func is_type(type):
+	return type == get_type()
+
 func update(value):
 	value = value if (value < limit_value) else limit_value
 	set_value(value)

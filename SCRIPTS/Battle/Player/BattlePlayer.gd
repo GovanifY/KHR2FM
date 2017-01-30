@@ -19,11 +19,11 @@ onready var AnimAttack     = get_node("attack")
 
 # "Private" members
 var battler_action = {
-	ACT_LEFT               : WALK_POSE ,
-	ACT_RIGHT              : WALK_POSE ,
-	ACT_CANCEL             : "Guard",
-	#ACT_CANCEL | ACT_LEFT : "Roll",
-	ACT_ACCEPT             : "Attack",
+	ACT_LEFT               : WALK_POSE,
+	ACT_RIGHT              : WALK_POSE,
+	ACT_CANCEL             : "Guard"  ,
+	#ACT_CANCEL | ACT_LEFT : "Roll"   ,
+	ACT_ACCEPT             : "Attack" ,
 }
 var battler_motion = {
 	ACT_LEFT             : Vector2(-1,  0),
@@ -45,7 +45,7 @@ func _ready():
 	setup_data()
 
 	create_timer(0.4, true)
-	Data.timer.connect("timeout", self, "_end_combo")
+	ComboTimer.connect("timeout", self, "_end_combo")
 
 	# Connecting signals
 	AnimMethodical.connect("animation_started", self, "_action_started")
@@ -110,7 +110,7 @@ func _move_battler(actions, delta):
 
 ### Combo-related
 func _increment_combo():
-	Data.timer.start()
+	ComboTimer.start()
 
 	if combo.counter < combo.maxed:
 		combo.counter += 1
@@ -129,7 +129,7 @@ func _action_finished():
 	set_process_unhandled_input(true)
 
 func _end_combo():
-	Data.timer.stop()
+	ComboTimer.stop()
 	combo.counter = 0
 
 ###############
@@ -137,7 +137,7 @@ func _end_combo():
 ###############
 ### Overloading functions
 func get_type():
-	return "BattlePlayer"
+	return "Player"
 
 func is_type(type):
 	return type == get_type()

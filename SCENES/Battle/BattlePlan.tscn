@@ -258,6 +258,7 @@ transform/pos = Vector2( 0, 448 )
 
 [node name="Selected" type="Sprite" parent="HUD/Commands"]
 
+editor/display_folded = true
 texture = ExtResource( 11 )
 centered = false
 

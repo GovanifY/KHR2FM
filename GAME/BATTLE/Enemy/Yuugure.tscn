@@ -71,11 +71,9 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
-AnimTree = NodePath("anims")
-finisher_voice_se = null
-battler_speed = 5
+battler_speed = 100
 max_health = 100
-actions_holder = StringArray( "Attack1", "Attack2", "Attack3" )
+max_mana = 10
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 

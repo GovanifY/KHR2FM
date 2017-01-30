@@ -13,7 +13,7 @@ func _ready():
 ###############
 ### Overloading functions
 func get_type():
-	return "BattleEnemy"
+	return "Enemy"
 
 func is_type(type):
 	return type == get_type()

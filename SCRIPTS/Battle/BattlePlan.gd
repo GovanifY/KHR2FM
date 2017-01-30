@@ -9,13 +9,22 @@ export(bool) var random_instances = false
 ######################
 ### Core functions ###
 ######################
-func _ready():
-	enemy_instances -= 1 # Don't count the already avaliable instance
+func _enter_tree():
+	if Globals.get("BattlePlan") != null:
+		print("One BattlePlan node is already enough!")
+		queue_free()
+	else:
+		Globals.set("BattlePlan", get_path())
 
+func _exit_tree():
+	Globals.set("BattlePlan", null)
+
+func _ready():
 	# Preparing Enemies
+	enemy_instances -= 1 # Don't count the already avaliable instance
 	if enemy_instances > 0:
 		# Grab all enemies picked for this battle
-		var all_enemies = get_tree().get_nodes_in_group("BattleEnemy")
+		var all_enemies = get_tree().get_nodes_in_group("Enemy")
 		for enemy in all_enemies:
 			# Use RNG if requested; otherwise, use the exact number requested
 			var rng = randi() % enemy_instances if random_instances else enemy_instances

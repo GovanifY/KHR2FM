@@ -10,5 +10,6 @@
 [node name="Kiryoku" parent="BattlePlan" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 194, 215 )
+max_mana = 10
 
 
