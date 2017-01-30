@@ -22,6 +22,9 @@ var have_subtitles = false
 ### Core functions ###
 ######################
 func _ready():
+	# Connecting signals
+	KHR2.connect("toggle_pause", self, "_toggled_pause")
+
 	# Parsing subtitles (if any)
 	_parse_subtitles()
 
@@ -84,6 +87,14 @@ func _parse_subtitles():
 
 	# Opening translation
 	Translator.set_csv(csv_file)
+
+#######################
+### Signal routines ###
+#######################
+func _toggled_pause():
+	var paused = get_tree().is_paused()
+	set_paused(paused)
+	get_node("VideoControls").set_hidden(!paused)
 
 ########################
 ### Helper functions ###

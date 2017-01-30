@@ -3,6 +3,9 @@ extends Node
 # Ce script gère les fonctions globales du jeu qui se font dans le background
 # tel que le timer, la save ou le fullscreen.
 
+# Signals
+signal toggle_pause
+
 # Un accumulateur pour le timer
 var accum = 0
 
@@ -13,6 +16,9 @@ func _ready():
 	Globals.set("PlayTimeMinutes", 0)
 	Globals.set("PlayTimeHours", 0)
 	Globals.set("TimerActivated", false)
+
+	# Protecting against pause
+	set_pause_mode(PAUSE_MODE_PROCESS)
 
 	set_process_input(true)
 	set_process(true)
@@ -28,6 +34,9 @@ func _input(event):
 			quit_game()
 		elif event.is_action("fullscreen"):
 			OS.set_window_fullscreen(!OS.is_video_mode_fullscreen())
+		elif event.is_action("pause"):
+			get_tree().set_pause(!get_tree().is_paused())
+			emit_signal("toggle_pause")
 
 		# Debugging stuff, ignore this
 		if OS.is_debug_build():
