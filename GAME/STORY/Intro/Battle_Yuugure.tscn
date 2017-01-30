@@ -1,19 +1,19 @@
 [gd_scene load_steps=5 format=1]
 
-[ext_resource path="res://GAME/BATTLE/Player/Kiryoku-oldi.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GAME/BATTLE/Player/Kiryoku.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GAME/BATTLE/Enemy/Yuugure.tscn" type="PackedScene" id=2]
 [ext_resource path="res://SCENES/Battle/ForeGround/Fog.tscn" type="PackedScene" id=3]
 [ext_resource path="res://SCENES/Battle/BattlePlan.tscn" type="PackedScene" id=4]
-
-
 
 [node name="Battle_Yuugure" type="Node2D"]
 
 [node name="Kiryoku" parent="." instance=ExtResource( 1 )]
 
+transform/pos = Vector2( 162, 212 )
+
 [node name="Yuugure" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 700, 240 )
+transform/pos = Vector2( 702, 210 )
 
 [node name="Foreground" type="ParallaxBackground" parent="."]
 
@@ -31,8 +31,5 @@ scroll/ignore_camera_zoom = false
 [node name="Fog" parent="Foreground" instance=ExtResource( 3 )]
 
 [node name="BattlePlan" parent="." instance=ExtResource( 4 )]
-
-Player = NodePath("../Kiryoku")
-Enemy = NodePath("../Yuugure")
 
 

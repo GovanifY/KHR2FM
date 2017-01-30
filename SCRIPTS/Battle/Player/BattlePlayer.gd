@@ -40,6 +40,8 @@ var combo = {
 ######################
 func _ready():
 	# Setup player data
+	add_to_group(.get_type())
+	add_to_group(get_type())
 	setup_data()
 
 	create_timer(0.4, true)
@@ -134,6 +136,12 @@ func _end_combo():
 ### Methods ###
 ###############
 ### Overloading functions
+func get_type():
+	return "BattlePlayer"
+
+func is_type(type):
+	return type == get_type()
+
 func fight():
 	.fight()
 	set_process_unhandled_input(true)
@@ -141,6 +149,13 @@ func fight():
 func at_ease():
 	.at_ease()
 	set_process_unhandled_input(false)
+
+### Handling animations
+func random_voice(snd_arr):
+	var voice = get_node("Voice")
+	if typeof(snd_arr) == TYPE_STRING_ARRAY && voice != null:
+		var rng = randi() % snd_arr.size()
+		voice.play(snd_arr[rng])
 
 func setup_data():
 	if Globals.get("PlayerData"):

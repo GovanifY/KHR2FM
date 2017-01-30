@@ -1,68 +1,19 @@
 extends "res://SCRIPTS/Battle/Battler.gd"
 
-# Holds eligible Animation names at initialization time
-export(StringArray) var actions_holder
-
-var ActionAnims = []
-# Array where our rules will be held
-var RuleSet = []
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	add_to_group("Enemies")
-
-	# Setting up imported actions_holder
-	ActionSet = Battle_ActionSet.new(self, STILL_POSE)
-	var anim_list = AnimTree.get_animation_list()
-	for anim in actions_holder:
-		if anim in anim_list:
-			ActionAnims.push_back(ActionSet.new_action(anim))
-	actions_holder = null
-
-func _fixed_process(delta):
-	if !ActionSet.is_locked():
-		var random_action = ActionAnims[randi() % ActionAnims.size()]
-		ActionSet.take(random_action)
-		_test_rules()
-
-# Tests for any added rules given
-func _test_rules():
-	for rule in RuleSet:
-		if rule.test.callv("call_func", rule.args1):
-			rule.result.callv("call_func", rule.args2)
-			RuleSet.erase(rule)
-			return true
-
-######################
-###     Rules      ###
-######################
-# FIXME: These will be gone after the existence of lambda functions
-func HP_less_than(value):
-	return get_HP() < value
+	add_to_group(.get_type())
+	add_to_group(get_type())
 
 ###############
 ### Methods ###
 ###############
+### Overloading functions
+func get_type():
+	return "BattleEnemy"
 
-################################################################################
-#	Rules
-# A rule contains the following elements:
-# test   : The Boolean function to test, a.k.a. condition
-# args1  : Array of Variants to send to the function above
-# result : The function to run when the condition set above has been met
-# args2  : Array of Variants to send to the function above
-################################################################################
-func add_rule(test_func, test_args, result_func, result_args):
-	if ( # Adding checks is REALLY important here so as to not screw up
-	   typeof(test_func) == TYPE_OBJECT && test_func.is_type("FuncRef")
-	&& typeof(result_func) == TYPE_OBJECT && result_func.is_type("FuncRef")
-	&& typeof(test_args) == TYPE_ARRAY && typeof(result_args) == TYPE_ARRAY
-	):
-		var rule = {}
-		rule.test = test_func
-		rule.args1 = test_args
-		rule.result = result_func
-		rule.args2 = result_args
-		RuleSet.push_back(rule)
+func is_type(type):
+	return type == get_type()

@@ -29,13 +29,10 @@ var Data = {
 ### Core functions ###
 ######################
 func _ready():
-	add_to_group("Battlers")
+	add_to_group(get_type())
 
 	init_stats()
 	fight()
-
-func _fixed_process(delta):
-	pass
 
 ###############
 ### Methods ###
@@ -46,6 +43,10 @@ func get_type():
 
 func is_type(type):
 	return get_type() == type
+
+func set_y(y):
+	var x = get_pos().x
+	set_pos(Vector2(x, y))
 
 ### Battler control
 func fight():
@@ -64,13 +65,6 @@ func create_timer(wait_time = 0.5, one_shot = false):
 	Data.timer.set_one_shot(one_shot)
 	Data.timer.set_timer_process_mode(Timer.TIMER_PROCESS_FIXED)
 	add_child(Data.timer)
-
-### Handling animations
-func random_voice(snd_arr):
-	var voice = get_node("Voice")
-	if typeof(snd_arr) == TYPE_STRING_ARRAY && voice != null:
-		var rng = randi() % snd_arr.size()
-		voice.play(snd_arr[rng])
 
 ### Stats-related functions
 func set_stat_representation(idx, node, value):

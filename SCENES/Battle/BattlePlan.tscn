@@ -66,8 +66,8 @@ font/font = ExtResource( 10 )
 
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
-Player = null
-Enemy = null
+enemy_instances = 1
+random_instances = false
 
 [node name="TemporaryBackground" type="Panel" parent="."]
 
@@ -128,8 +128,6 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 
 [node name="InfoBar" parent="HUD" instance=ExtResource( 2 )]
-
-autostart = false
 
 [node name="PlayerMP" type="Node2D" parent="HUD"]
 
