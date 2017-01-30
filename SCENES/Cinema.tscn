@@ -31,7 +31,6 @@ expand = true
 script/script = ExtResource( 1 )
 __meta__ = { "_edit_lock_":true }
 next_scene = ""
-have_subtitles = false
 subtitles_file = ""
 csv_file = ""
 

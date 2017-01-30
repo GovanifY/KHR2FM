@@ -6,7 +6,6 @@ extends VideoPlayer
 
 # Export values
 export(String, FILE, "tscn") var next_scene = ""
-export(bool) var have_subtitles = false
 export(String, FILE, "srt") var subtitles_file = ""
 export(String, FILE, "csv") var csv_file = ""
 
@@ -17,14 +16,14 @@ onready var Subtitles  = {
 	"index" : 0,
 	"shown" : false  # showing the current subtitle
 }
+var have_subtitles = false
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
 	# Parsing subtitles (if any)
-	if have_subtitles:
-		_parse_subtitles()
+	_parse_subtitles()
 
 	# Loading next scene in the background (or instantly if there's no video)
 	SceneLoader.load_scene(next_scene, get_stream() != null)
@@ -37,11 +36,13 @@ func _process(delta):
 	if have_subtitles:
 		var cur_pos = get_stream_pos()
 
+		# If subtitles timer is on track
 		if Subtitles.array[Subtitles.index][0] < cur_pos && cur_pos < Subtitles.array[Subtitles.index][1]:
 			if !Subtitles.shown:
 				Subtitles.label.set_text(Subtitles.array[Subtitles.index][2])
 				Subtitles.shown = true
 
+		# If subtitles timer is off track
 		elif cur_pos >= Subtitles.array[Subtitles.index][1]:
 			Subtitles.label.set_text("")
 			Subtitles.shown = false
@@ -55,17 +56,13 @@ func _process(delta):
 		SceneLoader.show_scene(next_scene, true)
 
 func _parse_subtitles():
+	# Check for subtitles
 	var subs = File.new()
-
 	if !subs.file_exists(subtitles_file) || !subs.file_exists(csv_file):
-		print("Cinema: Cannot add subtitles. Check if you added the subtitles and CSV files.")
-		have_subtitles = false
 		return
-
-	# I tried to make this as performant as possible, but it's still not enough.
+	have_subtitles = true
 
 	subs.open(subtitles_file, File.READ) #######################################
-
 	while !subs.eof_reached():
 		var line = subs.get_line()
 		if !line.empty():
