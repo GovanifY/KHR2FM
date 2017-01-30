@@ -38,13 +38,17 @@ func _ready():
 	# Preparing all battlers (they must stand down before further instructions)
 	var middle = int(OS.get_video_mode_size().y) >> 1
 	get_tree().call_group(SceneTree.GROUP_CALL_DEFAULT, "Battler", "set_y", middle)
-	get_tree().call_group(SceneTree.GROUP_CALL_DEFAULT, "Battler", "at_ease")
+
+	_battle_begin()
 
 #######################
 ### Signal routines ###
 #######################
 func _battle_begin():
 	get_tree().call_group(SceneTree.GROUP_CALL_DEFAULT, "Battler", "fight")
+
+func _battle_stop():
+	get_tree().call_group(SceneTree.GROUP_CALL_DEFAULT, "Battler", "at_ease")
 
 ###############
 ### Methods ###

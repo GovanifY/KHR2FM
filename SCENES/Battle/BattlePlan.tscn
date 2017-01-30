@@ -1,16 +1,15 @@
-[gd_scene load_steps=17 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://SCRIPTS/Battle/BattlePlan.gd" type="Script" id=1]
-[ext_resource path="res://SCENES/Battle/InfoBar.tscn" type="PackedScene" id=2]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Player/MP-Fond.png" type="Texture" id=3]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Player/Mp-Barre.png" type="Texture" id=4]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-vert.tres" type="StyleBox" id=5]
-[ext_resource path="res://SCRIPTS/Battle/Enemy/EnemyHP.gd" type="Script" id=6]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-rouge.tres" type="StyleBox" id=7]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.tres" type="StyleBox" id=8]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.png" type="Texture" id=9]
-[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Bold.ttf" type="DynamicFontData" id=10]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Commands/Commands_Lr_010.png" type="Texture" id=11]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Player/MP-Fond.png" type="Texture" id=2]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Player/Mp-Barre.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-vert.tres" type="StyleBox" id=4]
+[ext_resource path="res://SCRIPTS/Battle/Enemy/EnemyHP.gd" type="Script" id=5]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-rouge.tres" type="StyleBox" id=6]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.tres" type="StyleBox" id=7]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.png" type="Texture" id=8]
+[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Bold.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Commands/Commands_Lr_010.png" type="Texture" id=10]
 
 [sub_resource type="StyleBoxFlat" id=1]
 
@@ -43,7 +42,7 @@ content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 margin/left = 2.0
 margin/right = 2.0
 margin/top = 2.0
@@ -60,7 +59,7 @@ draw_center = true
 font/size = 9
 font/use_mipmaps = false
 font/use_filter = false
-font/font = ExtResource( 10 )
+font/font = ExtResource( 9 )
 
 [node name="BattlePlan" type="Node"]
 
@@ -127,8 +126,6 @@ offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 
-[node name="InfoBar" parent="HUD" instance=ExtResource( 2 )]
-
 [node name="PlayerMP" type="Node2D" parent="HUD"]
 
 editor/display_folded = true
@@ -136,12 +133,12 @@ transform/pos = Vector2( 722, 452 )
 
 [node name="MP-Fond" type="Sprite" parent="HUD/PlayerMP"]
 
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 vframes = 2
 
 [node name="MP-Barre" type="Sprite" parent="HUD/PlayerMP"]
 
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 vframes = 3
 
 [node name="EnemyHP" type="ProgressBar" parent="HUD"]
@@ -158,7 +155,7 @@ margin/left = 15.0
 margin/top = 15.0
 margin/right = -300.0
 margin/bottom = 25.0
-custom_styles/fg = ExtResource( 5 )
+custom_styles/fg = ExtResource( 4 )
 custom_styles/bg = SubResource( 3 )
 range/min = 0.0
 range/max = 100.0
@@ -168,7 +165,7 @@ range/value = 100.0
 range/exp_edit = false
 range/rounded = true
 percent/visible = false
-script/script = ExtResource( 6 )
+script/script = ExtResource( 5 )
 SLIDE_DURATION = 0.5
 DELAY_DURATION = 1.0
 
@@ -202,8 +199,8 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 10.0
-custom_styles/fg = ExtResource( 7 )
-custom_styles/bg = ExtResource( 8 )
+custom_styles/fg = ExtResource( 6 )
+custom_styles/bg = ExtResource( 7 )
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -259,7 +256,7 @@ transform/pos = Vector2( 0, 448 )
 [node name="Selected" type="Sprite" parent="HUD/Commands"]
 
 editor/display_folded = true
-texture = ExtResource( 11 )
+texture = ExtResource( 10 )
 centered = false
 
 [node name="BATTLE_ATTACK" type="Label" parent="HUD/Commands/Selected"]
@@ -277,7 +274,5 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-
-[connection signal="dismiss" from="HUD/InfoBar" to="." method="_battle_begin"]
 
 

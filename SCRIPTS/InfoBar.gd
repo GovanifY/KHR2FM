@@ -1,4 +1,5 @@
 # Signals
+signal displayed
 signal dismiss
 
 # Export values
@@ -30,6 +31,7 @@ func _input(event):
 ### Signal routines ###
 #######################
 func _display():
+	emit_signal("displayed")
 	Slide.disconnect("finished", self, "_display")
 	TextScroll.scroll(info_message)
 
@@ -45,6 +47,9 @@ func _end_dismissal():
 ###############
 ### Methods ###
 ###############
+func set_text(text):
+	info_message = text
+
 func play():
 	Slide.connect("finished", self, "_display")
 	Slide.play("In")
