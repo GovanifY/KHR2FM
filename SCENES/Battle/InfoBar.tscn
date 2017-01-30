@@ -24,14 +24,14 @@ expand_margin/bottom = 0.0
 modulate/color = Color( 1, 1, 1, 1 )
 draw_center = true
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=2]
 
 font/size = 14
 font/use_mipmaps = false
 font/use_filter = true
 font/font = ExtResource( 3 )
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
 length = 0.25
 loop = false
@@ -47,7 +47,7 @@ tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = { "times":FloatArray( 0, 0.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ -450.0, 0.0 ] }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 
 length = 0.25
 loop = false
@@ -58,7 +58,7 @@ tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0, -450 ] }
 
-[sub_resource type="SampleLibrary" id=4]
+[sub_resource type="SampleLibrary" id=5]
 
 samples/Infos = { "db":0.0, "pitch":1.0, "sample":ExtResource( 5 ) }
 
@@ -80,7 +80,6 @@ autostart = true
 
 [node name="InfoLabel" type="Label" parent="."]
 
-editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
@@ -91,7 +90,7 @@ margin/left = 30.0
 margin/top = 25.0
 margin/right = 30.0
 margin/bottom = 5.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 2 )
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
@@ -104,8 +103,8 @@ max_lines_visible = 1
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/In = SubResource( 2 )
-anims/Out = SubResource( 3 )
+anims/In = SubResource( 3 )
+anims/Out = SubResource( 4 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -114,7 +113,7 @@ autoplay = ""
 [node name="Swish" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 4 )
+config/samples = SubResource( 5 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0

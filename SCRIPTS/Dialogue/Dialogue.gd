@@ -6,14 +6,11 @@ const ANIM_TIME = 0.35
 # Export values
 export(String, FILE, "csv") var csv_path = String()
 export(int, "Top", "Middle", "Bottom") var position = 2
-export(Sample) var confirm_sound = preload("res://ASSETS/SE/System/MSG_SOUND.wav")
-export(Sample) var character_sound
 
 # Signals
 signal finished
 
 # Instance members
-onready var SE_node   = get_node("SE")
 onready var CastLeft  = get_node("CastLeft")
 onready var CastRight = get_node("CastRight")
 onready var CastAnim  = get_node("CastAnim")
@@ -44,13 +41,6 @@ func _ready():
 
 	# Initializing Bubble
 	set_alignment(position)
-
-	# Initializing sound
-	if confirm_sound != null:
-		SE_node.get_sample_library().add_sample("Confirm", confirm_sound)
-	if character_sound != null:
-		SE_node.get_sample_library().add_sample("Character", character_sound)
-		Bubble.TextScroll.set_sound_node(SE_node)
 
 	# Initializing signals
 	Bubble.connect("shown", self, "_get_line")
@@ -128,9 +118,6 @@ func _get_line():
 		set_process_input(true)
 
 func _next_line():
-	if confirm_sound != null:
-		SE_node.play("Confirm")
-
 	if is_loaded(): # Scroll next line
 		_get_line()
 	else: # No more lines, close everything

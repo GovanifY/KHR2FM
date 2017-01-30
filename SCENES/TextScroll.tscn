@@ -5,11 +5,13 @@
 [node name="TextScroll" type="Timer"]
 
 process_mode = 1
-wait_time = 1.0
+wait_time = 0.01
 one_shot = false
 autostart = false
 script/script = ExtResource( 1 )
-
-[connection signal="timeout" from="." to="." method="_on_TextScroll_timeout"]
+text_node = NodePath("..")
+sound_node = NodePath("")
+character_sound = ""
+confirm_sound = ""
 
 
