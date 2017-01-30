@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=15 format=1]
 
 [ext_resource path="res://SCRIPTS/Dialogue/Dialogue.gd" type="Script" id=1]
 [ext_resource path="res://SCENES/Dialogue/box0.tres" type="StyleBox" id=2]
@@ -6,10 +6,11 @@
 [ext_resource path="res://ASSETS/GFX/Game/Text/hook0.png" type="Texture" id=4]
 [ext_resource path="res://ASSETS/GFX/Game/Text/confirm_icon.png" type="Texture" id=5]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://SCENES/TextScroll.tscn" type="PackedScene" id=7]
-[ext_resource path="res://ASSETS/SE/System/MSG_SOUND.wav" type="Sample" id=8]
+[ext_resource path="res://addons/text_scroll/TextScroll.gd" type="Script" id=7]
+[ext_resource path="res://addons/text_scroll/icon.png" type="Texture" id=8]
+[ext_resource path="res://ASSETS/SE/System/MSG_SOUND.wav" type="Sample" id=9]
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=1]
 
 resource/name = "In"
 length = 0.25
@@ -26,7 +27,7 @@ tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ true ] }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=2]
 
 resource/name = "Out"
 length = 0.25
@@ -43,7 +44,7 @@ tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = { "times":FloatArray( 0.25 ), "transitions":FloatArray( 1 ), "update":1, "values":[ false ] }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=3]
 
 length = 1.0
 loop = true
@@ -54,7 +55,7 @@ tracks/0/interp = 2
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 56, 67 ] }
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=4]
 
 font/size = 18
 font/use_mipmaps = false
@@ -63,7 +64,7 @@ font/font = ExtResource( 6 )
 
 [sub_resource type="SampleLibrary" id=5]
 
-samples/MSG_SOUND = { "db":0.0, "pitch":1.0, "sample":ExtResource( 8 ) }
+samples/MSG_SOUND = { "db":0.0, "pitch":1.0, "sample":ExtResource( 9 ) }
 
 [node name="Dialogue" type="Control"]
 
@@ -127,7 +128,6 @@ playback/speed = 1.0
 
 [node name="SkinPos" type="VBoxContainer" parent="."]
 
-editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 rect/min_size = Vector2( 100, 100 )
@@ -144,7 +144,6 @@ __meta__ = { "_edit_lock_":true }
 
 [node name="Bubble" type="Panel" parent="SkinPos"]
 
-editor/display_folded = true
 rect/min_size = Vector2( 100, 100 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -163,8 +162,8 @@ __meta__ = { "_edit_lock_":true }
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/In = SubResource( 6 )
-anims/Out = SubResource( 7 )
+anims/In = SubResource( 1 )
+anims/Out = SubResource( 2 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -179,6 +178,7 @@ __meta__ = { "_edit_lock_":true }
 [node name="ConfirmIcon" type="Patch9Frame" parent="SkinPos/Bubble"]
 
 editor/display_folded = true
+visibility/visible = false
 anchor/left = 1
 anchor/right = 1
 anchor/bottom = 1
@@ -199,15 +199,14 @@ __meta__ = { "_edit_lock_":true }
 playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/Down_Up = SubResource( 8 )
-playback/active = true
+anims/Down_Up = SubResource( 3 )
+playback/active = false
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = "Down_Up"
 
 [node name="TextContainer" type="Label" parent="SkinPos/Bubble"]
 
-editor/display_folded = true
 anchor/left = 2
 anchor/right = 2
 anchor/bottom = 1
@@ -221,7 +220,7 @@ margin/left = 0.15
 margin/top = 20.0
 margin/right = 0.85
 margin/bottom = 20.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/line_spacing = 9
 custom_constants/shadow_as_outline = 1
@@ -234,9 +233,17 @@ lines_skipped = 0
 max_lines_visible = 2
 __meta__ = { "_edit_lock_":true }
 
-[node name="TextScroll" parent="SkinPos/Bubble/TextContainer" instance=ExtResource( 7 )]
+[node name="TextScroll" type="Timer" parent="SkinPos/Bubble/TextContainer"]
 
+process_mode = 1
+wait_time = 0.01
+one_shot = false
+autostart = false
+script/script = ExtResource( 7 )
+__meta__ = { "_editor_icon":ExtResource( 8 ) }
+text_node = NodePath("..")
 sound_node = NodePath("../SE")
+character_sound = ""
 confirm_sound = "MSG_SOUND"
 
 [node name="SE" type="SamplePlayer" parent="SkinPos/Bubble/TextContainer"]
@@ -257,6 +264,8 @@ default/reverb_send = 0.0
 default/chorus_send = 0.0
 
 [connection signal="draw" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="set_active" binds= [ true ]]
+
+[connection signal="enter_tree" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon" method="hide"]
 
 [connection signal="hide" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="set_active" binds= [ false ]]
 

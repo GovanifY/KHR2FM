@@ -13,6 +13,10 @@ onready var TextScroll = get_node("InfoLabel/TextScroll")
 ### Core functions ###
 ######################
 func _ready():
+	# Connecting signals
+	TextScroll.connect("finished", self, "set_process_input", [true])
+	TextScroll.connect("cleared", self, "_start_dismissal")
+
 	if autostart:
 		play()
 
