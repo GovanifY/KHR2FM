@@ -69,13 +69,6 @@ func _close_dialogue():
 	set_process_input(false)
 	emit_signal("finished")
 
-func _hide_avatars():
-	var avatars = CastLeft.get_children()
-	avatars += CastRight.get_children()
-	for av in avatars:
-		CastAnim.interpolate_method(av, "set_opacity", 1.0, 0.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
-	CastAnim.start()
-
 #######################
 ### Signal routines ###
 #######################
@@ -109,7 +102,6 @@ func _get_line():
 
 	# Incrementing index
 	index += 1
-
 	write(lineID)
 
 func _next_line():
@@ -137,7 +129,7 @@ func write(text):
 	# Writing line to bubble
 	Bubble.TextScroll.scroll(text)
 
-	# Necessary checks
+	# Enabling input detection
 	if !is_processing_input():
 		set_process_input(true)
 
@@ -165,6 +157,7 @@ func speak(character, begin, end):
 
 		# Drag animation from left or right depending on the situation
 		CastAnim.interpolate_method(character.Avatar, "set_offset", off_bounds, Vector2(), ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
+
 		CastAnim.start()
 		character.show()
 	elif !Bubble.Fade.is_playing() || !CastAnim.is_active():
@@ -174,8 +167,16 @@ func speak(character, begin, end):
 func silence():
 	set_process_input(false)
 	Bubble.hide_box()
-	_hide_avatars()
+	dismiss()
 
-# Dismisses specified Avatar
-func dismiss(character):
-	CastAnim.interpolate_method(character, "set_opacity", 1.0, 0.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
+# Dismisses a specified, or all of them if NULL
+func dismiss(character=null):
+	if character != null:
+		CastAnim.interpolate_method(character, "set_opacity", 1.0, 0.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	else:
+		var to_dismiss = CastLeft.get_children()
+		to_dismiss += CastRight.get_children()
+		for avatar in to_dismiss:
+			CastAnim.interpolate_method(avatar, "set_opacity", 1.0, 0.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
+
+	CastAnim.start()

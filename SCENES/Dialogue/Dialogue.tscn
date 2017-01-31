@@ -128,6 +128,7 @@ playback/speed = 1.0
 
 [node name="SkinPos" type="VBoxContainer" parent="."]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 rect/min_size = Vector2( 100, 100 )
@@ -144,6 +145,7 @@ __meta__ = { "_edit_lock_":true }
 
 [node name="Bubble" type="Panel" parent="SkinPos"]
 
+editor/display_folded = true
 rect/min_size = Vector2( 100, 100 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -207,6 +209,7 @@ autoplay = "Down_Up"
 
 [node name="TextContainer" type="Label" parent="SkinPos/Bubble"]
 
+editor/display_folded = true
 anchor/left = 2
 anchor/right = 2
 anchor/bottom = 1
