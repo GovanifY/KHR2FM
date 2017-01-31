@@ -172,7 +172,6 @@ func silence(character=current_speaker):
 func clear():
 	silence()
 	Bubble.hide_box()
-	dismiss()
 
 # Displays only ONE Avatar
 func display(character):

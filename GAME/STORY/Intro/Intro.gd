@@ -28,18 +28,19 @@ func _ready():
 	Sequences.play("Kiryoku down")
 	yield(Sequences, "finished")
 
-	Yuugure.speak(0, 3)
+	Yuugure.speak(0, 4)
 	yield(Yuugure, "finished")
 
 	Kiryoku.speak(0, 3)
 	yield(Kiryoku, "finished")
 
-	Yuugure.speak(4, 6)
+	Yuugure.speak(5, 6)
 	yield(Yuugure, "finished")
 
-	Dialogue.silence()
+	Dialogue.clear()
 	Sequences.play("Kiryoku vanish")
 	yield(Sequences, "finished")
+	Dialogue.dismiss()
 
 	# Change music
 	AudioRoom.load_music(get_node("The Eye of the Darkness"))
