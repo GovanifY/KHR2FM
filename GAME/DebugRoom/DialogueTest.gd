@@ -21,7 +21,13 @@ func _ready():
 	Yuugure.speak(0, 1)
 	yield(Yuugure, "finished")
 
-	Yuugure.speak(2, 3)
+	Yuugure.speak(2, 2)
+	yield(Yuugure, "finished")
+
+	Kiryoku.speak(0, 1)
+	yield(Kiryoku, "finished")
+
+	Yuugure.speak(3, 3)
 	yield(Yuugure, "finished")
 
 	# Recalibrate for narrator
@@ -29,13 +35,10 @@ func _ready():
 	Dialogue.write("I can write anything here!!")
 	yield(Dialogue, "finished")
 
-	Dialogue.set_box(1)
-	Kiryoku.speak(0, 1)
-	yield(Kiryoku, "finished")
-
 	Kiryoku.dismiss()
 	yield(Kiryoku, "finished")
 
+	Dialogue.set_box(1)
 	Kioku.speak(0, 1)
 	yield(Kioku, "finished")
 
