@@ -13,6 +13,7 @@ var accum = 0
 ### Core functions ###
 ######################
 func _ready():
+	# Timer-related
 	Globals.set("PlayTimeMinutes", 0)
 	Globals.set("PlayTimeHours", 0)
 	Globals.set("TimerActivated", false)
@@ -75,6 +76,28 @@ func quit_game():
 	SceneLoader.kill_all_threads()
 	get_tree().quit()
 
+# Properly pauses/unpauses the game
 func pause_game():
+	if !Globals.get("Pause").empty():
+		# Grab details for the appropriate Pause menu
+		var pause_name = Globals.get("Pause").capitalize() + "Pause"
+		var pause_path = "res://SCENES/Pause/" + pause_name + ".tscn"
+
+		var f = File.new()
+		if !f.file_exists(pause_path):
+			print("KHR2: Currently set Pause type does not exist: ", pause_name)
+		else:
+			# If it was previously paused, then an unpause was requested
+			if get_tree().is_paused():
+				# Deleting the Pause node
+				var node = get_node("/root/" + pause_name)
+				if node != null:
+					node.queue_free()
+					SceneLoader.erase_scene(pause_path)
+			else:
+				SceneLoader.load_scene(pause_path, true)
+				SceneLoader.show_scene(pause_path)
+
+	# In any case, pause the game (even if no menu is available)
 	get_tree().set_pause(!get_tree().is_paused())
 	emit_signal("toggle_pause")

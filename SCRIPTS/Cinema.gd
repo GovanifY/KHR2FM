@@ -9,9 +9,6 @@ export(String, FILE, "tscn") var next_scene = ""
 export(String, FILE, "srt") var subtitles_file = ""
 export(String, FILE, "csv") var csv_file = ""
 
-# Constants
-enum { PAUSE_BUTTON_CONTINUE, PAUSE_BUTTON_SKIP }
-
 # Instance members
 onready var Subtitles  = {
 	"label" : get_node("Subtitles"), # Node where the text should reside
@@ -24,10 +21,15 @@ var have_subtitles = false
 ######################
 ### Core functions ###
 ######################
+func _enter_tree():
+	Globals.set("Pause", "simple")
+
+func _exit_tree():
+	Globals.set("Pause", String())
+
 func _ready():
 	# Connecting signals
 	KHR2.connect("toggle_pause", self, "_toggled_pause")
-	get_node("VideoControls/Options").connect("button_selected", self, "_pause_controls")
 
 	# Parsing subtitles (if any)
 	_parse_subtitles()
@@ -91,18 +93,8 @@ func _parse_subtitles():
 	# Opening translation
 	Translator.set_csv(csv_file)
 
-#######################
-### Signal routines ###
-#######################
 func _toggled_pause():
-	var paused = get_tree().is_paused()
-	set_paused(paused)
-	get_node("VideoControls").set_hidden(!paused)
-
-func _pause_controls(button_idx):
-	if button_idx == PAUSE_BUTTON_SKIP: # I cheated when I wrote this function
-		stop()
-	KHR2.pause_game()
+	set_paused(get_tree().is_paused())
 
 ########################
 ### Helper functions ###

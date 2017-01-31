@@ -10,6 +10,7 @@ onready var Loading = {
 	"background" : false
 }
 var next_scenes = Array()
+var loaded_scenes = Array()
 
 # "Private" members
 onready var root = get_tree().get_root()
@@ -69,6 +70,7 @@ func load_scene(path, background = false):
 	# Setting current scene
 	get_tree().set_current_scene(root.get_child(root.get_child_count()-1))
 
+	loaded_scenes.push_back(path)
 	# Are we doing background?
 	Loading.background = background
 	if !background:
@@ -97,9 +99,13 @@ func show_scene(path, halt_current = false):
 		get_tree().change_scene_to(res)
 	else:
 		root.add_child(res.instance())
+	loaded_scenes.erase(path)
 
 func erase_scene(path):
 	ThreadLoader.cancel_resource(path)
+
+func next_scene(halt_current = false):
+	show_scene(loaded_scenes.front(), halt_current)
 
 # Kills all threads
 func kill_all_threads():
