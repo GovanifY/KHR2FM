@@ -7,7 +7,6 @@ onready var Dialogue = get_node("Dialogue")
 onready var Kiryoku  = Dialogue.get_node("Kiryoku")
 onready var Kioku    = Dialogue.get_node("Kioku")
 onready var Yuugure  = Dialogue.get_node("Yuugure")
-onready var Narrator = Dialogue.get_node("Narrator")
 
 ######################
 ### Core functions ###
@@ -27,7 +26,7 @@ func _ready():
 
 	# Recalibrate for narrator
 	Dialogue.set_box(2)
-	Dialogue.speak(Narrator, 0, 1)
+	Dialogue.write("I can write anything here!!")
 	yield(Dialogue, "finished")
 
 	Dialogue.set_box(1)

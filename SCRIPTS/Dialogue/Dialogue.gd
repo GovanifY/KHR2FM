@@ -110,12 +110,7 @@ func _get_line():
 	# Incrementing index
 	index += 1
 
-	# Writing line to bubble
-	Bubble.TextScroll.scroll(lineID)
-
-	# Necessary checks
-	if !is_processing_input():
-		set_process_input(true)
+	write(lineID)
 
 func _next_line():
 	if is_loaded(): # Scroll next line
@@ -136,6 +131,15 @@ func is_loaded():
 
 func set_box(idx):
 	Bubble.set_box(idx)
+
+# Writes text on the Dialogue box
+func write(text):
+	# Writing line to bubble
+	Bubble.TextScroll.scroll(text)
+
+	# Necessary checks
+	if !is_processing_input():
+		set_process_input(true)
 
 # Makes a character speak.
 func speak(character, begin, end):

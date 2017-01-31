@@ -83,24 +83,6 @@ face_sprites = ExtResource( 7 )
 frame = 0
 flip_h = false
 
-[node name="Narrator" type="Control" parent="Dialogue"]
-
-visibility/visible = false
-visibility/behind_parent = true
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 1.0
-margin/bottom = 1.0
-script/script = ExtResource( 4 )
-__meta__ = { "_editor_icon":ExtResource( 5 ) }
-face_sprites = null
-frame = 0
-flip_h = false
-
 [node name="Kioku" type="Control" parent="Dialogue"]
 
 visibility/visible = false
