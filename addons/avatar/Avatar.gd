@@ -59,6 +59,9 @@ func set_flip_h(value):
 	flip_h = value
 	Avatar.set_flip_h(value)
 
+func is_flipped_h():
+	return Avatar.is_flipped_h()
+
 func set_side(right):
 	var Dialogue = get_node(Globals.get("Dialogue"))
 
@@ -89,6 +92,10 @@ func speak(begin, end):
 	if !Dialogue.is_connected("finished", self, "emit_signal"):
 		Dialogue.connect("finished", self, "emit_signal", ["finished"])
 	Dialogue.speak(self, begin, end)
+
+func display():
+	var Dialogue = get_node(Globals.get("Dialogue"))
+	Dialogue.display(self)
 
 func dismiss():
 	var Dialogue = get_node(Globals.get("Dialogue"))

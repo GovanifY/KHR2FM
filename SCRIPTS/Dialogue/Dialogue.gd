@@ -150,16 +150,7 @@ func speak(character, begin, end):
 	# If character's invisible, make grand appearance
 	var avatar_texture = character.Avatar.get_texture()
 	if character.is_hidden() && avatar_texture != null:
-		var off_bounds = character.Avatar.get_texture().get_size()
-		off_bounds.y = 0
-		if !CastRight.is_a_parent_of(character):
-			off_bounds.x *= -1
-
-		# Drag animation from left or right depending on the situation
-		CastAnim.interpolate_method(character.Avatar, "set_offset", off_bounds, Vector2(), ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
-
-		CastAnim.start()
-		character.show()
+		display(character)
 	elif !Bubble.Fade.is_playing() || !CastAnim.is_active():
 		Bubble.emit_signal("shown")
 
@@ -169,7 +160,20 @@ func silence():
 	Bubble.hide_box()
 	dismiss()
 
-# Dismisses a specified, or all of them if NULL
+# Displays only ONE Avatar
+func display(character):
+	var off_bounds = character.Avatar.get_texture().get_size()
+	off_bounds.y = 0
+	if !character.is_flipped_h():
+		off_bounds.x *= -1
+
+	# Drag animation from left or right depending on the situation
+	CastAnim.interpolate_method(character.Avatar, "set_offset", off_bounds, Vector2(), ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
+
+	CastAnim.start()
+	character.show()
+
+# Dismisses a specified Avatar, or all of them if NULL
 func dismiss(character=null):
 	if character != null:
 		CastAnim.interpolate_method(character, "set_opacity", 1.0, 0.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
