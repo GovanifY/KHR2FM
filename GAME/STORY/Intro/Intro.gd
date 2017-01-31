@@ -28,17 +28,14 @@ func _ready():
 	Sequences.play("Kiryoku down")
 	yield(Sequences, "finished")
 
-	Dialogue.speak(Yuugure, 0, 3)
-	yield(Dialogue, "finished")
+	Yuugure.speak(0, 3)
+	yield(Yuugure, "finished")
 
-	Dialogue.speak(Kiryoku, 0, 3)
-	yield(Dialogue, "finished")
+	Kiryoku.speak(0, 3)
+	yield(Kiryoku, "finished")
 
-	Dialogue.speak(Yuugure, 4, 6)
-	yield(Dialogue, "finished")
-
-	Dialogue.silence()
-	yield(Dialogue, "finished")
+	Yuugure.speak(4, 6)
+	yield(Yuugure, "finished")
 
 	Dialogue.silence()
 	Sequences.play("Kiryoku vanish")
@@ -48,20 +45,20 @@ func _ready():
 	AudioRoom.load_music(get_node("The Eye of the Darkness"))
 	AudioRoom.play()
 
-	Dialogue.speak(Kiryoku, 4, 10)
-	yield(Dialogue, "finished")
+	Kiryoku.speak(4, 10)
+	yield(Kiryoku, "finished")
 
-	Dialogue.speak(Yuugure, 7, 8)
-	yield(Dialogue, "finished")
+	Yuugure.speak(7, 8)
+	yield(Yuugure, "finished")
 
-	Dialogue.speak(Kiryoku, 11, 16)
-	yield(Dialogue, "finished")
+	Kiryoku.speak(11, 16)
+	yield(Kiryoku, "finished")
 
-	Dialogue.speak(Yuugure, 9, 12)
-	yield(Dialogue, "finished")
+	Yuugure.speak(9, 12)
+	yield(Yuugure, "finished")
 
-	Dialogue.speak(Kiryoku, 17, 19)
-	yield(Dialogue, "finished")
+	Kiryoku.speak(17, 19)
+	yield(Kiryoku, "finished")
 
 	# Load next scene
 	SceneLoader.load_scene("STORY/Intro/Battle_Yuugure.tscn")

@@ -1,6 +1,9 @@
 tool
 extends Control
 
+# Signals
+signal finished
+
 # Export values
 export(SpriteFrames) var face_sprites   setget set_face_sprites
 export(int, 0, 64)   var frame = 0      setget set_frame
@@ -58,9 +61,6 @@ func set_flip_h(value):
 
 func set_side(right):
 	var Dialogue = get_node(Globals.get("Dialogue"))
-	if Dialogue == null:
-		print("No Dialogue node instanced. What are you even doing, foo??")
-		return
 
 	var CastLeft  = Dialogue.get_node("CastLeft")
 	var CastRight = Dialogue.get_node("CastRight")
@@ -81,10 +81,15 @@ func set_side(right):
 	# Flipping the character's sprite by default (will always reset when)
 	set_flip_h(right)
 
+# Methods from Dialogue node
+func speak(begin, end):
+	var Dialogue = get_node(Globals.get("Dialogue"))
+
+	# Check if signal is connected
+	if !Dialogue.is_connected("finished", self, "emit_signal"):
+		Dialogue.connect("finished", self, "emit_signal", ["finished"])
+	Dialogue.speak(self, begin, end)
+
 func dismiss():
 	var Dialogue = get_node(Globals.get("Dialogue"))
-	if Dialogue == null:
-		print("No Dialogue node instanced. What are you even doing, foo??")
-		return
-
 	Dialogue.dismiss(self)

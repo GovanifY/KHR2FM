@@ -18,11 +18,11 @@ func _ready():
 	Yuugure.set_side(true)
 
 	# Commence dialogue
-	Dialogue.speak(Yuugure, 0, 1)
-	yield(Dialogue, "finished")
+	Yuugure.speak(0, 1)
+	yield(Yuugure, "finished")
 
-	Dialogue.speak(Yuugure, 2, 3)
-	yield(Dialogue, "finished")
+	Yuugure.speak(2, 3)
+	yield(Yuugure, "finished")
 
 	# Recalibrate for narrator
 	Dialogue.set_box(2)
@@ -30,16 +30,16 @@ func _ready():
 	yield(Dialogue, "finished")
 
 	Dialogue.set_box(1)
-	Dialogue.speak(Kiryoku, 0, 1)
-	yield(Dialogue, "finished")
+	Kiryoku.speak(0, 1)
+	yield(Kiryoku, "finished")
 
 	Kiryoku.dismiss()
-	yield(Dialogue, "finished")
+	yield(Kiryoku, "finished")
 
-	Dialogue.speak(Kioku, 0, 1)
-	yield(Dialogue, "finished")
+	Kioku.speak(0, 1)
+	yield(Kioku, "finished")
 
-	Dialogue.speak(Kioku, 1, 2)
-	yield(Dialogue, "finished")
+	Kioku.speak(1, 2)
+	yield(Kioku, "finished")
 
 	Dialogue.silence()
