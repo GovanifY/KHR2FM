@@ -7,7 +7,7 @@ signal finished
 # Export values
 export(SpriteFrames) var face_sprites   setget set_face_sprites
 export(int, 0, 64)   var frame = 0      setget set_frame
-export(bool)         var flip_h = false setget set_flip
+export(bool)         var flip_frame = false setget set_flip
 
 # Settings that no one should touch
 const SLOT = "default"
@@ -53,14 +53,14 @@ func get_type():
 func is_type(istype):
 	return istype == get_type()
 
+func is_flipped():
+	return Avatar.is_flipped_h()
+
 func set_flip(value):
 	if Avatar == null:
 		return
-	flip_h = value
+	flip_frame = value
 	Avatar.set_flip_h(value)
-
-func is_flipped():
-	return Avatar.is_flipped_h()
 
 func set_side(right):
 	var Dialogue = get_node(Globals.get("Dialogue"))
@@ -87,10 +87,6 @@ func set_side(right):
 # Methods from Dialogue node
 func speak(begin, end=begin):
 	var Dialogue = get_node(Globals.get("Dialogue"))
-
-	# Check if signal is connected
-	if !Dialogue.is_connected("finished", self, "emit_signal"):
-		Dialogue.connect("finished", self, "emit_signal", ["finished"])
 	Dialogue.speak(self, begin, end)
 
 func display():
@@ -100,3 +96,7 @@ func display():
 func dismiss():
 	var Dialogue = get_node(Globals.get("Dialogue"))
 	Dialogue.dismiss(self)
+
+func silence():
+	var Dialogue = get_node(Globals.get("Dialogue"))
+	Dialogue.silence(self)

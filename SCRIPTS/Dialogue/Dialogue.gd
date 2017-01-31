@@ -61,15 +61,6 @@ func _input(event):
 	elif event.type == InputEvent.SCREEN_TOUCH:
 		Bubble.TextScroll.confirm()
 
-func _close_dialogue():
-	# Resetting values
-	index = -1
-	current_speaker = null
-	Bubble.Hook.hide()
-
-	set_process_input(false)
-	emit_signal("finished")
-
 func _center_hook():
 	var center = current_speaker.get_center()
 	if current_speaker.is_flipped():
@@ -97,7 +88,7 @@ func _on_CastAnim_tween_complete(object, key):
 			object.hide()
 			object.set_opacity(1.0)
 
-			emit_signal("finished")
+			silence(object)
 		# Otherwise, it's being displayed
 		else:
 			object.show()
@@ -119,7 +110,7 @@ func _next_line():
 	if is_loaded(): # Scroll next line
 		_get_line()
 	else: # No more lines, close everything
-		_close_dialogue()
+		silence()
 
 ###############
 ### Methods ###
@@ -146,9 +137,10 @@ func write(text):
 
 # Makes a character speak.
 func speak(character, begin, end=begin):
-	# Check arguments
-	if (end - begin) < 0:
+	# Check indexes
+	if (end - begin) < 0 || begin < 0:
 		print("Dialogue: Invalid indexes.")
+		silence(character)
 		return
 
 	# Setting text iteration values
@@ -164,9 +156,21 @@ func speak(character, begin, end=begin):
 	elif Bubble.is_visible():
 		Bubble.emit_signal("shown")
 
-# Hides Bubble box and dismisses all the avatars
-func silence():
+# Resets values and silences a given character
+func silence(character=current_speaker):
+	# Resetting values
+	index = -1
+	Bubble.Hook.hide()
 	set_process_input(false)
+
+	if character != null:
+		character.call_deferred("emit_signal", "finished")
+		character = null
+	emit_signal("finished")
+
+# Hides Bubble box and dismisses all the avatars
+func clear():
+	silence()
 	Bubble.hide_box()
 	dismiss()
 
