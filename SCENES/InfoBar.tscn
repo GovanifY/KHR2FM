@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Others/Info_00.png" type="Texture" id=1]
-[ext_resource path="res://SCRIPTS/Battle/InfoBar.gd" type="Script" id=2]
+[ext_resource path="res://SCRIPTS/InfoBar.gd" type="Script" id=2]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://addons/text_scroll/TextScroll.gd" type="Script" id=4]
 [ext_resource path="res://addons/text_scroll/icon.png" type="Texture" id=5]
@@ -81,6 +81,7 @@ autostart = true
 
 [node name="InfoLabel" type="Label" parent="."]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
