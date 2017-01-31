@@ -72,7 +72,7 @@ func _close_dialogue():
 
 func _center_hook():
 	var center = current_speaker.get_center()
-	if current_speaker.is_flipped_h():
+	if current_speaker.is_flipped():
 		center += CastRight.get_pos().x
 	Bubble.set_hook(current_speaker, center)
 
@@ -147,7 +147,6 @@ func write(text):
 # Makes a character speak.
 func speak(character, begin, end=begin):
 	# Check arguments
-	assert(typeof(character) == TYPE_OBJECT && character.is_type("Avatar"))
 	if (end - begin) < 0:
 		print("Dialogue: Invalid indexes.")
 		return
@@ -162,7 +161,7 @@ func speak(character, begin, end=begin):
 	var avatar_texture = character.Avatar.get_texture()
 	if character.is_hidden() && avatar_texture != null:
 		display(character)
-	elif !Bubble.Fade.is_playing() || !CastAnim.is_active():
+	elif Bubble.is_visible():
 		Bubble.emit_signal("shown")
 
 # Hides Bubble box and dismisses all the avatars
@@ -176,7 +175,7 @@ func display(character):
 	var off_bounds = character.Avatar.get_texture().get_size()
 	off_bounds.y = 0
 	# Drag animation from left or right depending on the situation
-	if !character.is_flipped_h():
+	if !character.is_flipped():
 		off_bounds.x *= -1
 
 	CastAnim.interpolate_method(character.Avatar, "set_offset", off_bounds, Vector2(), ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
@@ -197,7 +196,7 @@ func dismiss(character=null):
 		var off_bounds = character.Avatar.get_texture().get_size()
 		off_bounds.y = 0
 		# Drag animation from left or right depending on the situation
-		if !character.is_flipped_h():
+		if !character.is_flipped():
 			off_bounds.x *= -1
 
 		CastAnim.interpolate_method(character.Avatar, "set_offset", Vector2(), off_bounds, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)

@@ -7,7 +7,7 @@ signal finished
 # Export values
 export(SpriteFrames) var face_sprites   setget set_face_sprites
 export(int, 0, 64)   var frame = 0      setget set_frame
-export(bool)         var flip_h = false setget set_flip_h
+export(bool)         var flip_h = false setget set_flip
 
 # Settings that no one should touch
 const SLOT = "default"
@@ -53,13 +53,13 @@ func get_type():
 func is_type(istype):
 	return istype == get_type()
 
-func set_flip_h(value):
+func set_flip(value):
 	if Avatar == null:
 		return
 	flip_h = value
 	Avatar.set_flip_h(value)
 
-func is_flipped_h():
+func is_flipped():
 	return Avatar.is_flipped_h()
 
 func set_side(right):
@@ -82,7 +82,7 @@ func set_side(right):
 		CastLeft.add_child(self)
 
 	# Flipping the character's sprite by default (will always reset when)
-	set_flip_h(right)
+	set_flip(right)
 
 # Methods from Dialogue node
 func speak(begin, end=begin):
