@@ -85,7 +85,7 @@ func set_side(right):
 	set_flip_h(right)
 
 # Methods from Dialogue node
-func speak(begin, end):
+func speak(begin, end=begin):
 	var Dialogue = get_node(Globals.get("Dialogue"))
 
 	# Check if signal is connected

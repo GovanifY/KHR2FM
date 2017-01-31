@@ -145,7 +145,7 @@ func write(text):
 		set_process_input(true)
 
 # Makes a character speak.
-func speak(character, begin, end):
+func speak(character, begin, end=begin):
 	# Check arguments
 	assert(typeof(character) == TYPE_OBJECT && character.is_type("Avatar"))
 	if (end - begin) < 0:

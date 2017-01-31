@@ -21,13 +21,13 @@ func _ready():
 	Yuugure.speak(0, 1)
 	yield(Yuugure, "finished")
 
-	Yuugure.speak(2, 2)
+	Yuugure.speak(2)
 	yield(Yuugure, "finished")
 
 	Kiryoku.speak(0, 1)
 	yield(Kiryoku, "finished")
 
-	Yuugure.speak(3, 3)
+	Yuugure.speak(3)
 	yield(Yuugure, "finished")
 
 	# Recalibrate for narrator
