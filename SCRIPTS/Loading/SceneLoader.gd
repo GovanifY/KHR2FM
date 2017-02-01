@@ -47,14 +47,6 @@ static func complete_path(path):
 		path = PATH_SCENES + path
 	return path
 
-static func halt_node(node):
-	if node != null:
-		# Stop every process from this node to avoid crashes
-		node.set_process(false)
-		node.set_process_input(false)
-		node.set_fixed_process(false)
-		node.queue_free()
-
 ###############
 ### Methods ###
 ###############
@@ -75,7 +67,7 @@ func load_scene(path, background = false):
 	Loading.background = background
 	if !background:
 		_show_screen()
-		halt_node(get_tree().get_current_scene())
+		get_tree().get_current_scene().queue_free()
 
 		# Pushing an additional scene for loading in foreground
 		next_scenes.push_back(path)
