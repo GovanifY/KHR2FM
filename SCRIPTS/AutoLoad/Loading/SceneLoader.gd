@@ -4,7 +4,7 @@ extends Control
 const PATH_SCENES  = "res://GAME/"
 
 # Instance members
-onready var ThreadLoader = preload("res://SCRIPTS/Loading/ThreadLoader.gd").new()
+onready var ThreadLoader = preload("res://SCRIPTS/AutoLoad/Loading/ThreadLoader.gd").new()
 onready var Loading = {
 	"animation"  : get_node("HeartAnimation"),
 	"background" : false
