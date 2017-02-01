@@ -88,12 +88,12 @@ points = Vector2Array( 1170.37, 780.6, 1184.78, 797.221, 1121.62, 833.786 )
 custom_solver_bias = 0.0
 points = Vector2Array( 1077.3, 822.705, 1077.3, 810.517, 1091.7, 821.597, 1083.95, 826.029 )
 
-[sub_resource type="RectangleShape2D" id=18]
+[sub_resource type="RectangleShape2D" id=17]
 
 custom_solver_bias = 0.0
 extents = Vector2( 30, 40 )
 
-[sub_resource type="CapsuleShape2D" id=17]
+[sub_resource type="CapsuleShape2D" id=18]
 
 custom_solver_bias = 0.0
 radius = 10.0
@@ -206,7 +206,7 @@ transform/pos = Vector2( 571, 542 )
 
 transform/pos = Vector2( 687, 575 )
 input/pickable = true
-shapes/0/shape = SubResource( 18 )
+shapes/0/shape = SubResource( 17 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 15 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -227,9 +227,8 @@ touch_event = null
 
 [node name="Collisions" type="StaticBody2D" parent="MapEvent"]
 
-editor/display_folded = true
 input/pickable = false
-shapes/0/shape = SubResource( 17 )
+shapes/0/shape = SubResource( 18 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 35 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -242,15 +241,36 @@ bounce = 0.0
 [node name="Legs" type="CollisionShape2D" parent="MapEvent/Collisions"]
 
 transform/pos = Vector2( 0, 35 )
-shape = SubResource( 17 )
+shape = SubResource( 18 )
 trigger = false
 _update_shape_index = 0
 
 [node name="TalkArea" type="CollisionShape2D" parent="MapEvent"]
 
 transform/pos = Vector2( 0, 15 )
-shape = SubResource( 18 )
+shape = SubResource( 17 )
 trigger = false
 _update_shape_index = 0
+
+[node name="Particles2D" type="Particles2D" parent="MapEvent"]
+
+config/amount = 4
+config/lifetime = 2.0
+params/direction = 0.0
+params/spread = 10.0
+params/linear_velocity = 20.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 5.0
+params/gravity_direction = 0.0
+params/gravity_strength = 9.8
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 1.0
+params/final_size = 1.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
 
 
