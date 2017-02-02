@@ -2,41 +2,75 @@ extends Node
 
 # Instance members
 onready var Message = get_node("Message")
+onready var Killer = get_node("Killer")
+
+# Tooltip arrays
+var background_tooltips = [
+	"Loads in the background, then erases it (shows nothing)",
+	"Loads in the background, then shows it on top of the current scene",
+	"Loads in the background, then switches to it",
+]
+var foreground_tooltips = [
+	"Loads in the foreground.",
+]
+
+var path = "DebugRoom/DialogueTest.tscn"
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	get_node("Options").connect("button_selected", self, "_on_button_press")
+	# Setting Timer for background killing
+	Killer.connect("timeout", self, "_kill_background")
 
-func _on_button_press(button_idx):
-	# 1. Test background loading, then erasing it
-	# 2. Same as 1., but show it on top of the current scene
-	# 3. Same as 1., but halt the current scene
-	# 4. Test foreground loading (uses loading screen)
+	# Setting buttons
+	var Background = get_node("Background")
+	var Foreground = get_node("Foreground")
 
-	var method = "t" + String(button_idx)
-	Message.set_text("Called " + method)
+	Background.connect("button_selected", self, "_on_background_press")
+	Foreground.connect("button_selected", self, "_on_foreground_press")
+
+	# Setting tooltips (I prefer doing this by code)
+	for i in range(Background.get_button_count()):
+		Background.set_button_tooltip(i, background_tooltips[i])
+	for i in range(Foreground.get_button_count()):
+		Foreground.set_button_tooltip(i, foreground_tooltips[i])
+
+func _on_background_press(button_idx):
+	var method = "background" + String(button_idx)
+	Message.set_text("Testing " + method + "…")
 	call(method)
+	Message.set_text("Success on " + method)
+
+	# Preparing timer
+	Killer.start()
+
+func _on_foreground_press(button_idx):
+	var method = "foreground" + String(button_idx)
+	Message.set_text("Testing " + method + "…")
+	call(method)
+	Message.set_text("Success on " + method)
+
+func _kill_background():
+	Message.set_text("Killed background loading.")
+	SceneLoader.erase_scene(path)
 
 ######################
 ### Test functions ###
 ######################
-func t0():
-	var path = "DebugRoom/DialogueTest.tscn"
+# Background tests
+func background0():
 	SceneLoader.load_scene(path, true)
 	SceneLoader.erase_scene(path)
 
-func t1():
-	var path = "DebugRoom/DialogueTest.tscn"
+func background1():
 	SceneLoader.load_scene(path, true)
 	SceneLoader.show_scene(path)
 
-func t2():
-	var path = "DebugRoom/BattleTest.tscn"
+func background2():
 	SceneLoader.load_scene(path, true)
 	SceneLoader.show_scene(path, true)
 
-func t3():
-	var path = "DebugRoom/DialogueTest.tscn"
+# Foreground tests
+func foreground0():
 	SceneLoader.load_scene(path, false)
