@@ -83,6 +83,9 @@ func quit_game():
 
 # Properly pauses/unpauses the game
 func pause_game():
+	if Globals.get("Pause") == null:
+		return # DO NOT PAUSE
+
 	if !Globals.get("Pause").empty():
 		# Grab details for the appropriate Pause menu
 		var pause_name = Globals.get("Pause").capitalize() + "Pause"

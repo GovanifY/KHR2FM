@@ -20,6 +20,7 @@ onready var root = get_tree().get_root()
 ######################
 func _ready():
 	ThreadLoader.connect("finished", self, "_scene_was_loaded")
+	connect("visibility_changed", self, "_on_visibility_changed")
 
 func _process(delta):
 	for scene in next_scenes:
@@ -41,6 +42,12 @@ func _hide_screen():
 
 func _scene_was_loaded(path):
 	loaded_scenes.push_back(path)
+
+func _on_visibility_changed():
+	if is_hidden():
+		Globals.set("Pause", String())
+	else:
+		Globals.set("Pause", null)
 
 ########################
 ### Helper functions ###
