@@ -149,7 +149,6 @@ func queue_resource(path, p_in_front = false):
 		pending[path] = res
 		_post("queue_resource")
 		_unlock("queue_resource")
-		return
 
 func get_resource(path):
 	_lock("get_result")

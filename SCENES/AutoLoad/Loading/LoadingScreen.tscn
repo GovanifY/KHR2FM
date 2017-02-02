@@ -33,7 +33,6 @@ margin/right = 0.0
 margin/bottom = 0.0
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
-has_progress = false
 
 [node name="Progress" type="ProgressBar" parent="."]
 
