@@ -57,7 +57,6 @@ func _input(event):
 					SceneLoader.show_scene(debug_path)
 					Globals.set(debug_name, true)
 				else:
-					get_node("/root/" + debug_name).free()
 					SceneLoader.erase_scene(debug_path)
 					Globals.set(debug_name, false)
 		return
@@ -95,11 +94,7 @@ func pause_game():
 		else:
 			# If it was previously paused, then an unpause was requested
 			if get_tree().is_paused():
-				# Deleting the Pause node
-				var node = get_node("/root/" + pause_name)
-				if node != null:
-					node.queue_free()
-					SceneLoader.erase_scene(pause_path)
+				SceneLoader.erase_scene(pause_path)
 			else:
 				SceneLoader.load_scene(pause_path, true)
 				SceneLoader.show_scene(pause_path)

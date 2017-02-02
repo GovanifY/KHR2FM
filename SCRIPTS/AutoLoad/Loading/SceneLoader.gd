@@ -51,6 +51,11 @@ static func complete_path(path):
 		path = PATH_SCENES + path
 	return path
 
+static func get_scene_name(path):
+	path = path.get_file()
+	path = path.replace(".tscn", "")
+	return path
+
 ###############
 ### Methods ###
 ###############
@@ -95,9 +100,12 @@ func show_scene(path, halt_current = false):
 	else:
 		root.add_child(res.instance())
 	loaded_scenes.erase(path)
+	return true
 
 func erase_scene(path):
 	ThreadLoader.cancel_resource(path)
+	var name = get_scene_name(path)
+	root.get_node(name).queue_free()
 
 func next_scene(halt_current = false):
 	show_scene(loaded_scenes.front(), halt_current)
