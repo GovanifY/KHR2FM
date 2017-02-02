@@ -19,6 +19,7 @@ func _ready():
 	Globals.set("TimerActivated", false)
 
 	# Protecting against pause
+	Globals.set("Pause", String())
 	set_pause_mode(PAUSE_MODE_PROCESS)
 
 	set_process_input(true)
