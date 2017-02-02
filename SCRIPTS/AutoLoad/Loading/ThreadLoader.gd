@@ -2,8 +2,8 @@
 signal finished(path)
 
 # Instance members
-var processing = true
 var has_progress = false
+var Progress
 
 # Multi-Threading material
 var queue   = Array()
@@ -29,25 +29,26 @@ func _wait(caller):
 ######################
 ### Core functions ###
 ######################
-func _init():
+func _init(progress_node):
 	mutex = Mutex.new()
 	sem   = Semaphore.new()
+	Progress = progress_node
 
-func _print_progress():
+func _show_progress(res):
+	_lock("show_progress")
 	if has_progress:
-		for path in queue: # FIXME: untested
-			print("Loading: ", _get_progress(path))
-
-# This function uses division, so it's best not to use it heavily
-func _get_progress(path):
-	_lock("get_progress")
-	var ret = -1
-	if path in pending:
-		if pending[path] extends ResourceInteractiveLoader:
-			ret = float(pending[path].get_stage()) / float(pending[path].get_stage_count())
+		var progress = float()
+		if res extends ResourceInteractiveLoader:
+			progress = float(res.get_stage()) / float(res.get_stage_count())
 		else:
-			ret = 1.0
-	_unlock("get_progress")
+			progress = 1.0
+		progress *= 100
+
+		# Updating Progress bar
+		Progress.set_value(progress)
+		# Also printing in the console
+		print("Loading: ", progress)
+	_unlock("show_progress")
 
 func _wait_for_resource(res, path):
 	_unlock("wait_for_resource")
@@ -71,17 +72,18 @@ func _thread_process():
 		_lock("process_check_queue")
 
 		if err == OK: # Updating progress
-			_print_progress()
+			_show_progress(res)
 		elif err == ERR_FILE_EOF || err != OK:
 			var path = res.get_meta("path")
 			if path in pending: # else it was already retrieved
-				pending[res.get_meta("path")] = res.get_resource()
+				pending[path] = res.get_resource()
 
+			_show_progress(pending[path])
 			queue.erase(res) # something might have been put at the front of the queue while we polled, so use erase instead of remove
 	_unlock("process")
 
 func _thread_loop(path):
-	while !is_ready(path) && processing:
+	while !is_ready(path):
 		_thread_process()
 	emit_signal("finished", path)
 
@@ -90,7 +92,6 @@ func _thread_loop(path):
 ###############
 func clear():
 	_lock("clearing")
-	processing = false
 	queue.clear()
 	pending.clear()
 	_unlock("clearing")
@@ -111,13 +112,17 @@ func is_ready(path):
 
 	return ret
 
+func set_progress(value):
+	_lock("toggle_progress")
+	has_progress = value
+	Progress.set_hidden(!value)
+	_unlock("clearing")
+
 func queue_resource(path, p_in_front = false):
 	_lock("queue_resource")
 	if path in pending:
 		_unlock("queue_resource")
 		return
-
-	processing = true
 
 	if ResourceLoader.has(path):
 		var res = ResourceLoader.load(path)
