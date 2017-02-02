@@ -12,6 +12,9 @@ var accum = 0
 ######################
 ### Core functions ###
 ######################
+func _enter_tree():
+	Globals.set("Pause", String())
+
 func _ready():
 	# Timer-related
 	Globals.set("PlayTimeMinutes", 0)
@@ -19,7 +22,6 @@ func _ready():
 	Globals.set("TimerActivated", false)
 
 	# Protecting against pause
-	Globals.set("Pause", String())
 	set_pause_mode(PAUSE_MODE_PROCESS)
 
 	set_process_input(true)
