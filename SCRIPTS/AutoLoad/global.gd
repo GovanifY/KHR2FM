@@ -46,8 +46,8 @@ func _input(event):
 					pause_game()
 				get_tree().reload_current_scene()
 			elif event.is_action("debug"):
-				var debug_path = "res://SCENES/Debug/DebugCMD.tscn"
 				var debug_name = "DebugCMD"
+				var debug_path = "res://SCENES/Debug/" + debug_name + ".tscn"
 
 				if !Globals.get(debug_name):
 					SceneLoader.load_scene(debug_path, true)
