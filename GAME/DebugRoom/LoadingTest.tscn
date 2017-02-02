@@ -1,0 +1,69 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://GAME/DebugRoom/LoadingTest.gd" type="Script" id=1]
+[ext_resource path="res://ASSETS/LANG/FONTS/texgyreadventor/texgyreadventor-bold.otf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+
+font/size = 20
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 2 )
+
+[node name="LoadingTest" type="Node"]
+
+script/script = ExtResource( 1 )
+
+[node name="Options" type="VButtonArray" parent="."]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 200.0
+margin/top = 100.0
+margin/right = -200.0
+margin/bottom = -100.0
+flat = false
+button/count = 4
+button/min_button_size = 45.0
+button/align = 4
+button/0/text = "1"
+button/0/tooltip = "Test background loading, then erasing it"
+button/0/icon = null
+button/1/text = "2"
+button/1/tooltip = "Same as 1., but show it on top of the current scene"
+button/1/icon = null
+button/2/text = "3"
+button/2/tooltip = "Same as 1., but halt the current scene"
+button/2/icon = null
+button/3/text = "4"
+button/3/tooltip = "Test foreground loading (uses loading screen)"
+button/3/icon = null
+button/selected = 0
+
+[node name="Message" type="Label" parent="."]
+
+anchor/left = 3
+anchor/right = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 200.0
+margin/top = 65.0
+margin/right = -200.0
+margin/bottom = 105.0
+custom_fonts/font = SubResource( 1 )
+text = "Pick one"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+

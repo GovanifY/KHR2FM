@@ -41,6 +41,9 @@ func _input(event):
 		# Debugging stuff, ignore this
 		if OS.is_debug_build():
 			if event.is_action("reload_scene"):
+				# Unpause the game if it's paused
+				if get_tree().is_paused():
+					pause_game()
 				get_tree().reload_current_scene()
 			elif event.is_action("debug"):
 				var debug_path = "res://SCENES/Debug/DebugCMD.tscn"

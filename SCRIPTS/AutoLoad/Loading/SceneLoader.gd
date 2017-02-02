@@ -18,15 +18,8 @@ onready var root = get_tree().get_root()
 ######################
 ### Core functions ###
 ######################
-func _show_screen():
-	show()
-	Loading.animation.set_active(true)
-	set_process(true)
-
-func _hide_screen():
-	set_process(false)
-	Loading.animation.set_active(false)
-	hide()
+func _ready():
+	ThreadLoader.connect("finished", self, "_scene_was_loaded")
 
 func _process(delta):
 	for scene in next_scenes:
@@ -37,6 +30,17 @@ func _process(delta):
 	# If we're done here, stop processing
 	if next_scenes.empty():
 		_hide_screen()
+
+func _show_screen():
+	show()
+	set_process(true)
+
+func _hide_screen():
+	set_process(false)
+	hide()
+
+func _scene_was_loaded(path):
+	loaded_scenes.push_back(path)
 
 ########################
 ### Helper functions ###
@@ -59,13 +63,12 @@ func load_scene(path, background = false):
 		print("SceneLoader: Cannot load given path because it doesn't exist.")
 		return false
 
-	# Setting current scene
-	get_tree().set_current_scene(root.get_child(root.get_child_count()-1))
-
-	loaded_scenes.push_back(path)
 	# Are we doing background?
 	Loading.background = background
 	if !background:
+		# Setting current scene
+		get_tree().set_current_scene(root.get_child(root.get_child_count()-1))
+
 		_show_screen()
 		get_tree().get_current_scene().queue_free()
 

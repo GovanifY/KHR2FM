@@ -1,3 +1,6 @@
+# Signals
+signal finished(path)
+
 # Instance members
 var processing = true
 var has_progress = false
@@ -80,6 +83,7 @@ func _thread_process():
 func _thread_loop(path):
 	while !is_ready(path) && processing:
 		_thread_process()
+	emit_signal("finished", path)
 
 ###############
 ### Methods ###
