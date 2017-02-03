@@ -35,7 +35,7 @@ func _input(event):
 	if event.is_pressed() && !event.is_echo():
 		# Detect a quit ---> HIGH PRIORITY! Call the quit function right away
 		if event.is_action("quit"):
-			notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
+			quit_game()
 		elif event.is_action("fullscreen"):
 			OS.set_window_fullscreen(!OS.is_window_fullscreen())
 		elif event.is_action("pause"):
