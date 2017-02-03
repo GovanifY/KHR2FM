@@ -37,7 +37,7 @@ func _input(event):
 		if event.is_action("quit"):
 			notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
 		elif event.is_action("fullscreen"):
-			OS.set_window_fullscreen(!OS.is_video_mode_fullscreen())
+			OS.set_window_fullscreen(!OS.is_window_fullscreen())
 		elif event.is_action("pause"):
 			pause_game()
 
