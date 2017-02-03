@@ -44,10 +44,7 @@ func _scene_was_loaded(path):
 	loaded_scenes.push_back(path)
 
 func _on_visibility_changed():
-	if is_hidden():
-		Globals.set("Pause", String())
-	else:
-		Globals.set("Pause", null)
+	KHR2.set_process_input(is_hidden())
 
 ########################
 ### Helper functions ###
