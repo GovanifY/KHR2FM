@@ -85,13 +85,9 @@ margin/top = 100.0
 margin/right = 100.0
 margin/bottom = -100.0
 flat = false
-button/count = 1
+button/count = 0
 button/min_button_size = 45.0
 button/align = 4
-button/0/text = "1"
-button/0/tooltip = "Test background loading, then erasing it"
-button/0/icon = null
-button/selected = 0
 
 [node name="Bg-Label" type="Label" parent="."]
 
@@ -126,18 +122,8 @@ margin/top = 100.0
 margin/right = 300.0
 margin/bottom = -100.0
 flat = false
-button/count = 3
+button/count = 0
 button/min_button_size = 45.0
 button/align = 4
-button/0/text = "1"
-button/0/tooltip = ""
-button/0/icon = null
-button/1/text = "2"
-button/1/tooltip = ""
-button/1/icon = null
-button/2/text = "3"
-button/2/tooltip = ""
-button/2/icon = null
-button/selected = 0
 
 
