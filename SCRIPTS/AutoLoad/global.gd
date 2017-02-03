@@ -78,6 +78,7 @@ func _process(delta):
 ###############
 # Properly quits the game. If quitting needs to be more complex, this is the place to go
 func quit_game():
+	#breakpoint
 	SceneLoader.kill_all_threads()
 	get_tree().quit()
 

@@ -53,7 +53,7 @@ func _show_progress(res):
 func _wait_for_resource(res, path):
 	_unlock("wait_for_resource")
 	while true:
-		OS.delay_usec(16000) # wait 1 frame
+		OS.delay_msec(16) # wait 1 frame
 		_lock("wait_for_resource")
 		if queue.size() == 0 || queue[0] != res:
 			return pending[path]
@@ -92,13 +92,15 @@ func _thread_loop(path):
 ###############
 func clear():
 	_lock("clearing")
+	for thread in threads.values():
+		if thread.is_active():
+			_unlock("waiting_to_finish")
+			thread.wait_to_finish()
+			_lock("waiting_to_finish")
+	threads.clear()
 	queue.clear()
 	pending.clear()
 	_unlock("clearing")
-	for thread in threads.values():
-		if thread.is_active():
-			thread.wait_to_finish()
-	threads.clear()
 
 func is_ready(path):
 	var ret
@@ -133,13 +135,7 @@ func queue_resource(path, p_in_front = false):
 		# Create a thread for this resource
 		var thread = Thread.new()
 
-		var err = thread.start(self, "_thread_loop", path, Thread.PRIORITY_LOW)
-		if err != OK:
-			OS.alert("Couldn't create a loading thread!", "ThreadLoader Error")
-			_unlock("queue_resource")
-			return
-		threads[path] = thread
-
+		# Prepare data
 		var res = ResourceLoader.load_interactive(path)
 		res.set_meta("path", path)
 		if p_in_front:
@@ -147,6 +143,16 @@ func queue_resource(path, p_in_front = false):
 		else:
 			queue.push_back(res)
 		pending[path] = res
+
+		# Start thread
+		var err = thread.start(self, "_thread_loop", path, Thread.PRIORITY_LOW)
+		if err != OK:
+			OS.alert("Couldn't create a loading thread!", "ThreadLoader Error")
+			_unlock("queue_resource")
+			cancel_resource(path)
+			return
+		threads[path] = thread
+
 		_post("queue_resource")
 		_unlock("queue_resource")
 

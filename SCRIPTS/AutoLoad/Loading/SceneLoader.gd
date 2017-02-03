@@ -24,7 +24,7 @@ func _ready():
 
 func _process(delta):
 	for scene in next_scenes:
-		if is_ready(scene):
+		if ThreadLoader.is_ready(scene):
 			show_scene(scene)
 			next_scenes.erase(scene)
 
@@ -75,9 +75,6 @@ func load_scene(path, background = false):
 	# Are we doing background?
 	Loading.background = background
 	if !background:
-		# Setting current scene
-		get_tree().set_current_scene(root.get_child(root.get_child_count()-1))
-
 		_show_screen()
 		get_tree().get_current_scene().queue_free()
 
@@ -88,10 +85,9 @@ func load_scene(path, background = false):
 	ThreadLoader.queue_resource(path, !background)
 	return true
 
-# Checks if the given resource is ready
-func is_ready(path):
-	path = complete_path(path)
-	return ThreadLoader.is_ready(path)
+# Checks if any scene is ready to load
+func is_ready():
+	return !loaded_scenes.empty() && next_scenes.empty() && is_hidden()
 
 # Unloads current scene and loads the currently loaded one
 func show_scene(path, halt_current = false):
@@ -103,14 +99,17 @@ func show_scene(path, halt_current = false):
 		get_tree().change_scene_to(res)
 	else:
 		root.add_child(res.instance())
+
 	loaded_scenes.erase(path)
 	return true
 
+# Erases the scene associated to the given path
 func erase_scene(path):
 	ThreadLoader.cancel_resource(path)
 	var name = get_scene_name(path)
 	root.get_node(name).queue_free()
 
+# Loads the next available scene
 func next_scene(halt_current = false):
 	show_scene(loaded_scenes.front(), halt_current)
 
