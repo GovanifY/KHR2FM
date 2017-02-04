@@ -15,7 +15,7 @@ var foreground_tooltips = [
 	"Loads in the foreground.",
 ]
 
-var path = "DebugRoom/DialogueTest.tscn"
+var path = "res://GAME/DebugRoom/DialogueTest.tscn"
 
 ######################
 ### Core functions ###
@@ -73,10 +73,10 @@ func background2():
 	SceneLoader.show_scene(path, true)
 
 func background3():
-	SceneLoader.load_scene("DebugRoom/DialogueTest.tscn", true)
-	SceneLoader.load_scene("STORY/Intro/Battle_Yuugure.tscn", true)
-	SceneLoader.show_scene("DebugRoom/DialogueTest.tscn", true)
+	SceneLoader.load_scene("res://GAME/DebugRoom/DialogueTest.tscn", true)
+	SceneLoader.load_scene("res://GAME/STORY/Intro/Battle_Yuugure.tscn", true)
+	SceneLoader.show_scene("res://GAME/DebugRoom/DialogueTest.tscn", true)
 
 # Foreground tests
 func foreground0():
-	SceneLoader.load_scene("STORY/Intro/Battle_Yuugure.tscn", false)
+	SceneLoader.load_scene("res://GAME/STORY/Intro/Battle_Yuugure.tscn", false)
