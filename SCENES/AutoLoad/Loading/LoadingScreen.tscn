@@ -10,7 +10,7 @@ length = 0.6
 loop = true
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Heart:transform/scale")
+tracks/0/path = NodePath("Icon:transform/scale")
 tracks/0/interp = 2
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.3, 0.31, 0.6 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":0, "values":[ Vector2( 1, 1 ), Vector2( 0.1, 1 ), Vector2( 0.001, 1 ), Vector2( 1, 1 ) ] }
@@ -54,13 +54,14 @@ range/exp_edit = false
 range/rounded = false
 percent/visible = true
 
-[node name="Heart" type="Sprite" parent="."]
+[node name="Icon" type="Sprite" parent="."]
 
 transform/pos = Vector2( -50, -50 )
+transform/scale = Vector2( 1, 1 )
 z/z = 4096
 texture = ExtResource( 2 )
 
-[node name="HeartAnimation" type="AnimationPlayer" parent="."]
+[node name="LoadingAnimation" type="AnimationPlayer" parent="."]
 
 playback/process_mode = 0
 playback/default_blend_time = 0.0

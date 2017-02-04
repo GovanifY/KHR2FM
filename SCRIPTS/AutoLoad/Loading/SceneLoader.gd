@@ -5,10 +5,7 @@ const PATH_SCENES  = "res://GAME/"
 
 # Instance members
 onready var ThreadLoader = preload("res://SCRIPTS/AutoLoad/Loading/ThreadLoader.gd").new(get_node("Progress"))
-onready var Loading = {
-	"animation"  : get_node("HeartAnimation"),
-	"background" : false
-}
+onready var LoadingAnimation = get_node("LoadingAnimation")
 var next_scenes = Array()
 var loaded_scenes = Array()
 
@@ -70,7 +67,6 @@ func load_scene(path, background = false):
 		return false
 
 	# Are we doing background?
-	Loading.background = background
 	if !background:
 		show()
 		get_tree().get_current_scene().queue_free()
