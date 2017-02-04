@@ -68,7 +68,7 @@ func load_scene(path, background = false):
 func is_loaded():
 	return loaded_scenes.size() > 1
 
-# Unloads current scene and loads the currently loaded one
+# Unloads current scene and loads the one in the given path (if loaded)
 func show_scene(path, halt_current = false):
 	# Instance the loaded scene and put it ahead all the others
 	var res = ThreadLoader.get_resource(path)

@@ -2,16 +2,17 @@
 signal finished(path)
 
 # Instance members
-var has_progress = false
 var Progress
+var issued_kill = false
+var has_progress = false
 
 # Multi-Threading material
 var queue   = Array()
 var pending = Dictionary()
 
-var mutex = Mutex.new()
-var sem   = Semaphore.new()
-var threads = Dictionary()
+var mutex  = Mutex.new()
+var sem    = Semaphore.new()
+var thread = Thread.new()
 
 func _lock(caller):
 	mutex.lock()
@@ -26,12 +27,9 @@ func _wait(caller):
 	sem.wait()
 
 
-######################
-### Core functions ###
-######################
-func _init(progress_node):
-	Progress = progress_node
-
+###############################
+### Loader thread functions ###
+###############################
 func _show_progress(res):
 	_lock("show_progress")
 	if has_progress:
@@ -48,16 +46,6 @@ func _show_progress(res):
 		print("Loading: ", progress)
 	_unlock("show_progress")
 
-func _wait_for_resource(res, path):
-	_unlock("wait_for_resource")
-	while true:
-		OS.delay_msec(16) # wait 1 frame
-		_lock("wait_for_resource")
-		if queue.size() == 0 || queue[0] != res:
-			return pending[path]
-		_unlock("wait_for_resource")
-
-# Thread-related
 func _thread_process():
 	_wait("thread_process")
 
@@ -78,27 +66,47 @@ func _thread_process():
 
 			_show_progress(pending[path])
 			queue.erase(res) # something might have been put at the front of the queue while we polled, so use erase instead of remove
+			emit_signal("finished", path)
 	_unlock("process")
 
-func _thread_loop(path):
-	while !is_ready(path):
+func _thread_loop(_):
+	while !issued_kill:
 		_thread_process()
-	emit_signal("finished", path)
 
-###############
-### Methods ###
-###############
+#############################
+### Main thread functions ###
+#############################
+func _init(progress_node):
+	Progress = progress_node
+
+	# Start thread
+	var err = thread.start(self, "_thread_loop", null, Thread.PRIORITY_LOW)
+	if err != OK:
+		OS.alert("Couldn't create a loading thread!", "ThreadLoader Error")
+
+func _wait_for_resource(res, path):
+	_unlock("wait_for_resource")
+	while true:
+		OS.delay_msec(16) # wait 1 frame
+		_lock("wait_for_resource")
+		if queue.size() == 0 || queue[0] != res:
+			return pending[path]
+		_unlock("wait_for_resource")
+
 func clear():
-	_lock("clearing")
-	for thread in threads.values():
-		if thread.is_active():
-			_unlock("waiting_to_finish")
-			thread.wait_to_finish()
-			_lock("waiting_to_finish")
-	threads.clear()
+	_lock("clear")
+	issued_kill = true
+
 	queue.clear()
 	pending.clear()
-	_unlock("clearing")
+	if thread.is_active():
+		_post("wait_to_finish")
+		_unlock("wait_to_finish")
+		thread.wait_to_finish()
+		_lock("wait_to_finish")
+
+	issued_kill = false
+	_unlock("clear")
 
 func is_ready(path):
 	var ret = false
@@ -111,10 +119,10 @@ func is_ready(path):
 	return ret
 
 func set_progress(value):
-	_lock("toggle_progress")
+	_lock("set_progress")
 	has_progress = value
 	Progress.set_hidden(!value)
-	_unlock("clearing")
+	_unlock("set_progress")
 
 func queue_resource(path, p_in_front = false):
 	_lock("queue_resource")
@@ -126,9 +134,6 @@ func queue_resource(path, p_in_front = false):
 		var res = ResourceLoader.load(path)
 		pending[path] = res
 	else:
-		# Create a thread for this resource
-		var thread = Thread.new()
-
 		# Prepare data
 		var res = ResourceLoader.load_interactive(path)
 		res.set_meta("path", path)
@@ -137,15 +142,6 @@ func queue_resource(path, p_in_front = false):
 		else:
 			queue.push_back(res)
 		pending[path] = res
-
-		# Start thread
-		var err = thread.start(self, "_thread_loop", path, Thread.PRIORITY_LOW)
-		if err != OK:
-			OS.alert("Couldn't create a loading thread!", "ThreadLoader Error")
-			_unlock("queue_resource")
-			cancel_resource(path)
-			return
-		threads[path] = thread
 
 		_post("queue_resource")
 	_unlock("queue_resource")
@@ -162,11 +158,8 @@ func get_resource(path):
 				queue.push_front(res)
 
 			res = _wait_for_resource(res, path)
-
 		pending.erase(path)
 		_unlock("return")
-		threads[path].wait_to_finish()
-		threads.erase(path)
 		return res
 	else:
 		_unlock("return")
@@ -177,7 +170,5 @@ func cancel_resource(path):
 	if path in pending:
 		if pending[path] extends ResourceInteractiveLoader:
 			queue.erase(pending[path])
-		threads[path].wait_to_finish()
-		threads.erase(path)
 		pending.erase(path)
 	_unlock("cancel_resource")
