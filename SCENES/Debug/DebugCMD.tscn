@@ -4,6 +4,7 @@
 
 [node name="DebugCMD" type="CanvasLayer"]
 
+process/pause_mode = 2
 layer = 128
 offset = Vector2( 0, 0 )
 rotation = 0.0
