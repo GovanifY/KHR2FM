@@ -101,13 +101,11 @@ func clear():
 	_unlock("clearing")
 
 func is_ready(path):
-	var ret
+	var ret = false
 
 	_lock("is_ready")
 	if path in pending:
 		ret = !(pending[path] extends ResourceInteractiveLoader)
-	else:
-		ret = false
 	_unlock("is_ready")
 
 	return ret

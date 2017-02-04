@@ -62,4 +62,4 @@ func _ready():
 	yield(Kiryoku, "finished")
 
 	# Load next scene
-	SceneLoader.load_scene("STORY/Intro/Battle_Yuugure.tscn")
+	SceneLoader.load_scene("res://GAME/STORY/Intro/Battle_Yuugure.tscn")

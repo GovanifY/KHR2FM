@@ -13,7 +13,7 @@ func _ready():
 	skip_button.connect("pressed", self, "_pause_controls", [PAUSE_BUTTON_SKIP])
 
 	# If there's no next scene directly queued, disable the Skip button
-	if SceneLoader.loaded_scenes.size() <= 1:
+	if !SceneLoader.is_loaded():
 		skip_button.set_disabled(true)
 		skip_button.hide()
 
@@ -25,4 +25,4 @@ func _pause_controls(button_idx):
 		KHR2.pause_game()
 	elif button_idx == PAUSE_BUTTON_SKIP:
 		KHR2.pause_game()
-		SceneLoader.next_scene(true)
+		SceneLoader.show_next_scene(true)
