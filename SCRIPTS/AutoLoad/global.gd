@@ -29,13 +29,13 @@ func _ready():
 
 func _notification(notif):
 	if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		quit_game()
+		get_tree().quit()
 
 func _input(event):
 	if event.is_pressed() && !event.is_echo():
 		# Detect a quit ---> HIGH PRIORITY! Call the quit function right away
 		if event.is_action("quit"):
-			quit_game()
+			get_tree().quit()
 		elif event.is_action("fullscreen"):
 			OS.set_window_fullscreen(!OS.is_window_fullscreen())
 		elif event.is_action("pause"):
@@ -76,12 +76,6 @@ func _process(delta):
 ###############
 ### Methods ###
 ###############
-# Properly quits the game. If quitting needs to be more complex, this is the place to go
-func quit_game():
-	#breakpoint
-	SceneLoader.kill_all_threads()
-	get_tree().quit()
-
 # Properly pauses/unpauses the game
 func pause_game():
 	if Globals.get("Pause") == null:

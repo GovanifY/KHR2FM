@@ -9,8 +9,8 @@ var Progress
 var queue   = Array()
 var pending = Dictionary()
 
-var mutex
-var sem
+var mutex = Mutex.new()
+var sem   = Semaphore.new()
 var threads = Dictionary()
 
 func _lock(caller):
@@ -30,8 +30,6 @@ func _wait(caller):
 ### Core functions ###
 ######################
 func _init(progress_node):
-	mutex = Mutex.new()
-	sem   = Semaphore.new()
 	Progress = progress_node
 
 func _show_progress(res):
@@ -73,7 +71,7 @@ func _thread_process():
 
 		if err == OK: # Updating progress
 			_show_progress(res)
-		elif err == ERR_FILE_EOF || err != OK:
+		elif err == ERR_FILE_EOF:
 			var path = res.get_meta("path")
 			if path in pending: # else it was already retrieved
 				pending[path] = res.get_resource()
@@ -129,8 +127,6 @@ func queue_resource(path, p_in_front = false):
 	if ResourceLoader.has(path):
 		var res = ResourceLoader.load(path)
 		pending[path] = res
-		_unlock("queue_resource")
-		return
 	else:
 		# Create a thread for this resource
 		var thread = Thread.new()
@@ -154,7 +150,7 @@ func queue_resource(path, p_in_front = false):
 		threads[path] = thread
 
 		_post("queue_resource")
-		_unlock("queue_resource")
+	_unlock("queue_resource")
 
 func get_resource(path):
 	_lock("get_result")

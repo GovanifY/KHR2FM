@@ -18,9 +18,14 @@ onready var root = get_tree().get_root()
 ######################
 ### Core functions ###
 ######################
+func _exit_tree():
+	ThreadLoader.clear()
+
 func _ready():
 	ThreadLoader.connect("finished", self, "_scene_was_loaded")
 	connect("visibility_changed", self, "_on_visibility_changed")
+	connect("draw", self, "set_process", [true])
+	connect("hide", self, "set_process", [false])
 
 func _process(delta):
 	for scene in next_scenes:
@@ -30,15 +35,7 @@ func _process(delta):
 
 	# If we're done here, stop processing
 	if next_scenes.empty():
-		_hide_screen()
-
-func _show_screen():
-	show()
-	set_process(true)
-
-func _hide_screen():
-	set_process(false)
-	hide()
+		hide()
 
 func _scene_was_loaded(path):
 	loaded_scenes.push_back(path)
@@ -75,7 +72,7 @@ func load_scene(path, background = false):
 	# Are we doing background?
 	Loading.background = background
 	if !background:
-		_show_screen()
+		show()
 		get_tree().get_current_scene().queue_free()
 
 		# Pushing an additional scene for loading in foreground
@@ -112,7 +109,3 @@ func erase_scene(path):
 # Loads the next available scene
 func next_scene(halt_current = false):
 	show_scene(loaded_scenes.front(), halt_current)
-
-# Kills all threads
-func kill_all_threads():
-	ThreadLoader.clear()
