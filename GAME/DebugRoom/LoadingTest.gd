@@ -62,6 +62,7 @@ func _kill_background():
 # Background tests
 func background0():
 	SceneLoader.load_scene(path, true)
+	SceneLoader.show_scene(path)
 	SceneLoader.erase_scene(path)
 
 func background1():
