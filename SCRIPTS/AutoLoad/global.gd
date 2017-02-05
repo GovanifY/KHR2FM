@@ -9,6 +9,22 @@ signal toggle_pause
 # Un accumulateur pour le timer
 var accum = 0
 
+
+var HP= 10
+var Attack = 1
+var Defense = 1
+var Keyblade = ""
+var save_infos = {
+#Attack related
+#Those are basic stats, can be more using items
+HP=HP,
+Attack=Attack,
+Defense=Defense,
+#Those are menu stats and adders to stats
+Keyblade=Keyblade,
+#TODO: Items, magic abilities, limits
+}
+
 ######################
 ### Core functions ###
 ######################
