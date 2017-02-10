@@ -8,6 +8,8 @@ extends Node
 
 # Serializable dictionary filled with the most important info for a save file
 var save_data = {
+	# Switches
+	ZeroEXP = false
 	# Basic stats
 	LV = 1,
 	HP = 10,
@@ -33,6 +35,10 @@ func _has_key(key):
 ####################
 ### Main Methods ###
 ####################
+func new_game():
+	# TODO: Set the stats for a new game depending on the difficulty and ZeroEXP
+	pass
+
 func load_game():
 	pass
 
