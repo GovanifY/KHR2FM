@@ -9,7 +9,7 @@ extends Node
 # Serializable dictionary filled with the most important info for a save file
 var save_data = {
 	# Switches
-	ZeroEXP = false
+	ZeroEXP = false,
 	# Basic stats
 	LV = 1,
 	HP = 10,
