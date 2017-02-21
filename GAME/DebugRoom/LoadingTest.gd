@@ -61,21 +61,21 @@ func _kill_background():
 ######################
 # Background tests
 func background0():
-	SceneLoader.load_scene(path, true)
+	SceneLoader.load_scene(path, SceneLoader.BACKGROUND)
 	SceneLoader.show_scene(path)
 	SceneLoader.erase_scene(path)
 
 func background1():
-	SceneLoader.load_scene(path, true)
+	SceneLoader.load_scene(path, SceneLoader.BACKGROUND)
 	SceneLoader.show_scene(path)
 
 func background2():
-	SceneLoader.load_scene(path, true)
+	SceneLoader.load_scene(path, SceneLoader.BACKGROUND)
 	SceneLoader.show_scene(path, true)
 
 func background3():
-	SceneLoader.load_scene("res://GAME/DebugRoom/DialogueTest.tscn", true)
-	SceneLoader.load_scene("res://GAME/STORY/Intro/Battle_Yuugure.tscn", true)
+	SceneLoader.load_scene("res://GAME/DebugRoom/DialogueTest.tscn", SceneLoader.BACKGROUND)
+	SceneLoader.load_scene("res://GAME/STORY/Intro/Battle_Yuugure.tscn", SceneLoader.BACKGROUND)
 	SceneLoader.show_scene("res://GAME/DebugRoom/DialogueTest.tscn", true)
 
 # Foreground tests

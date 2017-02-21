@@ -53,7 +53,7 @@ func _input(event):
 				var debug_path = "res://SCENES/Debug/" + debug_name + ".tscn"
 
 				if !Globals.get(debug_name):
-					SceneLoader.load_scene(debug_path, true)
+					SceneLoader.load_scene(debug_path, SceneLoader.BACKGROUND | SceneLoader.HIGH_PRIORITY)
 					SceneLoader.show_scene(debug_path)
 					Globals.set(debug_name, true)
 				else:
@@ -94,7 +94,7 @@ func pause_game():
 			if get_tree().is_paused():
 				SceneLoader.erase_scene(pause_path)
 			else:
-				SceneLoader.load_scene(pause_path, true)
+				SceneLoader.load_scene(pause_path, SceneLoader.BACKGROUND | SceneLoader.HIGH_PRIORITY)
 				SceneLoader.show_scene(pause_path)
 
 	# In any case, pause the game (even if no menu is available)

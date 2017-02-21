@@ -54,17 +54,13 @@ func _show_progress(res):
 func _thread_process():
 	_wait("thread_process")
 
-	_lock("process")
 	while queue.size() > 0 && !issued_kill:
+		_lock("process")
 		var res = queue[0]
 
 		_unlock("process_poll")
 		var err = res.poll()
 		_lock("process_check_queue")
-
-		if issued_kill:
-			can_quit = true
-			return
 
 		if err == OK: # Updating progress
 			_show_progress(res)
@@ -74,9 +70,9 @@ func _thread_process():
 				pending[path] = res.get_resource()
 
 			_show_progress(pending[path])
-			queue.erase(res) # something might have been put at the front of the queue while we polled, so use erase instead of remove
+			queue.erase(res) # remove the loaded resfile
 			emit_signal("finished", path)
-	_unlock("process")
+		_unlock("process")
 
 func _thread_loop(_):
 	while !issued_kill:

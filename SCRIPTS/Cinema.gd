@@ -34,8 +34,8 @@ func _ready():
 	# Parsing subtitles (if any)
 	_parse_subtitles()
 
-	# Loading next scene in the background (or instantly if there's no video)
-	SceneLoader.load_scene(next_scene, get_stream() != null)
+	# Loading next scene in the background
+	SceneLoader.load_scene(next_scene, SceneLoader.BACKGROUND)
 
 	# Start playing
 	set_process(get_stream() != null)

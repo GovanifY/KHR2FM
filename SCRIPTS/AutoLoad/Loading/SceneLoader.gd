@@ -1,5 +1,8 @@
 extends Control
 
+# Flags
+enum { BACKGROUND = 0x1, HIGH_PRIORITY = 0x2 }
+
 # Instance members
 onready var ThreadLoader = preload("res://SCRIPTS/AutoLoad/Loading/ThreadLoader.gd").new(get_node("Progress"))
 var next_scenes = Array()
@@ -46,11 +49,14 @@ static func get_scene_name(path):
 ### Methods ###
 ###############
 # Adds the given resources to queue to load them immediately
-func load_scene(path, background = false):
+func load_scene(path, flags=0):
 	var f = File.new()
 	if !f.file_exists(path):
 		print("SceneLoader: Cannot load given path because it doesn't exist.")
 		return false
+
+	var background = bool(flags & BACKGROUND)
+	var priority   = bool(flags & HIGH_PRIORITY)
 
 	# Are we doing background?
 	if !background:
@@ -61,7 +67,7 @@ func load_scene(path, background = false):
 			get_tree().get_current_scene().queue_free()
 
 	# Let ThreadLoader start working (prioritize if not running in background)
-	ThreadLoader.queue_resource(path, !background)
+	ThreadLoader.queue_resource(path, priority)
 	return true
 
 # Checks if any scene is ready to load
