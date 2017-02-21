@@ -42,7 +42,7 @@ func _ready():
 
 func _process(delta):
 	# Write subtitles
-	if have_subtitles:
+	if have_subtitles && Subtitles.index < Subtitles.array.size():
 		var cur_pos = get_stream_pos()
 
 		# If subtitles timer is on track
@@ -56,9 +56,6 @@ func _process(delta):
 			Subtitles.label.set_text("")
 			Subtitles.shown = false
 			Subtitles.index += 1
-			# To avoid going out of bounds
-			if Subtitles.index >= Subtitles.array.size():
-				have_subtitles = false
 
 	if !is_playing():
 		SceneLoader.show_scene(next_scene, true)
