@@ -16,19 +16,19 @@ var sem    = Semaphore.new()
 var thread = Thread.new()
 
 func _lock(caller):
-	print("locking \"", caller, "\"")
+	#print("locking \"", caller, "\"")
 	mutex.lock()
 
 func _unlock(caller):
-	print("unlocking \"", caller, "\"")
+	#print("unlocking \"", caller, "\"")
 	mutex.unlock()
 
 func _post(caller):
-	print("posting \"", caller, "\"")
+	#print("posting \"", caller, "\"")
 	sem.post()
 
 func _wait(caller):
-	print("waiting for \"", caller, "\"")
+	#print("waiting for \"", caller, "\"")
 	sem.wait()
 
 
