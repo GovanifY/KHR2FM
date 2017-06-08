@@ -14,6 +14,8 @@ onready var Pause = {
 ### Core functions ###
 ######################
 func _ready():
+	_toggled_button(PAUSE_BUTTON_SKIP, true)
+
 	# Connecting pause-behavior signals
 	KHR2.connect("toggle_pause", self, "_toggled_pause")
 	SceneLoader.connect("scene_was_loaded", self, "_toggled_button", [PAUSE_BUTTON_SKIP, false])
@@ -21,10 +23,6 @@ func _ready():
 	# Connecting button signals
 	Pause.resume.connect("pressed", self, "_pause_controls", [PAUSE_BUTTON_CONTINUE])
 	Pause.skip.connect("pressed", self, "_pause_controls", [PAUSE_BUTTON_SKIP])
-
-	# Finishing
-	_toggled_button(PAUSE_BUTTON_SKIP, true)
-	hide()
 
 #######################
 ### Signal routines ###

@@ -26,6 +26,7 @@ font/font = ExtResource( 2 )
 [node name="Pause" type="Panel"]
 
 process/pause_mode = 2
+visibility/visible = false
 visibility/self_opacity = 0.7
 anchor/right = 1
 anchor/bottom = 1
