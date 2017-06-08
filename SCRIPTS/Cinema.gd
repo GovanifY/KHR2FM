@@ -1,9 +1,5 @@
 extends VideoPlayer
 
-# Ce script est dédié à la Scene Cinema qui sera un container pour quelque
-# video que l'on veut jouer. Cela évitera la répétition de création de Scenes ou
-# Scripts spécifiques à une certaine scène
-
 # Export values
 export(String, FILE, "tscn") var next_scene = ""
 export(String, FILE, "srt") var subtitles_file = ""
@@ -11,10 +7,9 @@ export(String, FILE, "csv") var csv_file = ""
 
 # Instance members
 onready var Subtitles  = {
-	"label" : get_node("Subtitles"), # Node where the text should reside
-	"array" : [],    # Array of 3-cell Arrays: 0->ON timer, 1->OFF timer, 2-> subtitle
-	"index" : 0,
-	"shown" : false  # showing the current subtitle
+	"label" : get_node("Subtitles"), # Node where we keep our text
+	"array" : [],                    # Array of 3-cell arrays (more info below)
+	"index" : 0,                     # Index of the subtitles array
 }
 var have_subtitles = false
 
@@ -44,18 +39,21 @@ func _process(delta):
 	# Write subtitles
 	if have_subtitles && Subtitles.index < Subtitles.array.size():
 		var cur_pos = get_stream_pos()
+		var sub_begin = Subtitles.array[Subtitles.index][0] # ON timer
+		var sub_end   = Subtitles.array[Subtitles.index][1] # OFF timer
+		var sub_text  = Subtitles.array[Subtitles.index][2] # text
 
 		# If subtitles timer is on track
-		if Subtitles.array[Subtitles.index][0] < cur_pos && cur_pos < Subtitles.array[Subtitles.index][1]:
-			if !Subtitles.shown:
-				Subtitles.label.set_text(Subtitles.array[Subtitles.index][2])
-				Subtitles.shown = true
+		if sub_begin < cur_pos && cur_pos < sub_end:
+			if !Subtitles.label.is_visible():
+				Subtitles.label.set_text(sub_text)
+				Subtitles.label.show()
 
 		# If subtitles timer is off track
-		elif cur_pos >= Subtitles.array[Subtitles.index][1]:
-			Subtitles.label.set_text("")
-			Subtitles.shown = false
+		elif cur_pos >= sub_end:
 			Subtitles.index += 1
+			Subtitles.label.set_text("")
+			Subtitles.label.hide()
 
 	if !is_playing():
 		SceneLoader.show_scene(next_scene, true)

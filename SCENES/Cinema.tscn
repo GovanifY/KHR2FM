@@ -30,13 +30,16 @@ stream/autoplay = true
 stream/paused = false
 expand = true
 script/script = ExtResource( 1 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 next_scene = ""
 subtitles_file = ""
 csv_file = ""
 
 [node name="Subtitles" type="Label" parent="."]
 
+visibility/visible = false
 anchor/top = 1
 anchor/right = 1
 anchor/bottom = 1
@@ -57,6 +60,8 @@ autowrap = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = 2
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 
