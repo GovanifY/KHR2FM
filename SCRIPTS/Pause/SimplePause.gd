@@ -32,7 +32,6 @@ func _ready():
 func _toggled_button(button_idx, value):
 	var button = get_node("Options").get_child(button_idx)
 	button.set_disabled(value)
-	button.set_hidden(value)
 
 func _toggled_pause():
 	set_hidden(!get_tree().is_paused()) # Showing screen
