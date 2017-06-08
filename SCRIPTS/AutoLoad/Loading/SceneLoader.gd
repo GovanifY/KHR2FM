@@ -4,7 +4,7 @@ extends Control
 signal scene_was_loaded
 
 # Flags
-enum { BACKGROUND = 0x1, HIGH_PRIORITY = 0x2 }
+enum { BACKGROUND = 0x1, HIGH_PRIORITY = 0x2, HOLD = 0x4 }
 
 # Instance members
 onready var ThreadLoader = preload("res://SCRIPTS/AutoLoad/Loading/ThreadLoader.gd").new(get_node("Progress"))
@@ -30,7 +30,6 @@ func _process(delta):
 	for scene in next_scenes:
 		if ThreadLoader.is_ready(scene):
 			show_scene(scene)
-			next_scenes.erase(scene)
 
 	# If we're done here, stop processing
 	if next_scenes.empty():
@@ -52,31 +51,35 @@ static func get_scene_name(path):
 ###############
 ### Methods ###
 ###############
-# Adds the given resources to queue to load them immediately
+# Checks if any scene is ready to load
+func is_loaded():
+	return loaded_scenes.size() > 0
+
+# Adds the given resources to queue to load them with given flags
 func load_scene(path, flags=0):
 	var f = File.new()
 	if !f.file_exists(path):
 		print("SceneLoader: Cannot load given path because it doesn't exist.")
 		return false
 
+	var hold = bool(flags & HOLD)
+
+	# Pushing given scene as reference
+	next_scenes.push_back(path)
+	return load_next_scene(flags) if !hold else true
+
+# Begins loading the first scene in the queue
+func load_next_scene(flags=0):
 	var background = bool(flags & BACKGROUND)
 	var priority   = bool(flags & HIGH_PRIORITY)
 
-	# Are we doing background?
-	if !background:
-		# Pushing an additional scene for loading in foreground
-		next_scenes.push_back(path)
-		if is_hidden():
-			show()
-			get_tree().get_current_scene().queue_free()
+	# Are we doing foreground?
+	if !background && is_hidden():
+		show()
+		get_tree().get_current_scene().queue_free()
 
 	# Let ThreadLoader start working (prioritize if not running in background)
-	ThreadLoader.queue_resource(path, priority)
-	return true
-
-# Checks if any scene is ready to load
-func is_loaded():
-	return loaded_scenes.size() > 0
+	ThreadLoader.queue_resource(next_scenes.front(), priority)
 
 # Unloads current scene and loads the one in the given path (if loaded)
 func show_scene(path, halt_current = false):
@@ -87,6 +90,7 @@ func show_scene(path, halt_current = false):
 	else:
 		root.add_child(res.instance())
 
+	next_scenes.erase(path)
 	loaded_scenes.erase(path)
 	return true
 
