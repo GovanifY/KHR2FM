@@ -24,8 +24,6 @@ func _exit_tree():
 func _ready():
 	ThreadLoader.connect("finished", self, "_scene_was_loaded")
 	connect("visibility_changed", self, "_on_visibility_changed")
-	connect("draw", self, "set_process", [true])
-	connect("hide", self, "set_process", [false])
 
 func _process(delta):
 	for scene in next_scenes:
@@ -42,6 +40,7 @@ func _scene_was_loaded(path):
 
 func _on_visibility_changed():
 	KHR2.set_process_input(is_hidden())
+	set_process(!is_hidden())
 
 ########################
 ### Helper functions ###
