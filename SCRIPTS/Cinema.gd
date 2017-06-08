@@ -8,7 +8,7 @@ export(String, FILE, "csv") var csv_file = String()
 # Instance members
 onready var Subtitles = {
 	"label" : get_node("Subtitles"), # Node where we keep our text
-	"array" : [],                    # Array of 3-cell arrays (more info below)
+	"array" : Array(),               # Array of 3-cell arrays (more info below)
 	"index" : 0,                     # Index of the subtitles array
 }
 var have_subtitles = false
