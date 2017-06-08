@@ -1,6 +1,7 @@
 extends Control
 
 # Signals
+signal scene_was_pushed
 signal scene_was_loaded
 
 # Flags
@@ -52,6 +53,10 @@ static func get_scene_name(path):
 ### Methods ###
 ###############
 # Checks if any scene is ready to load
+func is_ready():
+	return next_scenes.size() > 0
+
+# Checks if any scene is loaded
 func is_loaded():
 	return loaded_scenes.size() > 0
 
@@ -66,6 +71,7 @@ func load_scene(path, flags=0):
 
 	# Pushing given scene as reference
 	next_scenes.push_back(path)
+	emit_signal("scene_was_pushed")
 	return load_next_scene(flags) if !hold else true
 
 # Begins loading the first scene in the queue
