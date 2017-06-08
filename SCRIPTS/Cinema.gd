@@ -1,14 +1,14 @@
 extends VideoPlayer
 
 # Export values
-export(String, FILE, "tscn") var next_scene = String()
-export(String, FILE, "srt") var subtitles_file = String()
-export(String, FILE, "csv") var csv_file = String()
+export(String, FILE, "tscn") var next_scene = ""
+export(String, FILE, "srt") var subtitles_file = ""
+export(String, FILE, "csv") var csv_file = ""
 
 # Instance members
 onready var Subtitles = {
 	"label" : get_node("Subtitles"), # Node where we keep our text
-	"array" : Array(),               # Array of 3-cell arrays (more info below)
+	"array" : [],                    # Array of 3-cell arrays (more info below)
 	"index" : 0,                     # Index of the subtitles array
 }
 var have_subtitles = false
