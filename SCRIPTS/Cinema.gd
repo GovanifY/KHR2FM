@@ -1,9 +1,9 @@
 extends VideoPlayer
 
 # Export values
-export(String, FILE, "tscn") var next_scene = ""
-export(String, FILE, "srt") var subtitles_file = ""
-export(String, FILE, "csv") var csv_file = ""
+export(String, FILE, "tscn") var next_scene = String()
+export(String, FILE, "srt") var subtitles_file = String()
+export(String, FILE, "csv") var csv_file = String()
 
 # Instance members
 onready var Subtitles = {
