@@ -23,7 +23,7 @@ font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 2 )
 
-[node name="SimplePause" type="Panel"]
+[node name="Pause" type="Panel"]
 
 process/pause_mode = 2
 visibility/self_opacity = 0.7
@@ -39,7 +39,9 @@ margin/right = 0.0
 margin/bottom = 0.0
 custom_styles/panel = SubResource( 1 )
 script/script = ExtResource( 1 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Message" type="Label" parent="."]
 
@@ -65,7 +67,9 @@ uppercase = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Options" type="ButtonGroup" parent="."]
 
@@ -80,9 +84,11 @@ margin/top = 242.0
 margin/right = -100.0
 margin/bottom = 324.0
 alignment = 1
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Continue" type="Button" parent="Options"]
+[node name="Resume" type="Button" parent="Options"]
 
 rect/min_size = Vector2( 0, 30 )
 focus_neighbour/top = NodePath("../Skip")

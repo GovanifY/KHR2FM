@@ -72,7 +72,7 @@ func load_scene(path, flags=0):
 
 # Checks if any scene is ready to load
 func is_loaded():
-	return loaded_scenes.size() > 1
+	return loaded_scenes.size() > 0
 
 # Unloads current scene and loads the one in the given path (if loaded)
 func show_scene(path, halt_current = false):
