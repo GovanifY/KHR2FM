@@ -9,8 +9,8 @@ enum { BACKGROUND = 0x1, HIGH_PRIORITY = 0x2, HOLD = 0x4 }
 
 # Instance members
 onready var ThreadLoader = preload("res://SCRIPTS/AutoLoad/Loading/ThreadLoader.gd").new(get_node("Progress"))
-var next_scenes = Array()
-var loaded_scenes = Array()
+var next_scenes = []
+var loaded_scenes = []
 
 # "Private" members
 onready var root = get_tree().get_root()
