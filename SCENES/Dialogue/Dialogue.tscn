@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://SCRIPTS/Dialogue/Dialogue.gd" type="Script" id=1]
 [ext_resource path="res://SCENES/Dialogue/box0.tres" type="StyleBox" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://addons/text_scroll/TextScroll.gd" type="Script" id=7]
 [ext_resource path="res://addons/text_scroll/icon.png" type="Texture" id=8]
 [ext_resource path="res://ASSETS/SE/System/MSG_SOUND.wav" type="Sample" id=9]
+[ext_resource path="res://SCENES/Pause/SimplePause.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=1]
 
@@ -20,12 +21,22 @@ tracks/0/type = "value"
 tracks/0/path = NodePath(".:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 0.25 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:visibility/visible")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ true ] }
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=2]
 
@@ -37,12 +48,22 @@ tracks/0/type = "value"
 tracks/0/path = NodePath(".:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 1.0, 0.0 ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 0.25 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:visibility/visible")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0.25 ), "transitions":FloatArray( 1 ), "update":1, "values":[ false ] }
+tracks/1/keys = {
+"times": FloatArray( 0.25 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=3]
 
@@ -53,7 +74,12 @@ tracks/0/type = "value"
 tracks/0/path = NodePath(".:margin/top")
 tracks/0/interp = 2
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 56, 67 ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 0.5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 56, 67 ]
+}
 
 [sub_resource type="DynamicFont" id=4]
 
@@ -64,7 +90,12 @@ font/font = ExtResource( 6 )
 
 [sub_resource type="SampleLibrary" id=5]
 
-samples/MSG_SOUND = { "db":0.0, "pitch":1.0, "sample":ExtResource( 9 ) }
+samples/MSG_SOUND = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 9 )
+}
 
 [node name="Dialogue" type="Control"]
 
@@ -79,7 +110,9 @@ margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
 script/script = ExtResource( 1 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 csv_path = ""
 position = 2
 
@@ -99,7 +132,9 @@ margin/right = 0.45
 margin/bottom = 20.0
 custom_constants/separation = 120
 alignment = 1
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CastRight" type="HBoxContainer" parent="."]
 
@@ -117,7 +152,9 @@ margin/right = 0.95
 margin/bottom = 20.0
 custom_constants/separation = 120
 alignment = 1
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CastAnim" type="Tween" parent="."]
 
@@ -141,7 +178,9 @@ margin/top = 24.0
 margin/right = 42.0
 margin/bottom = 24.0
 alignment = 2
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Bubble" type="Panel" parent="SkinPos"]
 
@@ -157,7 +196,9 @@ margin/right = 770.0
 margin/bottom = 432.0
 custom_styles/panel = ExtResource( 2 )
 script/script = ExtResource( 3 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Fade" type="AnimationPlayer" parent="SkinPos/Bubble"]
 
@@ -175,7 +216,9 @@ autoplay = ""
 
 texture = ExtResource( 4 )
 offset = Vector2( 0, -21 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ConfirmIcon" type="Patch9Frame" parent="SkinPos/Bubble"]
 
@@ -194,7 +237,9 @@ margin/top = 56.0
 margin/right = 51.0
 margin/bottom = 0.0
 texture = ExtResource( 5 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Hover" type="AnimationPlayer" parent="SkinPos/Bubble/ConfirmIcon"]
 
@@ -234,7 +279,9 @@ clip_text = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = 2
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="TextScroll" type="Timer" parent="SkinPos/Bubble/TextContainer"]
 
@@ -243,7 +290,9 @@ wait_time = 0.01
 one_shot = false
 autostart = false
 script/script = ExtResource( 7 )
-__meta__ = { "_editor_icon":ExtResource( 8 ) }
+__meta__ = {
+"_editor_icon": ExtResource( 8 )
+}
 text_node = NodePath("..")
 sound_node = NodePath("../SE")
 character_sound = ""
@@ -266,15 +315,17 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
+[node name="Pause" parent="." instance=ExtResource( 10 )]
+
 [connection signal="draw" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="set_active" binds= [ true ]]
 
 [connection signal="enter_tree" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon" method="hide"]
 
 [connection signal="hide" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="set_active" binds= [ false ]]
 
-[connection signal="cleared" from="SkinPos/Bubble/TextContainer/TextScroll" to="SkinPos/Bubble/ConfirmIcon" method="hide"]
-
 [connection signal="cleared" from="SkinPos/Bubble/TextContainer/TextScroll" to="." method="_next_line"]
+
+[connection signal="cleared" from="SkinPos/Bubble/TextContainer/TextScroll" to="SkinPos/Bubble/ConfirmIcon" method="hide"]
 
 [connection signal="finished" from="SkinPos/Bubble/TextContainer/TextScroll" to="SkinPos/Bubble/ConfirmIcon" method="show"]
 

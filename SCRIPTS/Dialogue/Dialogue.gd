@@ -26,18 +26,16 @@ var current_speaker = null
 ### Core functions ###
 ######################
 func _enter_tree():
-	# Setting Pause mode
-	Globals.set("Pause", "simple")
-
 	# Force the instance of only 1 Dialogue node
 	if Globals.get("Dialogue") != null:
 		print("One Dialogue node is already enough!")
 		queue_free()
 	else:
+		Globals.set("Pause", "dialogue")
 		Globals.set("Dialogue", get_path())
 
 func _exit_tree():
-	Globals.set("Pause", String())
+	Globals.set("Pause", null)
 	Globals.set("Dialogue", null)
 
 func _ready():

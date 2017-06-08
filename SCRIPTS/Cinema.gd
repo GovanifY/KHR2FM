@@ -6,7 +6,7 @@ export(String, FILE, "srt") var subtitles_file = ""
 export(String, FILE, "csv") var csv_file = ""
 
 # Instance members
-onready var Subtitles  = {
+onready var Subtitles = {
 	"label" : get_node("Subtitles"), # Node where we keep our text
 	"array" : [],                    # Array of 3-cell arrays (more info below)
 	"index" : 0,                     # Index of the subtitles array
@@ -17,15 +17,13 @@ var have_subtitles = false
 ### Core functions ###
 ######################
 func _enter_tree():
-	Globals.set("Pause", "simple")
-
-func _exit_tree():
-	Globals.set("Pause", String())
-
-func _ready():
-	# Connecting signals
+	Globals.set("Pause", "cinema")
 	KHR2.connect("toggle_pause", self, "_toggled_pause")
 
+func _exit_tree():
+	Globals.set("Pause", null)
+
+func _ready():
 	# Parsing subtitles (if any)
 	_parse_subtitles()
 
@@ -88,8 +86,11 @@ func _parse_subtitles():
 	# Opening translation
 	Translator.set_csv(csv_file)
 
+#######################
+### Signal routines ###
+#######################
 func _toggled_pause():
-	set_paused(get_tree().is_paused())
+	set_paused(get_tree().is_paused()) # Pausing stream
 
 ########################
 ### Helper functions ###
