@@ -1,5 +1,8 @@
 extends Control
 
+# Signals
+signal scene_was_loaded
+
 # Flags
 enum { BACKGROUND = 0x1, HIGH_PRIORITY = 0x2 }
 
@@ -35,6 +38,7 @@ func _process(delta):
 
 func _scene_was_loaded(path):
 	loaded_scenes.push_back(path)
+	emit_signal("scene_was_loaded")
 
 func _on_visibility_changed():
 	KHR2.set_process_input(is_hidden())

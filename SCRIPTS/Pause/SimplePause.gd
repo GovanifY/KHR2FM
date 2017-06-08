@@ -14,25 +14,28 @@ onready var Pause = {
 ### Core functions ###
 ######################
 func _ready():
+	# Connecting pause-behavior signals
 	KHR2.connect("toggle_pause", self, "_toggled_pause")
+	SceneLoader.connect("scene_was_loaded", self, "_toggled_button", [PAUSE_BUTTON_SKIP, false])
+
+	# Connecting button signals
 	Pause.resume.connect("pressed", self, "_pause_controls", [PAUSE_BUTTON_CONTINUE])
 	Pause.skip.connect("pressed", self, "_pause_controls", [PAUSE_BUTTON_SKIP])
 
 	# Finishing
+	_toggled_button(PAUSE_BUTTON_SKIP, true)
 	hide()
 
 #######################
 ### Signal routines ###
 #######################
-func _toggled_pause():
-	# Showing screen
-	set_hidden(!get_tree().is_paused())
+func _toggled_button(button_idx, value):
+	var button = get_node("Options").get_child(button_idx)
+	button.set_disabled(value)
+	button.set_hidden(value)
 
-	# If there's no next scene directly queued, disable the Skip button
-	# FIXME: dynamically show+enable when the scene is ready
-	if !SceneLoader.is_loaded():
-		Pause.skip.set_disabled(true)
-		Pause.skip.hide()
+func _toggled_pause():
+	set_hidden(!get_tree().is_paused()) # Showing screen
 
 func _pause_controls(button_idx):
 	KHR2.pause_game()
