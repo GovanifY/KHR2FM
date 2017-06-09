@@ -2,15 +2,7 @@ extends Control
 
 # Button index
 enum OPTION_CONTROLS {
-	OPTION_MAIN_NEW, OPTION_MAIN_LOAD, OPTION_MAIN_QUIT,
-	OPTION_NEW_STANDARD, OPTION_NEW_HARD,
-}
-
-# Instance members
-onready var Options = {
-	"start" : get_node("Options/New Game"),
-	"load"  : get_node("Options/Load Game"),
-	"quit"  : get_node("Options/Quit Game"),
+	OPTION_MAIN_NEW, OPTION_MAIN_LOAD, OPTION_MAIN_QUIT
 }
 
 ######################
@@ -18,11 +10,12 @@ onready var Options = {
 ######################
 func _ready():
 	# Connecting main options
-	Options.start.connect("button_down", self, "_pressed_main", [OPTION_MAIN_NEW])
-	Options.load.connect("button_down", self, "_pressed_main", [OPTION_MAIN_LOAD])
-	Options.quit.connect("button_down", self, "_pressed_main", [OPTION_MAIN_QUIT])
+	var options = get_node("Options")
+	for i in range(0, options.get_child_count()-1):
+		var button = options.get_child(i)
+		button.connect("pressed", self, "_pressed_main", [i])
 
-	# Introducing Title
+	# Presenting Title
 	set_process(true)
 
 func _process(delta):
