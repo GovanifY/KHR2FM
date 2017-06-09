@@ -4,7 +4,7 @@ extends Control
 const ANIM_TIME = 0.35
 
 # Export values
-export(String, FILE, "csv") var csv_path = String()
+export(String, FILE, "csv") var csv_path = ""
 export(int, "Top", "Middle", "Bottom") var position = 2
 
 # Signals
