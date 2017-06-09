@@ -27,17 +27,32 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Kiryoku_down:playing")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ true ] }
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 tracks/1/type = "value"
 tracks/1/path = NodePath("Kiryoku_down:visibility/opacity")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/1/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
 tracks/2/type = "value"
 tracks/2/path = NodePath("Kiryoku_down:visibility/visible")
 tracks/2/interp = 1
 tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ true ] }
+tracks/2/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=2]
 
@@ -49,32 +64,62 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Darkness Fog:playing")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ true ] }
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 tracks/1/type = "value"
 tracks/1/path = NodePath("Darkness Fog:transform/scale")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 1, 1 ), Vector2( 3, 3 ) ] }
+tracks/1/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 3, 3 ) ]
+}
 tracks/2/type = "value"
 tracks/2/path = NodePath("Kiryoku_down:visibility/opacity")
 tracks/2/interp = 1
 tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 1.0, 0.0 ] }
+tracks/2/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
 tracks/3/type = "value"
 tracks/3/path = NodePath("Kiryoku_down:playing")
 tracks/3/interp = 1
 tracks/3/imported = false
-tracks/3/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ true, false ] }
+tracks/3/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 tracks/4/type = "value"
 tracks/4/path = NodePath("Darkness Fog:visibility/visible")
 tracks/4/interp = 1
 tracks/4/imported = false
-tracks/4/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ true, false ] }
+tracks/4/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 tracks/5/type = "value"
 tracks/5/path = NodePath("Kiryoku_down:visibility/visible")
 tracks/5/interp = 1
 tracks/5/imported = false
-tracks/5/keys = { "times":FloatArray( 1 ), "transitions":FloatArray( 1 ), "update":1, "values":[ false ] }
+tracks/5/keys = {
+"times": FloatArray( 1 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=3]
 
@@ -86,29 +131,59 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Water:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 1.7, 3.1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0, 49 ] }
+tracks/0/keys = {
+"times": FloatArray( 1.7, 3.1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 49 ]
+}
 tracks/1/type = "value"
 tracks/1/path = NodePath("General:play/play")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 1.93733 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Water_Drop" ] }
+tracks/1/keys = {
+"times": FloatArray( 1.93733 ),
+"transitions": FloatArray( 1 ),
+"update": 2,
+"values": [ "Water_Drop" ]
+}
 tracks/2/type = "value"
 tracks/2/path = NodePath("Water:visibility/visible")
 tracks/2/interp = 1
 tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0, 1.7 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ false, true ] }
+tracks/2/keys = {
+"times": FloatArray( 0, 1.7 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="SpriteFrames" id=4]
 
-animations = [ { "frames":[ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ) ], "loop":true, "name":"default", "speed":7.0 } ]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 7.0
+} ]
 
 [sub_resource type="SpriteFrames" id=5]
 
-animations = [ { "frames":[ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ], "loop":true, "name":"default", "speed":10.0 } ]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
 
 [sub_resource type="SampleLibrary" id=6]
 
-samples/Water_Drop = { "db":0.0, "pitch":1.0, "sample":ExtResource( 9 ) }
+samples/Water_Drop = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 9 )
+}
 
 [node name="Intro" type="Node"]
 
@@ -133,6 +208,7 @@ visibility/visible = false
 visibility/opacity = 0.0
 frames = SubResource( 4 )
 animation = "default"
+frame = 1
 playing = true
 centered = false
 
@@ -194,6 +270,7 @@ stream/buffering_ms = 500
 
 [node name="Dialogue" parent="." instance=ExtResource( 12 )]
 
+next_scene = "res://GAME/STORY/Intro/Battle_Yuugure.tscn"
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
 
 [node name="Kiryoku" type="Control" parent="Dialogue"]
@@ -209,7 +286,9 @@ margin/top = -182.0
 margin/right = -311.0
 margin/bottom = -181.0
 script/script = ExtResource( 13 )
-__meta__ = { "_editor_icon":ExtResource( 14 ) }
+__meta__ = {
+"_editor_icon": ExtResource( 14 )
+}
 face_sprites = ExtResource( 15 )
 frame = 0
 flip_frame = false
@@ -227,7 +306,11 @@ margin/top = 274.0
 margin/right = -331.0
 margin/bottom = 275.0
 script/script = ExtResource( 13 )
-__meta__ = { "_editor_icon":ExtResource( 14 ) }
+__meta__ = {
+"_editor_icon": ExtResource( 14 )
+}
 face_sprites = ExtResource( 16 )
 frame = 0
 flip_frame = false
+
+
