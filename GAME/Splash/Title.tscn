@@ -27,19 +27,39 @@ draw_bg = true
 
 [sub_resource type="Animation" id=2]
 
-length = 3.0
+length = 4.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Background:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 1, 3 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ 0.0, 0.0, 1.0 ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 1, 3 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
 tracks/1/type = "value"
 tracks/1/path = NodePath("Particles:visibility/opacity")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 1, 3 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/1/keys = {
+"times": FloatArray( 1, 3 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Background/Bg_1:visibility/opacity")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 3, 3.9 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
 
 [sub_resource type="Animation" id=3]
 
@@ -50,32 +70,62 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Main Menu/Logo_Heart:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 0.5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
 tracks/1/type = "value"
 tracks/1/path = NodePath("Main Menu/Logo_Title:visibility/opacity")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+tracks/1/keys = {
+"times": FloatArray( 0, 0.5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
 tracks/2/type = "value"
 tracks/2/path = NodePath("Main Menu/Logo_Title:transform/scale")
 tracks/2/interp = 1
 tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector2( 1.3, 1.3 ), Vector2( 1, 1 ) ] }
+tracks/2/keys = {
+"times": FloatArray( 0, 0.5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.3, 1.3 ), Vector2( 1, 1 ) ]
+}
 tracks/3/type = "value"
 tracks/3/path = NodePath("Main Menu/Logo_IR:transform/pos")
 tracks/3/interp = 1
 tracks/3/imported = false
-tracks/3/keys = { "times":FloatArray( 0, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ Vector2( 276, 900 ), Vector2( 276, 900 ), Vector2( 276, 180 ) ] }
+tracks/3/keys = {
+"times": FloatArray( 0, 0.5, 1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 276, 900 ), Vector2( 276, 900 ), Vector2( 276, 180 ) ]
+}
 tracks/4/type = "value"
 tracks/4/path = NodePath("Main Menu/Logo_IL:transform/pos")
 tracks/4/interp = 1
 tracks/4/imported = false
-tracks/4/keys = { "times":FloatArray( 0, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ Vector2( 200, -300 ), Vector2( 200, -300 ), Vector2( 200, 180 ) ] }
+tracks/4/keys = {
+"times": FloatArray( 0, 0.5, 1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 200, -300 ), Vector2( 200, -300 ), Vector2( 200, 180 ) ]
+}
 tracks/5/type = "value"
 tracks/5/path = NodePath("Main Menu/Logo_Subtitle:visibility/opacity")
 tracks/5/interp = 1
 tracks/5/imported = false
-tracks/5/keys = { "times":FloatArray( 0, 1, 1.5 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ 0.0, 0.0, 1.0 ] }
+tracks/5/keys = {
+"times": FloatArray( 0, 1, 1.5 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
 
 [sub_resource type="Animation" id=4]
 
@@ -93,7 +143,12 @@ tracks/0/type = "value"
 tracks/0/path = NodePath(".:visibility/self_opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.5, 1 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ 1.0, 0.1, 1.0 ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 0.5, 1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.1, 1.0 ]
+}
 
 [node name="Title" type="Control"]
 
@@ -108,11 +163,12 @@ margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
 script/script = ExtResource( 1 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Background" type="Panel" parent="."]
 
-editor/display_folded = true
 visibility/behind_parent = true
 anchor/right = 1
 anchor/bottom = 1
@@ -125,7 +181,9 @@ margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
 custom_styles/panel = SubResource( 1 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Bg_1" type="TextureFrame" parent="Background"]
 
@@ -142,7 +200,9 @@ margin/right = 1.0
 margin/bottom = 0.0
 texture = ExtResource( 2 )
 stretch_mode = 2
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="MainMenu Animations" type="AnimationPlayer" parent="."]
 
@@ -160,50 +220,66 @@ autoplay = "Background"
 [node name="Main Menu" type="Node2D" parent="."]
 
 editor/display_folded = true
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Bg_2" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 680, 240 )
 texture = ExtResource( 3 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Logo_Heart" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 238, 157 )
 texture = ExtResource( 4 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Logo_IL" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 200, 180 )
 texture = ExtResource( 5 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Logo_IR" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 276, 180 )
 texture = ExtResource( 5 )
 flip_h = true
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Logo_Crown" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 238, 80 )
 texture = ExtResource( 6 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Logo_Title" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 239, 150 )
 texture = ExtResource( 7 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Logo_Subtitle" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 237, 203 )
 texture = ExtResource( 8 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Developer" type="Label" parent="Main Menu"]
 
@@ -226,7 +302,9 @@ max_lines_visible = 2
 [node name="Particles" type="Node2D" parent="."]
 
 editor/display_folded = true
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Snow1" type="Particles2D" parent="Particles"]
 
@@ -235,6 +313,7 @@ config/amount = 32
 config/lifetime = 8.0
 config/time_scale = 0.5
 config/preprocess = 1.0
+config/process_mode = 1
 config/local_space = false
 config/texture = ExtResource( 9 )
 params/direction = 0.0
@@ -254,7 +333,9 @@ params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
 randomness/initial_size = 1.0
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Snow2" type="Particles2D" parent="Particles"]
 
@@ -263,6 +344,7 @@ config/amount = 32
 config/lifetime = 8.0
 config/time_scale = 0.5
 config/preprocess = 1.0
+config/process_mode = 1
 config/local_space = false
 config/texture = ExtResource( 9 )
 params/direction = 0.0
@@ -282,7 +364,9 @@ params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
 randomness/initial_size = 1.0
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Snow3" type="Particles2D" parent="Particles"]
 
@@ -291,6 +375,7 @@ config/amount = 32
 config/lifetime = 8.0
 config/time_scale = 0.5
 config/preprocess = 1.0
+config/process_mode = 1
 config/local_space = false
 config/texture = ExtResource( 9 )
 params/direction = 0.0
@@ -310,7 +395,9 @@ params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
 randomness/initial_size = 1.0
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Options" type="VBoxContainer" parent="."]
 
@@ -320,35 +407,38 @@ focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 3
-size_flags/stretch_ratio = 0.0
 margin/left = 10.0
 margin/top = 325.0
 margin/right = 10.0
-margin/bottom = 13.0
+margin/bottom = 15.0
 custom_constants/separation = 15
 alignment = 2
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="New Game" parent="Options" instance=ExtResource( 10 )]
 
-margin/top = 28.0
-margin/bottom = 56.0
+margin/top = 26.0
+margin/bottom = 54.0
 text = "TITLE_NEW_GAME"
 
 [node name="Load Game" parent="Options" instance=ExtResource( 10 )]
 
-margin/top = 71.0
-margin/bottom = 99.0
+margin/top = 69.0
+margin/bottom = 97.0
 text = "TITLE_LOAD_GAME"
 
 [node name="Quit Game" parent="Options" instance=ExtResource( 10 )]
 
-margin/top = 114.0
-margin/bottom = 142.0
+margin/top = 112.0
+margin/bottom = 140.0
 text = "TITLE_QUIT_GAME"
 
 [node name="Cursor" type="Sprite" parent="Options"]
 
-transform/pos = Vector2( 15, 42 )
+editor/display_folded = true
+transform/pos = Vector2( 15, 40 )
 texture = ExtResource( 11 )
 
 [node name="Fade" type="AnimationPlayer" parent="Options/Cursor"]
