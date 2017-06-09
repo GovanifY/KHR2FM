@@ -5,6 +5,9 @@ enum OPTION_CONTROLS {
 	OPTION_MAIN_NEW, OPTION_MAIN_LOAD, OPTION_MAIN_QUIT
 }
 
+# Instance members
+onready var AnimsMenu = get_node("MainMenu Animations")
+
 ######################
 ### Core functions ###
 ######################
@@ -16,10 +19,7 @@ func _ready():
 		button.connect("pressed", self, "_pressed_main", [i])
 
 	# Presenting Title
-	set_process(true)
-
-func _process(delta):
-	pass
+	AnimsMenu.play("Background")
 
 #######################
 ### Signal routines ###
@@ -30,7 +30,8 @@ func _pressed_main(button_idx):
 	elif button_idx == OPTION_MAIN_LOAD:
 		pass # TODO: show save slots
 	elif button_idx == OPTION_MAIN_QUIT:
-		get_tree().quit()
+		AnimsMenu.connect("finished", get_tree(), "quit")
+		AnimsMenu.play("Dismiss")
 
 func _pressed_new(button_idx):
 	pass # TODO: selected difficulty option
