@@ -302,7 +302,7 @@ tracks/1/keys = {
 "times": FloatArray( 0, 0.5, 1.2, 1.5, 2, 2.5 ),
 "transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 464, 43 ), Vector2( 365, -10 ), Vector2( 106, 85 ), Vector2( 5, 65 ), Vector2( 2, 22 ), Vector2( 14, 40 ) ]
+"values": [ Vector2( 464, 43 ), Vector2( 365, -10 ), Vector2( 106, 85 ), Vector2( 5, 65 ), Vector2( 2, 22 ), Vector2( 12, 40 ) ]
 }
 
 [sub_resource type="ImageTexture" id=8]
@@ -714,6 +714,7 @@ editor/display_folded = true
 visibility/opacity = 0.0
 transform/pos = Vector2( 464, 43 )
 texture = ExtResource( 12 )
+offset = Vector2( 2, 0 )
 __meta__ = {
 "_edit_lock_": true
 }
