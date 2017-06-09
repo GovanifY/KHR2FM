@@ -4,6 +4,7 @@ extends Control
 const ANIM_TIME = 0.35
 
 # Export values
+export(String, FILE, "tscn") var next_scene = ""
 export(String, FILE, "csv") var csv_path = ""
 export(int, "Top", "Middle", "Bottom") var position = 2
 
@@ -44,6 +45,10 @@ func _ready():
 
 	# Initializing Bubble
 	set_alignment(position)
+
+	# Setting potential next scene to be loaded at the end of the Dialogue
+	if !next_scene.empty():
+		SceneLoader.load_scene(next_scene, SceneLoader.HOLD)
 
 	# Initializing signals
 	Bubble.connect("shown", self, "_get_line")
