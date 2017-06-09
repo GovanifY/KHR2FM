@@ -32,6 +32,8 @@ icon = ExtResource( 4 )
 flat = false
 align = 0
 script/script = ExtResource( 5 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 
