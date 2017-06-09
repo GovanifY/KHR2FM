@@ -4,34 +4,30 @@ extends Node
 # Constants
 enum PAUSE_CONTROLS { PAUSE_BUTTON_CONTINUE, PAUSE_BUTTON_SKIP }
 
-# Instance members
-onready var Pause = {
-	"resume" : get_node("Options/Resume"),
-	"skip"   : get_node("Options/Skip")
-}
-
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	_toggled_button(PAUSE_BUTTON_SKIP, true)
+	var options = get_node("Options")
+	_set_availability(PAUSE_BUTTON_SKIP, true)
 
 	# Connecting pause-behavior signals
-	KHR2.connect("toggle_pause", self, "_toggled_pause")
-	SceneLoader.connect("scene_was_pushed", self, "_toggled_button", [PAUSE_BUTTON_SKIP, false])
+	KHR2.connect("toggle_pause", self, "_pressed_pause")
+	SceneLoader.connect("scene_was_pushed", self, "_set_availability", [PAUSE_BUTTON_SKIP, false])
 
 	# Connecting button signals
-	Pause.resume.connect("pressed", self, "_pause_controls", [PAUSE_BUTTON_CONTINUE])
-	Pause.skip.connect("pressed", self, "_pause_controls", [PAUSE_BUTTON_SKIP])
+	for i in range(0, options.get_child_count()):
+		var button = options.get_child(i)
+		button.connect("pressed", self, "_pause_controls", [i])
 
 #######################
 ### Signal routines ###
 #######################
-func _toggled_button(button_idx, value):
+func _set_availability(button_idx, value):
 	var button = get_node("Options").get_child(button_idx)
 	button.set_disabled(value)
 
-func _toggled_pause():
+func _pressed_pause():
 	set_hidden(!get_tree().is_paused()) # Showing screen
 
 func _pause_controls(button_idx):
