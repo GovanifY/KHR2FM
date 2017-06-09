@@ -122,6 +122,15 @@ func clear():
 
 	issued_kill = false
 
+func is_empty():
+	var ret = false
+
+	mutex.lock()
+	ret = queue.empty()
+	mutex.unlock()
+
+	return ret
+
 func is_ready(path):
 	var ret = false
 
