@@ -725,7 +725,7 @@ playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/Out_In = SubResource( 12 )
 playback/active = true
-playback/speed = 0.25
+playback/speed = 0.4
 blend_times = [  ]
 autoplay = "Out_In"
 
