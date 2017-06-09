@@ -28,10 +28,10 @@ func _ready():
 func _process(delta):
 	for scene in next_scenes:
 		if ThreadLoader.is_ready(scene):
-			show_scene(scene)
+			show_scene(scene, true)
 
 	# If we're done here, stop processing
-	if next_scenes.empty():
+	if get_tree().get_current_scene() != null:
 		hide()
 
 func _scene_was_loaded(path):
