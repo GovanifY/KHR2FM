@@ -169,6 +169,7 @@ __meta__ = {
 
 [node name="Background" type="Panel" parent="."]
 
+editor/display_folded = true
 visibility/behind_parent = true
 anchor/right = 1
 anchor/bottom = 1
