@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_selected_sbx.tres" type="StyleBox" id=1]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_normal_sbx.tres" type="StyleBox" id=2]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOptions_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_icon_normal.png" type="Texture" id=4]
+
+[node name="OptionsArray" type="VButtonArray"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 325.0
+margin/right = 10.0
+margin/bottom = 13.0
+custom_styles/hover = ExtResource( 1 )
+custom_styles/focus = ExtResource( 1 )
+custom_styles/selected = ExtResource( 1 )
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font_selected = ExtResource( 3 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/button_separator = 10
+custom_constants/icon_separator = 20
+flat = false
+button/count = 3
+button/min_button_size = -1.0
+button/align = 2
+button/0/text = "TITLE_NEW_GAME"
+button/0/tooltip = ""
+button/0/icon = ExtResource( 4 )
+button/1/text = "TITLE_LOAD_GAME"
+button/1/tooltip = ""
+button/1/icon = ExtResource( 4 )
+button/2/text = "TITLE_QUIT_GAME"
+button/2/tooltip = ""
+button/2/icon = ExtResource( 4 )
+button/selected = 0
+
+
