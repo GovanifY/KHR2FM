@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=1]
+
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/New/Mode_01_selected.png" type="Texture" id=1]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/New/Mode_01_normal.png" type="Texture" id=2]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOptions_font.tres" type="DynamicFont" id=3]
+
+[sub_resource type="StyleBoxTexture" id=2]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 1 )
+margin/left = 19.0
+margin/right = 19.0
+margin/top = 19.0
+margin/bottom = 19.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[sub_resource type="StyleBoxTexture" id=5]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 1 )
+margin/left = 19.0
+margin/right = 19.0
+margin/top = 19.0
+margin/bottom = 19.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[sub_resource type="StyleBoxTexture" id=4]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 1 )
+margin/left = 19.0
+margin/right = 19.0
+margin/top = 19.0
+margin/bottom = 19.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[sub_resource type="StyleBoxTexture" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 2 )
+margin/left = 17.0
+margin/right = 17.0
+margin/top = 17.0
+margin/bottom = 17.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[node name="NG_Button" type="Button"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 34.0
+margin/bottom = 48.0
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 3 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "NG_OPTION"
+flat = false
+
+
