@@ -27,6 +27,18 @@ func _ready():
 	BG_New.connect("dismiss", AnimsNew, "play", ["Fade Out"])
 	BG_New.connect("finished", self, "_start_new")
 
+	# Adding music
+	AudioRoom.load_music(get_node("Background/Theme"))
+	AudioRoom.play()
+
+	# Waiting few seconds of intro theme entrance
+	# This is kind of bullshit IMO. I hate unnecessary wait times for menus. - Keyaku
+	var timer = get_node("Background/Timer")
+	timer.set_one_shot(true)
+	timer.set_wait_time(4)
+	timer.start()
+	yield(timer, "timeout")
+
 	# Presenting Title
 	AnimsMenu.play("Background")
 
@@ -51,6 +63,7 @@ func _start_new():
 	AnimsNew.play("Fade Out")
 	yield(AnimsNew, "finished")
 	# Load Aqua intro at the end of the flashy animation
+	AudioRoom.stop() # FIXME: Use AudioRoom.fade_out()
 	AnimsMenu.connect("finished", SceneLoader, "load_scene", ["res://GAME/STORY/Intro/Aqua.tscn"])
 	AnimsMenu.play("New Game")
 
