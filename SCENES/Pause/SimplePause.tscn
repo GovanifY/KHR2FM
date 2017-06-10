@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://SCRIPTS/Pause/SimplePause.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/LANG/FONTS/texgyreadventor/texgyreadventor-bold.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://SCENES/KHR2_Button.tscn" type="PackedScene" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 
@@ -89,44 +90,21 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Resume" type="Button" parent="Options"]
+[node name="Resume" parent="Options" instance=ExtResource( 3 )]
 
-rect/min_size = Vector2( 0, 30 )
-focus_neighbour/top = NodePath("../Skip")
-focus_neighbour/bottom = NodePath("../Skip")
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 11.0
 margin/right = 200.0
-margin/bottom = 41.0
+margin/bottom = 53.0
 toggle_mode = true
 click_on_press = true
-enabled_focus_mode = 2
-shortcut = null
 text = "PAUSE_CONTINUE"
-flat = false
 
-[node name="Skip" type="Button" parent="Options"]
+[node name="Skip" parent="Options" instance=ExtResource( 3 )]
 
-rect/min_size = Vector2( 0, 30 )
-focus_neighbour/top = NodePath("../Continue")
-focus_neighbour/bottom = NodePath("../Continue")
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 41.0
+margin/top = 53.0
 margin/right = 200.0
-margin/bottom = 71.0
+margin/bottom = 106.0
 toggle_mode = true
 click_on_press = true
-enabled_focus_mode = 2
-shortcut = null
 text = "PAUSE_SKIP"
-flat = false
 
 
