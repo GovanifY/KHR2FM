@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_selected_sbx.tres" type="StyleBox" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_normal_sbx.tres" type="StyleBox" id=2]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOptions_font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_icon_normal.png" type="Texture" id=4]
 [ext_resource path="res://GAME/Splash/TitleOption.gd" type="Script" id=5]
+[ext_resource path="res://GAME/SE_button.tscn" type="PackedScene" id=6]
 
 [node name="TITLE_OPTION" type="Button"]
 
@@ -36,5 +37,11 @@ script/script = ExtResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="SE" parent="." instance=ExtResource( 6 )]
+
+[connection signal="focus_enter" from="." to="SE" method="play" binds= [ "System_03" ]]
+
+[connection signal="pressed" from="." to="SE" method="play" binds= [ "System_04" ]]
 
 
