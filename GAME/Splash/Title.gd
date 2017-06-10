@@ -10,8 +10,7 @@ onready var Cursor    = get_node("Options/Cursor")
 onready var cursor_inc = Cursor.get_texture().get_size() / 4
 
 # New game instance members
-onready var BG_New   = get_node("BG_New")
-onready var AnimsNew = get_node("BG_New/Anims_New")
+onready var NewGame = get_node("BG_New")
 
 ######################
 ### Core functions ###
@@ -24,8 +23,8 @@ func _ready():
 		button.connect("focus_enter", self, "_set_cursor_position", [button])
 
 	# Connecting New Game options
-	BG_New.connect("dismiss", AnimsNew, "play", ["Fade Out"])
-	BG_New.connect("finished", self, "_start_new")
+	NewGame.connect("dismiss", NewGame.anims, "play", ["Fade Out"])
+	NewGame.connect("finished", self, "_start_new")
 
 	# Adding music
 	AudioRoom.load_music(get_node("Background/Theme"))
@@ -52,7 +51,7 @@ func _set_cursor_position(button):
 
 func _pressed_main(button_idx):
 	if button_idx == OPTION_MAIN_NEW:
-		AnimsNew.play("Fade In")
+		NewGame.anims.play("Fade In")
 	elif button_idx == OPTION_MAIN_LOAD:
 		pass # TODO: show save slots
 	elif button_idx == OPTION_MAIN_QUIT:
@@ -61,8 +60,8 @@ func _pressed_main(button_idx):
 
 func _start_new():
 	# Dismiss the window before anything else
-	AnimsNew.play("Fade Out")
-	yield(AnimsNew, "finished")
+	NewGame.anims.play("Fade Out")
+	yield(NewGame.anims, "finished")
 	# Load Aqua intro at the end of the flashy animation
 	AudioRoom.fade_out(1)
 	AnimsMenu.connect("finished", SceneLoader, "load_scene", ["res://GAME/STORY/Intro/Aqua.tscn"])

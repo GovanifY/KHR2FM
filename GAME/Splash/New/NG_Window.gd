@@ -7,6 +7,7 @@ signal finished
 # Button index
 enum { OPTION_DIFFICULTY_NORMAL, OPTION_DIFFICULTY_CRITICAL }
 
+onready var anims   = get_node("Anims")
 onready var Options = get_node("Window/Options")
 
 ######################
