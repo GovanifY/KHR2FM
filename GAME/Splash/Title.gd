@@ -32,6 +32,7 @@ func _ready():
 	AudioRoom.play()
 
 	# Waiting few seconds of intro theme entrance
+	hide()
 	# This is kind of bullshit IMO. I hate unnecessary wait times for menus. - Keyaku
 	var timer = get_node("Background/Timer")
 	timer.set_one_shot(true)
