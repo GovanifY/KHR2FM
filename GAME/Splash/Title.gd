@@ -63,7 +63,7 @@ func _start_new():
 	AnimsNew.play("Fade Out")
 	yield(AnimsNew, "finished")
 	# Load Aqua intro at the end of the flashy animation
-	AudioRoom.stop() # FIXME: Use AudioRoom.fade_out()
+	AudioRoom.fade_out(1)
 	AnimsMenu.connect("finished", SceneLoader, "load_scene", ["res://GAME/STORY/Intro/Aqua.tscn"])
 	AnimsMenu.play("New Game")
 
