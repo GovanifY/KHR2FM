@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=1]
+[gd_scene load_steps=17 format=1]
 
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_02.png" type="Texture" id=1]
 [ext_resource path="res://GAME/Splash/Save/Load_Window.gd" type="Script" id=2]
@@ -7,8 +7,8 @@
 [ext_resource path="res://ASSETS/LANG/FONTS/KH2_ALL_MENU_I.TTF" type="DynamicFontData" id=5]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_03.png" type="Texture" id=6]
 [ext_resource path="res://SCENES/KHR2_Button.tscn" type="PackedScene" id=7]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_04_normal.png" type="Texture" id=8]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_04_selected.png" type="Texture" id=9]
+[ext_resource path="res://GAME/Splash/Save/save_selected.tres" type="StyleBox" id=8]
+[ext_resource path="res://GAME/Splash/Save/save_normal.tres" type="StyleBox" id=9]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_00.png" type="Texture" id=10]
 
 [sub_resource type="StyleBoxTexture" id=1]
@@ -46,7 +46,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=4]
+[sub_resource type="StyleBoxTexture" id=3]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -63,14 +63,14 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 
 font/size = 16
 font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 5 )
 
-[sub_resource type="StyleBoxTexture" id=6]
+[sub_resource type="StyleBoxTexture" id=5]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -87,92 +87,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=7]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-texture = ExtResource( 8 )
-margin/left = 64.0
-margin/right = 13.0
-margin/top = 11.0
-margin/bottom = 11.0
-expand_margin/left = 0.0
-expand_margin/right = 0.0
-expand_margin/top = 0.0
-expand_margin/bottom = 0.0
-draw_center = true
-
-[sub_resource type="StyleBoxTexture" id=8]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-texture = ExtResource( 8 )
-margin/left = 64.0
-margin/right = 13.0
-margin/top = 11.0
-margin/bottom = 11.0
-expand_margin/left = 0.0
-expand_margin/right = 0.0
-expand_margin/top = 0.0
-expand_margin/bottom = 0.0
-draw_center = true
-
-[sub_resource type="StyleBoxTexture" id=9]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-texture = ExtResource( 8 )
-margin/left = 64.0
-margin/right = 13.0
-margin/top = 11.0
-margin/bottom = 11.0
-expand_margin/left = 0.0
-expand_margin/right = 0.0
-expand_margin/top = 0.0
-expand_margin/bottom = 0.0
-draw_center = true
-
-[sub_resource type="StyleBoxTexture" id=10]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-texture = ExtResource( 9 )
-margin/left = 64.0
-margin/right = 13.0
-margin/top = 11.0
-margin/bottom = 11.0
-expand_margin/left = 0.0
-expand_margin/right = 0.0
-expand_margin/top = 0.0
-expand_margin/bottom = 0.0
-draw_center = true
-
 [sub_resource type="StyleBoxTexture" id=11]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-texture = ExtResource( 9 )
-margin/left = 64.0
-margin/right = 13.0
-margin/top = 11.0
-margin/bottom = 11.0
-expand_margin/left = 0.0
-expand_margin/right = 0.0
-expand_margin/top = 0.0
-expand_margin/bottom = 0.0
-draw_center = true
-
-[sub_resource type="StyleBoxTexture" id=3]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -248,7 +163,7 @@ margin/left = 0.0
 margin/top = 25.0
 margin/right = 150.0
 margin/bottom = 0.0
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -265,7 +180,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "TITLE_SAVE"
 align = 1
 valign = 1
@@ -291,7 +206,7 @@ margin/left = 200.0
 margin/top = 100.0
 margin/right = -200.0
 margin/bottom = -60.0
-custom_styles/panel = SubResource( 6 )
+custom_styles/panel = SubResource( 5 )
 
 [node name="Slots" type="VBoxContainer" parent="."]
 
@@ -315,11 +230,11 @@ rect/min_size = Vector2( 0, 80 )
 margin/top = 60.0
 margin/right = 654.0
 margin/bottom = 140.0
-custom_styles/hover = SubResource( 7 )
-custom_styles/pressed = SubResource( 8 )
-custom_styles/focus = SubResource( 9 )
-custom_styles/disabled = SubResource( 10 )
-custom_styles/normal = SubResource( 11 )
+custom_styles/hover = ExtResource( 8 )
+custom_styles/pressed = ExtResource( 8 )
+custom_styles/focus = ExtResource( 8 )
+custom_styles/disabled = ExtResource( 9 )
+custom_styles/normal = ExtResource( 9 )
 
 [node name="Footer" type="Panel" parent="."]
 
@@ -334,7 +249,7 @@ margin/left = 0.0
 margin/top = 116.0
 margin/right = 0.0
 margin/bottom = 0.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 11 )
 __meta__ = {
 "_edit_lock_": true
 }
