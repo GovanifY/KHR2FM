@@ -44,7 +44,7 @@ func _pressed_main(button_idx):
 		pass # TODO: show save slots
 	elif button_idx == OPTION_MAIN_QUIT:
 		AnimsMenu.connect("finished", get_tree(), "quit")
-		AnimsMenu.play("Dismiss")
+		AnimsMenu.play("Close")
 
 func _start_new():
 	# Dismiss the window before anything else
