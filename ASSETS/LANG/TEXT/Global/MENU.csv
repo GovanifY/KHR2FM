@@ -5,7 +5,7 @@ TITLE_QUIT_GAME,"Quitter Le Jeu","Quit Game","Salir Del Juego"
 TITLE_DEV_BY,"Développé par","Developed by","Creado por"
 TITLE_DIFFICULTY_00,Mode normal,Normal mode,Modo normal,
 TITLE_DIFFICULTY_01,Mode critique,Critical mode, Modo crítico
-TITLE_DIFFICULTY_00_DESC,: Mode normal où la difficulté est bien dosée.,: Normal mode, where difficulty is balanced.,: Modo normal en el que la dificultad está equilibrada.
+TITLE_DIFFICULTY_00_DESC,": Mode normal où la difficulté est bien dosée.",": Normal mode, where difficulty is balanced.",": Modo normal en el que la dificultad está equilibrada."
 TITLE_DIFFICULTY_01_DESC,": Mode critique, vos nerfs seront mis à rude épreuve.",": Critical mode, your reflexes will be put to the test.",": Modo crítico, pondrá a prueba tus nervios."
 TITLE_NEW_DESC,Choisissez un mode de difficulté,Choose a difficulty level,Escoge un nivel de dificultad
 TITLE_SAVE_DESC,Choisissez un fichier à charger,Choose a file to load,Elige el archivo que quieres cargar
