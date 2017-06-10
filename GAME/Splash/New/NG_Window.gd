@@ -1,5 +1,8 @@
 extends Panel
 
+# Signals
+signal dismiss
+signal finished
 
 # Button index
 enum { OPTION_DIFFICULTY_NORMAL, OPTION_DIFFICULTY_CRITICAL }
@@ -15,6 +18,15 @@ func _ready():
 		var button = Options.get_child(i)
 		button.connect("pressed", self, "_pressed_new", [i])
 
+	connect("draw", self, "set_process_input", [true])
+	connect("hide", self, "set_process_input", [false])
+
+func _input(event):
+	if event.is_pressed() && !event.is_echo():
+		if event.is_action("ui_cancel"):
+			emit_signal("dismiss")
+			set_process_input(false)
+
 #######################
 ### Signal routines ###
 #######################
@@ -24,5 +36,5 @@ func _pressed_new(button_idx):
 	elif button_idx == OPTION_DIFFICULTY_CRITICAL:
 		pass # TODO: Set up new game in Critical, ask for EXP_Zero
 
-	# TODO: In any case, prepare Aqua intro at the end of the flashy animation
-	#SceneLoader.load_scene("res://GAME/STORY/Intro/Aqua.tscn")
+	# Issue a new game
+	emit_signal("finished")
