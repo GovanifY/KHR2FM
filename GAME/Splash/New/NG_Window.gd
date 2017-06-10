@@ -25,7 +25,6 @@ func _input(event):
 	if event.is_pressed() && !event.is_echo():
 		if event.is_action("ui_cancel"):
 			emit_signal("dismiss")
-			set_process_input(false)
 
 #######################
 ### Signal routines ###

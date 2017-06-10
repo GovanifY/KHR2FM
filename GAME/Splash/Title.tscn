@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=1]
+[gd_scene load_steps=29 format=1]
 
 [ext_resource path="res://GAME/Splash/Title.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Background_00.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Particle.png" type="Texture" id=10]
 [ext_resource path="res://GAME/Splash/TitleOption.tscn" type="PackedScene" id=11]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_cursor.png" type="Texture" id=12]
+[ext_resource path="res://GAME/Splash/New/NG_Window.tscn" type="PackedScene" id=13]
 
 [sub_resource type="StyleBoxFlat" id=1]
 
@@ -278,6 +279,33 @@ tracks/2/keys = {
 "values": [ 0.0, 0.0, 1.0 ]
 }
 
+[sub_resource type="Animation" id=15]
+
+resource/name = "New Game"
+length = 1.75
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0.5, 1.3 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Background/Bg_1:visibility/opacity")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
 [sub_resource type="Animation" id=7]
 
 resource/name = "Orb"
@@ -362,6 +390,60 @@ tracks/0/keys = {
 "values": [ 1.0, 0.1, 1.0 ]
 }
 
+[sub_resource type="Animation" id=13]
+
+resource/name = "Fade In"
+length = 0.5
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visibility/visible")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=14]
+
+resource/name = "Fade Out"
+length = 0.5
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visibility/visible")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0.5 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
 [node name="Title" type="Control"]
 
 anchor/right = 1
@@ -418,7 +500,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="MainMenu Animations" type="AnimationPlayer" parent="."]
+[node name="Anims_MM" type="AnimationPlayer" parent="."]
 
 playback/process_mode = 1
 playback/default_blend_time = 1.0
@@ -428,6 +510,7 @@ anims/Dismiss = SubResource( 3 )
 anims/Flash = SubResource( 4 )
 anims/Logo = SubResource( 5 )
 anims/Menu = SubResource( 6 )
+"anims/New Game" = SubResource( 15 )
 anims/Orb = SubResource( 7 )
 next/Background = "Logo"
 next/Logo = "Menu"
@@ -671,6 +754,7 @@ __meta__ = {
 
 [node name="Options" type="VBoxContainer" parent="."]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -729,5 +813,22 @@ playback/active = true
 playback/speed = 0.4
 blend_times = [  ]
 autoplay = "Out_In"
+
+[node name="BG_New" parent="." instance=ExtResource( 13 )]
+
+visibility/visible = false
+visibility/opacity = 0.0
+
+[node name="Anims_New" type="AnimationPlayer" parent="BG_New"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+"anims/Fade In" = SubResource( 13 )
+"anims/Fade Out" = SubResource( 14 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
 
 
