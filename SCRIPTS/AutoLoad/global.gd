@@ -59,6 +59,11 @@ func _input(event):
 				else:
 					SceneLoader.erase_scene(debug_path)
 					Globals.set(debug_name, false)
+			elif event.is_action("quick_save"):
+				SaveManager.save_game(0)
+			elif event.is_action("quick_load"):
+				SaveManager.load_game(0)
+				SceneLoader.load_scene(SaveManager.get_scene())
 		return
 
 func _process(delta):
