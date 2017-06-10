@@ -1,21 +1,20 @@
-[gd_scene load_steps=31 format=1]
+[gd_scene load_steps=30 format=1]
 
 [ext_resource path="res://GAME/Splash/Title.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Background_00.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/SE/System/New Game.wav" type="Sample" id=3]
-[ext_resource path="res://ASSETS/BGM/Dearly_Beloved.ogg" type="AudioStream" id=4]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Background_02.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Logo_00.png" type="Texture" id=6]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Logo_01.png" type="Texture" id=7]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Logo_03.png" type="Texture" id=8]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Logo_02.png" type="Texture" id=9]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Logo_05_2.png" type="Texture" id=10]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Logo_06_2.png" type="Texture" id=11]
-[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=12]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Particle.png" type="Texture" id=13]
-[ext_resource path="res://GAME/Splash/TitleOption.tscn" type="PackedScene" id=14]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_cursor.png" type="Texture" id=15]
-[ext_resource path="res://GAME/Splash/New/NG_Window.tscn" type="PackedScene" id=16]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Background_02.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Logo_00.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Logo_01.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Logo_03.png" type="Texture" id=7]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Logo_02.png" type="Texture" id=8]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Logo_05_2.png" type="Texture" id=9]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Logo_06_2.png" type="Texture" id=10]
+[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Particle.png" type="Texture" id=12]
+[ext_resource path="res://GAME/Splash/TitleOption.tscn" type="PackedScene" id=13]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_cursor.png" type="Texture" id=14]
+[ext_resource path="res://GAME/Splash/New/NG_Window.tscn" type="PackedScene" id=15]
 
 [sub_resource type="StyleBoxFlat" id=1]
 
@@ -731,7 +730,7 @@ shader/shading_mode = 0
 font/size = 18
 font/use_mipmaps = false
 font/use_filter = true
-font/font = ExtResource( 12 )
+font/font = ExtResource( 11 )
 
 [sub_resource type="Animation" id=14]
 
@@ -768,7 +767,6 @@ __meta__ = {
 
 [node name="Background" type="Panel" parent="."]
 
-editor/display_folded = true
 visibility/behind_parent = true
 anchor/right = 1
 anchor/bottom = 1
@@ -821,17 +819,6 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
-[node name="Theme" type="StreamPlayer" parent="Background"]
-
-stream/stream = ExtResource( 4 )
-stream/play = false
-stream/loop = false
-stream/volume_db = 0.0
-stream/autoplay = false
-stream/paused = false
-stream/loop_restart_time = 0.0
-stream/buffering_ms = 500
-
 [node name="Timer" type="Timer" parent="Background"]
 
 process_mode = 1
@@ -870,7 +857,7 @@ __meta__ = {
 [node name="Character" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 680, 240 )
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -878,7 +865,7 @@ __meta__ = {
 [node name="Logo_Dev" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 238, 35 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -886,7 +873,7 @@ __meta__ = {
 [node name="Logo_Heart" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 238, 200 )
-texture = ExtResource( 7 )
+texture = ExtResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -894,7 +881,7 @@ __meta__ = {
 [node name="Logo_IL" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 200, 180 )
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -902,7 +889,7 @@ __meta__ = {
 [node name="Logo_IR" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 276, 180 )
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
 flip_h = true
 __meta__ = {
 "_edit_lock_": true
@@ -911,7 +898,7 @@ __meta__ = {
 [node name="Logo_Crown" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 238, 80 )
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -919,7 +906,7 @@ __meta__ = {
 [node name="Logo_Title" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 239, 145 )
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -927,7 +914,7 @@ __meta__ = {
 [node name="Logo_Subtitle" type="Sprite" parent="Main Menu"]
 
 transform/pos = Vector2( 237, 203 )
-texture = ExtResource( 11 )
+texture = ExtResource( 10 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1007,7 +994,7 @@ config/time_scale = 0.5
 config/preprocess = 1.0
 config/process_mode = 1
 config/local_space = false
-config/texture = ExtResource( 13 )
+config/texture = ExtResource( 12 )
 params/direction = 0.0
 params/spread = 120.0
 params/linear_velocity = 20.0
@@ -1038,7 +1025,7 @@ config/time_scale = 0.5
 config/preprocess = 1.0
 config/process_mode = 1
 config/local_space = false
-config/texture = ExtResource( 13 )
+config/texture = ExtResource( 12 )
 params/direction = 0.0
 params/spread = 120.0
 params/linear_velocity = 20.0
@@ -1069,7 +1056,7 @@ config/time_scale = 0.5
 config/preprocess = 1.0
 config/process_mode = 1
 config/local_space = false
-config/texture = ExtResource( 13 )
+config/texture = ExtResource( 12 )
 params/direction = 0.0
 params/spread = 120.0
 params/linear_velocity = 20.0
@@ -1110,19 +1097,19 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="New Game" parent="Options" instance=ExtResource( 14 )]
+[node name="New Game" parent="Options" instance=ExtResource( 13 )]
 
 margin/top = 26.0
 margin/bottom = 54.0
 text = "TITLE_NEW_GAME"
 
-[node name="Load Game" parent="Options" instance=ExtResource( 14 )]
+[node name="Load Game" parent="Options" instance=ExtResource( 13 )]
 
 margin/top = 69.0
 margin/bottom = 97.0
 text = "TITLE_LOAD_GAME"
 
-[node name="Quit Game" parent="Options" instance=ExtResource( 14 )]
+[node name="Quit Game" parent="Options" instance=ExtResource( 13 )]
 
 margin/top = 112.0
 margin/bottom = 140.0
@@ -1132,7 +1119,7 @@ text = "TITLE_QUIT_GAME"
 
 editor/display_folded = true
 transform/pos = Vector2( 12, 40 )
-texture = ExtResource( 15 )
+texture = ExtResource( 14 )
 offset = Vector2( 2, 0 )
 __meta__ = {
 "_edit_lock_": true
@@ -1149,7 +1136,7 @@ playback/speed = 0.4
 blend_times = [  ]
 autoplay = "Out_In"
 
-[node name="BG_New" parent="." instance=ExtResource( 16 )]
+[node name="BG_New" parent="." instance=ExtResource( 15 )]
 
 visibility/visible = false
 visibility/opacity = 0.0

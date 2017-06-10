@@ -17,7 +17,7 @@ func _ready():
 	Yuugure.set_side(true)
 
 	# Starting music
-	AudioRoom.load_music(get_node("Into the Darkness"))
+	AudioRoom.set_stream(preload("res://ASSETS/BGM/Into the Darkness.ogg"))
 	AudioRoom.play()
 
 	# Begin cutscene
@@ -43,7 +43,7 @@ func _ready():
 	Dialogue.dismiss()
 
 	# Change music
-	AudioRoom.load_music(get_node("The Eye of the Darkness"))
+	AudioRoom.set_stream(preload("res://ASSETS/BGM/The Eye of Darkness.ogg"))
 	AudioRoom.play()
 
 	Kiryoku.speak(4, 10)

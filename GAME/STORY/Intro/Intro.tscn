@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=1]
+[gd_scene load_steps=21 format=1]
 
 [ext_resource path="res://GAME/STORY/Intro/Intro.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_01.png" type="Texture" id=2]
@@ -9,13 +9,11 @@
 [ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_06.png" type="Texture" id=7]
 [ext_resource path="res://ASSETS/GFX/Animations/Intro/Water.png" type="Texture" id=8]
 [ext_resource path="res://ASSETS/SE/Cutscenes/Water_Drop.wav" type="Sample" id=9]
-[ext_resource path="res://ASSETS/BGM/Into the darkness.ogg" type="AudioStream" id=10]
-[ext_resource path="res://ASSETS/BGM/The Eye of Darkness.ogg" type="AudioStream" id=11]
-[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=12]
-[ext_resource path="res://addons/avatar/Avatar.gd" type="Script" id=13]
-[ext_resource path="res://addons/avatar/icon.png" type="Texture" id=14]
-[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku.tres" type="SpriteFrames" id=15]
-[ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure.tres" type="SpriteFrames" id=16]
+[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=10]
+[ext_resource path="res://addons/avatar/Avatar.gd" type="Script" id=11]
+[ext_resource path="res://addons/avatar/icon.png" type="Texture" id=12]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku.tres" type="SpriteFrames" id=13]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure.tres" type="SpriteFrames" id=14]
 
 [sub_resource type="Animation" id=1]
 
@@ -208,7 +206,6 @@ visibility/visible = false
 visibility/opacity = 0.0
 frames = SubResource( 4 )
 animation = "default"
-frame = 1
 playing = true
 centered = false
 
@@ -246,29 +243,7 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
-[node name="Into the Darkness" type="StreamPlayer" parent="."]
-
-stream/stream = ExtResource( 10 )
-stream/play = false
-stream/loop = true
-stream/volume_db = 0.0
-stream/autoplay = false
-stream/paused = false
-stream/loop_restart_time = 0.0
-stream/buffering_ms = 500
-
-[node name="The Eye of the Darkness" type="StreamPlayer" parent="."]
-
-stream/stream = ExtResource( 11 )
-stream/play = false
-stream/loop = true
-stream/volume_db = 0.0
-stream/autoplay = false
-stream/paused = false
-stream/loop_restart_time = 0.0
-stream/buffering_ms = 500
-
-[node name="Dialogue" parent="." instance=ExtResource( 12 )]
+[node name="Dialogue" parent="." instance=ExtResource( 10 )]
 
 next_scene = "res://GAME/STORY/Intro/Battle_Yuugure.tscn"
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
@@ -285,11 +260,11 @@ margin/left = -312.0
 margin/top = -182.0
 margin/right = -311.0
 margin/bottom = -181.0
-script/script = ExtResource( 13 )
+script/script = ExtResource( 11 )
 __meta__ = {
-"_editor_icon": ExtResource( 14 )
+"_editor_icon": ExtResource( 12 )
 }
-face_sprites = ExtResource( 15 )
+face_sprites = ExtResource( 13 )
 frame = 0
 flip_frame = false
 
@@ -305,11 +280,11 @@ margin/left = -332.0
 margin/top = 274.0
 margin/right = -331.0
 margin/bottom = 275.0
-script/script = ExtResource( 13 )
+script/script = ExtResource( 11 )
 __meta__ = {
-"_editor_icon": ExtResource( 14 )
+"_editor_icon": ExtResource( 12 )
 }
-face_sprites = ExtResource( 16 )
+face_sprites = ExtResource( 14 )
 frame = 0
 flip_frame = false
 

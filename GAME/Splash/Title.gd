@@ -27,7 +27,7 @@ func _ready():
 	NewGame.connect("finished", self, "_start_new")
 
 	# Adding music
-	AudioRoom.load_music(get_node("Background/Theme"))
+	AudioRoom.set_stream(preload("res://ASSETS/BGM/Dearly_Beloved.ogg"))
 	AudioRoom.play()
 
 	# Waiting few seconds of intro theme entrance

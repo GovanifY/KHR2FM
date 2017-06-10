@@ -33,10 +33,6 @@ func _on_end_fade(object, key):
 ###############
 ### Methods ###
 ###############
-func load_music(node):
-	stop()
-	set_stream(node.get_stream())
-
 # Fading methods
 func fade(time, vol_in, vol_out):
 	Fader.interpolate_method(
