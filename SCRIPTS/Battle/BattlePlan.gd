@@ -1,6 +1,7 @@
 extends Node
 
 # Export values
+export(AudioStream) var battle_music
 export(int, 1, 20) var enemy_instances = 1
 export(bool) var random_instances = false
 
@@ -20,6 +21,13 @@ func _exit_tree():
 	Globals.set("BattlePlan", null)
 
 func _ready():
+	# Preparing music
+	if battle_music != null:
+		# If the tracks are different, swap with the new one
+		if (AudioRoom.get_stream_name() != battle_music.get_name()):
+			AudioRoom.set_stream(battle_music)
+			AudioRoom.play()
+
 	# Preparing Enemies
 	enemy_instances -= 1 # Don't count the already avaliable instance
 	if enemy_instances > 0:

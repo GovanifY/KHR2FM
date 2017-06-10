@@ -51,7 +51,6 @@ expand_margin/left = 0.0
 expand_margin/right = 0.0
 expand_margin/top = 0.0
 expand_margin/bottom = 0.0
-modulate/color = Color( 0, 0, 0, 1 )
 draw_center = true
 
 [sub_resource type="DynamicFont" id=5]
@@ -64,7 +63,10 @@ font/font = ExtResource( 9 )
 [node name="BattlePlan" type="Node"]
 
 script/script = ExtResource( 1 )
-__meta__ = { "__editor_plugin_screen__":"Script" }
+__meta__ = {
+"__editor_plugin_screen__": "Script"
+}
+battle_music = null
 enemy_instances = 1
 random_instances = false
 
@@ -83,7 +85,9 @@ margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
 custom_styles/panelf = SubResource( 1 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Ring" type="StaticBody2D" parent="."]
 
@@ -101,7 +105,9 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Left" type="CollisionShape2D" parent="Ring"]
 
@@ -109,7 +115,9 @@ transform/pos = Vector2( -1, 240 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Right" type="CollisionShape2D" parent="Ring"]
 
@@ -117,7 +125,9 @@ transform/pos = Vector2( 855, 240 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 1
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -209,7 +219,9 @@ range/value = 100.0
 range/exp_edit = false
 range/rounded = false
 percent/visible = false
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Panel_HP" type="Panel" parent="HUD/EnemyHP"]
 
@@ -224,7 +236,9 @@ margin/top = 11.0
 margin/right = 14.0
 margin/bottom = 24.0
 custom_styles/panel = SubResource( 4 )
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Label_HP" type="Label" parent="HUD/EnemyHP/Panel_HP"]
 
@@ -246,7 +260,9 @@ uppercase = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Commands" type="Node2D" parent="HUD"]
 
