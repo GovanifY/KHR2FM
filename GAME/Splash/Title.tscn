@@ -813,6 +813,7 @@ autoplay = "Out_In"
 
 [node name="BG_New" parent="." instance=ExtResource( 13 )]
 
+editor/display_folded = true
 visibility/visible = false
 visibility/opacity = 0.0
 

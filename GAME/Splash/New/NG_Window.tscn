@@ -5,8 +5,6 @@
 [ext_resource path="res://SCENES/KHR2_Button.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=4]
 
-
-
 [sub_resource type="StyleBoxFlat" id=1]
 
 content_margin/left = -1.0

@@ -47,6 +47,9 @@ func _pressed_main(button_idx):
 		AnimsMenu.play("Dismiss")
 
 func _start_new():
+	# Dismiss the window before anything else
+	AnimsNew.play("Fade Out")
+	yield(AnimsNew, "finished")
 	# Load Aqua intro at the end of the flashy animation
 	AnimsMenu.connect("finished", SceneLoader, "load_scene", ["res://GAME/STORY/Intro/Aqua.tscn"])
 	AnimsMenu.play("New Game")
