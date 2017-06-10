@@ -1,11 +1,11 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://SCENES/Battle/ForeGround/Fog.tscn" type="PackedScene" id=1]
 [ext_resource path="res://SCENES/Battle/BattlePlan.tscn" type="PackedScene" id=2]
-[ext_resource path="res://SCENES/InfoBar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://GAME/BATTLE/Player/Kiryoku.tscn" type="PackedScene" id=4]
-[ext_resource path="res://GAME/BATTLE/Enemy/Yuugure.tscn" type="PackedScene" id=5]
-
+[ext_resource path="res://ASSETS/BGM/The Eye of Darkness.ogg" type="AudioStream" id=3]
+[ext_resource path="res://SCENES/InfoBar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GAME/BATTLE/Player/Kiryoku.tscn" type="PackedScene" id=5]
+[ext_resource path="res://GAME/BATTLE/Enemy/Yuugure.tscn" type="PackedScene" id=6]
 
 [node name="Battle_Yuugure" type="Node2D"]
 
@@ -27,13 +27,15 @@ scroll/ignore_camera_zoom = false
 
 [node name="BattlePlan" parent="." instance=ExtResource( 2 )]
 
-[node name="InfoBar" parent="BattlePlan" instance=ExtResource( 3 )]
+battle_music = ExtResource( 3 )
 
-[node name="Kiryoku" parent="BattlePlan" instance=ExtResource( 4 )]
+[node name="InfoBar" parent="BattlePlan" instance=ExtResource( 4 )]
+
+[node name="Kiryoku" parent="BattlePlan" instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 162, 212 )
 
-[node name="Yuugure" parent="BattlePlan" instance=ExtResource( 5 )]
+[node name="Yuugure" parent="BattlePlan" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 680, 233 )
 max_health = 150
