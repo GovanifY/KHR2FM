@@ -47,7 +47,6 @@ func fade(time, vol_in, vol_out):
 	Fader.start()
 
 func fade_in(time):
-	play()
 	fade(time, VOL_MUTE, VOL_NORMAL)
 
 func fade_out(time):
