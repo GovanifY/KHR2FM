@@ -5,7 +5,7 @@
 [ext_resource path="res://GAME/Splash/New/NG_Button.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=4]
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=1]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -18,7 +18,7 @@ border_size = 0
 border_blend = false
 draw_bg = true
 
-[sub_resource type="StyleBoxTexture" id=1]
+[sub_resource type="StyleBoxTexture" id=2]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -62,7 +62,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 1 )
 script/script = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -81,7 +81,7 @@ margin/left = 0.0
 margin/top = 100.0
 margin/right = 0.0
 margin/bottom = -100.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
 
 [node name="Options" type="VBoxContainer" parent="Window"]
 
