@@ -64,6 +64,9 @@ func _point_to_end(idx):
 #######################
 func _CommandBox_input(event):
 	if event.is_pressed() && !event.is_echo():
+		# Accept event so that it doesn't propagate elsewhere
+		CommandBox.accept_event()
+
 		var size = HistoryList.cmds.size()
 
 		# Controlling Returns
