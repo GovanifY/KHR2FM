@@ -1,4 +1,3 @@
 func _ready():
-	var se = get_node("SE")
-	connect("pressed", se, "play", ["System_04"])
-	connect("focus_enter", se, "play", ["System_03"])
+	connect("pressed", SE, "play", ["System_04"])
+	connect("focus_enter", SE, "play", ["System_03"])
