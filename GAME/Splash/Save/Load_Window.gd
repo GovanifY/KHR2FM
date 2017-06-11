@@ -6,9 +6,16 @@ signal finished
 
 # Instance members
 onready var anims  = get_node("Anims")
+
 onready var List   = get_node("List")
 onready var Scroll = get_node("List/Scroll")
 onready var Slots  = get_node("List/Slots")
+
+onready var Info = {
+	"panel" : get_node("Info"),
+	"title" : get_node("Info/Title"),
+	"msg"   : get_node("Info/Message"),
+}
 
 ######################
 ### Core functions ###
@@ -30,19 +37,21 @@ func _ready():
 		Slots.add_child(node)
 
 	connect("draw", self, "_show_up")
-	connect("hide", self, "_dismiss")
 
 #######################
 ### Signal routines ###
 #######################
 func _show_up():
+	# Initial settings
+	Info.panel.hide()
+
 	# Making sure the first Option is selected
-	Slots.get_child(1).grab_focus()
-
-	set_process_input(true)
-
-func _dismiss():
-	set_process_input(false)
+	if Slots.get_child_count() > 1:
+		Slots.get_child(1).grab_focus()
+	else:
+		Info.msg.set_text("TITLE_SAVE_NOT_FOUND")
+		yield(anims, "finished")
+		anims.play("Show Info")
 
 func _recenter(button):
 	var y = int(button.get_pos().y)
