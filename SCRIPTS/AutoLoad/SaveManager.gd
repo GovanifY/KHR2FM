@@ -12,19 +12,20 @@ const SAVE_EXT  = "save"
 # Serializable dictionary filled with the most important info for a save file
 var save_data = {
 	# IMPORTANT DATA
-	"scene"    : null,
-	"location" : null,
-	"playtime" : 0,
+	"scene"        : null,
+	"location"     : null,
+	"playtime_hrs" : 0,
+	"playtime_min" : 0,
 
 	# Switches
-	"zero_exp" : false,
+	"zero_exp"     : false,
 	# Basic stats
-	"lv"       : 1,
-	"hp"       : 10,
-	"attack"   : 1,
-	"defense"  : 1,
+	"lv"           : 1,
+	"hp"           : 10,
+	"attack"       : 1,
+	"defense"      : 1,
 	# Stat adders
-	"keyblade" : "",
+	"keyblade"     : null,
 	# TODO: Items, magic, abilities, limits
 }
 
@@ -41,8 +42,20 @@ func _has_key(key):
 	return has
 
 func _assemble_data():
+	# FIXME: Fill in the blanks
 	save_data.scene = get_tree().get_current_scene().get_filename()
-	# TODO: Do rest of the save data
+	#save_data.location = 
+	save_data.playtime_hrs = Globals.get("PlayTimeHours")
+	save_data.playtime_min = Globals.get("PlayTimeMinutes")
+
+	#save_data.zero_exp =
+
+	#save_data.lv =
+	#save_data.hp =
+	#save_data.attack =
+	#save_data.defense =
+
+	#save_data.keyblade =
 
 ########################
 ### Helper functions ###
@@ -97,10 +110,10 @@ func load_game(slot_idx):
 	return true
 
 func save_game(slot_idx):
+	_assemble_data()
+
 	var path = fmt_path(slot_idx)
 	var savegame = File.new()
-
-	_assemble_data()
 
 	savegame.open(path, File.WRITE) # FIXME: Open encrypted
 	savegame.store_var(save_data) # FIXME: It's much more complicated than this
