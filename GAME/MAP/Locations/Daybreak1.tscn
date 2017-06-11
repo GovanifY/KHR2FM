@@ -101,6 +101,8 @@ height = 5.0
 
 [node name="Daybreak" instance=ExtResource( 1 )]
 
+world_name = "City of Memories"
+
 [node name="Map" parent="."]
 
 texture = ExtResource( 2 )
@@ -111,6 +113,7 @@ region_rect = Rect2( 840, 222.722, 76, 45 )
 transform/pos = Vector2( -10, -10 )
 config/amount = 1
 config/lifetime = 2.0
+config/process_mode = 1
 params/direction = 0.0
 params/spread = 10.0
 params/linear_velocity = 20.0
@@ -133,6 +136,7 @@ params/anim_initial_pos = 0.0
 transform/pos = Vector2( -20, 1000 )
 config/amount = 1
 config/lifetime = 2.0
+config/process_mode = 1
 params/direction = 0.0
 params/spread = 10.0
 params/linear_velocity = 20.0
@@ -155,6 +159,7 @@ params/anim_initial_pos = 0.0
 transform/pos = Vector2( 2000, 1100 )
 config/amount = 1
 config/lifetime = 2.0
+config/process_mode = 1
 params/direction = 0.0
 params/spread = 10.0
 params/linear_velocity = 20.0
@@ -177,6 +182,7 @@ params/anim_initial_pos = 0.0
 transform/pos = Vector2( 2000, -10 )
 config/amount = 1
 config/lifetime = 2.0
+config/process_mode = 1
 params/direction = 0.0
 params/spread = 10.0
 params/linear_velocity = 20.0
@@ -302,7 +308,9 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 5 )
-__meta__ = { "_editor_icon":ExtResource( 6 ) }
+__meta__ = {
+"_editor_icon": ExtResource( 6 )
+}
 spriteset = ExtResource( 7 )
 hframes = 4
 vframes = 4
