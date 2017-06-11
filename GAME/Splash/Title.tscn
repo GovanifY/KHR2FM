@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=1]
+[gd_scene load_steps=32 format=1]
 
 [ext_resource path="res://GAME/Splash/Title.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Background_00.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://GAME/Splash/TitleOption.tscn" type="PackedScene" id=13]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_cursor.png" type="Texture" id=14]
 [ext_resource path="res://GAME/Splash/New/NG_Window.tscn" type="PackedScene" id=15]
+[ext_resource path="res://GAME/Splash/Save/Load_Window.tscn" type="PackedScene" id=16]
 
 [sub_resource type="StyleBoxFlat" id=1]
 
@@ -204,6 +205,33 @@ tracks/2/keys = {
 "transitions": FloatArray( 1, 1 ),
 "update": 0,
 "values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=15]
+
+resource/name = "Load Game"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Background/Bg_1:visibility/opacity")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.2 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -750,6 +778,7 @@ tracks/0/keys = {
 
 [node name="Title" type="Control"]
 
+visibility/opacity = 0.0
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -767,6 +796,7 @@ __meta__ = {
 
 [node name="Background" type="Panel" parent="."]
 
+editor/display_folded = true
 visibility/behind_parent = true
 anchor/right = 1
 anchor/bottom = 1
@@ -785,6 +815,7 @@ __meta__ = {
 
 [node name="Bg_1" type="TextureFrame" parent="Background"]
 
+visibility/opacity = 0.0
 anchor/left = 1
 anchor/right = 1
 anchor/bottom = 1
@@ -834,6 +865,7 @@ root/root = NodePath("..")
 anims/Background = SubResource( 3 )
 anims/Close = SubResource( 4 )
 anims/Flash = SubResource( 5 )
+"anims/Load Game" = SubResource( 15 )
 anims/Logo = SubResource( 6 )
 anims/Menu = SubResource( 7 )
 "anims/New Game" = SubResource( 8 )
@@ -1140,5 +1172,21 @@ autoplay = "Out_In"
 
 visibility/visible = false
 visibility/opacity = 0.0
+
+[node name="BG_Load" parent="." instance=ExtResource( 16 )]
+
+visibility/visible = false
+
+[connection signal="focus_enter" from="Options/New Game" to="Options/New Game/SE" method="play" binds= [ "System_03" ]]
+
+[connection signal="pressed" from="Options/New Game" to="Options/New Game/SE" method="play" binds= [ "System_04" ]]
+
+[connection signal="focus_enter" from="Options/Load Game" to="Options/Load Game/SE" method="play" binds= [ "System_03" ]]
+
+[connection signal="pressed" from="Options/Load Game" to="Options/Load Game/SE" method="play" binds= [ "System_04" ]]
+
+[connection signal="focus_enter" from="Options/Quit Game" to="Options/Quit Game/SE" method="play" binds= [ "System_03" ]]
+
+[connection signal="pressed" from="Options/Quit Game" to="Options/Quit Game/SE" method="play" binds= [ "System_04" ]]
 
 
