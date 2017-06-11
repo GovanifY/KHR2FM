@@ -14,7 +14,7 @@ TITLE_SAVE_TIME,Temps de jeu,Play time,Tiempo de juego
 TITLE_SAVE_DESC_00,Choisissez un fichier à charger,Choose a save file to load,Elige el archivo que quieres cargar
 TITLE_SAVE_DESC_01,Choisissez un emplacement,Choose a place,Elige donde quieres guardar
 TITLE_SAVE_ERROR,Impossible de lire les données,Impossible to read save datas,Imposible leer archivo
-TITLE_SAVE_NOT_FOUND,Aucune sauvegarde,No save,Vacío
+TITLE_SAVE_NOT_FOUND,Aucune sauvegarde,No save files found,Vacío
 EXPZ_DESC_00,Voulez-vous désactiver [color=yellow]le gain d'expérience[/color] ?,Do you want to deactivate [color=yellow]experience gain[/color] ?,¿Quieres activar [color=yellow]experiencia 0[/color] ?
 EXPZ_DESC_01,[color=yellow]Vos statistiques seront accrues[/color],[color=yellow]Your stats will be increased[/color],[color=yellow]Se incrementará tu estatus[/color]
 CHOICE_YES,Oui,Yes,Si
