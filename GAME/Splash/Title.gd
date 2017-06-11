@@ -58,9 +58,12 @@ func _input(event):
 
 			# FIXME: this is hacky code. This is dumb.
 			if NewGame.is_visible():
+				SE.play("system_dismiss")
 				Options[0].grab_focus()
 				NewGame.anims.play("Fade Out")
+
 			elif LoadGame.is_visible():
+				SE.play("system_dismiss")
 				Options[1].grab_focus()
 				LoadGame.anims.play("Fade Out")
 
