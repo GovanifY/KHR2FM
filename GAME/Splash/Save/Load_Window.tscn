@@ -67,10 +67,10 @@ tracks/0/path = NodePath(".:visibility/visible")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0 ),
+"times": FloatArray( 0.2 ),
 "transitions": FloatArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:visibility/opacity")
@@ -160,6 +160,7 @@ draw_center = true
 
 [node name="BG_Load" type="Panel"]
 
+visibility/opacity = 0.0
 visibility/self_opacity = 0.7
 anchor/right = 1
 anchor/bottom = 1

@@ -1,5 +1,8 @@
 extends Control
 
+# Signals
+signal dismiss
+
 # Button index
 enum OPTION_CONTROLS { OPTION_MAIN_NEW, OPTION_MAIN_LOAD, OPTION_MAIN_QUIT }
 
@@ -17,18 +20,18 @@ onready var LoadGame = get_node("BG_Load")
 ### Core functions ###
 ######################
 func _ready():
+	# Making sure all buttons are available only at the end of the animation
+	AnimsMenu.connect("animation_started", self, "_on_flash_end")
+
 	# Connecting main options
 	for i in range(0, Options.get_child_count()-1):
 		var button = Options.get_child(i)
+		button.set_disabled(true)
 		button.connect("pressed", self, "_pressed_main", [i])
 		button.connect("focus_enter", self, "_set_cursor_position", [button])
 
-	# Connecting New Game options
-	NewGame.connect("dismiss", NewGame.anims, "play", ["Fade Out"])
+	# Making specific connections
 	NewGame.connect("finished", self, "_start_new")
-
-	# Connecting New Game options
-	LoadGame.connect("dismiss", LoadGame.anims, "play", ["Fade Out"])
 	LoadGame.connect("finished", self, "_start_load")
 
 	# Adding music
@@ -39,17 +42,39 @@ func _ready():
 	hide()
 	# This is kind of bullshit IMO. I hate unnecessary wait times for menus. - Keyaku
 	var timer = get_node("Background/Timer")
-	timer.set_one_shot(true)
-	timer.set_wait_time(4)
 	timer.start()
 	yield(timer, "timeout")
 
 	# Presenting Title
 	AnimsMenu.play("Background")
 
+func _input(event):
+	if event.is_pressed() && !event.is_echo():
+		if event.is_action("ui_cancel"):
+			# FIXME: this is hacky code. This is dumb.
+			if NewGame.is_visible():
+				Options.get_child(0).grab_focus()
+				NewGame.anims.play("Fade Out")
+			elif LoadGame.is_visible():
+				Options.get_child(1).grab_focus()
+				LoadGame.anims.play("Fade Out")
+
 #######################
 ### Signal routines ###
 #######################
+func _on_flash_end(name):
+	if name != "Flash": return false
+
+	for i in range(0, Options.get_child_count()-1):
+		var button = Options.get_child(i)
+		button.set_disabled(false)
+
+	# Making sure the first Option is selected
+	Options.get_child(0).grab_focus()
+
+	# Making sure we can use other input
+	set_process_input(true)
+
 func _set_cursor_position(button):
 	var pos = button.get_pos() + cursor_inc
 	Cursor.set_pos(pos)

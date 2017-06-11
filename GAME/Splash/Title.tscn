@@ -850,7 +850,7 @@ default/chorus_send = 0.0
 [node name="Timer" type="Timer" parent="Background"]
 
 process_mode = 1
-wait_time = 1.0
+wait_time = 4.0
 one_shot = true
 autostart = false
 
@@ -1112,8 +1112,8 @@ __meta__ = {
 editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
-focus/ignore_mouse = false
-focus/stop_mouse = false
+focus/ignore_mouse = true
+focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 3
 margin/left = 10.0
@@ -1128,6 +1128,7 @@ __meta__ = {
 
 [node name="New Game" parent="Options" instance=ExtResource( 13 )]
 
+focus_neighbour/top = NodePath("../Quit Game")
 margin/top = 26.0
 margin/bottom = 54.0
 text = "TITLE_NEW_GAME"
@@ -1140,6 +1141,7 @@ text = "TITLE_LOAD_GAME"
 
 [node name="Quit Game" parent="Options" instance=ExtResource( 13 )]
 
+focus_neighbour/bottom = NodePath("../New Game")
 margin/top = 112.0
 margin/bottom = 140.0
 text = "TITLE_QUIT_GAME"

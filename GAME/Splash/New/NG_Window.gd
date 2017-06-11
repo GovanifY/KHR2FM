@@ -1,7 +1,6 @@
 extends Panel
 
 # Signals
-signal dismiss
 signal finished
 
 # Button index
@@ -19,17 +18,21 @@ func _ready():
 		var button = Options.get_child(i)
 		button.connect("pressed", self, "_pressed_new", [i])
 
-	connect("draw", self, "set_process_input", [true])
-	connect("hide", self, "set_process_input", [false])
-
-func _input(event):
-	if event.is_pressed() && !event.is_echo():
-		if event.is_action("ui_cancel"):
-			emit_signal("dismiss")
+	connect("draw", self, "_show_up")
+	connect("hide", self, "_dismiss")
 
 #######################
 ### Signal routines ###
 #######################
+func _show_up():
+	# Making sure the first Option is selected
+	Options.get_child(0).grab_focus()
+
+	set_process_input(true)
+
+func _dismiss():
+	set_process_input(false)
+
 func _pressed_new(button_idx):
 	if button_idx == OPTION_DIFFICULTY_NORMAL:
 		pass # TODO: Set up new game in Normal

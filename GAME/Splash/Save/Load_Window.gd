@@ -1,7 +1,6 @@
 extends Panel
 
 # Signals
-signal dismiss
 signal error
 signal finished
 
@@ -30,17 +29,21 @@ func _ready():
 		node.show()
 		Slots.add_child(node)
 
-	connect("draw", self, "set_process_input", [true])
-	connect("hide", self, "set_process_input", [false])
-
-func _input(event):
-	if event.is_pressed() && !event.is_echo():
-		if event.is_action("ui_cancel"):
-			emit_signal("dismiss")
+	connect("draw", self, "_show_up")
+	connect("hide", self, "_dismiss")
 
 #######################
 ### Signal routines ###
 #######################
+func _show_up():
+	# Making sure the first Option is selected
+	Slots.get_child(1).grab_focus()
+
+	set_process_input(true)
+
+func _dismiss():
+	set_process_input(false)
+
 func _recenter(button):
 	var y = int(button.get_pos().y)
 	Scroll.interpolate_method(
