@@ -6,8 +6,10 @@ signal error
 signal finished
 
 # Instance members
-onready var anims = get_node("Anims")
-onready var Slots = get_node("Slots")
+onready var anims  = get_node("Anims")
+onready var List   = get_node("List")
+onready var Scroll = get_node("List/Scroll")
+onready var Slots  = get_node("List/Slots")
 
 ######################
 ### Core functions ###
@@ -21,6 +23,7 @@ func _ready():
 
 		node.set_name(name)
 		node.set_text(name)
+		node.connect("focus_enter", self, "_recenter", [node])
 		node.connect("pressed", self, "_pressed_load", [i])
 		# TODO: Populate with KHR2 icons (location + playtime + avatar)
 
@@ -38,6 +41,14 @@ func _input(event):
 #######################
 ### Signal routines ###
 #######################
+func _recenter(button):
+	var y = int(button.get_pos().y)
+	Scroll.interpolate_method(
+		List, "set_v_scroll", List.get_v_scroll(), y, 0.1,
+		Scroll.TRANS_LINEAR, Scroll.EASE_IN
+	)
+	Scroll.start()
+
 func _pressed_load(slot_idx):
 	var it_loaded = SaveManager.load_game(slot_idx)
 	emit_signal("finished" if it_loaded else "error")

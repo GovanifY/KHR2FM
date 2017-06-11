@@ -57,8 +57,10 @@ func _set_cursor_position(button):
 func _pressed_main(button_idx):
 	if button_idx == OPTION_MAIN_NEW:
 		NewGame.anims.play("Fade In")
+
 	elif button_idx == OPTION_MAIN_LOAD:
 		LoadGame.anims.play("Fade In")
+
 	elif button_idx == OPTION_MAIN_QUIT:
 		AnimsMenu.connect("finished", get_tree(), "quit")
 		AnimsMenu.play("Close")
