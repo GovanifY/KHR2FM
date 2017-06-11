@@ -1,38 +1,38 @@
 [gd_scene load_steps=7 format=1]
 
-[ext_resource path="res://ASSETS/SE/System/System_00.wav" type="Sample" id=1]
-[ext_resource path="res://ASSETS/SE/System/System_01.wav" type="Sample" id=2]
-[ext_resource path="res://ASSETS/SE/System/System_02.wav" type="Sample" id=3]
-[ext_resource path="res://ASSETS/SE/System/System_03.wav" type="Sample" id=4]
-[ext_resource path="res://ASSETS/SE/System/System_04.wav" type="Sample" id=5]
+[ext_resource path="res://ASSETS/SE/System/System_04.wav" type="Sample" id=1]
+[ext_resource path="res://ASSETS/SE/System/System_02.wav" type="Sample" id=2]
+[ext_resource path="res://ASSETS/SE/System/System_01.wav" type="Sample" id=3]
+[ext_resource path="res://ASSETS/SE/System/System_00.wav" type="Sample" id=4]
+[ext_resource path="res://ASSETS/SE/System/System_03.wav" type="Sample" id=5]
 
 [sub_resource type="SampleLibrary" id=1]
 
-samples/System_00 = {
+samples/system_confirm = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
 "sample": ExtResource( 1 )
 }
-samples/System_01 = {
+samples/system_dismiss = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
 "sample": ExtResource( 2 )
 }
-samples/System_02 = {
+samples/system_error = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
 "sample": ExtResource( 3 )
 }
-samples/System_03 = {
+samples/system_info = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
 "sample": ExtResource( 4 )
 }
-samples/System_04 = {
+samples/system_selected = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,

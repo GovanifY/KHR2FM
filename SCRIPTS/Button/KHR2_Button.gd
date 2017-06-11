@@ -1,3 +1,3 @@
 func _ready():
-	connect("pressed", SE, "play", ["System_04"])
-	connect("focus_enter", SE, "play", ["System_03"])
+	connect("pressed", SE, "play", ["system_confirm"])
+	connect("focus_enter", SE, "play", ["system_selected"])
