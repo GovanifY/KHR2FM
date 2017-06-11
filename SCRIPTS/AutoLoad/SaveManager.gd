@@ -14,6 +14,7 @@ var save_data = {
 	# IMPORTANT DATA
 	Scene = null,
 	Location = null,
+	Playtime = 0,
 
 	# Switches
 	ZeroEXP = false,
@@ -118,3 +119,6 @@ func set_level(value):   set_value("LV", value)
 
 func get_scene(): return get_value("Scene")
 func set_scene(value):   set_value("Scene", value)
+
+func get_playtime(): return get_value("Playtime")
+func set_playtime(value):   set_value("Playtime", value)
