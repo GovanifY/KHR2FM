@@ -1,0 +1,892 @@
+Yuugure AI:
+
+Type: Fixed
+Speed: Low
+Freq: Low
+
+Whatever that means
+
+Yuugure picture is always number 7
+
+anims are labelled this way:
+name_version_direction
+if version does not exist then direction only appears
+if a state change it stops execution DIRECTLY and go to the if state needed, you
+could see that as a set state; goto check_state
+Game ran at 30 frames so to get actual timing: X/30 seconds
+a hit is detected if ATTACK_YUUGURE == true and calculated using
+ANIMATION_BOSS_NUMBER damage counter.
+WARNING: I have transcripted only the main event, technically there are 3 other
+events running in parallel
+TODO: Those events actually contains bosses animations so I need to type them
+out
+Attack logic is also shown in animations so take a quick look at those!
+
+Ok I really hated writing this shit so I hope it'll be somwewhat useful at least
+
+
+if STATE==0:
+    //Stand
+    INVISIBLE_YUUGURE=OFF
+    if YUUGURE_X >= HERO_X:
+        DIRECTION_YUUGURE=0
+        stand_1()
+    else:
+        DIRECTION_YUUGURE=1
+        stand_2()
+    //Main
+    if BATTLE_START==ON:
+        if PARALISED_YUUGURE==OFF:
+            if YUUGURE_X >= HERO_X:
+                if DISTANCE <= 200:
+                    //Near
+                    r = random(0,4)
+                    if r == 0:
+                        STATE = 5
+                    if r == 1:
+                        STATE = 8
+                    if r == 2:
+                        STATE = 6
+                 else:
+                    //Far
+                    r = random(0,4)
+                    if r == 0:
+                        STATE = 7
+                    if r == 1:
+                        STATE = 4
+                    if r == 2:
+                        STATE = 4
+                    if r == 3:
+                        STATE = 9
+            else:
+                if DISTANCE >= -200:
+                    //Near
+                    r = random(0,4)
+                    if r == 0:
+                        STATE = 5
+                    if r == 1:
+                        STATE = 8
+                    if r == 2:
+                        STATE = 6
+                 else:
+                    //Far
+                    r = random(0,4)
+                    if r == 0:
+                        STATE = 7
+                    if r == 1:
+                        STATE = 4
+                    if r == 2:
+                        STATE = 4
+                    if r == 3:
+                        STATE = 9
+
+if STATE==1:
+    //Hit
+    INVISIBLE_YUUGURE=OFF
+    if DIRECTION_YUUGURE==0:
+        ATTACK_YUUGURE=OFF
+        ATTACK_ENEMY_4=OFF
+        ATTACK_HAPPENING_YUUGURE=OFF
+        YUUGURE_Y=HEARTLESS_Y
+        ANIMATION_BOSS=OFF
+        hit_1_1()
+        STATE=0
+    else:
+        ATTACK_YUUGURE=OFF
+        ATTACK_ENEMY_4=OFF
+        ATTACK_HAPPENING_YUUGURE=OFF
+        YUUGURE_Y=HEARTLESS_Y
+        ANIMATION_BOSS=OFF
+        hit_1_2()
+        STATE=0
+
+if STATE==2:
+    //Hit 2
+    INVISIBLE_YUUGURE=OFF
+    if DIRECTION_YUUGURE==0:
+        ATTACK_YUUGURE=OFF
+        ATTACK_ENEMY_4=OFF
+        ATTACK_HAPPENING_YUUGURE=OFF
+        YUUGURE_Y=HEARTLESS_Y
+        YUUGURE_X+=10
+        ANIMATION_BOSS=OFF
+        hit_2_1()
+        r = random(0,3)
+        if r == 0:
+            STATE=7
+        if r==1:
+            STATE=8
+        if r >= 2:
+            STATE=0
+    else:
+        ATTACK_YUUGURE=OFF
+        ATTACK_ENEMY_4=OFF
+        ATTACK_HAPPENING_YUUGURE=OFF
+        YUUGURE_Y=HEARTLESS_Y
+        ANIMATION_BOSS=OFF
+        hit_2_2()
+        r = random(0,3)
+        if r == 0:
+            STATE=7
+        if r==1:
+            STATE=8
+        if r >= 2:
+            STATE=0
+
+if STATE==3:
+    //Eject
+    DONT_MOVE_YUUGURE=OFF
+    INVISIBLE_YUUGURE=ON
+    if DIRECTION_YUUGURE==0:
+        ATTACK_YUUGURE=OFF
+        ATTACK_ENEMY_4=OFF
+        ATTACK_HAPPENING_YUUGURE=OFF
+        YUUGURE_Y=HEARTLESS_Y
+        PARALISED_YUUGURE=OFF
+        ANIMATION_BOSS=OFF
+        eject_1_1()
+        r = random(0,2)
+
+        if r == 0:
+            STATE=7
+        eject_2_1()
+
+        r = random(0,3)
+        if r == 0:
+            STATE=7
+        if r==1:
+            STATE=8
+        if r >= 2:
+            STATE=0
+    else:
+        ATTACK_YUUGURE=OFF
+        ATTACK_ENEMY_4=OFF
+        ATTACK_HAPPENING_YUUGURE=OFF
+        YUUGURE_Y=HEARTLESS_Y
+        PARALISED_YUUGURE=OFF
+        ANIMATION_BOSS=OFF
+        eject_1_2()
+
+        r = random(0,2)
+        if r == 0:
+            STATE=7
+        eject_2_2()
+
+        r = random(0,3)
+        if r == 0:
+            STATE=7
+        if r==1:
+            STATE=8
+        if r >= 2:
+            STATE=0
+
+if STATE==4:
+    //Walk
+    if YUUGURE_X >= HERO_X:
+        walk_1()
+        STATE = 0
+    else:
+        walk_2()
+        STATE = 0
+if STATE==5:
+    //Attack 1
+    if YUUGURE_X>=HERO_X:
+        attack_1_1()
+
+        r = random(0,3)
+        if r == 0:
+            STATE=9
+        if r==1:
+            STATE=6
+        if r >= 2:
+            STATE=0
+
+    else:
+        attack_1_2()
+
+        r = random(0,3)
+        if r == 0:
+            STATE=9
+        if r==1:
+            STATE=6
+        if r >= 2:
+            STATE=0
+
+if STATE==6:
+    //Attack 2
+    if YUUGURE_X >= HERO_X:
+        DIRECTION_YUUGURE=0
+        YUUGURE_Y=HEARTLESS_Y
+        DONT_MOVE_YUUGURE=OFF
+        INVISIBLE_YUUGURE=ON
+        attack_2_1()
+
+        r = random(0,3)
+        if r == 0:
+            STATE=7
+        else:
+            STATE=10
+    else:
+        DIRECTION_YUUGURE=0
+        YUUGURE_Y=HEARTLESS_Y
+        DONT_MOVE_YUUGURE=OFF
+        INVISIBLE_YUUGURE=ON
+        attack_2_2()
+
+        r = random(0,3)
+        if r == 0:
+            STATE=7
+        else:
+            STATE=10
+
+if STATE==7:
+    //Disappear
+    disappear()
+    r = random(0,2)
+    if r == 0:
+        STATE=5
+    else:
+        STATE=0
+
+if STATE==8:
+    //Back off
+    if DIRECTION_YUUGURE==0:
+        backoff_1()
+        r = random(0,1)
+        if r == 0:
+            STATE=9
+        else:
+            STATE=0
+    else:
+        backoff_2()
+        r = random(0,1)
+        if r == 0:
+            STATE=9
+        else:
+            STATE=0
+
+if STATE==9:
+    //Attack 3
+    INVISIBLE_YUUGURE=OFF
+    if YUUGURE_X>=HERO_X:
+        attack_3_1()
+        r = random(0,3)
+        if r == 0:
+            STATE=6
+        else:
+            STATE=0
+    else:
+        attack_3_2()
+        r = random(0,3)
+        if r == 0:
+            STATE=6
+        else:
+            STATE=0
+
+if STATE==10:
+    //Get down
+    DONT_MOVE_YUUGURE=OFF
+    INVISIBLE_YUUGURE=ON
+    if DIRECTION_YUUGURE==0:
+        getdown_1()
+        STATE=0
+    else:
+        getdown_2()
+        STATE=0
+
+hit_1_1():
+    erase picture 16, 17, 18
+    SE '175-Yuugure_003'
+    img_25
+    wait 2 frames
+    YUUGURE_X += 20
+    img_24
+    wait 1 frame
+    YUUGURE_X+=10
+    img_24
+    wait 1 frame
+    YUUGURE_X+=5
+    img_24
+    wait 1 frame
+    YUUGURE_X+=5
+    img_25
+    wait 1 frame
+
+hit_1_2():
+    erase picture 16, 17, 18
+    SE '175-Yuugure_003'
+    img_11
+    wait 2 frames
+    YUUGURE_X += 20
+    img_10
+    wait 1 frame
+    YUUGURE_X+=10
+    img_10
+    wait 1 frame
+    YUUGURE_X+=5
+    img_10
+    wait 1 frame
+    YUUGURE_X+=5
+    img_11
+    wait 1 frame
+
+hit_2_1():
+    erase picture 16, 17, 18
+    SE '173-Yuugure_001'
+    img_24
+    wait 1 frame
+    YUUGURE_X += 20
+    img_24
+    wait 1 frame
+    YUUGURE_X+=50
+    img_24
+    wait 1 frame
+    YUUGURE_X+=10
+    img_24
+    wait 1 frame
+    YUUGURE_X+=5
+    img_25
+    wait 1 frame
+    YUUGURE_X+=5
+    img_25
+    wait 1 frame
+
+
+hit_2_2():
+    erase picture 16, 17, 18
+    SE '173-Yuugure_001'
+    img_10
+    wait 1 frame
+    YUUGURE_X += 20
+    img_10
+    wait 1 frame
+    YUUGURE_X+=50
+    img_10
+    wait 1 frame
+    YUUGURE_X+=10
+    img_10
+    wait 1 frame
+    YUUGURE_X+=5
+    img_11
+    wait 1 frame
+    YUUGURE_X+=5
+    img_11
+    wait 1 frame
+
+
+eject_1_1():
+    erase picture 16, 17, 18
+    YUUGURE_X+=60
+    YUUGURE_Y-=50
+    SE '174-Yuugure_002'
+    img_18
+    wait 1 frame
+    erase picture 16
+    YUUGURE_X+=10
+    YUUGURE_Y-=25
+    img_18
+    wait 1 frame
+    YUUGURE_X+=10
+    YUUGURE_Y-=10
+    img_18
+    wait 1 frame
+    YUUGURE_X+=10
+    YUUGURE_Y-=5
+    img_18
+    wait 1 frame
+    YUUGURE_X+=10
+    YUUGURE_Y-=2
+    img_18
+    wait 1 frame
+    YUUGURE_X+=10
+    img_18
+    wait 1 frame
+    YUUGURE_X+=10
+    img_18
+    wait 1 frame
+    YUUGURE_X+=5
+    img_18
+    wait 1 frame
+    YUUGURE_X+=5
+    img_18
+    wait 1 frame
+    YUUGURE_X+=5
+    img_18
+    wait 1 frame
+    YUUGURE_X+=5
+    img_18
+    wait 1 frame
+    YUUGURE_X+=5
+    img_18
+    wait 1 frame
+    YUUGURE_X+=5
+    img_18
+    wait 1 frame
+
+eject_2_1():
+    YUUGURE_X+=5
+    img_18
+    wait 1 frame
+    YUUGURE_X+=5
+    YUUGURE_Y+=2
+    img_18
+    wait 1 frame
+    YUUGURE_X+=5
+    YUUGURE_Y+=2
+    img_26
+    wait 1 frame
+    YUUGURE_X+=2
+    YUUGURE_Y+=25
+    img_26
+    wait 1 frame
+    YUUGURE_X+=2
+    YUUGURE_Y+=25
+    img_26
+    wait 1 frame
+    SE '011-Step'
+    YUUGURE_X+=2
+    YUUGURE_Y=HEARTLESS_Y
+    img_20
+    wait 7 frames
+
+
+eject_1_2():
+    erase picture 16, 17, 18
+    YUUGURE_X-=60
+    YUUGURE_Y-=50
+    SE '174-Yuugure_002'
+    img_4
+    wait 1 frame
+    erase picture 16
+    YUUGURE_X-=10
+    YUUGURE_Y-=25
+    img_4
+    wait 1 frame
+    YUUGURE_X-=10
+    YUUGURE_Y-=10
+    img_4
+    wait 1 frame
+    YUUGURE_X-=10
+    YUUGURE_Y-=5
+    img_4
+    wait 1 frame
+    YUUGURE_X-=10
+    YUUGURE_Y-=2
+    img_4
+    wait 1 frame
+    YUUGURE_X-=10
+    img_4
+    wait 1 frame
+    YUUGURE_X-=10
+    img_4
+    wait 1 frame
+    YUUGURE_X-=5
+    img_4
+    wait 1 frame
+    YUUGURE_X-=5
+    img_4
+    wait 1 frame
+    YUUGURE_X-=5
+    img_4
+    wait 1 frame
+    YUUGURE_X-=5
+    img_4
+    wait 1 frame
+    YUUGURE_X-=5
+    img_4
+    wait 1 frame
+    YUUGURE_X-=5
+    img_4
+    wait 1 frame
+
+eject_2_2():
+    YUUGURE_X-=5
+    img_4
+    wait 1 frame
+    YUUGURE_X-=5
+    YUUGURE_Y+=2
+    img_4
+    wait 1 frame
+    YUUGURE_X-=5
+    YUUGURE_Y+=2
+    img_13
+    wait 1 frame
+    YUUGURE_X-=2
+    YUUGURE_Y+=25
+    img_12
+    wait 1 frame
+    YUUGURE_X-=2
+    YUUGURE_Y+=25
+    img_12
+    wait 1 frame
+    SE '011-Step'
+    YUUGURE_X-=2
+    YUUGURE_Y=HEARTLESS_Y
+    img_6
+    wait 7 frames
+
+disappear():
+    INVISIBLE_YUUGURE=ON
+    SE '129-Drive End'
+    r = random(0,1)
+    if r == 0:
+        SE '175-Yuugure_003
+    else:
+        SE '176-Yuugure_004'
+    //The 10 frames aren't done before waiting
+    //so in the wait 20 frames the first 10 frames
+    //are the one of the opacity change
+    //ALSO opacity isn't changed when loading new picture
+    //It is changed ONLY when another opacity change is made
+    opacity change 255 -> 0, 10 Frames
+    wait 20 frames
+    y = random(0,1)
+    YUUGURE_X=HERO_X
+    if y==0:
+        YUUGURE_X+=100
+        YUUGURE_Y=HEARTLESS_Y
+        wait 1 frame
+        img_14
+    else:
+        YUUGURE_X-=100
+        YUUGURE_Y=HEARTLESS_Y
+        wait 1 frame
+        img_0
+    wait 5 frames
+    opacity change 0 -> 255, 10 Frames
+    wait 10 frames
+    INVISIBLE_YUUGURE=OFF
+
+
+backoff_1():
+    SE '172-Yuugure_000'
+    img_22
+    wait 1 frame
+    YUUGURE_X+=70
+    img_22
+    wait 1 frame
+    YUUGURE_X+=40
+    img_22
+    wait 1 frame
+    YUUGURE_X+=20
+    img_22
+    wait 1 frame
+    YUUGURE_X+=10
+    img_22
+    wait 1 frame
+    YUUGURE_X+=10
+    img_22
+    wait 1 frame
+    YUUGURE_X+=5
+    img_22
+    wait 1 frame
+
+
+backoff_2():
+    SE '172-Yuugure_000'
+    img_8
+    wait 1 frame
+    YUUGURE_X-=70
+    img_8
+    wait 1 frame
+    YUUGURE_X-=40
+    img_8
+    wait 1 frame
+    YUUGURE_X-=20
+    img_8
+    wait 1 frame
+    YUUGURE_X-=10
+    img_8
+    wait 1 frame
+    YUUGURE_X-=10
+    img_8
+    wait 1 frame
+    YUUGURE_X-=5
+    img_8
+    wait 1 frame
+
+
+getdown_1():
+    YUUGURE_Y+=5
+    img_27b
+    wait 1 frame
+    YUUGURE_Y+=5
+    img_27b
+    wait 1 frame
+    YUUGURE_Y+=5
+    img_27b
+    wait 1 frame
+    YUUGURE_Y+=20
+    img_27b
+    wait 1 frame
+    img_27b
+    YUUGURE_Y+=40
+    wait 1 frame
+    img_27b
+    YUUGURE_Y+=60
+    wait 1 frame
+    img_20
+    YUUGURE_Y=HEARTLESS_Y
+    SE '134-Ground'
+    r = random(0,1)
+    if r == 0:
+        SE '175-Yuugure_003' 
+    if r==1:
+        SE '176-Yuugure_004' 
+    wait 8 frames
+
+
+getdown_2():
+    YUUGURE_Y+=5
+    img_13b
+    wait 1 frame
+    YUUGURE_Y+=5
+    img_13b
+    wait 1 frame
+    YUUGURE_Y+=5
+    img_13b
+    wait 1 frame
+    YUUGURE_Y+=20
+    img_13b
+    wait 1 frame
+    img_13b
+    YUUGURE_Y+=40
+    wait 1 frame
+    img_13b
+    YUUGURE_Y+=60
+    wait 1 frame
+    img_6
+    YUUGURE_Y=HEARTLESS_Y
+    SE '134-Ground'
+    r = random(0,1)
+    if r == 0:
+        SE '175-Yuugure_003' 
+    if r==1:
+        SE '176-Yuugure_004' 
+    wait 8 frames
+
+
+attack_1_1():
+    img_15
+    wait 3 frames
+    img_16
+    wait 3 frames
+    INVISIBLE_YUUGURE=OFF
+    r = random(0,1)
+    if r == 0:
+        SE '176-Yuugure_004' 
+    if r==1:
+        SE '183-Yuugure_011' 
+    YUUGURE_X-=10
+    if INVULNERABLE==OFF:
+        ATTACK_YUUGURE=ON
+    img_17
+    wait 1 frame
+    ANIMATION_BOSS_NUMBER=1
+    ANIMATION_BOSS=ON
+    YUUGURE_X-=5
+    img_17
+    wait 1 frame
+    ATTACK_YUUGURE=OFF
+    wait 3 frames
+
+
+attack_1_2():
+    img_1
+    wait 3 frames
+    img_2
+    wait 3 frames
+    INVISIBLE_YUUGURE=OFF
+    r = random(0,1)
+    if r == 0:
+        SE '176-Yuugure_004' 
+    if r==1:
+        SE '183-Yuugure_011' 
+    YUUGURE_X+=10
+    if INVULNERABLE==OFF:
+        ATTACK_YUUGURE=ON
+    img_3
+    wait 1 frame
+    ANIMATION_BOSS_NUMBER=1
+    ANIMATION_BOSS=ON
+    YUUGURE_X+=5
+    img_3
+    wait 1 frame
+    ATTACK_YUUGURE=OFF
+    wait 3 frames
+
+attack_2_1():
+    img_19
+    SE '172-Yuugure_000'
+    wait 1 frame
+    YUUGURE_Y-=40
+    img_19
+    wait 1 frame
+    YUUGURE_Y-=60
+    img_19
+    wait 1 frame
+    YUUGURE_Y-=5
+    img_26
+    wait 1 frame
+    YUUGURE_Y-=5
+    img_26
+    wait 1 frame
+    YUUGURE_Y-=5
+    img_26
+    r = random(0,1)
+    if r == 0:
+        SE '178-Yuugure_006' 
+    if r==1:
+        SE '177-Yuugure_005' 
+    ANIMATION_BOSS_NUMBER=2
+    ANIMATION_BOSS=ON
+    wait 25 frames
+    ANIMATION_BOSS_NUMBER=3
+    ANIMATION_BOSS=ON
+    img_27
+    r = random(0,1)
+    if r == 0:
+        SE '183-Yuugure_011' 
+    if r==1:
+        SE '184-Yuugure_012' 
+    wait 12 frames
+
+
+attack_2_2():
+    img_5
+    SE '172-Yuugure_000'
+    wait 1 frame
+    YUUGURE_Y-=40
+    img_5
+    wait 1 frame
+    YUUGURE_Y-=60
+    img_5
+    wait 1 frame
+    YUUGURE_Y-=5
+    img_12
+    wait 1 frame
+    YUUGURE_Y-=5
+    img_12
+    wait 1 frame
+    YUUGURE_Y-=5
+    img_12
+    r = random(0,1)
+    if r == 0:
+        SE '178-Yuugure_006' 
+    if r==1:
+        SE '177-Yuugure_005' 
+    ANIMATION_BOSS_NUMBER=2
+    ANIMATION_BOSS=ON
+    wait 25 frames
+    ANIMATION_BOSS_NUMBER=3
+    ANIMATION_BOSS=ON
+    img_13
+    r = random(0,1)
+    if r == 0:
+        SE '183-Yuugure_011' 
+    if r==1:
+        SE '184-Yuugure_012' 
+    wait 12 frames
+
+
+attack_3_1():
+    DIRECTION_YUUGURE=0
+    YUUGURE_Y=HEARTLESS_Y
+    img_15
+    ANIMATION_BOSS_NUMBER=4
+    ANIMATION_BOSS=ON
+    wait 15 frames
+    r = random(0,1)
+    if r == 0:
+        SE '175-Yuugure_003' 
+    if r==1:
+        SE '176-Yuugure_004' 
+    img_21
+    wait 20 frames
+
+attack_3_2():
+    DIRECTION_YUUGURE=1
+    YUUGURE_Y=HEARTLESS_Y
+    img_1
+    ANIMATION_BOSS_NUMBER=4
+    ANIMATION_BOSS=ON
+    wait 15 frames
+    r = random(0,1)
+    if r == 0:
+        SE '175-Yuugure_003' 
+    if r==1:
+        SE '176-Yuugure_004' 
+    img_7
+    wait 20 frames
+
+walk_1():
+    SE '175-Yuugure_003'
+    img_15
+    wait 1 frame
+    YUUGURE_X -=70
+    img_23
+    wait 1 frame
+    YUUGURE_X-=40
+    img_23
+    wait 1 frame
+    YUUGURE_X-=20
+    img_23
+    wait 1 frame
+    YUUGURE_X-=10
+    img_23
+    wait 1 frame
+    YUUGURE_X-=10
+    img_23
+    wait 1 frame
+    YUUGURE_X-=5
+    img_23
+    wait 1 frame
+    YUUGURE_X-=5
+    img_23
+    wait 1 frame
+    YUUGURE_X-=5
+    img_23
+    wait 1 frame
+    YUUGURE_X-=5
+    img_23
+    wait 1 frame
+
+walk_2():
+    SE '175-Yuugure_003'
+    img_1
+    wait 1 frame
+    YUUGURE_X +=70
+    img_9
+    wait 1 frame
+    YUUGURE_X+=40
+    img_9
+    wait 1 frame
+    YUUGURE_X+=20
+    img_9
+    wait 1 frame
+    YUUGURE_X+=10
+    img_9
+    wait 1 frame
+    YUUGURE_X+=10
+    img_9
+    wait 1 frame
+    YUUGURE_X+=5
+    img_9
+    wait 1 frame
+    YUUGURE_X+=5
+    img_9
+    wait 1 frame
+    YUUGURE_X+=5
+    img_9
+    wait 1 frame
+    YUUGURE_X+=5
+    img_9
+    wait 1 frame
+
+stand_1():
+    img_14
+    wait 7 frames
+
+stand_2():
+    img_0
+    wait 7 frames
