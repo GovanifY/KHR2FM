@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=1]
+[gd_scene load_steps=35 format=1]
 
 [ext_resource path="res://GAME/Splash/Title.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Background_00.png" type="Texture" id=2]
@@ -12,10 +12,13 @@
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Logo_06_2.png" type="Texture" id=10]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=11]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Particle.png" type="Texture" id=12]
-[ext_resource path="res://GAME/Splash/TitleOption.tscn" type="PackedScene" id=13]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_cursor.png" type="Texture" id=14]
-[ext_resource path="res://GAME/Splash/New/NG_Window.tscn" type="PackedScene" id=15]
-[ext_resource path="res://GAME/Splash/Save/Load_Window.tscn" type="PackedScene" id=16]
+[ext_resource path="res://SCENES/Button/KHR2_Button.tscn" type="PackedScene" id=13]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_selected_sbx.tres" type="StyleBox" id=14]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_normal_sbx.tres" type="StyleBox" id=15]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_icon_normal.png" type="Texture" id=16]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_cursor.png" type="Texture" id=17]
+[ext_resource path="res://GAME/Splash/New/NG_Window.tscn" type="PackedScene" id=18]
+[ext_resource path="res://GAME/Splash/Save/Load_Window.tscn" type="PackedScene" id=19]
 
 [sub_resource type="StyleBoxFlat" id=1]
 
@@ -1129,28 +1132,67 @@ __meta__ = {
 [node name="New Game" parent="Options" instance=ExtResource( 13 )]
 
 focus_neighbour/top = NodePath("../Quit Game")
+size_flags/vertical = 0
+size_flags/stretch_ratio = 128.0
 margin/top = 26.0
+margin/right = 834.0
 margin/bottom = 54.0
+custom_styles/hover = ExtResource( 14 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/focus = ExtResource( 14 )
+custom_styles/disabled = ExtResource( 15 )
+custom_styles/normal = ExtResource( 15 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_constants/hseparation = 10
 text = "TITLE_NEW_GAME"
+icon = ExtResource( 16 )
+align = 0
 
 [node name="Load Game" parent="Options" instance=ExtResource( 13 )]
 
+size_flags/vertical = 0
+size_flags/stretch_ratio = 128.0
 margin/top = 69.0
+margin/right = 834.0
 margin/bottom = 97.0
+custom_styles/hover = ExtResource( 14 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/focus = ExtResource( 14 )
+custom_styles/disabled = ExtResource( 15 )
+custom_styles/normal = ExtResource( 15 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_constants/hseparation = 10
 text = "TITLE_LOAD_GAME"
+icon = ExtResource( 16 )
+align = 0
 
 [node name="Quit Game" parent="Options" instance=ExtResource( 13 )]
 
 focus_neighbour/bottom = NodePath("../New Game")
+size_flags/vertical = 0
+size_flags/stretch_ratio = 128.0
 margin/top = 112.0
+margin/right = 834.0
 margin/bottom = 140.0
+custom_styles/hover = ExtResource( 14 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/focus = ExtResource( 14 )
+custom_styles/disabled = ExtResource( 15 )
+custom_styles/normal = ExtResource( 15 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_constants/hseparation = 10
 text = "TITLE_QUIT_GAME"
+icon = ExtResource( 16 )
+align = 0
 
 [node name="Cursor" type="Sprite" parent="Options"]
 
 editor/display_folded = true
 transform/pos = Vector2( 12, 40 )
-texture = ExtResource( 14 )
+texture = ExtResource( 17 )
 offset = Vector2( 2, 0 )
 __meta__ = {
 "_edit_lock_": true
@@ -1167,25 +1209,13 @@ playback/speed = 0.4
 blend_times = [  ]
 autoplay = "Out_In"
 
-[node name="BG_New" parent="." instance=ExtResource( 15 )]
+[node name="BG_New" parent="." instance=ExtResource( 18 )]
 
 visibility/visible = false
 visibility/opacity = 0.0
 
-[node name="BG_Load" parent="." instance=ExtResource( 16 )]
+[node name="BG_Load" parent="." instance=ExtResource( 19 )]
 
 visibility/visible = false
-
-[connection signal="focus_enter" from="Options/New Game" to="Options/New Game/SE" method="play" binds= [ "System_03" ]]
-
-[connection signal="pressed" from="Options/New Game" to="Options/New Game/SE" method="play" binds= [ "System_04" ]]
-
-[connection signal="focus_enter" from="Options/Load Game" to="Options/Load Game/SE" method="play" binds= [ "System_03" ]]
-
-[connection signal="pressed" from="Options/Load Game" to="Options/Load Game/SE" method="play" binds= [ "System_04" ]]
-
-[connection signal="focus_enter" from="Options/Quit Game" to="Options/Quit Game/SE" method="play" binds= [ "System_03" ]]
-
-[connection signal="pressed" from="Options/Quit Game" to="Options/Quit Game/SE" method="play" binds= [ "System_04" ]]
 
 
