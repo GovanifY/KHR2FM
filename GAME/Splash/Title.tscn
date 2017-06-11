@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=1]
+[gd_scene load_steps=36 format=1]
 
 [ext_resource path="res://GAME/Splash/Title.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Background_00.png" type="Texture" id=2]
@@ -16,9 +16,10 @@
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_selected_sbx.tres" type="StyleBox" id=14]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_normal_sbx.tres" type="StyleBox" id=15]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_icon_normal.png" type="Texture" id=16]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_cursor.png" type="Texture" id=17]
-[ext_resource path="res://GAME/Splash/New/NG_Window.tscn" type="PackedScene" id=18]
-[ext_resource path="res://GAME/Splash/Save/Load_Window.tscn" type="PackedScene" id=19]
+[ext_resource path="res://GAME/Splash/TitleOption.gd" type="Script" id=17]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_cursor.png" type="Texture" id=18]
+[ext_resource path="res://GAME/Splash/New/NG_Window.tscn" type="PackedScene" id=19]
+[ext_resource path="res://GAME/Splash/Save/Load_Window.tscn" type="PackedScene" id=20]
 
 [sub_resource type="StyleBoxFlat" id=1]
 
@@ -1112,7 +1113,6 @@ __meta__ = {
 
 [node name="Options" type="VBoxContainer" parent="."]
 
-editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
@@ -1148,6 +1148,7 @@ custom_constants/hseparation = 10
 text = "TITLE_NEW_GAME"
 icon = ExtResource( 16 )
 align = 0
+script/script = ExtResource( 17 )
 
 [node name="Load Game" parent="Options" instance=ExtResource( 13 )]
 
@@ -1167,6 +1168,7 @@ custom_constants/hseparation = 10
 text = "TITLE_LOAD_GAME"
 icon = ExtResource( 16 )
 align = 0
+script/script = ExtResource( 17 )
 
 [node name="Quit Game" parent="Options" instance=ExtResource( 13 )]
 
@@ -1187,12 +1189,13 @@ custom_constants/hseparation = 10
 text = "TITLE_QUIT_GAME"
 icon = ExtResource( 16 )
 align = 0
+script/script = ExtResource( 17 )
 
 [node name="Cursor" type="Sprite" parent="Options"]
 
 editor/display_folded = true
 transform/pos = Vector2( 12, 40 )
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 offset = Vector2( 2, 0 )
 __meta__ = {
 "_edit_lock_": true
@@ -1209,12 +1212,12 @@ playback/speed = 0.4
 blend_times = [  ]
 autoplay = "Out_In"
 
-[node name="BG_New" parent="." instance=ExtResource( 18 )]
+[node name="BG_New" parent="." instance=ExtResource( 19 )]
 
 visibility/visible = false
 visibility/opacity = 0.0
 
-[node name="BG_Load" parent="." instance=ExtResource( 19 )]
+[node name="BG_Load" parent="." instance=ExtResource( 20 )]
 
 visibility/visible = false
 
