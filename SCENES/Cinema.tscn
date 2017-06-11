@@ -67,4 +67,6 @@ __meta__ = {
 
 [node name="Pause" parent="." instance=ExtResource( 3 )]
 
+visibility/visible = false
+
 

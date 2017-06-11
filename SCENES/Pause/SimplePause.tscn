@@ -4,7 +4,6 @@
 [ext_resource path="res://ASSETS/LANG/FONTS/texgyreadventor/texgyreadventor-bold.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://SCENES/Button/KHR2_Button.tscn" type="PackedScene" id=3]
 
-
 [sub_resource type="StyleBoxFlat" id=1]
 
 content_margin/left = -1.0
@@ -28,7 +27,6 @@ font/font = ExtResource( 2 )
 [node name="Pause" type="Panel"]
 
 process/pause_mode = 2
-visibility/visible = false
 visibility/self_opacity = 0.7
 anchor/right = 1
 anchor/bottom = 1
@@ -74,18 +72,19 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Options" type="ButtonGroup" parent="."]
+[node name="Options" type="VBoxContainer" parent="."]
 
 anchor/left = 3
 anchor/right = 3
-focus/ignore_mouse = false
-focus/stop_mouse = false
+focus/ignore_mouse = true
+focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 100.0
 margin/top = 242.0
 margin/right = -100.0
 margin/bottom = 324.0
+custom_constants/separation = 5
 alignment = 1
 __meta__ = {
 "_edit_lock_": true
@@ -93,18 +92,19 @@ __meta__ = {
 
 [node name="Resume" parent="Options" instance=ExtResource( 3 )]
 
+focus_neighbour/top = NodePath("../Skip")
+focus_neighbour/bottom = NodePath("../Skip")
 margin/right = 200.0
 margin/bottom = 53.0
-toggle_mode = true
-click_on_press = true
 text = "PAUSE_CONTINUE"
 
 [node name="Skip" parent="Options" instance=ExtResource( 3 )]
 
-margin/top = 53.0
+focus_neighbour/top = NodePath("../Resume")
+focus_neighbour/bottom = NodePath("../Resume")
+margin/top = 58.0
 margin/right = 200.0
-margin/bottom = 106.0
-toggle_mode = true
+margin/bottom = 111.0
 click_on_press = true
 text = "PAUSE_SKIP"
 

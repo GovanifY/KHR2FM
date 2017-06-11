@@ -4,11 +4,14 @@ extends Node
 # Constants
 enum PAUSE_CONTROLS { PAUSE_BUTTON_CONTINUE, PAUSE_BUTTON_SKIP }
 
+# Instance members
+onready var Options = get_node("Options")
+
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	var options = get_node("Options")
+	hide()
 	_set_availability(PAUSE_BUTTON_SKIP, true)
 
 	# Connecting pause-behavior signals
@@ -16,8 +19,8 @@ func _ready():
 	SceneLoader.connect("scene_was_pushed", self, "_set_availability", [PAUSE_BUTTON_SKIP, false])
 
 	# Connecting button signals
-	for i in range(0, options.get_child_count()):
-		var button = options.get_child(i)
+	for i in range(0, Options.get_child_count()):
+		var button = Options.get_child(i)
 		button.connect("pressed", self, "_pause_controls", [i])
 
 #######################
@@ -29,6 +32,12 @@ func _set_availability(button_idx, value):
 
 func _pressed_pause():
 	set_hidden(!get_tree().is_paused()) # Showing screen
+
+	if get_tree().is_paused():
+		Options.get_child(0).grab_focus()
+		# TODO: play SE
+	else:
+		pass # TODO: play dismissal SE
 
 func _pause_controls(button_idx):
 	KHR2.pause_game()
