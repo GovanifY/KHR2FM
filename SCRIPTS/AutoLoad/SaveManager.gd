@@ -56,19 +56,44 @@ static func is_save_file(filename):
 ####################
 ### Main Methods ###
 ####################
-func new_game():
-	# TODO: Set the stats for a new game depending on the difficulty and ZeroEXP
-	return false
-
-func load_game(slot_idx):
+func get_save(slot_idx):
 	var path = fmt_path(slot_idx)
 	var savegame = File.new()
 	if !savegame.file_exists(path):
 		return false # We don't have a save to load
 
-	savegame.open(path, File.READ)
-	save_data = savegame.get_var() # FIXME: It's much more complicated than this
+	savegame.open(path, File.READ) # FIXME: Open encrypted
+	var ret = savegame.get_var() # FIXME: It's much more complicated than this
+	savegame.close()
 
+	return ret
+
+func get_save_list():
+	var dir = Directory.new()
+	if dir.open("user://") != OK:
+		return -1
+
+	var list = []
+
+	dir.list_dir_begin()
+	var filename = dir.get_next()
+	while (filename != ""):
+		if !dir.current_is_dir() && is_save_file(filename):
+			list.push_back(filename)
+		filename = dir.get_next()
+
+	return list
+
+func get_save_count():
+	return get_save_list().size()
+
+# Wrapper functions
+func new_game():
+	# TODO: Set the stats for a new game depending on the difficulty and ZeroEXP
+	return false
+
+func load_game(slot_idx):
+	save_data = get_save(slot_idx)
 	return true
 
 func save_game(slot_idx):
@@ -77,27 +102,11 @@ func save_game(slot_idx):
 
 	_assemble_data()
 
-	savegame.open(path, File.WRITE)
+	savegame.open(path, File.WRITE) # FIXME: Open encrypted
 	savegame.store_var(save_data) # FIXME: It's much more complicated than this
 	savegame.close()
 
 	return true
-
-func get_save_count():
-	var dir = Directory.new()
-	if dir.open("user://") != OK:
-		return -1
-
-	var counter = 0
-
-	dir.list_dir_begin()
-	var filename = dir.get_next()
-	while (filename != ""):
-		if !dir.current_is_dir() && is_save_file(filename):
-			counter += 1
-		filename = dir.get_next()
-
-	return counter
 
 ####################
 ###   Modifiers  ###
