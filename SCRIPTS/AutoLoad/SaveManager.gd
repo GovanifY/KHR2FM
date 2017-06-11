@@ -44,7 +44,7 @@ func _has_key(key):
 func _assemble_data():
 	# FIXME: Fill in the blanks
 	save_data.scene = get_tree().get_current_scene().get_filename()
-	#save_data.location = 
+	save_data.location = Globals.get("World")
 	save_data.playtime_hrs = Globals.get("PlayTimeHours")
 	save_data.playtime_min = Globals.get("PlayTimeMinutes")
 
