@@ -1,13 +1,21 @@
-[gd_scene format=1]
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://SCRIPTS/Map/MapPlan.gd" type="Script" id=1]
 
 [node name="Height" type="YSort"]
 
 sort/enabled = true
-__meta__ = { "_edit_lock_":true }
+script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+world_name = ""
 
 [node name="Map" type="Sprite" parent="."]
 
 centered = false
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 
