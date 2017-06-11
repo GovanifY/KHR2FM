@@ -41,7 +41,7 @@ samples/system_selected = {
 
 [node name="SE" type="SamplePlayer"]
 
-config/polyphony = 1
+config/polyphony = 2
 config/samples = SubResource( 1 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
