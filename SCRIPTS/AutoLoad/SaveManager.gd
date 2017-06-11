@@ -12,19 +12,19 @@ const SAVE_EXT  = "save"
 # Serializable dictionary filled with the most important info for a save file
 var save_data = {
 	# IMPORTANT DATA
-	Scene = null,
-	Location = null,
-	Playtime = 0,
+	"scene"    : null,
+	"location" : null,
+	"playtime" : 0,
 
 	# Switches
-	ZeroEXP = false,
+	"zero_exp" : false,
 	# Basic stats
-	LV = 1,
-	HP = 10,
-	Attack = 1,
-	Defense = 1,
+	"lv"       : 1,
+	"hp"       : 10,
+	"attack"   : 1,
+	"defense"  : 1,
 	# Stat adders
-	Keyblade = "",
+	"keyblade" : "",
 	# TODO: Items, magic, abilities, limits
 }
 
@@ -41,7 +41,7 @@ func _has_key(key):
 	return has
 
 func _assemble_data():
-	save_data.Scene = get_tree().get_current_scene().get_filename()
+	save_data.scene = get_tree().get_current_scene().get_filename()
 	# TODO: Do rest of the save data
 
 ########################
@@ -123,11 +123,11 @@ func set_value(key, value):
 
 # In addition to these above, you can write methods that have more verbose names
 # so as to have more legible code when accessing this script.
-func get_level(): return get_value("LV")
-func set_level(value):   set_value("LV", value)
+func get_level(): return get_value("lv")
+func set_level(value):   set_value("lv", value)
 
-func get_scene(): return get_value("Scene")
-func set_scene(value):   set_value("Scene", value)
+func get_scene(): return get_value("scene")
+func set_scene(value):   set_value("scene", value)
 
-func get_playtime(): return get_value("Playtime")
-func set_playtime(value):   set_value("Playtime", value)
+func get_playtime(): return get_value("playtime")
+func set_playtime(value):   set_value("playtime", value)
