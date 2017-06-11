@@ -2,10 +2,11 @@
 
 [ext_resource path="res://GAME/Splash/New/NG_Window.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/New/Mode_00.png" type="Texture" id=2]
-[ext_resource path="res://SCENES/KHR2_Button.tscn" type="PackedScene" id=3]
+[ext_resource path="res://SCENES/Button/KHR2_Button.tscn" type="PackedScene" id=3]
 [ext_resource path="res://GAME/Splash/New/difficulty_selected.tres" type="StyleBox" id=4]
 [ext_resource path="res://GAME/Splash/New/difficulty_normal.tres" type="StyleBox" id=5]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=6]
+
 
 [sub_resource type="StyleBoxFlat" id=1]
 

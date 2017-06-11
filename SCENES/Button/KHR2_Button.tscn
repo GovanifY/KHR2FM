@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=1]
+
+[ext_resource path="res://SCENES/Button/KHR2_Button_selected.tres" type="StyleBox" id=1]
+[ext_resource path="res://SCENES/Button/KHR2_Button_normal.tres" type="StyleBox" id=2]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOptions_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://ASSETS/SE/System/System_03.wav" type="Sample" id=4]
+[ext_resource path="res://ASSETS/SE/System/System_04.wav" type="Sample" id=5]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "func _ready():
+	var se = get_node(\"SE\")
+	connect(\"pressed\", se, \"play\", [\"System_04\"])
+	connect(\"focus_enter\", se, \"play\", [\"System_03\"])
+"
+
+[sub_resource type="SampleLibrary" id=2]
+
+samples/System_03 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 4 )
+}
+samples/System_04 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 5 )
+}
+
+[node name="KHR2_Button" type="Button"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 34.0
+margin/bottom = 48.0
+custom_styles/hover = ExtResource( 1 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 1 )
+custom_styles/disabled = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "OPTION"
+flat = false
+script/script = SubResource( 1 )
+
+[node name="SE" type="SamplePlayer" parent="."]
+
+config/polyphony = 1
+config/samples = SubResource( 2 )
+default/volume_db = 0.0
+default/pitch_scale = 1.0
+default/pan = 0.0
+default/depth = 0.0
+default/height = 0.0
+default/filter/type = 0
+default/filter/cutoff = 5000.0
+default/filter/resonance = 1.0
+default/filter/gain = 1.0
+default/reverb_room = 2
+default/reverb_send = 0.0
+default/chorus_send = 0.0
+
+

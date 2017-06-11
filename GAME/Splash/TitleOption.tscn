@@ -1,10 +1,11 @@
 [gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://SCENES/KHR2_Button.tscn" type="PackedScene" id=1]
+[ext_resource path="res://SCENES/Button/KHR2_Button.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_selected_sbx.tres" type="StyleBox" id=2]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_normal_sbx.tres" type="StyleBox" id=3]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_icon_normal.png" type="Texture" id=4]
 [ext_resource path="res://GAME/Splash/TitleOption.gd" type="Script" id=5]
+
 
 [node name="TitleOption" instance=ExtResource( 1 )]
 
