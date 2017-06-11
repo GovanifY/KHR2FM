@@ -1113,6 +1113,7 @@ __meta__ = {
 
 [node name="Options" type="VBoxContainer" parent="."]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true

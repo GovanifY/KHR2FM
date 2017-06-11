@@ -8,7 +8,7 @@ enum OPTION_CONTROLS { OPTION_MAIN_NEW, OPTION_MAIN_LOAD, OPTION_MAIN_QUIT }
 
 # Main Menu instance members
 onready var AnimsMenu = get_node("Anims_MM")
-onready var Options   = get_node("Options")
+onready var Options   = get_node("Options").get_children()
 onready var Cursor    = get_node("Options/Cursor")
 onready var cursor_inc = Cursor.get_texture().get_size() / 4
 
@@ -24,8 +24,8 @@ func _ready():
 	AnimsMenu.connect("animation_started", self, "_on_flash_end")
 
 	# Connecting main options
-	for i in range(0, Options.get_child_count()-1):
-		var button = Options.get_child(i)
+	for i in range(0, Options.size()-1):
+		var button = Options[i]
 		button.set_disabled(true)
 		button.connect("pressed", self, "_pressed_main", [i])
 		button.connect("focus_enter", self, "_set_cursor_position", [button])
@@ -51,12 +51,17 @@ func _ready():
 func _input(event):
 	if event.is_pressed() && !event.is_echo():
 		if event.is_action("ui_cancel"):
+			# Reset focus to appropriate button
+			Cursor.show()
+			for i in range(0, Options.size()-1):
+				Options[i].set_focus_mode(FOCUS_ALL)
+
 			# FIXME: this is hacky code. This is dumb.
 			if NewGame.is_visible():
-				Options.get_child(0).grab_focus()
+				Options[0].grab_focus()
 				NewGame.anims.play("Fade Out")
 			elif LoadGame.is_visible():
-				Options.get_child(1).grab_focus()
+				Options[1].grab_focus()
 				LoadGame.anims.play("Fade Out")
 
 #######################
@@ -65,12 +70,11 @@ func _input(event):
 func _on_flash_end(name):
 	if name != "Flash": return false
 
-	for i in range(0, Options.get_child_count()-1):
-		var button = Options.get_child(i)
-		button.set_disabled(false)
+	for i in range(0, Options.size()-1):
+		Options[i].set_disabled(false)
 
 	# Making sure the first Option is selected
-	Options.get_child(0).grab_focus()
+	Options[0].grab_focus()
 
 	# Making sure we can use other input
 	set_process_input(true)
@@ -80,6 +84,13 @@ func _set_cursor_position(button):
 	Cursor.set_pos(pos)
 
 func _pressed_main(button_idx):
+	# General rules
+	if button_idx in [OPTION_MAIN_NEW, OPTION_MAIN_LOAD]:
+		Cursor.hide()
+		for i in range(0, Options.size()-1):
+			Options[i].set_focus_mode(FOCUS_NONE)
+
+	# Specific rules
 	if button_idx == OPTION_MAIN_NEW:
 		NewGame.anims.play("Fade In")
 
@@ -87,6 +98,7 @@ func _pressed_main(button_idx):
 		LoadGame.anims.play("Fade In")
 
 	elif button_idx == OPTION_MAIN_QUIT:
+		AudioRoom.fade_out(1)
 		AnimsMenu.connect("finished", get_tree(), "quit")
 		AnimsMenu.play("Close")
 
