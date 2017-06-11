@@ -19,7 +19,6 @@ func _ready():
 		button.connect("pressed", self, "_pressed_new", [i])
 
 	connect("draw", self, "_show_up")
-	connect("hide", self, "_dismiss")
 
 #######################
 ### Signal routines ###
@@ -29,9 +28,6 @@ func _show_up():
 	Options.get_child(0).grab_focus()
 
 	set_process_input(true)
-
-func _dismiss():
-	set_process_input(false)
 
 func _pressed_new(button_idx):
 	if button_idx == OPTION_DIFFICULTY_NORMAL:
