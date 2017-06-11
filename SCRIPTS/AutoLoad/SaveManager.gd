@@ -6,10 +6,14 @@ extends Node
 # This data can be serialized and channeled to Save files.                     #
 ################################################################################
 
+const SAVE_NAME = "slot"
+const SAVE_EXT  = "save"
+
 # Serializable dictionary filled with the most important info for a save file
 var save_data = {
 	# IMPORTANT DATA
 	Scene = null,
+	Location = null,
 
 	# Switches
 	ZeroEXP = false,
@@ -43,7 +47,10 @@ func _assemble_data():
 ### Helper functions ###
 ########################
 static func fmt_path(slot_idx):
-	return "user://slot" + String(slot_idx) + ".save"
+	return "user://" + SAVE_NAME + String(slot_idx) + "." + SAVE_EXT
+
+static func is_save_file(filename):
+	return filename.begins_with(SAVE_NAME) && filename.extension() == SAVE_EXT
 
 ####################
 ### Main Methods ###
@@ -61,9 +68,6 @@ func load_game(slot_idx):
 	savegame.open(path, File.READ)
 	save_data = savegame.get_var() # FIXME: It's much more complicated than this
 
-	print("Loaded!")
-	print(save_data)
-
 	return true
 
 func save_game(slot_idx):
@@ -76,13 +80,23 @@ func save_game(slot_idx):
 	savegame.store_var(save_data) # FIXME: It's much more complicated than this
 	savegame.close()
 
-	print("Saved!")
-	print(save_data)
-
 	return true
 
 func get_save_count():
-	return 0 # TODO
+	var dir = Directory.new()
+	if dir.open("user://") != OK:
+		return -1
+
+	var counter = 0
+
+	dir.list_dir_begin()
+	var filename = dir.get_next()
+	while (filename != ""):
+		if !dir.current_is_dir() && is_save_file(filename):
+			counter += 1
+		filename = dir.get_next()
+
+	return counter
 
 ####################
 ###   Modifiers  ###
