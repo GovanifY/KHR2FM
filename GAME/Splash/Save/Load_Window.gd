@@ -22,16 +22,34 @@ onready var Info = {
 ######################
 func _ready():
 	var save_template = Slots.get_node("Save")
-	var count = SaveManager.get_save_count()
+	save_template.hide()
+	save_template.set_text("")
+
+	var save_list = SaveManager.get_save_list()
+	var count = save_list.size()
 	for i in range(0, count):
+		var data = SaveManager.get_save(i)
+		if data.empty(): # Save file doesn't exist (only happens in debug)
+			continue
+
 		var node = save_template.duplicate(true)
 		var name = "Save " + String(i+1)
 
 		node.set_name(name)
-		node.set_text(name)
 		node.connect("focus_enter", self, "_recenter", [node])
 		node.connect("pressed", self, "_pressed_load", [i])
-		# TODO: Populate with KHR2 icons (location + playtime + avatar)
+
+		# Populating button with information
+		var hrs  = String(data.playtime_hrs).pad_zeros(2)
+		var mins = String(data.playtime_min).pad_zeros(2)
+		var location = data.location if not data.location.empty() else "null"
+
+		node.get_node("LV").set_text("LV." + String(data.lv))
+		node.get_node("Difficulty").set_text(data.difficulty)
+		node.get_node("Location").set_text(data.location)
+		node.get_node("Playtime").set_text(hrs + ":" + mins)
+
+		# TODO: fill in the images of the world (saved at) and the avatar
 
 		node.show()
 		Slots.add_child(node)
