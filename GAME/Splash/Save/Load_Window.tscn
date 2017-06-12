@@ -1,10 +1,10 @@
-[gd_scene load_steps=23 format=1]
+[gd_scene load_steps=21 format=1]
 
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_02.png" type="Texture" id=1]
 [ext_resource path="res://GAME/Splash/Save/Load_Window.gd" type="Script" id=2]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_01_back.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_01_front.png" type="Texture" id=4]
-[ext_resource path="res://ASSETS/LANG/FONTS/KH2_ALL_MENU_I.TTF" type="DynamicFontData" id=5]
+[ext_resource path="res://ASSETS/LANG/FONTS/KH2_menu/KH2_menu_general.tres" type="DynamicFont" id=5]
 [ext_resource path="res://SCENES/Button/KHR2_Button.tscn" type="PackedScene" id=6]
 [ext_resource path="res://GAME/Splash/Save/save_selected.tres" type="StyleBox" id=7]
 [ext_resource path="res://GAME/Splash/Save/save_normal.tres" type="StyleBox" id=8]
@@ -185,14 +185,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="DynamicFont" id=7]
-
-font/size = 16
-font/use_mipmaps = false
-font/use_filter = false
-font/font = ExtResource( 5 )
-
-[sub_resource type="StyleBoxTexture" id=8]
+[sub_resource type="StyleBoxTexture" id=7]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -214,16 +207,9 @@ draw_center = true
 font/size = 16
 font/use_mipmaps = false
 font/use_filter = false
-font/font = ExtResource( 5 )
-
-[sub_resource type="DynamicFont" id=10]
-
-font/size = 16
-font/use_mipmaps = false
-font/use_filter = false
 font/font = ExtResource( 10 )
 
-[sub_resource type="StyleBoxTexture" id=11]
+[sub_resource type="StyleBoxTexture" id=10]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -319,7 +305,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = ExtResource( 5 )
 text = "TITLE_SAVE"
 align = 1
 valign = 1
@@ -390,6 +376,7 @@ custom_styles/normal = ExtResource( 8 )
 [node name="Info" type="Panel" parent="."]
 
 editor/display_folded = true
+visibility/visible = false
 anchor/left = 3
 anchor/top = 3
 anchor/right = 3
@@ -402,7 +389,7 @@ margin/left = 200.0
 margin/top = 100.0
 margin/right = -200.0
 margin/bottom = -60.0
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -418,7 +405,7 @@ margin/left = 20.0
 margin/top = 5.0
 margin/right = 20.0
 margin/bottom = 40.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = ExtResource( 5 )
 text = "Info"
 align = 1
 valign = 1
@@ -441,7 +428,7 @@ margin/left = 20.0
 margin/top = 50.0
 margin/right = 20.0
 margin/bottom = 20.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 9 )
 text = "INSERT TEXT HERE"
 align = 1
 valign = 1
@@ -465,7 +452,7 @@ margin/left = 0.0
 margin/top = 116.0
 margin/right = 0.0
 margin/bottom = 0.0
-custom_styles/panel = SubResource( 11 )
+custom_styles/panel = SubResource( 10 )
 __meta__ = {
 "_edit_lock_": true
 }
