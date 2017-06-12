@@ -50,7 +50,8 @@ func _show_up():
 		Slots.get_child(1).grab_focus()
 	else:
 		Info.msg.set_text("TITLE_SAVE_NOT_FOUND")
-		yield(anims, "finished")
+		if anims.is_playing():
+			yield(anims, "finished")
 		anims.play("Show Info")
 
 func _recenter(button):
