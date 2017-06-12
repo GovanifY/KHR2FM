@@ -19,6 +19,9 @@ var save_data = {
 	"playtime_hrs" : 0,
 	"playtime_min" : 0,
 
+	# Save-specific content
+	"avatar"       : "",
+
 	# Switches
 	"zero_exp"     : false,
 	# Basic stats
@@ -52,6 +55,8 @@ func _assemble_data():
 	save_data.playtime_hrs = Globals.get("PlayTimeHours")
 	save_data.playtime_min = Globals.get("PlayTimeMinutes")
 
+	save_data.avatar = random_avatar()
+
 	#save_data.zero_exp =
 
 	#save_data.lv =
@@ -69,6 +74,27 @@ static func fmt_path(slot_idx):
 
 static func is_save_file(filename):
 	return filename.begins_with(SAVE_NAME) && filename.extension() == SAVE_EXT
+
+static func random_avatar():
+	var dir = Directory.new()
+	if dir.open("res://ASSETS/GFX/Title/MainMenu/Save/Avatars") != OK:
+		return ""
+
+	var list = []
+
+	dir.list_dir_begin()
+	var filename = dir.get_next()
+	while (filename != ""):
+		if !dir.current_is_dir():
+			list.push_back(filename)
+		filename = dir.get_next()
+
+	if list.empty():
+		return ""
+
+	randomize()
+	var rand = randi() % list.size()
+	return list[rand]
 
 ####################
 ### Main Methods ###
