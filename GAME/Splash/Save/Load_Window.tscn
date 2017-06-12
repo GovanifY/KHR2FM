@@ -186,14 +186,14 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=7]
 
 font/size = 21
 font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 9 )
 
-[sub_resource type="StyleBoxTexture" id=7]
+[sub_resource type="StyleBoxTexture" id=8]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -434,7 +434,7 @@ margin/left = 0.05
 margin/top = 0.05
 margin/right = 0.3
 margin/bottom = 0.5
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 7 )
 text = "LV."
 valign = 1
 percent_visible = 1.0
@@ -458,7 +458,7 @@ margin/left = 0.05
 margin/top = 0.5
 margin/right = 0.5
 margin/bottom = 0.5
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 7 )
 text = "Location"
 valign = 1
 percent_visible = 1.0
@@ -482,7 +482,7 @@ margin/left = 0.65
 margin/top = 0.05
 margin/right = 0.95
 margin/bottom = 0.5
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 7 )
 text = "DIFFICULTY"
 align = 2
 valign = 1
@@ -507,7 +507,7 @@ margin/left = 0.75
 margin/top = 0.5
 margin/right = 0.95
 margin/bottom = 0.95
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 7 )
 text = "00:00"
 align = 2
 valign = 3
@@ -534,7 +534,7 @@ margin/left = 200.0
 margin/top = 100.0
 margin/right = -200.0
 margin/bottom = -60.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 8 )
 __meta__ = {
 "_edit_lock_": true
 }

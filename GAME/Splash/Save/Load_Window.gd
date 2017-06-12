@@ -47,12 +47,15 @@ func _ready():
 		var hrs  = String(data.playtime_hrs).pad_zeros(2)
 		var mins = String(data.playtime_min).pad_zeros(2)
 		var location = data.location if not data.location.empty() else "null"
+		var difficulty = data.difficulty if data.difficulty != null else "null"
+		var location = data.location if data.location != null else "null"
+
 		var img_world = PATH_IMG_WORLD + data.world.to_lower() + ".png"
 		var img_avatar = PATH_IMG_AVATAR + data.avatar.to_lower() + ".png"
 
 		node.get_node("LV").set_text("LV." + String(data.lv))
-		node.get_node("Difficulty").set_text(data.difficulty)
-		node.get_node("Location").set_text(data.location)
+		node.get_node("Difficulty").set_text(difficulty)
+		node.get_node("Location").set_text(location)
 		node.get_node("Playtime").set_text(hrs + ":" + mins)
 
 		var img = File.new()
