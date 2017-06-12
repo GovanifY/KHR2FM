@@ -4,6 +4,7 @@
 *Thumbs.db
 *.icloud
 *.swp
+*.swo
 # Work files (stuff we don't want to share with one another)
 *.scn
 *.psd
