@@ -73,7 +73,7 @@ func get_save(slot_idx):
 	var path = fmt_path(slot_idx)
 	var savegame = File.new()
 	if !savegame.file_exists(path):
-		return false # We don't have a save to load
+		return {} # We don't have a save to load
 
 	savegame.open(path, File.READ) # FIXME: Open encrypted
 	var ret = savegame.get_var() # FIXME: It's much more complicated than this
