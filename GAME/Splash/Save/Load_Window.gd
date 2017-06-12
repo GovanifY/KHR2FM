@@ -4,6 +4,10 @@ extends Panel
 signal error
 signal finished
 
+# Paths to save images
+const PATH_IMG_WORLD  = "res://ASSETS/GFX/Title/MainMenu/Save/Worlds/"
+const PATH_IMG_AVATAR = "res://ASSETS/GFX/Title/MainMenu/Save/Avatars/"
+
 # Instance members
 onready var anims  = get_node("Anims")
 
@@ -43,13 +47,19 @@ func _ready():
 		var hrs  = String(data.playtime_hrs).pad_zeros(2)
 		var mins = String(data.playtime_min).pad_zeros(2)
 		var location = data.location if not data.location.empty() else "null"
+		var img_world = PATH_IMG_WORLD + data.world.to_lower() + ".png"
+		var img_avatar = PATH_IMG_AVATAR + data.avatar.to_lower() + ".png"
 
 		node.get_node("LV").set_text("LV." + String(data.lv))
 		node.get_node("Difficulty").set_text(data.difficulty)
 		node.get_node("Location").set_text(data.location)
 		node.get_node("Playtime").set_text(hrs + ":" + mins)
 
-		# TODO: fill in the images of the world (saved at) and the avatar
+		var img = File.new()
+		if img.file_exists(img_world):
+			node.get_node("World").set_texture(load(img_world))
+		if img.file_exists(img_avatar):
+			node.get_node("Avatar").set_texture(load(img_avatar))
 
 		node.show()
 		Slots.add_child(node)
