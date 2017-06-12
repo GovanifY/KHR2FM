@@ -12,6 +12,7 @@ const SAVE_EXT  = "save"
 # Serializable dictionary filled with the most important info for a save file
 var save_data = {
 	# IMPORTANT DATA
+	"difficulty"   : null,
 	"scene"        : null,
 	"location"     : null,
 	"playtime_hrs" : 0,
@@ -43,6 +44,7 @@ func _has_key(key):
 
 func _assemble_data():
 	# FIXME: Fill in the blanks
+	save_data.difficulty = Globals.get("Difficulty")
 	save_data.scene = get_tree().get_current_scene().get_filename()
 	save_data.location = Globals.get("World")
 	save_data.playtime_hrs = Globals.get("PlayTimeHours")
@@ -101,9 +103,9 @@ func get_save_count():
 	return get_save_list().size()
 
 # Wrapper functions
-func new_game():
-	# TODO: Set the stats for a new game depending on the difficulty and ZeroEXP
-	return false
+func new_game(difficulty):
+	Globals.set("Difficulty", difficulty)
+	return true
 
 func load_game(slot_idx):
 	save_data = get_save(slot_idx)

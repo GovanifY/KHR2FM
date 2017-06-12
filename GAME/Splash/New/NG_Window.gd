@@ -30,10 +30,12 @@ func _show_up():
 	set_process_input(true)
 
 func _pressed_new(button_idx):
-	if button_idx == OPTION_DIFFICULTY_NORMAL:
-		pass # TODO: Set up new game in Normal
-	elif button_idx == OPTION_DIFFICULTY_CRITICAL:
-		pass # TODO: Set up new game in Critical, ask for EXP_Zero
+	# Set up a new game with the given difficulty
+	var difficulties = [ "Normal", "Critical" ]
+	SaveManager.new_game(difficulties[button_idx])
+
+	if button_idx == OPTION_DIFFICULTY_CRITICAL:
+		pass # TODO: ask for EXP_Zero
 
 	# Issue a new game
 	emit_signal("finished")
