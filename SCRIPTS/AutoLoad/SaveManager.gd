@@ -15,6 +15,7 @@ var save_data = {
 	"difficulty"   : null,
 	"scene"        : null,
 	"location"     : null,
+	"world"        : null,
 	"playtime_hrs" : 0,
 	"playtime_min" : 0,
 
@@ -46,7 +47,8 @@ func _assemble_data():
 	# FIXME: Fill in the blanks
 	save_data.difficulty = Globals.get("Difficulty")
 	save_data.scene = get_tree().get_current_scene().get_filename()
-	save_data.location = Globals.get("World")
+	save_data.world = Globals.get("World")
+	save_data.location = Globals.get("Location")
 	save_data.playtime_hrs = Globals.get("PlayTimeHours")
 	save_data.playtime_min = Globals.get("PlayTimeMinutes")
 
