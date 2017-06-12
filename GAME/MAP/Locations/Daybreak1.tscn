@@ -101,7 +101,8 @@ height = 5.0
 
 [node name="Daybreak" instance=ExtResource( 1 )]
 
-world_name = "City of Memories"
+world_name = "WORLD_CITY_OF_MEMORIES"
+location = "COM_THE_PLAZA"
 
 [node name="Map" parent="."]
 
