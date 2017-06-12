@@ -64,7 +64,7 @@ tracks/0/keys = {
 
 resource/name = "Walk"
 length = 1.0
-loop = false
+loop = true
 step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -85,6 +85,42 @@ tracks/1/keys = {
 "transitions": FloatArray( 1 ),
 "update": 2,
 "values": [ "Yuugure_03" ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"values": [ {
+"args": [ Vector2( 70, 0 ) ],
+"method": "move"
+}, {
+"args": [ Vector2( 40, 0 ) ],
+"method": "move"
+}, {
+"args": [ Vector2( 20, 0 ) ],
+"method": "move"
+}, {
+"args": [ Vector2( 10, 0 ) ],
+"method": "move"
+}, {
+"args": [ Vector2( 10, 0 ) ],
+"method": "move"
+}, {
+"args": [ Vector2( 5, 0 ) ],
+"method": "move"
+}, {
+"args": [ Vector2( 5, 0 ) ],
+"method": "move"
+}, {
+"args": [ Vector2( 5, 0 ) ],
+"method": "move"
+}, {
+"args": [ Vector2( 5, 0 ) ],
+"method": "move"
+} ]
 }
 
 [sub_resource type="SampleLibrary" id=5]
@@ -197,7 +233,7 @@ anims/Walk = SubResource( 4 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
-autoplay = ""
+autoplay = "Walk"
 
 [node name="attack" type="AnimationPlayer" parent="."]
 

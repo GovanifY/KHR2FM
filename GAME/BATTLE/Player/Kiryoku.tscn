@@ -64,7 +64,12 @@ extents = Vector2( 20, 35 )
 
 [sub_resource type="SpriteFrames" id=2]
 
-animations = [ { "frames":[ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ) ], "loop":true, "name":"default", "speed":5.0 } ]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [sub_resource type="Animation" id=3]
 
@@ -76,7 +81,12 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.3 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0, 3 ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 0.3 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 3 ]
+}
 
 [sub_resource type="Animation" id=4]
 
@@ -88,12 +98,22 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 3, 11 ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 0.5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 3, 11 ]
+}
 tracks/1/type = "value"
 tracks/1/path = NodePath("General:play/play")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 0.3 ), "transitions":FloatArray( 1, 1 ), "update":2, "values":[ "Ground_walk", "Ground_walk" ] }
+tracks/1/keys = {
+"times": FloatArray( 0, 0.3 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 2,
+"values": [ "Ground_walk", "Ground_walk" ]
+}
 
 [sub_resource type="Animation" id=5]
 
@@ -105,12 +125,22 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Voice:play/play")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0.1 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Kiryoku_02" ] }
+tracks/0/keys = {
+"times": FloatArray( 0.1 ),
+"transitions": FloatArray( 1 ),
+"update": 2,
+"values": [ "Kiryoku_02" ]
+}
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 0.15 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 23, 26 ] }
+tracks/1/keys = {
+"times": FloatArray( 0, 0.15 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 23, 26 ]
+}
 
 [sub_resource type="Animation" id=6]
 
@@ -122,17 +152,34 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.2 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 14, 17 ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 14, 17 ]
+}
 tracks/1/type = "value"
 tracks/1/path = NodePath("Voice:play/play")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Kiryoku_03" ] }
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 2,
+"values": [ "Kiryoku_03" ]
+}
 tracks/2/type = "method"
 tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0.2 ), "transitions":FloatArray( 1 ), "values":[ { "args":[ true ], "method":"set_process_unhandled_input" } ] }
+tracks/2/keys = {
+"times": FloatArray( 0.2 ),
+"transitions": FloatArray( 1 ),
+"values": [ {
+"args": [ true ],
+"method": "set_process_unhandled_input"
+} ]
+}
 
 [sub_resource type="Animation" id=7]
 
@@ -144,17 +191,34 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 18, 22 ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 0.25 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 18, 22 ]
+}
 tracks/1/type = "value"
 tracks/1/path = NodePath("Voice:play/play")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "Kiryoku_04" ] }
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 2,
+"values": [ "Kiryoku_04" ]
+}
 tracks/2/type = "method"
 tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/imported = false
-tracks/2/keys = { "times":FloatArray( 0.25 ), "transitions":FloatArray( 1 ), "values":[ { "args":[ true ], "method":"set_process_unhandled_input" } ] }
+tracks/2/keys = {
+"times": FloatArray( 0.25 ),
+"transitions": FloatArray( 1 ),
+"values": [ {
+"args": [ true ],
+"method": "set_process_unhandled_input"
+} ]
+}
 
 [sub_resource type="Animation" id=8]
 
@@ -166,28 +230,93 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.24, 0.31, 0.4 ), "transitions":FloatArray( 1, 0, 0, 1 ), "update":0, "values":[ 23, 30, 26, 22 ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 0.24, 0.31, 0.4 ),
+"transitions": FloatArray( 1, 0, 0, 1 ),
+"update": 0,
+"values": [ 23, 30, 26, 22 ]
+}
 
 [sub_resource type="SampleLibrary" id=9]
 
-samples/Kiryoku_02 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 45 ) }
-samples/Kiryoku_03 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 46 ) }
-samples/Kiryoku_04 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 47 ) }
-samples/Kiryoku_05 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 48 ) }
-samples/Kiryoku_06 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 49 ) }
-samples/Kiryoku_07 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 50 ) }
-samples/Kiryoku_08 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 51 ) }
-samples/Kiryoku_09 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 52 ) }
+samples/Kiryoku_02 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 45 )
+}
+samples/Kiryoku_03 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 46 )
+}
+samples/Kiryoku_04 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 47 )
+}
+samples/Kiryoku_05 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 48 )
+}
+samples/Kiryoku_06 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 49 )
+}
+samples/Kiryoku_07 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 50 )
+}
+samples/Kiryoku_08 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 51 )
+}
+samples/Kiryoku_09 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 52 )
+}
 
 [sub_resource type="SampleLibrary" id=10]
 
-samples/Kiryoku_Keyblade_Hit1 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 53 ) }
-samples/Kiryoku_Keyblade_Hit2 = { "db":0.0, "pitch":1.0, "sample":ExtResource( 54 ) }
-samples/Kiryoku_Keyblade_Swing = { "db":0.0, "pitch":1.0, "sample":ExtResource( 55 ) }
+samples/Kiryoku_Keyblade_Hit1 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 53 )
+}
+samples/Kiryoku_Keyblade_Hit2 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 54 )
+}
+samples/Kiryoku_Keyblade_Swing = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 55 )
+}
 
 [sub_resource type="SampleLibrary" id=11]
 
-samples/Ground_walk = { "db":-25.0, "pitch":1.0, "sample":ExtResource( 56 ) }
+samples/Ground_walk = {
+"db": -25.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 56 )
+}
 
 [node name="Kiryoku" type="KinematicBody2D"]
 
