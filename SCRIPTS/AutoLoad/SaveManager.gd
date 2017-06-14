@@ -133,10 +133,12 @@ func get_save_count():
 # Wrapper functions
 func new_game(difficulty):
 	Globals.set("Difficulty", difficulty)
+	KHR2.reset_playtime()
 	return true
 
 func load_game(slot_idx):
 	save_data = get_save(slot_idx)
+	KHR2.reset_playtime(save_data.playtime_min, save_data.playtime_hrs)
 	return true
 
 func save_game(slot_idx):

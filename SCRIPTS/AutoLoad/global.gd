@@ -1,13 +1,12 @@
 extends Node
 
-# Ce script gère les fonctions globales du jeu qui se font dans le background
-# tel que le timer, la save ou le fullscreen.
+# Ce script gère les fonctions globales du jeu les plus importantes, telles que
+# le timer, la pause ou le fullscreen
 
 # Signals
 signal toggle_pause
 
-# Un accumulateur pour le timer
-var accum = 0
+var Playtime = Timer.new()
 
 ######################
 ### Core functions ###
@@ -17,15 +16,12 @@ func _enter_tree():
 
 func _ready():
 	# Timer-related
-	Globals.set("PlayTimeMinutes", 0)
-	Globals.set("PlayTimeHours", 0)
-	Globals.set("TimerActivated", false)
+	Playtime.connect("timeout", self, "_playtime")
+	add_child(Playtime)
 
-	# Protecting against pause
+	# Final settings
 	set_pause_mode(PAUSE_MODE_PROCESS)
-
 	set_process_input(true)
-	set_process(true)
 
 func _notification(notif):
 	if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
@@ -66,21 +62,29 @@ func _input(event):
 				SceneLoader.load_scene(SaveManager.get_scene())
 		return
 
-func _process(delta):
-	# Global Timer
-	if Globals.get("TimerActivated"):
-		accum += delta
-		if accum >= 60:
-			accum = 0
-			Globals.set("PlayTimeMinutes", Globals.get("PlayTimeMinutes") + 1)
-			#C'est du débug, ca sers pas a grand chose
-			#print("Time:", Globals.get("PlayTimeHours") ,":", Globals.get("PlayTimeMinutes"))
-			if Globals.get("PlayTimeMinutes") >= 60:
-				Globals.set("PlayTimeHours", Globals.get("PlayTimeHours") + 1)
+
+#######################
+### Signal routines ###
+#######################
+func _playtime():
+	var mins = Globals.get("PlaytimeMinutes") + 1
+	var hrs  = Globals.get("PlaytimeHours")
+	Globals.set("PlaytimeMinutes", mins)
+	if mins >= 60:
+		Globals.set("PlaytimeMinutes", 0)
+		Globals.set("PlaytimeHours", Globals.get("PlaytimeHours") + 1)
 
 ###############
 ### Methods ###
 ###############
+# Resets the global Playtime
+func reset_playtime(mins=0, hrs=0):
+	Playtime.stop()
+	Globals.set("PlaytimeMinutes", mins)
+	Globals.set("PlaytimeHours", hrs)
+	Playtime.set_wait_time(60)
+	Playtime.start()
+
 # Properly pauses/unpauses the game
 func pause_game():
 	if Globals.get("Pause") == null:
