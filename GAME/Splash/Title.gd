@@ -1,7 +1,5 @@
 extends Control
 
-# Signals
-signal dismiss
 
 # Button index
 enum OPTION_CONTROLS { OPTION_MAIN_NEW, OPTION_MAIN_LOAD, OPTION_MAIN_QUIT }
@@ -53,19 +51,22 @@ func _ready():
 func _input(event):
 	if event.is_pressed() && !event.is_echo():
 		if event.is_action("ui_cancel"):
-			# Find the appropriate menu to cancel
-			for menu in [NewGame, LoadGame]:
-				if menu.is_visible() && !menu.anims.is_playing():
-					# Reset focus to appropriate button
-					Cursor.show()
-					for i in range(0, Options.size()-1):
-						Options[i].set_focus_mode(FOCUS_ALL)
+			_dismiss_menu()
 
-					# Dismiss menu
-					SE.play("system_dismiss")
-					Options[cursor_idx].grab_focus()
-					menu.anims.play("Fade Out")
-					break
+# Finds the appropriate menu to dismiss
+func _dismiss_menu():
+	for menu in [NewGame, LoadGame]:
+		if menu.is_visible() && !menu.anims.is_playing():
+			# Reset focus to appropriate button
+			Cursor.show()
+			for i in range(0, Options.size()-1):
+				Options[i].set_focus_mode(FOCUS_ALL)
+
+			# Dismiss menu
+			SE.play("system_dismiss")
+			Options[cursor_idx].grab_focus()
+			menu.anims.play("Fade Out")
+			return
 
 #######################
 ### Signal routines ###
