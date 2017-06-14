@@ -430,7 +430,7 @@ length = 0.6
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Options/New Game:visibility/opacity")
+tracks/0/path = NodePath("Options/New:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -440,7 +440,7 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Options/Load Game:visibility/opacity")
+tracks/1/path = NodePath("Options/Load:visibility/opacity")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
@@ -450,7 +450,7 @@ tracks/1/keys = {
 "values": [ 0.0, 0.0, 1.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Options/Quit Game:visibility/opacity")
+tracks/2/path = NodePath("Options/Quit:visibility/opacity")
 tracks/2/interp = 1
 tracks/2/imported = false
 tracks/2/keys = {
@@ -1130,7 +1130,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="New Game" parent="Options" instance=ExtResource( 13 )]
+[node name="New" parent="Options" instance=ExtResource( 13 )]
 
 focus_neighbour/top = NodePath("../Quit Game")
 size_flags/vertical = 0
@@ -1151,7 +1151,7 @@ icon = ExtResource( 16 )
 align = 0
 script/script = ExtResource( 17 )
 
-[node name="Load Game" parent="Options" instance=ExtResource( 13 )]
+[node name="Load" parent="Options" instance=ExtResource( 13 )]
 
 size_flags/vertical = 0
 size_flags/stretch_ratio = 128.0
@@ -1171,7 +1171,7 @@ icon = ExtResource( 16 )
 align = 0
 script/script = ExtResource( 17 )
 
-[node name="Quit Game" parent="Options" instance=ExtResource( 13 )]
+[node name="Quit" parent="Options" instance=ExtResource( 13 )]
 
 focus_neighbour/bottom = NodePath("../New Game")
 size_flags/vertical = 0
@@ -1213,12 +1213,12 @@ playback/speed = 0.4
 blend_times = [  ]
 autoplay = "Out_In"
 
-[node name="BG_New" parent="." instance=ExtResource( 19 )]
+[node name="New Game" parent="." instance=ExtResource( 19 )]
 
 visibility/visible = false
 visibility/opacity = 0.0
 
-[node name="BG_Load" parent="." instance=ExtResource( 20 )]
+[node name="Load Game" parent="." instance=ExtResource( 20 )]
 
 visibility/visible = false
 

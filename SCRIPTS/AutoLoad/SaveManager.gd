@@ -131,7 +131,8 @@ func get_save_count():
 	return get_save_list().size()
 
 # Wrapper functions
-func new_game(difficulty):
+func new_game(difficulty, initial_scene = null):
+	save_data.scene = initial_scene
 	Globals.set("Difficulty", difficulty)
 	KHR2.reset_playtime()
 	return true

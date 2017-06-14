@@ -95,4 +95,7 @@ func _recenter(button):
 
 func _pressed_load(slot_idx):
 	var it_loaded = SaveManager.load_game(slot_idx)
+	if it_loaded:
+		Slots.get_child(slot_idx+1).release_focus()
+
 	emit_signal("finished" if it_loaded else "error")
