@@ -108,15 +108,15 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=4]
 
 resource/name = "Hide Info"
-length = 0.7
+length = 0.5
 loop = false
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Info:rect/scale")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0.4, 0.7 ),
+"times": FloatArray( 0.25, 0.5 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1, 0 ) ]
@@ -126,7 +126,7 @@ tracks/1/path = NodePath("Info/Title:visibility/visible")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
-"times": FloatArray( 0.4, 0.7 ),
+"times": FloatArray( 0.25, 0.5 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -136,7 +136,7 @@ tracks/2/path = NodePath("Info/Title:visibility/opacity")
 tracks/2/interp = 1
 tracks/2/imported = false
 tracks/2/keys = {
-"times": FloatArray( 0, 0.4, 0.7 ),
+"times": FloatArray( 0, 0.25, 0.5 ),
 "transitions": FloatArray( 1, 1, 1 ),
 "update": 0,
 "values": [ 1.0, 0.0, 0.0 ]
@@ -146,7 +146,7 @@ tracks/3/path = NodePath("Info/Message:visibility/visible")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
-"times": FloatArray( 0.4, 0.7 ),
+"times": FloatArray( 0.25, 0.5 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -156,7 +156,7 @@ tracks/4/path = NodePath("Info/Message:visibility/opacity")
 tracks/4/interp = 1
 tracks/4/imported = false
 tracks/4/keys = {
-"times": FloatArray( 0, 0.4, 0.7 ),
+"times": FloatArray( 0, 0.25, 0.5 ),
 "transitions": FloatArray( 1, 1, 1 ),
 "update": 0,
 "values": [ 1.0, 0.0, 0.0 ]
@@ -166,7 +166,7 @@ tracks/5/path = NodePath("Info:visibility/visible")
 tracks/5/interp = 1
 tracks/5/imported = false
 tracks/5/keys = {
-"times": FloatArray( 0, 0.7 ),
+"times": FloatArray( 0, 0.5 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -201,15 +201,15 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=5]
 
-length = 0.7
+length = 0.5
 loop = false
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Info:rect/scale")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.3 ),
+"times": FloatArray( 0, 0.25 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 0.1 ), Vector2( 1, 1 ) ]
@@ -219,7 +219,7 @@ tracks/1/path = NodePath("Info/Title:visibility/visible")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
-"times": FloatArray( 0, 0.3 ),
+"times": FloatArray( 0, 0.25 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
@@ -229,7 +229,7 @@ tracks/2/path = NodePath("Info/Title:visibility/opacity")
 tracks/2/interp = 1
 tracks/2/imported = false
 tracks/2/keys = {
-"times": FloatArray( 0, 0.3, 0.7 ),
+"times": FloatArray( 0, 0.25, 0.5 ),
 "transitions": FloatArray( 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, 0.0, 1.0 ]
@@ -239,7 +239,7 @@ tracks/3/path = NodePath("Info/Message:visibility/visible")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
-"times": FloatArray( 0, 0.3 ),
+"times": FloatArray( 0, 0.25 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
@@ -249,7 +249,7 @@ tracks/4/path = NodePath("Info/Message:visibility/opacity")
 tracks/4/interp = 1
 tracks/4/imported = false
 tracks/4/keys = {
-"times": FloatArray( 0, 0.3, 0.7 ),
+"times": FloatArray( 0, 0.25, 0.5 ),
 "transitions": FloatArray( 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, 0.0, 1.0 ]
@@ -470,6 +470,7 @@ __meta__ = {
 
 [node name="List" type="ScrollContainer" parent="."]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
@@ -724,6 +725,7 @@ custom_fonts/font = SubResource( 10 )
 text = "INSERT TEXT HERE"
 align = 1
 valign = 1
+autowrap = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1

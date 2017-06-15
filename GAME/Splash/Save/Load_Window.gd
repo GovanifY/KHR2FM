@@ -27,9 +27,7 @@ onready var Info = {
 ######################
 func _ready():
 	# Initial settings
-	Slots.hide()
-	Info.panel.hide()
-	connect("draw", self, "_fetch_saves")
+	connect("draw", self, "_show")
 	connect("loaded", self, "_display_saves")
 	connect("hide", self, "_cleanup")
 
@@ -80,9 +78,14 @@ func _display_saves():
 	if anims.is_playing():
 		yield(anims, "finished")
 
-	# Making sure the first Option is selected
+	# Do we have any saves in here?
 	if Slots.get_child_count() > 1:
+		# Making sure the first Option is selected
 		Slots.get_child(1).grab_focus()
+
+		if !Info.panel.is_hidden():
+			anims.play("Hide Info")
+			yield(anims, "finished")
 		anims.play("Show Saves")
 	else:
 		Info.msg.set_text("TITLE_SAVE_NOT_FOUND")
@@ -91,6 +94,17 @@ func _display_saves():
 #######################
 ### Signal routines ###
 #######################
+# When this window is shown
+func _show():
+	Slots.hide()
+	Info.panel.hide()
+	if anims.is_playing():
+		yield(anims, "finished")
+
+	Info.msg.set_text("TITLE_SAVE_WAIT")
+	anims.play("Show Info")
+	_fetch_saves()
+
 # When this window is dismissed
 func _cleanup():
 	get_tree().call_group(0, "Saves", "queue_free")
