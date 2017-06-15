@@ -23,7 +23,6 @@ var save_data = {
 	"avatar"       : "",
 
 	# Switches
-	"zero_exp"     : false,
 	# Basic stats
 	"lv"           : 1,
 	"hp"           : 10,
@@ -56,8 +55,6 @@ func _assemble_data():
 	save_data.playtime_min = Globals.get("PlayTimeMinutes")
 
 	save_data.avatar = random_avatar()
-
-	#save_data.zero_exp =
 
 	#save_data.lv =
 	#save_data.hp =
