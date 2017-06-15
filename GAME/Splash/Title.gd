@@ -88,10 +88,10 @@ func _pressed_main(button_idx):
 	cursor_idx = button_idx
 
 	# General rules
-	if button_idx in [OPTION_MAIN_NEW, OPTION_MAIN_LOAD]:
-		Cursor.hide()
-		for i in range(0, Options.size()-1):
-			Options[i].set_focus_mode(FOCUS_NONE)
+	Options[button_idx].release_focus()
+	Cursor.hide()
+	for i in range(0, Options.size()-1):
+		Options[i].set_focus_mode(FOCUS_NONE)
 
 	# Specific rules
 	if button_idx == OPTION_MAIN_NEW:
@@ -101,7 +101,9 @@ func _pressed_main(button_idx):
 		LoadGame.anims.play("Fade In")
 
 	elif button_idx == OPTION_MAIN_QUIT:
-		Options[button_idx].release_focus()
+		for i in range(0, Options.size()-1):
+			Options[i].set_disabled(true)
+
 		AudioRoom.fade_out(1)
 		AnimsMenu.connect("finished", get_tree(), "quit")
 		AnimsMenu.play("Close")
