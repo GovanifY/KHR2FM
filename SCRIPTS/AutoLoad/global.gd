@@ -72,7 +72,7 @@ func _playtime():
 	Globals.set("PlaytimeMinutes", mins)
 	if mins >= 60:
 		Globals.set("PlaytimeMinutes", 0)
-		Globals.set("PlaytimeHours", Globals.get("PlaytimeHours") + 1)
+		Globals.set("PlaytimeHours", hrs + 1)
 
 ###############
 ### Methods ###
