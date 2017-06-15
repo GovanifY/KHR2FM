@@ -27,14 +27,16 @@ onready var Info = {
 ######################
 func _ready():
 	# Initial settings
+	var save_template = Slots.get_node("Save")
+	save_template.hide()
+	save_template.set_text("")
+
 	connect("draw", self, "_show")
 	connect("loaded", self, "_display_saves")
 	connect("hide", self, "_cleanup")
 
 func _fetch_saves():
 	var save_template = Slots.get_node("Save")
-	save_template.hide()
-	save_template.set_text("")
 
 	for filename in SaveManager.get_save_list():
 		var slot_idx = int(filename)
