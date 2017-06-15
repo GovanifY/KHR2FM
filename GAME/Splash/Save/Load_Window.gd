@@ -29,10 +29,9 @@ func _ready():
 	# Initial settings
 	Slots.hide()
 	Info.panel.hide()
-	connect("draw", self, "_display")
+	connect("draw", self, "_fetch_saves")
 	connect("loaded", self, "_display_saves")
-
-	_fetch_saves()
+	connect("hide", self, "_cleanup")
 
 func _fetch_saves():
 	var save_template = Slots.get_node("Save")
@@ -46,6 +45,8 @@ func _fetch_saves():
 			continue
 
 		var node = save_template.duplicate(true)
+		node.set_name(filename)
+		node.add_to_group("Saves")
 		node.connect("focus_enter", self, "_recenter", [node])
 		node.connect("pressed", self, "_pressed_load", [node, slot_idx])
 
@@ -76,20 +77,23 @@ func _fetch_saves():
 	emit_signal("loaded")
 
 func _display_saves():
-	Slots.show()
+	if anims.is_playing():
+		yield(anims, "finished")
+
+	# Making sure the first Option is selected
+	if Slots.get_child_count() > 1:
+		Slots.get_child(1).grab_focus()
+		anims.play("Show Saves")
+	else:
+		Info.msg.set_text("TITLE_SAVE_NOT_FOUND")
+		anims.play("Show Info")
 
 #######################
 ### Signal routines ###
 #######################
-func _display():
-	# Making sure the first Option is selected
-	if Slots.get_child_count() > 1:
-		Slots.get_child(1).grab_focus()
-	else:
-		Info.msg.set_text("TITLE_SAVE_NOT_FOUND")
-		if anims.is_playing():
-			yield(anims, "finished")
-		anims.play("Show Info")
+# When this window is dismissed
+func _cleanup():
+	get_tree().call_group(0, "Saves", "queue_free")
 
 func _recenter(button):
 	var y = int(button.get_pos().y)
