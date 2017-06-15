@@ -2,6 +2,7 @@ extends Panel
 
 # Signals
 signal error
+signal loaded
 signal finished
 
 # Paths to save images
@@ -25,23 +26,28 @@ onready var Info = {
 ### Core functions ###
 ######################
 func _ready():
+	# Initial settings
+	Slots.hide()
+	Info.panel.hide()
+	connect("draw", self, "_display")
+	connect("loaded", self, "_display_saves")
+
+	_fetch_saves()
+
+func _fetch_saves():
 	var save_template = Slots.get_node("Save")
 	save_template.hide()
 	save_template.set_text("")
 
-	var save_list = SaveManager.get_save_list()
-	var count = save_list.size()
-	for i in range(0, count):
-		var data = SaveManager.get_save(i)
+	for filename in SaveManager.get_save_list():
+		var slot_idx = int(filename)
+		var data = SaveManager.get_save(slot_idx)
 		if data.empty(): # Save file doesn't exist (only happens in debug)
 			continue
 
 		var node = save_template.duplicate(true)
-		var name = "Save " + String(i+1)
-
-		node.set_name(name)
 		node.connect("focus_enter", self, "_recenter", [node])
-		node.connect("pressed", self, "_pressed_load", [i])
+		node.connect("pressed", self, "_pressed_load", [node, slot_idx])
 
 		# Populating button with information
 		var hrs  = String(data.playtime_hrs).pad_zeros(2)
@@ -67,15 +73,15 @@ func _ready():
 		node.show()
 		Slots.add_child(node)
 
-	connect("draw", self, "_show_up")
+	emit_signal("loaded")
+
+func _display_saves():
+	Slots.show()
 
 #######################
 ### Signal routines ###
 #######################
-func _show_up():
-	# Initial settings
-	Info.panel.hide()
-
+func _display():
 	# Making sure the first Option is selected
 	if Slots.get_child_count() > 1:
 		Slots.get_child(1).grab_focus()
@@ -93,9 +99,8 @@ func _recenter(button):
 	)
 	Scroll.start()
 
-func _pressed_load(slot_idx):
+func _pressed_load(button, slot_idx):
 	var it_loaded = SaveManager.load_game(slot_idx)
 	if it_loaded:
-		Slots.get_child(slot_idx+1).release_focus()
-
+		button.release_focus()
 	emit_signal("finished" if it_loaded else "error")
