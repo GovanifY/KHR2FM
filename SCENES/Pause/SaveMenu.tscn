@@ -1,0 +1,133 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://SCRIPTS/Pause/SavePoint.gd" type="Script" id=1]
+[ext_resource path="res://SCENES/Button/KHR2_Button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://SCENES/Pause/LoadMenu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://SCRIPTS/Pause/SaveMenu.gd" type="Script" id=4]
+
+[node name="SavePoint" type="Panel"]
+
+process/pause_mode = 2
+visibility/self_opacity = 0.7
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Options" type="VBoxContainer" parent="."]
+
+editor/display_folded = true
+anchor/right = 2
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 20.0
+margin/top = 20.0
+margin/right = 0.25
+margin/bottom = 20.0
+custom_constants/separation = 20
+alignment = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Save" parent="Options" instance=ExtResource( 2 )]
+
+margin/right = 193.0
+margin/bottom = 53.0
+text = "MENU_SAVE"
+
+[node name="World Map" parent="Options" instance=ExtResource( 2 )]
+
+margin/top = 73.0
+margin/right = 193.0
+margin/bottom = 126.0
+text = "MENU_WORLD_MAP"
+
+[node name="SaveMenu" parent="." instance=ExtResource( 3 )]
+
+visibility/visible = false
+script/script = ExtResource( 4 )
+
+[node name="Confirm" type="Panel" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+anchor/left = 2
+anchor/top = 2
+anchor/right = 2
+anchor/bottom = 2
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.25
+margin/top = 0.25
+margin/right = 0.75
+margin/bottom = 0.75
+
+[node name="Choices" type="HBoxContainer" parent="Confirm"]
+
+editor/display_folded = true
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 20.0
+margin/top = 80.0
+margin/right = 20.0
+margin/bottom = 20.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="Yes" parent="Confirm/Choices" instance=ExtResource( 2 )]
+
+margin/left = 56.0
+margin/right = 174.0
+margin/bottom = 60.0
+text = "CHOICE_YES"
+
+[node name="No" parent="Confirm/Choices" instance=ExtResource( 2 )]
+
+margin/left = 214.0
+margin/right = 330.0
+margin/bottom = 60.0
+text = "CHOICE_NO"
+
+[node name="Label" type="Label" parent="Confirm"]
+
+anchor/left = 3
+anchor/right = 3
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 100.0
+margin/top = 50.0
+margin/right = -100.0
+margin/bottom = 100.0
+text = "MESSAGE"
+align = 1
+valign = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+
