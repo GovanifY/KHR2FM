@@ -57,11 +57,11 @@ func _process(delta):
 		SceneLoader.show_scene(next_scene, true)
 
 func _parse_subtitles():
-	# Check for subtitles
+	# Check for subtitle files
 	var subs = File.new()
-	if !subs.file_exists(subtitles_file) || !subs.file_exists(csv_file):
+	have_subtitles = subs.file_exists(subtitles_file) && subs.file_exists(csv_file)
+	if !have_subtitles:
 		return
-	have_subtitles = true
 
 	subs.open(subtitles_file, File.READ) #######################################
 	while !subs.eof_reached():
