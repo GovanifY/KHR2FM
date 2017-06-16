@@ -20,7 +20,7 @@ onready var Info = {
 func _ready():
 	# Initial settings
 	connect("draw", self, "_show")
-	connect("hide", List, "cleanup")
+	anims.connect("animation_started", self, "_on_animation_started")
 	List.connect("loaded", self, "_display_saves")
 
 func _display_saves():
@@ -53,6 +53,11 @@ func _show():
 	Info.msg.set_text("TITLE_SAVE_WAIT")
 	anims.play("Show Info")
 	List.fetch_saves(self, "_pressed_load")
+
+func _on_animation_started(anim_name):
+	if anim_name == "Fade Out":
+		SE.play("system_dismiss")
+		List.cleanup()
 
 func _pressed_load(button):
 	var slot_idx = int(button.get_name())

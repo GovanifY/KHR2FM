@@ -412,6 +412,7 @@ autoplay = ""
 
 [node name="Header" type="Panel" parent="."]
 
+editor/display_folded = true
 anchor/right = 1
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -428,6 +429,7 @@ __meta__ = {
 
 [node name="Title" type="Panel" parent="Header"]
 
+editor/display_folded = true
 anchor/top = 1
 anchor/bottom = 1
 focus/ignore_mouse = true

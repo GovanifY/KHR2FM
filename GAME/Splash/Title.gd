@@ -61,7 +61,6 @@ func _dismiss_menu():
 				Options[i].set_focus_mode(FOCUS_ALL)
 
 			# Dismiss menu
-			SE.play("system_dismiss")
 			Options[cursor_idx].grab_focus()
 			menu.anims.play("Fade Out")
 			return
