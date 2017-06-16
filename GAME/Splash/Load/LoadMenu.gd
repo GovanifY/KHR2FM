@@ -7,8 +7,7 @@ signal finished
 # Instance members
 onready var anims  = get_node("Anims")
 
-onready var List  = get_node("List")
-
+onready var List = get_node("List")
 onready var Info = {
 	"panel" : get_node("Info"),
 	"title" : get_node("Info/Title"),
