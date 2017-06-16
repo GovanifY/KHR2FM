@@ -52,25 +52,26 @@ func fetch_saves(cb_node, callback):
 		node.set_name(filename)
 
 		# Populating button with information
-		var hrs  = String(data.playtime_hrs).pad_zeros(2)
-		var mins = String(data.playtime_min).pad_zeros(2)
-		var location = data.location if not data.location.empty() else "null"
+		var hrs  = String(data.playtime_hrs if data.playtime_hrs != null else 0).pad_zeros(2)
+		var mins = String(data.playtime_min if data.playtime_min != null else 0).pad_zeros(2)
+		var location   = data.location   if data.location != null   else "null"
 		var difficulty = data.difficulty if data.difficulty != null else "null"
-		var location = data.location if data.location != null else "null"
+		var location   = data.location   if data.location != null   else "null"
 
-		var img_world = PATH_IMG_WORLD + data.world.to_lower() + ".png"
-		var img_avatar = PATH_IMG_AVATAR + data.avatar.to_lower() + ".png"
+		if data.world != null && data.avatar != null:
+			var img_world = PATH_IMG_WORLD + data.world.to_lower() + ".png"
+			var img_avatar = PATH_IMG_AVATAR + data.avatar.to_lower() + ".png"
+
+			var img = File.new()
+			if img.file_exists(img_world):
+				node.get_node("World").set_texture(load(img_world))
+			if img.file_exists(img_avatar):
+				node.get_node("Avatar").set_texture(load(img_avatar))
 
 		node.get_node("LV").set_text(tr("LEVEL") + "." + String(data.lv))
 		node.get_node("Difficulty").set_text(difficulty)
 		node.get_node("Location").set_text(location)
 		node.get_node("Playtime").set_text(hrs + ":" + mins)
-
-		var img = File.new()
-		if img.file_exists(img_world):
-			node.get_node("World").set_texture(load(img_world))
-		if img.file_exists(img_avatar):
-			node.get_node("Avatar").set_texture(load(img_avatar))
 
 	emit_signal("finished")
 
