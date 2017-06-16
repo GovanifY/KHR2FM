@@ -412,7 +412,6 @@ autoplay = ""
 
 [node name="Header" type="Panel" parent="."]
 
-editor/display_folded = true
 anchor/right = 1
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -429,7 +428,6 @@ __meta__ = {
 
 [node name="Title" type="Panel" parent="Header"]
 
-editor/display_folded = true
 anchor/top = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
@@ -458,7 +456,7 @@ margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
 custom_fonts/font = ExtResource( 5 )
-text = "TITLE_SAVE"
+text = "MENU"
 align = 1
 valign = 1
 uppercase = true
