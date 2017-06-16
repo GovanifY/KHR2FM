@@ -48,7 +48,7 @@ func _ready():
 
 	# Setting potential next scene to be loaded at the end of the Dialogue
 	if !next_scene.empty():
-		SceneLoader.load_scene(next_scene, SceneLoader.HOLD)
+		SceneLoader.queue_scene(next_scene)
 
 	# Initializing signals
 	Bubble.connect("shown", self, "_get_line")
