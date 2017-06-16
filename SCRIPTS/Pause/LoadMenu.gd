@@ -52,16 +52,18 @@ func _show():
 
 	Info.msg.set_text("TITLE_SAVE_WAIT")
 	anims.play("Show Info")
-	List.fetch_saves(self, "_pressed_load")
+	List.fetch_saves(self, "_pressed")
 
 func _on_animation_started(anim_name):
 	if anim_name == "Fade Out":
 		SE.play("system_dismiss")
 		List.cleanup()
 
-func _pressed_load(button):
+func _pressed(button):
 	var slot_idx = int(button.get_name())
 	var it_loaded = SaveManager.load_game(slot_idx)
 	if it_loaded:
 		button.release_focus()
+		anims.disconnect("animation_started", self, "_on_animation_started")
+
 	emit_signal("finished" if it_loaded else "error")
