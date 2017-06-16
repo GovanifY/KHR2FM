@@ -19,7 +19,8 @@
 [ext_resource path="res://GAME/Splash/TitleOption.gd" type="Script" id=17]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/TitleOption_cursor.png" type="Texture" id=18]
 [ext_resource path="res://GAME/Splash/New/NG_Window.tscn" type="PackedScene" id=19]
-[ext_resource path="res://GAME/Splash/Save/Load_Window.tscn" type="PackedScene" id=20]
+[ext_resource path="res://GAME/Splash/Save/LoadMenu.tscn" type="PackedScene" id=20]
+
 
 [sub_resource type="StyleBoxFlat" id=1]
 
