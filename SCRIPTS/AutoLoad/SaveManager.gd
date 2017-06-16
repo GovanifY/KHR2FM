@@ -96,6 +96,14 @@ static func random_avatar():
 ####################
 ### Main Methods ###
 ####################
+func find_available_slot():
+	var list = get_save_list()
+	for i in range(0, list.size()):
+		var slot_idx = int(list[i])
+		if i != slot_idx:
+			return i
+	return list.size()
+
 func get_save(slot_idx):
 	var path = fmt_path(slot_idx)
 	var savegame = File.new()
