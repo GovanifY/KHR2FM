@@ -10,6 +10,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 world_name = ""
+location = ""
 
 [node name="Map" type="Sprite" parent="."]
 
