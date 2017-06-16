@@ -54,7 +54,7 @@ func fetch_saves(cb_node, callback):
 		var img_world = PATH_IMG_WORLD + data.world.to_lower() + ".png"
 		var img_avatar = PATH_IMG_AVATAR + data.avatar.to_lower() + ".png"
 
-		node.get_node("LV").set_text("LV." + String(data.lv))
+		node.get_node("LV").set_text(tr("LEVEL") + "." + String(data.lv))
 		node.get_node("Difficulty").set_text(difficulty)
 		node.get_node("Location").set_text(location)
 		node.get_node("Playtime").set_text(hrs + ":" + mins)
