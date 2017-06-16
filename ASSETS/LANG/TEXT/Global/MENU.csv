@@ -12,6 +12,7 @@ MENU_SAVE_SLOTS_WAIT,"Veuillez patienter, vos sauvegardes sont en cours de charg
 MENU_SAVE_TIME,Temps de jeu,Play time,Tiempo de juego
 MENU_SAVE_DESC,Choisissez un emplacement,Choose a save slot,Elige donde quieres guardar
 MENU_LOAD_DESC,Choisissez un fichier à charger,Choose a save file to load,Elige el archivo que quieres cargar
+MENU_SAVE_CONFIRM,"Êtes-vous sûr de vouloir écraser cette sauvegarde?","Are you sure you wish to overwrite this save?","¿Está seguro de que desea sobrescribir esta grabación?"
 MENU_SAVE_WAIT,"Sauvegarde en cours...","Saving...","Guardando..."
 MENU_LOAD_WAIT,"Chargement en cours...","Loading...","Cargando..."
 MENU_SAVE_ERROR,Impossible de lire les données,Impossible to read save data,Imposible leer el archivo
