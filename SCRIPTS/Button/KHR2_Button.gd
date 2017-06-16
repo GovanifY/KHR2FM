@@ -27,7 +27,19 @@ func _got_focus():
 ###############
 ### Methods ###
 ###############
+# Overrides
 func grab_focus():
 	disconnect("focus_enter", SE, "play")
 	.grab_focus()
 	connect("focus_enter", SE, "play", ["system_selected"])
+
+func set_focus_mode(value):
+	.set_focus_mode(value)
+
+	if cursor == null:
+		return # Nothing else to do here
+
+	if value == FOCUS_NONE && !cursor.is_hidden():
+		cursor.hide()
+	elif value in [FOCUS_CLICK, FOCUS_ALL] && cursor.is_hidden():
+		cursor.show()

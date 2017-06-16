@@ -7,7 +7,6 @@ enum OPTION_CONTROLS { OPTION_MAIN_NEW, OPTION_MAIN_LOAD, OPTION_MAIN_QUIT }
 # Main Menu instance members
 onready var AnimsMenu = get_node("Anims_MM")
 onready var Options   = get_node("Options").get_children()
-onready var Cursor    = get_node("Options/Cursor")
 var cursor_idx = 0
 
 # Options instance members
@@ -56,7 +55,6 @@ func _dismiss_menu():
 	for menu in [NewGame, LoadGame]:
 		if menu.is_visible() && !menu.anims.is_playing():
 			# Reset focus to appropriate button
-			Cursor.show()
 			for i in range(0, Options.size()-1):
 				Options[i].set_focus_mode(FOCUS_ALL)
 
@@ -82,7 +80,6 @@ func _pressed_main(button_idx):
 
 	# General rules
 	Options[button_idx].release_focus()
-	Cursor.hide()
 	for i in range(0, Options.size()-1):
 		Options[i].set_focus_mode(FOCUS_NONE)
 
