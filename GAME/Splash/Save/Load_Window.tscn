@@ -1,17 +1,14 @@
-[gd_scene load_steps=26 format=1]
+[gd_scene load_steps=22 format=1]
 
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_02.png" type="Texture" id=1]
 [ext_resource path="res://GAME/Splash/Save/Load_Window.gd" type="Script" id=2]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_01_back.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_01_front.png" type="Texture" id=4]
 [ext_resource path="res://ASSETS/LANG/FONTS/KH2_menu/KH2_menu_general.tres" type="DynamicFont" id=5]
-[ext_resource path="res://SCENES/Button/KHR2_Button.tscn" type="PackedScene" id=6]
-[ext_resource path="res://GAME/Splash/Save/save_selected.tres" type="StyleBox" id=7]
-[ext_resource path="res://GAME/Splash/Save/save_normal.tres" type="StyleBox" id=8]
-[ext_resource path="res://ASSETS/LANG/FONTS/KH2_menu/KH2_ALL_MENU_I.TTF" type="DynamicFontData" id=9]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_03.png" type="Texture" id=10]
-[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=11]
-[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_00.png" type="Texture" id=12]
+[ext_resource path="res://SCENES/Button/SaveList.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_03.png" type="Texture" id=7]
+[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_00.png" type="Texture" id=9]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -172,7 +169,7 @@ tracks/5/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=5]
 
 resource/name = "Hide Saves"
 length = 0.3
@@ -199,7 +196,7 @@ tracks/1/keys = {
 "values": [ 1.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 
 length = 0.5
 loop = false
@@ -265,7 +262,7 @@ tracks/5/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=7]
 
 resource/name = "Show Saves"
 length = 0.3
@@ -292,7 +289,7 @@ tracks/1/keys = {
 "values": [ 0.0, 1.0 ]
 }
 
-[sub_resource type="StyleBoxTexture" id=6]
+[sub_resource type="StyleBoxTexture" id=8]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -309,7 +306,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=7]
+[sub_resource type="StyleBoxTexture" id=9]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -326,20 +323,13 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="DynamicFont" id=8]
-
-font/size = 21
-font/use_mipmaps = false
-font/use_filter = false
-font/font = ExtResource( 9 )
-
-[sub_resource type="StyleBoxTexture" id=9]
+[sub_resource type="StyleBoxTexture" id=10]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 10 )
+texture = ExtResource( 7 )
 margin/left = 14.0
 margin/right = 14.0
 margin/top = 12.0
@@ -350,20 +340,20 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=11]
 
 font/size = 16
 font/use_mipmaps = false
 font/use_filter = false
-font/font = ExtResource( 11 )
+font/font = ExtResource( 8 )
 
-[sub_resource type="StyleBoxTexture" id=11]
+[sub_resource type="StyleBoxTexture" id=12]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 12 )
+texture = ExtResource( 9 )
 margin/left = 0.0
 margin/right = 172.0
 margin/top = 0.0
@@ -401,9 +391,9 @@ root/root = NodePath("..")
 "anims/Fade In" = SubResource( 2 )
 "anims/Fade Out" = SubResource( 3 )
 "anims/Hide Info" = SubResource( 4 )
-"anims/Hide Saves" = SubResource( 13 )
-"anims/Show Info" = SubResource( 5 )
-"anims/Show Saves" = SubResource( 12 )
+"anims/Hide Saves" = SubResource( 5 )
+"anims/Show Info" = SubResource( 6 )
+"anims/Show Saves" = SubResource( 7 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -421,7 +411,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 80.0
-custom_styles/panel = SubResource( 6 )
+custom_styles/panel = SubResource( 8 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -439,7 +429,7 @@ margin/left = 0.0
 margin/top = 25.0
 margin/right = 150.0
 margin/bottom = 0.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -468,198 +458,12 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="List" type="ScrollContainer" parent="."]
+[node name="List" parent="." instance=ExtResource( 6 )]
 
-editor/display_folded = true
-anchor/right = 1
-anchor/bottom = 1
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
 margin/left = 100.0
 margin/top = 100.0
 margin/right = 100.0
 margin/bottom = 140.0
-scroll/horizontal = false
-scroll/vertical = true
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Scroll" type="Tween" parent="List"]
-
-playback/process_mode = 0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
-
-[node name="Slots" type="VBoxContainer" parent="List"]
-
-editor/display_folded = true
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 3
-size_flags/vertical = 3
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 654.0
-margin/bottom = 240.0
-custom_constants/separation = 15
-alignment = 1
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Save" parent="List/Slots" instance=ExtResource( 6 )]
-
-editor/display_folded = true
-rect/min_size = Vector2( 0, 80 )
-margin/top = 80.0
-margin/right = 654.0
-margin/bottom = 160.0
-custom_styles/hover = ExtResource( 7 )
-custom_styles/pressed = ExtResource( 7 )
-custom_styles/focus = ExtResource( 7 )
-custom_styles/disabled = ExtResource( 8 )
-custom_styles/normal = ExtResource( 8 )
-
-[node name="World" type="TextureFrame" parent="List/Slots/Save"]
-
-visibility/opacity = 0.7
-anchor/left = 2
-anchor/top = 2
-anchor/right = 2
-anchor/bottom = 2
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.01
-margin/top = 0.05
-margin/right = 0.5
-margin/bottom = 0.95
-stretch_mode = 3
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Avatar" type="TextureFrame" parent="List/Slots/Save"]
-
-anchor/left = 2
-anchor/top = 2
-anchor/right = 2
-anchor/bottom = 2
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.5
-margin/top = 0.05
-margin/right = 0.99
-margin/bottom = 0.95
-stretch_mode = 3
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="LV" type="Label" parent="List/Slots/Save"]
-
-anchor/left = 2
-anchor/top = 2
-anchor/right = 2
-anchor/bottom = 2
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.05
-margin/top = 0.05
-margin/right = 0.3
-margin/bottom = 0.5
-custom_fonts/font = SubResource( 8 )
-text = "LV."
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Location" type="Label" parent="List/Slots/Save"]
-
-anchor/left = 2
-anchor/top = 2
-anchor/right = 2
-anchor/bottom = 2
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.05
-margin/top = 0.5
-margin/right = 0.5
-margin/bottom = 0.5
-custom_fonts/font = SubResource( 8 )
-text = "Location"
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Difficulty" type="Label" parent="List/Slots/Save"]
-
-anchor/left = 2
-anchor/top = 2
-anchor/right = 2
-anchor/bottom = 2
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.65
-margin/top = 0.05
-margin/right = 0.95
-margin/bottom = 0.5
-custom_fonts/font = SubResource( 8 )
-text = "DIFFICULTY"
-align = 2
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Playtime" type="Label" parent="List/Slots/Save"]
-
-anchor/left = 2
-anchor/top = 2
-anchor/right = 2
-anchor/bottom = 2
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.75
-margin/top = 0.5
-margin/right = 0.95
-margin/bottom = 0.95
-custom_fonts/font = SubResource( 8 )
-text = "00:00"
-align = 2
-valign = 3
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Info" type="Panel" parent="."]
 
@@ -678,7 +482,7 @@ margin/left = 200.0
 margin/top = 100.0
 margin/right = -200.0
 margin/bottom = -60.0
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 10 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -721,7 +525,7 @@ margin/left = 20.0
 margin/top = 50.0
 margin/right = 20.0
 margin/bottom = 20.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 text = "INSERT TEXT HERE"
 align = 1
 valign = 1
@@ -746,7 +550,7 @@ margin/left = 0.0
 margin/top = 116.0
 margin/right = 0.0
 margin/bottom = 0.0
-custom_styles/panel = SubResource( 11 )
+custom_styles/panel = SubResource( 12 )
 __meta__ = {
 "_edit_lock_": true
 }
