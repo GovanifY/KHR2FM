@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://addons/map_event/MapEvent.gd" type="Script" id=1]
 [ext_resource path="res://addons/map_event/icon.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save.png" type="Texture" id=3]
-[ext_resource path="res://SCRIPTS/Map/MapSave.gd" type="Script" id=4]
-[ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save_anim.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save_anim.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -63,9 +62,6 @@ hframes = 8
 vframes = 1
 frame = 0
 blend_mode = 1
-behavior = ExtResource( 4 )
-touch_node = NodePath("approach")
-interact_node = NodePath("")
 
 [node name="main" type="AnimationPlayer" parent="."]
 
@@ -90,7 +86,7 @@ _update_shape_index = 0
 
 visibility/blend_mode = 1
 transform/pos = Vector2( -15, -14 )
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 vframes = 4
 hframes = 5
 frame = 19
@@ -105,5 +101,7 @@ playback/active = true
 playback/speed = 0.8
 blend_times = [  ]
 autoplay = ""
+
+[connection signal="touched" from="." to="approach" method="play" binds= [ "approach" ]]
 
 

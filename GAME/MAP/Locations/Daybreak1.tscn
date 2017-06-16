@@ -317,10 +317,6 @@ hframes = 4
 vframes = 4
 frame = 0
 blend_mode = 0
-Interaction = NodePath("")
-interaction_event = null
-Touch = NodePath("")
-touch_event = null
 
 [node name="Collisions" type="StaticBody2D" parent="MapEvent"]
 
