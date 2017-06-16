@@ -13,7 +13,7 @@ font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 5 )
 
-[node name="List" type="ScrollContainer"]
+[node name="SaveList" type="ScrollContainer"]
 
 anchor/right = 1
 anchor/bottom = 1
