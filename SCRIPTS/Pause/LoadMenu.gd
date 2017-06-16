@@ -37,7 +37,7 @@ func _display_saves():
 			yield(anims, "finished")
 		anims.play("Show Saves")
 	else:
-		Info.msg.set_text("TITLE_SAVE_NOT_FOUND")
+		Info.msg.set_text("MENU_SAVE_NOT_FOUND")
 		anims.play("Show Info")
 
 #######################
@@ -50,7 +50,7 @@ func _show():
 	if anims.is_playing():
 		yield(anims, "finished")
 
-	Info.msg.set_text("TITLE_SAVE_WAIT")
+	Info.msg.set_text("MENU_SAVE_WAIT")
 	anims.play("Show Info")
 	List.fetch_saves(self, "_pressed")
 
