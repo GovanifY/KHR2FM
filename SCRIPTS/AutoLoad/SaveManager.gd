@@ -6,6 +6,9 @@ extends Node
 # This data can be serialized and channeled to Save files.                     #
 ################################################################################
 
+signal loaded
+signal saved
+
 const SAVE_NAME = "slot"
 const SAVE_EXT  = "save"
 
@@ -145,6 +148,8 @@ func new_game(difficulty, initial_scene = null):
 func load_game(slot_idx):
 	save_data = get_save(slot_idx)
 	KHR2.reset_playtime(save_data.playtime_min, save_data.playtime_hrs)
+
+	emit_signal("loaded")
 	return true
 
 func save_game(slot_idx):
@@ -157,6 +162,7 @@ func save_game(slot_idx):
 	savegame.store_var(save_data) # FIXME: It's much more complicated than this
 	savegame.close()
 
+	emit_signal("saved")
 	return true
 
 ####################

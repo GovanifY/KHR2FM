@@ -1,7 +1,7 @@
 extends ScrollContainer
 
 # Signals
-signal loaded
+signal finished
 
 # Paths to save images
 const PATH_IMG_WORLD  = "res://ASSETS/GFX/Title/MainMenu/Save/Worlds/"
@@ -72,7 +72,7 @@ func fetch_saves(cb_node, callback):
 		if img.file_exists(img_avatar):
 			node.get_node("Avatar").set_texture(load(img_avatar))
 
-	emit_signal("loaded")
+	emit_signal("finished")
 
 # Free all instanced save nodes
 func cleanup():
