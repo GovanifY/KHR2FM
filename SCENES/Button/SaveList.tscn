@@ -2,8 +2,8 @@
 
 [ext_resource path="res://SCRIPTS/Button/SaveList.gd" type="Script" id=1]
 [ext_resource path="res://SCENES/Button/KHR2_Button.tscn" type="PackedScene" id=2]
-[ext_resource path="res://SCRIPTS/Button/save_selected.tres" type="StyleBox" id=3]
-[ext_resource path="res://SCRIPTS/Button/save_normal.tres" type="StyleBox" id=4]
+[ext_resource path="res://SCENES/Button/save_selected.tres" type="StyleBox" id=3]
+[ext_resource path="res://SCENES/Button/save_normal.tres" type="StyleBox" id=4]
 [ext_resource path="res://ASSETS/LANG/FONTS/KH2_menu/KH2_ALL_MENU_I.TTF" type="DynamicFontData" id=5]
 
 [sub_resource type="DynamicFont" id=1]
