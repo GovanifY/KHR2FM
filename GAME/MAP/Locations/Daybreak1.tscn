@@ -259,6 +259,9 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="1" type="CollisionPolygon2D" parent="Collisions"]
 
@@ -266,6 +269,9 @@ build_mode = 0
 polygon = Vector2Array( -0.76358, 293.36, 132.2, 357.626, 184.278, 432.972, 186.494, 663.443, 202.007, 663.443, 203.115, 685.604, 420.289, 798.623, 470.151, 844.052, 470.151, 999.177, -0.76358, 999.177 )
 shape_range = Vector2( 0, 2 )
 trigger = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="3" type="CollisionPolygon2D" parent="Collisions"]
 
@@ -273,6 +279,9 @@ build_mode = 0
 polygon = Vector2Array( 1397.38, -0.115135, 1398.22, 229.807, 1401.55, 246.428, 1410.41, 249.752, 1417.06, 244.212, 1428.14, 248.644, 1999.89, 249.752, 1999.89, 1.55255 )
 shape_range = Vector2( 3, 4 )
 trigger = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="4" type="CollisionPolygon2D" parent="Collisions"]
 
@@ -280,6 +289,9 @@ build_mode = 0
 polygon = Vector2Array( 1269.33, 0.346905, 1269.65, 246.245, 1154.8, 303.187, 1154.47, 342.011, 1152.21, 344.599, 1114.03, 323.569, 1086.21, 338.452, 1086.53, 376.305, 971.588, 434.961, 971.296, 448.684, 940.637, 464.16, 926.914, 457.736, 697.94, 572.362, 549.028, 500.162, 26.9884, -0.183346 )
 shape_range = Vector2( 5, 10 )
 trigger = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="5" type="CollisionPolygon2D" parent="Collisions"]
 
@@ -288,6 +300,9 @@ build_mode = 0
 polygon = Vector2Array( 1061.78, 803.869, 1077.3, 810.517, 1077.3, 822.705, 1083.95, 826.029, 1091.7, 821.597, 1121.62, 833.786, 1165.94, 843.758, 1199.18, 821.597, 1200.29, 802.761, 1184.78, 797.221, 1170.37, 780.6, 1160.4, 748.467, 1095.03, 742.927, 1076.19, 738.495 )
 shape_range = Vector2( 11, 15 )
 trigger = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Kioku" parent="." instance=ExtResource( 3 )]
 
@@ -297,7 +312,7 @@ transform/pos = Vector2( 450.536, 557.486 )
 
 transform/pos = Vector2( 571, 542 )
 
-[node name="MapEvent" type="Area2D" parent="."]
+[node name="NPC" type="Area2D" parent="."]
 
 transform/pos = Vector2( 687, 575 )
 input/pickable = true
@@ -318,8 +333,9 @@ vframes = 4
 frame = 0
 blend_mode = 0
 
-[node name="Collisions" type="StaticBody2D" parent="MapEvent"]
+[node name="Collisions" type="StaticBody2D" parent="NPC"]
 
+editor/display_folded = true
 input/pickable = false
 shapes/0/shape = SubResource( 18 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 35 )
@@ -330,22 +346,28 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Legs" type="CollisionShape2D" parent="MapEvent/Collisions"]
+[node name="Legs" type="CollisionShape2D" parent="NPC/Collisions"]
 
 transform/pos = Vector2( 0, 35 )
 shape = SubResource( 18 )
 trigger = false
 _update_shape_index = 0
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="TalkArea" type="CollisionShape2D" parent="MapEvent"]
+[node name="TalkArea" type="CollisionShape2D" parent="NPC"]
 
 transform/pos = Vector2( 0, 15 )
 shape = SubResource( 17 )
 trigger = false
 _update_shape_index = 0
 
-[node name="ParticleAttractor2D" type="ParticleAttractor2D" parent="MapEvent"]
+[node name="ParticleAttractor2D" type="ParticleAttractor2D" parent="NPC"]
 
 enabled = true
 radius = 50.0
