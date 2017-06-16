@@ -54,7 +54,8 @@ func _show():
 	anims.play("Show Info")
 	List.fetch_saves(self, "_pressed_load")
 
-func _pressed_load(button, slot_idx):
+func _pressed_load(button):
+	var slot_idx = int(button.get_name())
 	var it_loaded = SaveManager.load_game(slot_idx)
 	if it_loaded:
 		button.release_focus()

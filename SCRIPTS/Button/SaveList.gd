@@ -31,6 +31,16 @@ func _recenter(button):
 ###############
 ### Methods ###
 ###############
+func new_slot(cb_node, callback):
+	var node = save_template.duplicate(true)
+	node.add_to_group("Saves")
+	node.connect("focus_enter", self, "_recenter", [node])
+	node.connect("pressed", cb_node, callback, [node])
+
+	node.show()
+	Slots.add_child(node)
+	return node
+
 func fetch_saves(cb_node, callback):
 	for filename in SaveManager.get_save_list():
 		var slot_idx = int(filename)
@@ -38,11 +48,8 @@ func fetch_saves(cb_node, callback):
 		if data.empty(): # Save file doesn't exist (only happens in debug)
 			continue
 
-		var node = save_template.duplicate(true)
+		var node = new_slot(cb_node, callback)
 		node.set_name(filename)
-		node.add_to_group("Saves")
-		node.connect("focus_enter", self, "_recenter", [node])
-		node.connect("pressed", cb_node, callback, [node, slot_idx])
 
 		# Populating button with information
 		var hrs  = String(data.playtime_hrs).pad_zeros(2)
@@ -64,9 +71,6 @@ func fetch_saves(cb_node, callback):
 			node.get_node("World").set_texture(load(img_world))
 		if img.file_exists(img_avatar):
 			node.get_node("Avatar").set_texture(load(img_avatar))
-
-		node.show()
-		Slots.add_child(node)
 
 	emit_signal("loaded")
 
