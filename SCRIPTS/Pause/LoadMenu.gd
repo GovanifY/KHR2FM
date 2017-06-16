@@ -28,13 +28,14 @@ func _display_saves():
 
 	# Do we have any saves in here?
 	if List.Slots.get_child_count() > 1:
-		# Making sure the first Option is selected
-		List.Slots.get_child(1).grab_focus()
-
 		if !Info.panel.is_hidden():
 			anims.play("Hide Info")
 			yield(anims, "finished")
 		anims.play("Show Saves")
+		yield(anims, "finished")
+
+		# Making sure the first Option is selected
+		List.Slots.get_child(1).grab_focus()
 	else:
 		Info.msg.set_text("MENU_SAVE_NOT_FOUND")
 		anims.play("Show Info")
