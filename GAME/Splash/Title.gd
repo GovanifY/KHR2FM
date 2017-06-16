@@ -8,7 +8,6 @@ enum OPTION_CONTROLS { OPTION_MAIN_NEW, OPTION_MAIN_LOAD, OPTION_MAIN_QUIT }
 onready var AnimsMenu = get_node("Anims_MM")
 onready var Options   = get_node("Options").get_children()
 onready var Cursor    = get_node("Options/Cursor")
-onready var cursor_inc = Cursor.get_texture().get_size() / 4
 var cursor_idx = 0
 
 # Options instance members
@@ -27,7 +26,6 @@ func _ready():
 		var button = Options[i]
 		button.set_disabled(true)
 		button.connect("pressed", self, "_pressed_main", [i])
-		button.connect("focus_enter", self, "_set_cursor_position", [button])
 
 	# Making specific connections
 	NewGame.connect("finished", self, "_start_game", ["New Game"])
@@ -79,10 +77,6 @@ func _on_flash_end(name):
 
 	# Making sure the first Option is selected
 	Options[0].grab_focus()
-
-func _set_cursor_position(button):
-	var pos = button.get_pos() + cursor_inc
-	Cursor.set_pos(pos)
 
 func _pressed_main(button_idx):
 	cursor_idx = button_idx
