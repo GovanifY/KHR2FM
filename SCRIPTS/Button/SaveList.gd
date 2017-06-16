@@ -11,11 +11,12 @@ const PATH_IMG_AVATAR = "res://ASSETS/GFX/Title/MainMenu/Save/Avatars/"
 onready var Scroll = get_node("Scroll")
 onready var Slots  = get_node("Slots")
 
+onready var save_template = get_node("Slots/Save")
+
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	var save_template = Slots.get_node("Save")
 	save_template.hide()
 	save_template.set_text("")
 
@@ -31,8 +32,6 @@ func _recenter(button):
 ### Methods ###
 ###############
 func fetch_saves(cb_node, callback):
-	var save_template = Slots.get_node("Save")
-
 	for filename in SaveManager.get_save_list():
 		var slot_idx = int(filename)
 		var data = SaveManager.get_save(slot_idx)
