@@ -4,6 +4,7 @@
 
 [node name="Height" type="YSort"]
 
+process/pause_mode = 1
 sort/enabled = true
 script/script = ExtResource( 1 )
 __meta__ = {

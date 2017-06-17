@@ -10,13 +10,6 @@ onready var SaveMenu = get_node("SaveMenu")
 ######################
 ### Core functions ###
 ######################
-func _enter_tree():
-	Globals.set("Pause", "SavePoint")
-	KHR2.connect("toggle_pause", self, "show")
-
-func _exit_tree():
-	Globals.set("Pause", null)
-
 func _ready():
 	connect("draw", self, "_show")
 
@@ -36,6 +29,7 @@ func _input(event):
 func _dismiss_menu():
 	set_process_input(false)
 	hide()
+	KHR2.pause_game()
 
 func _dismiss_save_menu():
 	if !SaveMenu.anims.is_playing():
@@ -49,6 +43,7 @@ func _dismiss_save_menu():
 ### Signal routines ###
 #######################
 func _show():
+	KHR2.pause_game()
 	Options[0].grab_focus()
 	set_process_input(true)
 
