@@ -63,10 +63,12 @@ func _input(event):
 ### Signal routines ###
 #######################
 func _on_area_body_enter(body):
-	if body.get_type() == "MapPlayer" && !is_processing_input():
-		set_process_input(true)
-		emit_signal("touched")
+	emit_signal("touched")
+	if body.get_type() == "MapPlayer":
+		body.interactable = self
+		body.set_process_input(true)
 
 func _on_area_body_exit(body):
 	if body.get_type() == "MapPlayer":
-		set_process_input(false)
+		body.interactable = null
+		body.set_process_input(false)

@@ -10,6 +10,7 @@ enum {
 # Instance members
 onready var Anims     = get_node("anims")
 onready var Character = get_node("Character")
+var interactable
 
 # "Private" members
 onready var sprite_direction = { # All 8 directions from this project's spriteset layout
@@ -49,6 +50,11 @@ func _fixed_process(delta):
 	# If it can animate the character, then it can move
 	if _animate_character(directions):
 		_move_character(directions, delta)
+
+func _input(event):
+	if event.is_pressed() && !event.is_echo():
+		if event.is_action("ui_accept"):
+			interactable.emit_signal("interacted")
 
 func _animate_character(directions):
 	# If it can move to this direction
