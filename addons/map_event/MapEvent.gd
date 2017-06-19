@@ -18,7 +18,7 @@ func _enter_tree():
 ### Signal routines ###
 #######################
 func _on_area_body_enter(body):
-	emit_signal("touched", body)
+	emit_signal("touched")
 	if body.is_type("MapPlayer"):
 		body.interactable = self
 		body.set_process_input(true)
