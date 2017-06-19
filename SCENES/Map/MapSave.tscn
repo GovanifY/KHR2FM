@@ -17,7 +17,7 @@ length = 1.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
+tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -57,11 +57,12 @@ script/script = ExtResource( 1 )
 __meta__ = {
 "_editor_icon": ExtResource( 2 )
 }
-spriteset = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+visibility/blend_mode = 1
+texture = ExtResource( 3 )
 hframes = 8
-vframes = 1
-frame = 0
-blend_mode = 1
 
 [node name="main" type="AnimationPlayer" parent="."]
 

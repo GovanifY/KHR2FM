@@ -327,11 +327,12 @@ script/script = ExtResource( 5 )
 __meta__ = {
 "_editor_icon": ExtResource( 6 )
 }
-spriteset = ExtResource( 7 )
-hframes = 4
+
+[node name="Sprite" type="Sprite" parent="NPC"]
+
+texture = ExtResource( 7 )
 vframes = 4
-frame = 0
-blend_mode = 0
+hframes = 4
 
 [node name="Collisions" type="StaticBody2D" parent="NPC"]
 
