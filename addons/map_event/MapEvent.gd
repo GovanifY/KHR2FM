@@ -14,11 +14,6 @@ func _enter_tree():
 	connect("body_enter", self, "_on_area_body_enter")
 	connect("body_exit", self, "_on_area_body_exit")
 
-func _input(event):
-	if event.is_pressed() && !event.is_echo():
-		if event.is_action("ui_accept"):
-			emit_signal("interacted")
-
 #######################
 ### Signal routines ###
 #######################
