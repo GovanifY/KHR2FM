@@ -57,6 +57,7 @@ script/script = ExtResource( 1 )
 __meta__ = {
 "_editor_icon": ExtResource( 2 )
 }
+type = "SavePoint"
 
 [node name="Sprite" type="Sprite" parent="."]
 

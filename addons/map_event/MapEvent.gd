@@ -5,6 +5,9 @@ extends Area2D
 signal touched
 signal interacted
 
+# Export values
+export(String) var type
+
 ######################
 ### Core functions ###
 ######################
@@ -27,3 +30,12 @@ func _on_area_body_exit(body):
 	if body.is_type("MapPlayer"):
 		body.interactable = null
 		body.set_process_input(false)
+
+########################
+### Export functions ###
+########################
+func get_type():
+	return type
+
+func is_type(type):
+	return type == get_type()
