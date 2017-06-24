@@ -16,6 +16,7 @@ var HistoryList = {
 ######################
 func _ready():
 	CommandBox.set_wrap(false)
+	CommandBox.grab_focus()
 
 # Executes a small script with the given input
 func _execute(input):
