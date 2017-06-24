@@ -64,6 +64,7 @@ func queue_scene(path):
 	# Pushing given scene as reference
 	next_scenes.push_back(path)
 	emit_signal("scene_was_pushed")
+	return true
 
 # Adds the given resources to queue to load them with given flags
 func load_scene(path, flags=0):
