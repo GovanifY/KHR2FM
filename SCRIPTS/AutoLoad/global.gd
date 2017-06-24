@@ -6,8 +6,6 @@ extends Node
 # Signals
 signal toggle_pause
 
-var Playtime = Timer.new()
-
 ######################
 ### Core functions ###
 ######################
@@ -16,8 +14,10 @@ func _enter_tree():
 
 func _ready():
 	# Timer-related
-	Playtime.connect("timeout", self, "_playtime")
-	add_child(Playtime)
+	var playtime = Timer.new()
+	playtime.set_name("Playtime")
+	playtime.connect("timeout", self, "_playtime")
+	add_child(playtime)
 
 	# Final settings
 	set_pause_mode(PAUSE_MODE_PROCESS)
@@ -79,11 +79,12 @@ func _playtime():
 ###############
 # Resets the global Playtime
 func reset_playtime(mins=0, hrs=0):
-	Playtime.stop()
+	var playtime = get_node("Playtime")
+	playtime.stop()
 	Globals.set("PlaytimeMinutes", mins)
 	Globals.set("PlaytimeHours", hrs)
-	Playtime.set_wait_time(60)
-	Playtime.start()
+	playtime.set_wait_time(60)
+	playtime.start()
 
 # Properly pauses/unpauses the game
 func pause_game():
