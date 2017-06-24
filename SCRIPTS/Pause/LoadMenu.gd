@@ -29,7 +29,7 @@ func _display_saves():
 	# Do we have any saves in here?
 	if List.Slots.get_child_count() > 1:
 		if !Info.panel.is_hidden():
-			anims.play("Hide Info")
+			hide_info()
 			yield(anims, "finished")
 		anims.play("Show Saves")
 		yield(anims, "finished")
@@ -37,8 +37,7 @@ func _display_saves():
 		# Making sure the first Option is selected
 		List.Slots.get_child(1).grab_focus()
 	else:
-		set_info("MENU_SAVE_NOT_FOUND")
-		anims.play("Show Info")
+		show_info("MENU_SAVE_NOT_FOUND")
 
 #######################
 ### Signal routines ###
@@ -50,8 +49,7 @@ func _show():
 	if anims.is_playing():
 		yield(anims, "finished")
 
-	set_info("MENU_SAVE_SLOTS_WAIT")
-	anims.play("Show Info")
+	show_info("MENU_SAVE_SLOTS_WAIT")
 	List.fetch_saves(self, "_pressed")
 
 func _on_animation_started(anim_name):
@@ -68,15 +66,14 @@ func _pressed(button):
 	])
 	SaveManager.connect("loaded", self, "_done")
 
-	set_info("MENU_LOAD_WAIT")
-	anims.play("Show Info")
+	show_info("MENU_LOAD_WAIT")
 	SaveManager.load_game(slot_idx)
 
 func _done():
 	if anims.is_playing():
 		yield(anims, "finished")
 
-	anims.play("Hide Info")
+	hide_info()
 	yield(anims, "finished")
 
 	emit_signal("finished")
@@ -84,6 +81,10 @@ func _done():
 ###############
 ### Methods ###
 ###############
-func set_info(msg, title="info"):
+func show_info(msg, title="info"):
 	Info.title.set_text(title)
 	Info.msg.set_text(msg)
+	anims.play("Show Info")
+
+func hide_info():
+	anims.play("Hide Info")

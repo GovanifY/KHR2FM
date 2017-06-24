@@ -28,14 +28,12 @@ func _pressed(button):
 		slot_idx = SaveManager.find_available_slot()
 	else:
 		return # FIXME: Remove this
-		set_info("MENU_SAVE_CONFIRM")
-		anims.play("Show Info")
+		show_info("MENU_SAVE_CONFIRM")
 		yield(anims, "finished")
 
 		return # TODO: Ask player for confirmation
 
 	SaveManager.connect("saved", self, "_done")
 
-	set_info("MENU_SAVE_WAIT")
-	anims.play("Show Info")
+	show_info("MENU_SAVE_WAIT")
 	SaveManager.save_game(slot_idx)
