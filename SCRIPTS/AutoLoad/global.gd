@@ -57,10 +57,10 @@ func _input(event):
 					Globals.set(debug_name, false)
 			elif event.is_action("quick_save") && !SaveManager.is_processing():
 				SaveManager.save_game(0)
-				yield(SaveManager, "saved")
+				#yield(SaveManager, "saved")
 			elif event.is_action("quick_load") && !SaveManager.is_processing():
 				SaveManager.load_game(0)
-				yield(SaveManager, "loaded")
+				#yield(SaveManager, "loaded")
 				SceneLoader.load_scene(SaveManager.get_scene())
 		return
 
