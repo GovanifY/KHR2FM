@@ -13,28 +13,7 @@ const SAVE_NAME = "slot"
 const SAVE_EXT  = "save"
 
 # Serializable dictionary filled with the most important info for a save file
-var save_data = {
-	# IMPORTANT DATA
-	"difficulty"   : null,
-	"scene"        : null,
-	"location"     : null,
-	"world"        : null,
-	"playtime_hrs" : 0,
-	"playtime_min" : 0,
-
-	# Save-specific content
-	"avatar"       : "",
-
-	# Switches
-	# Basic stats
-	"lv"           : 1,
-	"hp"           : 10,
-	"attack"       : 1,
-	"defense"      : 1,
-	# Stat adders
-	"keyblade"     : null,
-	# TODO: Items, magic, abilities, limits
-}
+var save_data = {}
 
 ######################
 ### Core functions ###
@@ -49,22 +28,28 @@ func _has_key(key):
 	return has
 
 func _assemble_data():
-	# FIXME: Fill in the blanks
-	save_data.difficulty = Globals.get("Difficulty")
-	save_data.scene = get_tree().get_current_scene().get_filename()
-	save_data.world = Globals.get("World")
-	save_data.location = Globals.get("Location")
-	save_data.playtime_hrs = Globals.get("PlayTimeHours")
-	save_data.playtime_min = Globals.get("PlayTimeMinutes")
+	return {
+		# IMPORTANT DATA
+		"difficulty"   : Globals.get("Difficulty"),
+		"scene"        : get_tree().get_current_scene().get_filename(),
+		"world"        : Globals.get("World"),
+		"location"     : Globals.get("Location"),
+		"playtime_hrs" : Globals.get("PlayTimeHours"),
+		"playtime_min" : Globals.get("PlayTimeMinutes"),
 
-	save_data.avatar = random_avatar()
+		# Save-specific content
+		"avatar"       : random_avatar(),
 
-	#save_data.lv =
-	#save_data.hp =
-	#save_data.attack =
-	#save_data.defense =
-
-	#save_data.keyblade =
+		# Switches
+		# Basic stats
+		"lv"           : 1,
+		"hp"           : 10,
+		"attack"       : 1,
+		"defense"      : 1,
+		# Stat adders
+		"keyblade"     : null,
+		# TODO: Items, magic, abilities, limits
+	}
 
 ########################
 ### Helper functions ###
@@ -167,8 +152,8 @@ func load_game(slot_idx):
 	return true
 
 func save_game(slot_idx):
+	save_data = _assemble_data()
 	var path = fmt_path(slot_idx)
-	_assemble_data()
 	write_save(path, save_data)
 
 	emit_signal("saved")
@@ -180,8 +165,8 @@ func quick_load():
 	print("Quick loaded!")
 
 func quick_save():
+	save_data = _assemble_data()
 	var path = "user://" + "quick" + SAVE_NAME + "." + SAVE_EXT
-	_assemble_data()
 	write_save(path, save_data)
 	print("Quick saved!")
 
