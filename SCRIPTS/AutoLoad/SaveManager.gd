@@ -96,6 +96,28 @@ static func random_avatar():
 	var rand = randi() % list.size()
 	return list[rand]
 
+static func read_save(path):
+	var savegame = File.new()
+	if !savegame.file_exists(path):
+		return {} # We don't have a save to load
+
+	savegame.open(path, File.READ) # FIXME: Open encrypted
+	# FIXME: Save layout should be much more complicated than this
+	var ret = savegame.get_var()
+	# End layout
+	savegame.close()
+
+	return ret
+
+static func write_save(path, data):
+	var savegame = File.new()
+
+	savegame.open(path, File.WRITE) # FIXME: Open encrypted
+	# FIXME: Save layout should be much more complicated than this
+	savegame.store_var(data)
+	# End layout
+	savegame.close()
+
 ####################
 ### Main Methods ###
 ####################
@@ -109,15 +131,7 @@ func find_available_slot():
 
 func get_save(slot_idx):
 	var path = fmt_path(slot_idx)
-	var savegame = File.new()
-	if !savegame.file_exists(path):
-		return {} # We don't have a save to load
-
-	savegame.open(path, File.READ) # FIXME: Open encrypted
-	var ret = savegame.get_var() # FIXME: It's much more complicated than this
-	savegame.close()
-
-	return ret
+	return read_save(path)
 
 func get_save_list():
 	var dir = Directory.new()
@@ -146,29 +160,30 @@ func new_game(difficulty, initial_scene = null):
 	return true
 
 func load_game(slot_idx):
-	set_processing(true)
-
 	save_data = get_save(slot_idx)
 	KHR2.reset_playtime(save_data.playtime_min, save_data.playtime_hrs)
 
-	set_processing(false)
 	emit_signal("loaded")
 	return true
 
 func save_game(slot_idx):
-	set_processing(true)
-	_assemble_data()
-
 	var path = fmt_path(slot_idx)
-	var savegame = File.new()
+	_assemble_data()
+	write_save(path, save_data)
 
-	savegame.open(path, File.WRITE) # FIXME: Open encrypted
-	savegame.store_var(save_data) # FIXME: It's much more complicated than this
-	savegame.close()
-
-	set_processing(false)
 	emit_signal("saved")
 	return true
+
+func quick_load():
+	var path = "user://" + "quick" + SAVE_NAME + "." + SAVE_EXT
+	save_data = read_save(path)
+	print("Quick loaded!")
+
+func quick_save():
+	var path = "user://" + "quick" + SAVE_NAME + "." + SAVE_EXT
+	_assemble_data()
+	write_save(path, save_data)
+	print("Quick saved!")
 
 ####################
 ###   Modifiers  ###

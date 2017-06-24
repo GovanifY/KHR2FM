@@ -55,12 +55,10 @@ func _input(event):
 				else:
 					SceneLoader.erase_scene(debug_path)
 					Globals.set(debug_name, false)
-			elif event.is_action("quick_save") && !SaveManager.is_processing():
-				SaveManager.save_game(0)
-				#yield(SaveManager, "saved")
-			elif event.is_action("quick_load") && !SaveManager.is_processing():
-				SaveManager.load_game(0)
-				#yield(SaveManager, "loaded")
+			elif event.is_action("quick_save"):
+				SaveManager.quick_save()
+			elif event.is_action("quick_load"):
+				SaveManager.quick_load()
 				SceneLoader.load_scene(SaveManager.get_scene())
 		return
 
