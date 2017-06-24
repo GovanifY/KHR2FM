@@ -42,7 +42,7 @@ func _input(event):
 			if event.is_action("reload_scene"):
 				# Unpause the game if it's paused
 				if get_tree().is_paused():
-					pause_game()
+					pause_game(false)
 				get_tree().reload_current_scene()
 			elif event.is_action("debug"):
 				var debug_name = "DebugCMD"
@@ -87,10 +87,10 @@ func reset_playtime(mins=0, hrs=0):
 	playtime.start()
 
 # Properly pauses/unpauses the game
-func pause_game():
+func pause_game(value=!get_tree().is_paused()):
 	if Globals.get("Pause") == null:
 		return # DO NOT PAUSE
 
 	# Toggle pause and signal that it's been toggled
-	get_tree().set_pause(!get_tree().is_paused())
+	get_tree().set_pause(value)
 	emit_signal("toggle_pause")
