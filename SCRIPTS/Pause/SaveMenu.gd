@@ -28,7 +28,7 @@ func _pressed(button):
 		slot_idx = SaveManager.find_available_slot()
 	else:
 		return # FIXME: Remove this
-		Info.msg.set_text("MENU_SAVE_CONFIRM")
+		set_info("MENU_SAVE_CONFIRM")
 		anims.play("Show Info")
 		yield(anims, "finished")
 
@@ -36,6 +36,6 @@ func _pressed(button):
 
 	SaveManager.connect("saved", self, "_done")
 
-	Info.msg.set_text("MENU_SAVE_WAIT")
+	set_info("MENU_SAVE_WAIT")
 	anims.play("Show Info")
 	SaveManager.save_game(slot_idx)

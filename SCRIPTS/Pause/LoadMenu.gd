@@ -37,7 +37,7 @@ func _display_saves():
 		# Making sure the first Option is selected
 		List.Slots.get_child(1).grab_focus()
 	else:
-		Info.msg.set_text("MENU_SAVE_NOT_FOUND")
+		set_info("MENU_SAVE_NOT_FOUND")
 		anims.play("Show Info")
 
 #######################
@@ -50,7 +50,7 @@ func _show():
 	if anims.is_playing():
 		yield(anims, "finished")
 
-	Info.msg.set_text("MENU_SAVE_SLOTS_WAIT")
+	set_info("MENU_SAVE_SLOTS_WAIT")
 	anims.play("Show Info")
 	List.fetch_saves(self, "_pressed")
 
@@ -68,7 +68,7 @@ func _pressed(button):
 	])
 	SaveManager.connect("loaded", self, "_done")
 
-	Info.msg.set_text("MENU_LOAD_WAIT")
+	set_info("MENU_LOAD_WAIT")
 	anims.play("Show Info")
 	SaveManager.load_game(slot_idx)
 
@@ -80,3 +80,10 @@ func _done():
 	yield(anims, "finished")
 
 	emit_signal("finished")
+
+###############
+### Methods ###
+###############
+func set_info(msg, title="info"):
+	Info.title.set_text(title)
+	Info.msg.set_text(msg)
