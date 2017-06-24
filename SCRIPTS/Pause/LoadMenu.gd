@@ -19,7 +19,7 @@ onready var Info = {
 func _ready():
 	# Initial settings
 	connect("draw", self, "_show")
-	anims.connect("animation_started", self, "_on_animation_started")
+	connect("hide", self, "_hide")
 	List.connect("finished", self, "_display_saves")
 
 func _display_saves():
@@ -52,19 +52,15 @@ func _show():
 	show_info("MENU_SAVE_SLOTS_WAIT")
 	List.fetch_saves(self, "_pressed")
 
-func _on_animation_started(anim_name):
-	if anim_name == "Fade Out":
-		SE.play("system_dismiss")
-		List.cleanup()
+func _hide():
+	List.cleanup()
 
 func _pressed(button):
 	var slot_idx = int(button.get_name())
 
 	# Avoiding cleaning up upon loading
-	SaveManager.connect("loaded", anims, "disconnect", [
-		"animation_started", self, "_on_animation_started"
-	])
-	SaveManager.connect("loaded", self, "_done")
+	if !SaveManager.is_connected("loaded", self, "_done"):
+		SaveManager.connect("loaded", self, "_done")
 
 	show_info("MENU_LOAD_WAIT")
 	SaveManager.load_game(slot_idx)
@@ -72,6 +68,7 @@ func _pressed(button):
 func _done():
 	if anims.is_playing():
 		yield(anims, "finished")
+	SaveManager.disconnect("loaded", self, "_done")
 
 	hide_info()
 	yield(anims, "finished")
