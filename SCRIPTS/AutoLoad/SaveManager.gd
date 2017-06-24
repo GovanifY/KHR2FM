@@ -146,13 +146,17 @@ func new_game(difficulty, initial_scene = null):
 	return true
 
 func load_game(slot_idx):
+	set_processing(true)
+
 	save_data = get_save(slot_idx)
 	KHR2.reset_playtime(save_data.playtime_min, save_data.playtime_hrs)
 
+	set_processing(false)
 	emit_signal("loaded")
 	return true
 
 func save_game(slot_idx):
+	set_processing(true)
 	_assemble_data()
 
 	var path = fmt_path(slot_idx)
@@ -162,6 +166,7 @@ func save_game(slot_idx):
 	savegame.store_var(save_data) # FIXME: It's much more complicated than this
 	savegame.close()
 
+	set_processing(false)
 	emit_signal("saved")
 	return true
 
