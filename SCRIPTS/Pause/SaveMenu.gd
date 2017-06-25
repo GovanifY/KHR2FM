@@ -15,8 +15,8 @@ func _show():
 	var new_save = List.new_slot(self, "_pressed")
 
 	new_save.set_name("-1")
-	#new_save.set_text("New Save")
-	#List.edit_slot(new_save, null)
+	new_save.set_text("New Save")
+	List.edit_slot(new_save, null)
 
 	._show()
 
