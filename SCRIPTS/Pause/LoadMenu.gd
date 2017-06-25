@@ -102,7 +102,9 @@ func set_info_size(size):
 func show_info(msg, title="info"):
 	Info.title.set_text(title)
 	Info.msg.set_text(msg)
-	anims.play("Show Info")
+	if Info.panel.is_hidden():
+		anims.play("Show Info")
 
 func hide_info():
-	anims.play("Hide Info")
+	if Info.panel.is_visible():
+		anims.play("Hide Info")
