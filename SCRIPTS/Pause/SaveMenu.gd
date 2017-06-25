@@ -25,6 +25,9 @@ func _refresh():
 	_show()
 
 func _pressed(button):
+	if !SaveManager.is_connected("saved", self, "_done"):
+		SaveManager.connect("saved", self, "_done")
+
 	var slot_idx = int(button.get_name())
 
 	# Find the appropriate slot_idx
@@ -36,8 +39,6 @@ func _pressed(button):
 		yield(anims, "finished")
 
 		return # TODO: Ask player for confirmation
-
-	SaveManager.connect("saved", self, "_done")
 
 	show_info("MENU_SAVE_WAIT")
 	SaveManager.save_game(slot_idx)
