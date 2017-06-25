@@ -13,7 +13,11 @@ func _ready():
 func _show():
 	# Adding "New save" slot before loading all the others
 	var new_save = List.new_slot(self, "_pressed")
+
 	new_save.set_name("-1")
+	#new_save.set_text("New Save")
+	#List.edit_slot(new_save, null)
+
 	._show()
 
 func _refresh():
