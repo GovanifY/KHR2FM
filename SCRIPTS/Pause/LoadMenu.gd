@@ -65,6 +65,8 @@ func _pressed(button):
 	if !SaveManager.is_connected("loaded", self, "_done"):
 		SaveManager.connect("loaded", self, "_done")
 
+	List.set_disabled_slots(true)
+
 	var slot_idx = int(button.get_name())
 	show_info("MENU_LOAD_WAIT")
 	SaveManager.load_game(slot_idx)
@@ -76,6 +78,9 @@ func _done():
 	yield(anims, "finished")
 
 	emit_signal("finished")
+
+	if !anims.is_playing():
+		List.set_disabled_slots(false)
 
 ###############
 ### Methods ###

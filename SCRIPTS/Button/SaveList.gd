@@ -31,6 +31,11 @@ func _recenter(button):
 ###############
 ### Methods ###
 ###############
+# Slot control
+func set_disabled_slots(value):
+	get_tree().call_group(0, "Saves", "set_disabled", value)
+
+# Slot creation
 func new_slot(cb_node, callback):
 	var node = save_template.duplicate(true)
 	node.add_to_group("Saves")
@@ -69,6 +74,7 @@ func edit_slot(node, slot_data):
 	if img.file_exists(path_avatar):
 		node.get_node("Avatar").set_texture(load(path_avatar))
 
+# Save information fetching (uses SaveManager)
 func fetch_saves(cb_node, callback):
 	for filename in SaveManager.get_save_list():
 		var slot_idx = int(filename)
