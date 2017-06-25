@@ -3,6 +3,8 @@ extends Panel
 # Signals
 signal finished
 
+enum INFO_PANEL_SIZE { INFO_SIZE_SMALL, INFO_SIZE_MEDIUM, INFO_SIZE_LARGE }
+
 # Instance members
 onready var anims  = get_node("Anims")
 
@@ -50,6 +52,7 @@ func _display_saves():
 func _show():
 	if anims.is_playing():
 		yield(anims, "finished")
+	set_info_size(INFO_SIZE_SMALL)
 	show_info("MENU_SAVE_SLOTS_WAIT")
 
 	List.fetch_saves(self, "_pressed")
@@ -85,6 +88,17 @@ func _done():
 ###############
 ### Methods ###
 ###############
+func set_info_size(size):
+	if size == INFO_SIZE_SMALL:
+		Info.panel.set_pos(Vector2(227, 140))
+		Info.panel.set_size(Vector2(400, 160))
+	elif size == INFO_SIZE_MEDIUM:
+		Info.panel.set_pos(Vector2(197, 120))
+		Info.panel.set_size(Vector2(460, 200))
+	elif size == INFO_SIZE_LARGE:
+		Info.panel.set_pos(Vector2(127, 120))
+		Info.panel.set_size(Vector2(600, 200))
+
 func show_info(msg, title="info"):
 	Info.title.set_text(title)
 	Info.msg.set_text(msg)
