@@ -682,7 +682,6 @@ anchor/left = 3
 anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
-rect/scale = Vector2( 1, 0 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -698,8 +697,6 @@ __meta__ = {
 
 [node name="Title" type="Label" parent="Info"]
 
-visibility/visible = false
-visibility/opacity = 0.0
 anchor/right = 1
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -722,8 +719,6 @@ __meta__ = {
 
 [node name="Message" type="Label" parent="Info"]
 
-visibility/visible = false
-visibility/opacity = 0.0
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
