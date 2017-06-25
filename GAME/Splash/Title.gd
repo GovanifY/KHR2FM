@@ -29,7 +29,6 @@ func _ready():
 	# Making specific connections
 	NewGame.connect("finished", self, "_start_game", ["New Game"])
 	LoadGame.connect("finished", self, "_start_game", ["Load Game"])
-	LoadGame.anims.connect("animation_started", self, "_on_loadgame_anims")
 
 	# Adding music
 	AudioRoom.set_stream(preload("res://ASSETS/BGM/Dearly_Beloved.ogg"))
@@ -76,10 +75,6 @@ func _on_flash_end(name):
 	# Making sure the first Option is selected
 	Options[0].grab_focus()
 
-func _on_loadgame_anims(anim_name):
-	if anim_name == "Fade Out":
-		SE.play("system_dismiss")
-
 func _pressed_main(button_idx):
 	cursor_idx = button_idx
 
@@ -107,7 +102,7 @@ func _start_game(selection):
 	set_process_input(false)
 
 	# Disconnects specific signals
-	LoadGame.anims.disconnect("animation_started", self, "_on_loadgame_anims")
+	LoadGame.anims.disconnect("animation_started", LoadGame, "_on_fade_out")
 
 	# Dismiss the window before anything else
 	var menu = get_node(selection)
