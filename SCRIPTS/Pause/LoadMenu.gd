@@ -47,9 +47,6 @@ func _display_saves():
 #######################
 # When this window is shown
 func _show():
-	List.Slots.hide()
-	Info.panel.hide()
-
 	if anims.is_playing():
 		yield(anims, "finished")
 	show_info("MENU_SAVE_SLOTS_WAIT")
