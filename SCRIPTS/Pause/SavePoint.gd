@@ -43,7 +43,7 @@ func _dismiss_save_menu():
 ### Signal routines ###
 #######################
 func _show():
-	KHR2.pause_game()
+	KHR2.pause_game(true)
 	Options[0].grab_focus()
 	set_process_input(true)
 
