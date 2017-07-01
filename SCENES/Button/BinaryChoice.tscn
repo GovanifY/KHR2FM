@@ -20,6 +20,9 @@ margin/bottom = 10.0
 custom_constants/separation = 15
 alignment = 1
 script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Yes" parent="." instance=ExtResource( 2 )]
 
