@@ -7,11 +7,11 @@ enum OPTION_CONTROLS { OPTION_MAIN_NEW, OPTION_MAIN_LOAD, OPTION_MAIN_QUIT }
 # Main Menu instance members
 onready var AnimsMenu = get_node("Anims_MM")
 onready var Options   = get_node("Options").get_children()
+onready var Menu      = [
+	get_node("New Game"),
+	get_node("Load Game"),
+]
 var cursor_idx = 0
-
-# Options instance members
-onready var NewGame  = get_node("New Game")
-onready var LoadGame = get_node("Load Game")
 
 ######################
 ### Core functions ###
@@ -25,12 +25,12 @@ func _ready():
 		var button = Options[i]
 		button.set_disabled(true)
 		button.connect("pressed", self, "_pressed_main", [i])
+		if i < Menu.size():
+			Menu[i].connect("hide", self, "_dismissed_menu")
 
 	# Making specific connections
-	NewGame.connect("hide", self, "_dismissed_menu")
-	NewGame.connect("finished", self, "_start_game", ["New Game"])
-	LoadGame.connect("hide", self, "_dismissed_menu")
-	LoadGame.connect("finished", self, "_start_game", ["Load Game"])
+	Menu[0].connect("finished", self, "_start_game", ["New Game"])
+	Menu[1].connect("finished", self, "_start_game", ["Load Game"])
 
 	# Adding music
 	AudioRoom.set_stream(preload("res://ASSETS/BGM/Dearly_Beloved.ogg"))
@@ -69,16 +69,12 @@ func _pressed_main(button_idx):
 	cursor_idx = button_idx
 
 	# General rules
-	Options[button_idx].release_focus()
 	for i in range(0, Options.size()-1):
 		Options[i].set_focus_mode(FOCUS_NONE)
 
 	# Specific rules
-	if button_idx == OPTION_MAIN_NEW:
-		NewGame.anims.play("Fade In")
-
-	elif button_idx == OPTION_MAIN_LOAD:
-		LoadGame.anims.play("Fade In")
+	if button_idx in [OPTION_MAIN_NEW, OPTION_MAIN_LOAD] && Menu[button_idx].is_hidden():
+		Menu[button_idx].anims.play("Fade In")
 
 	elif button_idx == OPTION_MAIN_QUIT:
 		for i in range(0, Options.size()-1):
@@ -90,8 +86,8 @@ func _pressed_main(button_idx):
 
 func _start_game(selection):
 	# Disconnects specific signals
-	NewGame.disconnect("hide", self, "_dismissed_menu")
-	LoadGame.disconnect("hide", self, "_dismissed_menu")
+	for i in range(0, Menu.size()):
+		Menu[i].disconnect("hide", self, "_dismissed_menu")
 
 	# Dismiss the window before anything else
 	var menu = get_node(selection)
