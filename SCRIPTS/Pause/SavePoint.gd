@@ -29,7 +29,7 @@ func _input(event):
 func _dismiss_menu():
 	set_process_input(false)
 	hide()
-	KHR2.pause_game()
+	KHR2.pause_game(false)
 
 func _dismiss_save_menu():
 	if !SaveMenu.anims.is_playing():
