@@ -20,11 +20,14 @@ func _ready():
 func _input(event):
 	if event.is_pressed() && !event.is_echo():
 		if event.is_action("ui_cancel"):
-			if !SaveMenu.is_hidden():
-				_dismiss_save_menu()
-			# TODO: Add condition for if the confirmation window is visible
-			else:
-				_dismiss_menu()
+			if SaveMenu.is_visible() && not SaveMenu.anims.is_playing():
+				if SaveMenu.Info.panel.is_visible():
+					SaveMenu.hide_info()
+				else:
+					_dismiss_save_menu()
+			else: # If applied to SavePoint screen
+				if Globals.get("Pause") != null:
+					_dismiss_menu()
 
 func _dismiss_menu():
 	set_process_input(false)
