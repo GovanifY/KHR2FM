@@ -39,8 +39,5 @@ func _pressed_new(button_idx):
 	var difficulties = [ "Normal", "Critical" ]
 	SaveManager.new_game(difficulties[button_idx], "res://GAME/STORY/Intro/Aqua.tscn")
 
-	if button_idx == OPTION_DIFFICULTY_CRITICAL:
-		pass # TODO: ask for EXP_Zero
-
 	# Issue a new game
 	emit_signal("finished")
