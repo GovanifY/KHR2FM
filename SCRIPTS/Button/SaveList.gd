@@ -87,8 +87,8 @@ func fetch_saves(cb_node, on_press, on_cancel):
 		node.set_name(filename)
 
 		# Populating button with information
-		var hrs    = String(data.playtime_hrs if data.playtime_hrs != null else 0).pad_zeros(2)
-		var mins   = String(data.playtime_min if data.playtime_min != null else 0).pad_zeros(2)
+		var hrs  = String(data.playtime_hrs if data.playtime_hrs != null else 0).pad_zeros(2)
+		var mins = String(data.playtime_min if data.playtime_min != null else 0).pad_zeros(2)
 
 		var slot_data = {
 			lv         = tr("LEVEL") + "." + String(data.lv if data.lv != null else 0),
