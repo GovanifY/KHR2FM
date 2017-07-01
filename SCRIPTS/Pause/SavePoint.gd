@@ -7,6 +7,8 @@ enum { SAVEPOINT_SAVE, SAVEPOINT_WORLD }
 onready var Options  = get_node("Options").get_children()
 onready var SaveMenu = get_node("SaveMenu")
 
+var cursor_idx = 0
+
 ######################
 ### Core functions ###
 ######################
@@ -16,31 +18,12 @@ func _ready():
 	# Connecting main options
 	for i in range(0, Options.size()):
 		Options[i].connect("pressed", self, "_pressed", [i])
+		Options[i].connect("cancel", self, "_dismissed_menu")
 
-func _input(event):
-	if event.is_pressed() && !event.is_echo():
-		if event.is_action("ui_cancel"):
-			if SaveMenu.is_visible() && not SaveMenu.anims.is_playing():
-				if SaveMenu.Info.panel.is_visible():
-					SaveMenu.hide_info()
-				else:
-					_dismiss_save_menu()
-			else: # If applied to SavePoint screen
-				if Globals.get("Pause") != null:
-					_dismiss_menu()
-
-func _dismiss_menu():
-	set_process_input(false)
-	hide()
-	KHR2.pause_game(false)
-
-func _dismiss_save_menu():
-	if !SaveMenu.anims.is_playing():
-		for i in range(0, Options.size()):
-			Options[i].set_focus_mode(FOCUS_ALL)
-		Options[0].grab_focus()
-
-		SaveMenu.anims.play("Fade Out")
+func _dismissed_menu():
+	for i in range(0, Options.size()):
+		Options[i].set_focus_mode(FOCUS_ALL)
+	Options[cursor_idx].grab_focus()
 
 #######################
 ### Signal routines ###
@@ -48,17 +31,19 @@ func _dismiss_save_menu():
 func _show():
 	KHR2.pause_game(true)
 	Options[0].grab_focus()
-	set_process_input(true)
+
+func _hide():
+	KHR2.pause_game(false)
 
 func _pressed(button_idx):
+	cursor_idx = button_idx
+
 	# General rules
 	for i in range(0, Options.size()):
 		Options[i].set_focus_mode(FOCUS_NONE)
 
 	# Specific rules
-	if button_idx == SAVEPOINT_SAVE:
-		if SaveMenu.anims.is_playing():
-			yield(SaveMenu.anims, "finished")
+	if button_idx == SAVEPOINT_SAVE && SaveMenu.is_hidden():
 		SaveMenu.anims.play("Fade In")
 
 	elif button_idx == SAVEPOINT_WORLD:
