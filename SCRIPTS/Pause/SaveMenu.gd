@@ -19,7 +19,7 @@ func _show():
 	BinaryChoice.hide()
 
 	# Adding "New save" slot before loading all the others
-	var new_save = List.new_slot(self, "_pressed")
+	var new_save = List.new_slot(self, "_pressed", "_hide")
 
 	new_save.set_name("-1")
 	new_save.set_text("New Save")

@@ -56,9 +56,12 @@ func _show():
 	set_info_size(INFO_SIZE_SMALL)
 	show_info("MENU_SAVE_SLOTS_WAIT")
 
-	List.fetch_saves(self, "_pressed")
+	List.fetch_saves(self, "_pressed", "_hide")
 
 func _hide():
+	if !anims.is_playing():
+		anims.play("Fade Out")
+		yield(anims, "finished")
 	List.cleanup()
 
 func _pressed(button):

@@ -36,11 +36,12 @@ func set_disabled_slots(value):
 	get_tree().call_group(0, "Saves", "set_disabled", value)
 
 # Slot creation
-func new_slot(cb_node, callback):
+func new_slot(cb_node, on_press, on_cancel):
 	var node = save_template.duplicate(true)
 	node.add_to_group("Saves")
 	node.connect("focus_enter", self, "_recenter", [node])
-	node.connect("pressed", cb_node, callback, [node])
+	node.connect("pressed", cb_node, on_press, [node])
+	node.connect("cancel", cb_node, on_cancel)
 
 	node.show()
 	Slots.add_child(node)
@@ -75,14 +76,14 @@ func edit_slot(node, slot_data):
 		node.get_node("Avatar").set_texture(load(path_avatar))
 
 # Save information fetching (uses SaveManager)
-func fetch_saves(cb_node, callback):
+func fetch_saves(cb_node, on_press, on_cancel):
 	for filename in SaveManager.get_save_list():
 		var slot_idx = int(filename)
 		var data = SaveManager.get_save(slot_idx)
 		if data.empty(): # Save file doesn't exist (only happens in debug)
 			continue
 
-		var node = new_slot(cb_node, callback)
+		var node = new_slot(cb_node, on_press, on_cancel)
 		node.set_name(filename)
 
 		# Populating button with information
