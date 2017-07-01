@@ -21,6 +21,7 @@ onready var Info = {
 ######################
 func _ready():
 	# Initial settings
+	Info.panel.hide()
 	connect("draw", self, "_show")
 	connect("hide", self, "_hide")
 
