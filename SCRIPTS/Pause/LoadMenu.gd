@@ -10,9 +10,10 @@ onready var anims  = get_node("Anims")
 
 onready var List = get_node("List")
 onready var Info = {
-	"panel" : get_node("Info"),
-	"title" : get_node("Info/Title"),
-	"msg"   : get_node("Info/Message"),
+	"panel"   : get_node("Info"),
+	"title"   : get_node("Info/Title"),
+	"content" : get_node("Info/Contents"),
+	"msg"     : get_node("Info/Contents/Message"),
 }
 
 ######################

@@ -153,7 +153,7 @@ tracks/2/keys = {
 "values": [ 1.0, 0.0, 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Info/Message:visibility/visible")
+tracks/3/path = NodePath("Info/Contents:visibility/visible")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
@@ -163,7 +163,7 @@ tracks/3/keys = {
 "values": [ true, false ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Info/Message:visibility/opacity")
+tracks/4/path = NodePath("Info/Contents:visibility/opacity")
 tracks/4/interp = 1
 tracks/4/imported = false
 tracks/4/keys = {
@@ -246,7 +246,7 @@ tracks/2/keys = {
 "values": [ 0.0, 0.0, 1.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Info/Message:visibility/visible")
+tracks/3/path = NodePath("Info/Contents:visibility/visible")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
@@ -256,7 +256,7 @@ tracks/3/keys = {
 "values": [ false, true ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Info/Message:visibility/opacity")
+tracks/4/path = NodePath("Info/Contents:visibility/opacity")
 tracks/4/interp = 1
 tracks/4/imported = false
 tracks/4/keys = {
@@ -677,7 +677,6 @@ __meta__ = {
 [node name="Info" type="Panel" parent="."]
 
 editor/display_folded = true
-visibility/visible = false
 anchor/left = 3
 anchor/top = 3
 anchor/right = 3
@@ -717,18 +716,31 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Message" type="Label" parent="Info"]
+[node name="Contents" type="VBoxContainer" parent="Info"]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 45.0
+margin/right = 10.0
+margin/bottom = 10.0
+alignment = 0
+
+[node name="Message" type="Label" parent="Info/Contents"]
+
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 3
 size_flags/vertical = 3
-margin/left = 20.0
-margin/top = 50.0
-margin/right = 20.0
-margin/bottom = 20.0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 380.0
+margin/bottom = 105.0
 custom_fonts/font = SubResource( 12 )
 text = "INSERT TEXT HERE"
 align = 1
