@@ -27,7 +27,9 @@ func _ready():
 		button.connect("pressed", self, "_pressed_main", [i])
 
 	# Making specific connections
+	NewGame.connect("hide", self, "_dismissed_menu")
 	NewGame.connect("finished", self, "_start_game", ["New Game"])
+	LoadGame.connect("hide", self, "_dismissed_menu")
 	LoadGame.connect("finished", self, "_start_game", ["Load Game"])
 
 	# Adding music
@@ -42,26 +44,7 @@ func _ready():
 	yield(timer, "timeout")
 
 	# Presenting Title
-	set_process_input(true)
 	AnimsMenu.play("Background")
-
-func _input(event):
-	if event.is_pressed() && !event.is_echo():
-		if event.is_action("ui_cancel"):
-			_dismiss_menu()
-
-# Finds the appropriate menu to dismiss
-func _dismiss_menu():
-	for menu in [NewGame, LoadGame]:
-		if menu.is_visible() && !menu.anims.is_playing():
-			# Reset focus to appropriate button
-			for i in range(0, Options.size()-1):
-				Options[i].set_focus_mode(FOCUS_ALL)
-
-			# Dismiss menu
-			Options[cursor_idx].grab_focus()
-			menu.anims.play("Fade Out")
-			return
 
 #######################
 ### Signal routines ###
@@ -74,6 +57,13 @@ func _on_flash_end(name):
 
 	# Making sure the first Option is selected
 	Options[0].grab_focus()
+
+# Behaves upon given menu dismissal
+func _dismissed_menu():
+	# Reset focus to appropriate button
+	for i in range(0, Options.size()-1):
+		Options[i].set_focus_mode(FOCUS_ALL)
+	Options[cursor_idx].grab_focus()
 
 func _pressed_main(button_idx):
 	cursor_idx = button_idx
@@ -99,10 +89,9 @@ func _pressed_main(button_idx):
 		AnimsMenu.play("Close")
 
 func _start_game(selection):
-	set_process_input(false)
-
 	# Disconnects specific signals
-	LoadGame.anims.disconnect("animation_started", LoadGame, "_on_fade_out")
+	NewGame.disconnect("hide", self, "_dismissed_menu")
+	LoadGame.disconnect("hide", self, "_dismissed_menu")
 
 	# Dismiss the window before anything else
 	var menu = get_node(selection)
