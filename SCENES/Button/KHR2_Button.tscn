@@ -27,6 +27,7 @@ shortcut = null
 text = "OPTION"
 flat = false
 script/script = ExtResource( 4 )
+can_cancel = false
 cursor = null
 
 

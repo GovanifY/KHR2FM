@@ -25,7 +25,6 @@ func _ready():
 	connect("draw", self, "_show")
 	connect("hide", self, "_hide")
 
-	anims.connect("animation_started", self, "_on_fade_out")
 	List.connect("finished", self, "_display_saves")
 
 func _display_saves():
@@ -61,10 +60,6 @@ func _show():
 
 func _hide():
 	List.cleanup()
-
-func _on_fade_out(name):
-	if name == "Fade Out":
-		SE.play("system_dismiss")
 
 func _pressed(button):
 	if !SaveManager.is_connected("loaded", self, "_done"):

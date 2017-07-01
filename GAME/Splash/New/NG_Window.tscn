@@ -183,6 +183,7 @@ custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/normal = ExtResource( 5 )
 text = "TITLE_DIFFICULTY_00"
+can_cancel = true
 
 [node name="Hard" parent="Window/Options" instance=ExtResource( 3 )]
 
@@ -195,6 +196,7 @@ custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/normal = ExtResource( 5 )
 text = "TITLE_DIFFICULTY_01"
+can_cancel = true
 
 [node name="Descriptions" type="VBoxContainer" parent="Window"]
 

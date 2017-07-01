@@ -536,6 +536,7 @@ custom_styles/pressed = ExtResource( 8 )
 custom_styles/focus = ExtResource( 8 )
 custom_styles/disabled = ExtResource( 9 )
 custom_styles/normal = ExtResource( 9 )
+can_cancel = true
 
 [node name="World" type="TextureFrame" parent="List/Slots/Save"]
 

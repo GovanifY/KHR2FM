@@ -17,9 +17,9 @@ func _ready():
 	for i in range(0, Options.size()):
 		var button = Options[i]
 		button.connect("pressed", self, "_pressed_new", [i])
+		button.connect("cancel", self, "_hide")
 
 	connect("draw", self, "_show")
-	anims.connect("animation_started", self, "_on_animation_started")
 
 #######################
 ### Signal routines ###
@@ -28,9 +28,9 @@ func _show():
 	# Making sure the first Option is selected
 	Options[0].grab_focus()
 
-func _on_animation_started(anim_name):
-	if anim_name == "Fade Out":
-		SE.play("system_dismiss")
+func _hide():
+	if !anims.is_playing():
+		anims.play("Fade Out")
 
 func _pressed_new(button_idx):
 	Options[button_idx].release_focus()
