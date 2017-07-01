@@ -45,15 +45,17 @@ __meta__ = {
 
 [node name="Save" parent="Options" instance=ExtResource( 2 )]
 
+rect/min_size = Vector2( 0, 50 )
 margin/right = 193.0
-margin/bottom = 53.0
+margin/bottom = 50.0
 text = "MENU_SAVE"
 
 [node name="World Map" parent="Options" instance=ExtResource( 2 )]
 
-margin/top = 73.0
+rect/min_size = Vector2( 0, 50 )
+margin/top = 70.0
 margin/right = 193.0
-margin/bottom = 126.0
+margin/bottom = 120.0
 text = "MENU_WORLD_MAP"
 
 [node name="SaveMenu" parent="." instance=ExtResource( 3 )]

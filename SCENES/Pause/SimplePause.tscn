@@ -74,6 +74,7 @@ __meta__ = {
 
 [node name="Options" type="VBoxContainer" parent="."]
 
+editor/display_folded = true
 anchor/left = 3
 anchor/right = 3
 focus/ignore_mouse = true
@@ -95,16 +96,15 @@ __meta__ = {
 focus_neighbour/top = NodePath("../Skip")
 focus_neighbour/bottom = NodePath("../Skip")
 margin/right = 200.0
-margin/bottom = 53.0
 text = "PAUSE_CONTINUE"
 
 [node name="Skip" parent="Options" instance=ExtResource( 3 )]
 
 focus_neighbour/top = NodePath("../Resume")
 focus_neighbour/bottom = NodePath("../Resume")
-margin/top = 58.0
+margin/top = 44.0
 margin/right = 200.0
-margin/bottom = 111.0
+margin/bottom = 83.0
 click_on_press = true
 text = "PAUSE_SKIP"
 
