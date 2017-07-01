@@ -87,7 +87,8 @@ func _pressed_main(button_idx):
 func _start_game(selection):
 	# Disconnects specific signals
 	for i in range(0, Menu.size()):
-		Menu[i].disconnect("hide", self, "_dismissed_menu")
+		if Menu[i].is_connected("hide", self, "_dismissed_menu"):
+			Menu[i].disconnect("hide", self, "_dismissed_menu")
 
 	# Dismiss the window before anything else
 	var menu = get_node(selection)

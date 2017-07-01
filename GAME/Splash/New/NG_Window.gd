@@ -33,7 +33,8 @@ func _hide():
 		anims.play("Fade Out")
 
 func _pressed_new(button_idx):
-	Options[button_idx].release_focus()
+	for i in range(0, Options.size()):
+		Options[i].set_disabled(true)
 
 	# Set up a new game with the given difficulty
 	var difficulties = [ "Normal", "Critical" ]
