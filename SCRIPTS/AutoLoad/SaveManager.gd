@@ -57,6 +57,12 @@ func _assemble_data():
 static func fmt_path(slot_idx):
 	return "user://" + SAVE_NAME + String(slot_idx) + "." + SAVE_EXT
 
+static func sort_by_date(filename1, filename2):
+	var file = File.new()
+	var time1 = file.get_modified_time("user://" + filename1)
+	var time2 = file.get_modified_time("user://" + filename2)
+	return time1 > time2
+
 static func is_save_file(filename):
 	return filename.begins_with(SAVE_NAME) && filename.extension() == SAVE_EXT
 
@@ -107,7 +113,7 @@ static func write_save(path, data):
 ### Main Methods ###
 ####################
 func find_available_slot():
-	var list = get_save_list()
+	var list = get_save_list(false)
 	for i in range(0, list.size()):
 		var slot_idx = int(list[i])
 		if i != slot_idx:
@@ -118,7 +124,7 @@ func get_save(slot_idx):
 	var path = fmt_path(slot_idx)
 	return read_save(path)
 
-func get_save_list():
+func get_save_list(sort=true):
 	var dir = Directory.new()
 	if dir.open("user://") != OK:
 		return -1
@@ -132,10 +138,13 @@ func get_save_list():
 			list.push_back(filename)
 		filename = dir.get_next()
 
+	if sort: # This avoids needless CPU use
+		list.sort_custom(self, "sort_by_date")
+
 	return list
 
 func get_save_count():
-	return get_save_list().size()
+	return get_save_list(false).size()
 
 # Wrapper functions
 func new_game(difficulty, initial_scene = null):
