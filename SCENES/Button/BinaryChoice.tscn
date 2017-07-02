@@ -5,17 +5,16 @@
 
 [node name="BinaryChoice" type="HBoxContainer"]
 
-anchor/left = 3
 anchor/top = 1
-anchor/right = 3
+anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 100.0
+margin/left = 20.0
 margin/top = 49.0
-margin/right = -100.0
+margin/right = 20.0
 margin/bottom = 10.0
 custom_constants/separation = 15
 alignment = 1
@@ -26,13 +25,14 @@ __meta__ = {
 
 [node name="Yes" parent="." instance=ExtResource( 2 )]
 
-margin/right = 118.0
+margin/left = 282.0
+margin/right = 400.0
 text = "CHOICE_YES"
 
 [node name="No" parent="." instance=ExtResource( 2 )]
 
-margin/left = 133.0
-margin/right = 249.0
+margin/left = 415.0
+margin/right = 531.0
 text = "CHOICE_NO"
 
 [connection signal="pressed" from="Yes" to="." method="emit_signal" binds= [ "pressed", true ]]
