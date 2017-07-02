@@ -7,7 +7,7 @@ signal interacted
 # Export values
 export(String) var type = ""
 
-onready var Save = "res://SCENES/Pause/LoadMenu.tscn"
+onready var Save = "res://SCENES/Pause/SaveMenu.tscn"
 
 ######################
 ### Core functions ###
@@ -21,7 +21,7 @@ func _enter_tree():
 
 func _interacted():
 	if get_type() == "MapSave":
-		get_tree().set_pause(true)
+		#get_tree().set_pause(true)
 		SceneLoader.load_scene(Save, SceneLoader.BACKGROUND | SceneLoader.HIGH_PRIORITY)		
 		SceneLoader.show_scene(Save)
 		# TODO: kill input on root scene

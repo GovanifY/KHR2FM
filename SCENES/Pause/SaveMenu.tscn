@@ -5,26 +5,27 @@
 [ext_resource path="res://SCENES/Pause/LoadMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://SCRIPTS/Pause/SaveMenu.gd" type="Script" id=4]
 
-[node name="SavePoint" type="Panel"]
+[node name="SavePoint" type="CanvasLayer"]
 
 process/pause_mode = 2
-visibility/self_opacity = 0.7
-anchor/right = 1
-anchor/bottom = 1
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Panel" type="Panel" parent="."]
+
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 0.0
-margin/bottom = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
 script/script = ExtResource( 1 )
-__meta__ = {
-"_edit_lock_": true
-}
 
-[node name="Options" type="VBoxContainer" parent="."]
+[node name="Options" type="VBoxContainer" parent="Panel"]
 
 editor/display_folded = true
 anchor/right = 2
@@ -35,35 +36,35 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 20.0
 margin/top = 20.0
-margin/right = 0.25
-margin/bottom = 20.0
+margin/right = 4.8
+margin/bottom = -100.0
 custom_constants/separation = 20
 alignment = 0
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Save" parent="Options" instance=ExtResource( 2 )]
+[node name="Save" parent="Panel/Options" instance=ExtResource( 2 )]
 
 rect/min_size = Vector2( 0, 50 )
-margin/right = 193.0
+margin/right = 172.0
 margin/bottom = 50.0
 text = "MENU_SAVE"
 
-[node name="World Map" parent="Options" instance=ExtResource( 2 )]
+[node name="World Map" parent="Panel/Options" instance=ExtResource( 2 )]
 
 rect/min_size = Vector2( 0, 50 )
 margin/top = 70.0
-margin/right = 193.0
+margin/right = 172.0
 margin/bottom = 120.0
 text = "MENU_WORLD_MAP"
 
-[node name="SaveMenu" parent="." instance=ExtResource( 3 )]
+[node name="SaveMenu" parent="Panel" instance=ExtResource( 3 )]
 
 visibility/visible = false
 script/script = ExtResource( 4 )
 
-[node name="Confirm" type="Panel" parent="."]
+[node name="Confirm" type="Panel" parent="Panel"]
 
 editor/display_folded = true
 visibility/visible = false
@@ -75,12 +76,12 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.25
-margin/top = 0.25
-margin/right = 0.75
-margin/bottom = 0.75
+margin/left = 5.325
+margin/top = 3.0
+margin/right = 5.825
+margin/bottom = 3.5
 
-[node name="Choices" type="HBoxContainer" parent="Confirm"]
+[node name="Choices" type="HBoxContainer" parent="Panel/Confirm"]
 
 editor/display_folded = true
 anchor/top = 1
@@ -97,21 +98,21 @@ margin/bottom = 20.0
 custom_constants/separation = 40
 alignment = 1
 
-[node name="Yes" parent="Confirm/Choices" instance=ExtResource( 2 )]
+[node name="Yes" parent="Panel/Confirm/Choices" instance=ExtResource( 2 )]
 
 margin/left = 56.0
 margin/right = 174.0
 margin/bottom = 60.0
 text = "CHOICE_YES"
 
-[node name="No" parent="Confirm/Choices" instance=ExtResource( 2 )]
+[node name="No" parent="Panel/Confirm/Choices" instance=ExtResource( 2 )]
 
 margin/left = 214.0
 margin/right = 330.0
 margin/bottom = 60.0
 text = "CHOICE_NO"
 
-[node name="Label" type="Label" parent="Confirm"]
+[node name="Label" type="Label" parent="Panel/Confirm"]
 
 anchor/left = 3
 anchor/right = 3
