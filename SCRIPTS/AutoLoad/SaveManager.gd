@@ -12,8 +12,9 @@ signal saved
 const SAVE_NAME = "slot"
 const SAVE_EXT  = "save"
 
-# Serializable dictionary filled with the most important info for a save file
-var save_data = {}
+# SaveSlot class and current slot object
+const SaveSlot = preload("res://SCRIPTS/SaveSlot.gd")
+var current_slot
 
 ######################
 ### Core functions ###
@@ -22,34 +23,8 @@ func _exit_tree():
 	# TODO: Emergency save file? i.e. in case the game is force killed on a mobile device
 	pass
 
-func _has_key(key):
-	var has = save_data.has(key)
-	if !has: print("SaveManager: Invalid key for save data.")
-	return has
-
-func _assemble_data():
-	return {
-		# IMPORTANT DATA
-		"difficulty"   : Globals.get("Difficulty"),
-		"scene"        : get_tree().get_current_scene().get_filename(),
-		"world"        : Globals.get("World"),
-		"location"     : Globals.get("Location"),
-		"playtime_hrs" : Globals.get("PlayTimeHours"),
-		"playtime_min" : Globals.get("PlayTimeMinutes"),
-
-		# Save-specific content
-		"avatar"       : random_avatar(),
-
-		# Switches
-		# Basic stats
-		"lv"           : 1,
-		"hp"           : 10,
-		"attack"       : 1,
-		"defense"      : 1,
-		# Stat adders
-		"keyblade"     : null,
-		# TODO: Items, magic, abilities, limits
-	}
+func _ready():
+	current_slot = SaveSlot.new()
 
 ########################
 ### Helper functions ###
@@ -93,9 +68,7 @@ static func read_save(path):
 		return {} # We don't have a save to load
 
 	savegame.open(path, File.READ) # FIXME: Open encrypted
-	# FIXME: Save layout should be much more complicated than this
-	var ret = savegame.get_var()
-	# End layout
+	var ret = dict2inst(savegame.get_var())
 	savegame.close()
 
 	return ret
@@ -104,9 +77,7 @@ static func write_save(path, data):
 	var savegame = File.new()
 
 	savegame.open(path, File.WRITE) # FIXME: Open encrypted
-	# FIXME: Save layout should be much more complicated than this
-	savegame.store_var(data)
-	# End layout
+	savegame.store_var(inst2dict(data))
 	savegame.close()
 
 ####################
@@ -148,57 +119,34 @@ func get_save_count():
 
 # Wrapper functions
 func new_game(difficulty, initial_scene = null):
-	save_data.scene = initial_scene
 	Globals.set("Difficulty", difficulty)
+	current_slot = SaveSlot.new()
+	current_slot.set_scene(initial_scene)
 	KHR2.reset_playtime()
 	return true
 
 func load_game(slot_idx):
-	save_data = get_save(slot_idx)
-	KHR2.reset_playtime(save_data.playtime_min, save_data.playtime_hrs)
+	current_slot = get_save(slot_idx)
+	KHR2.reset_playtime(current_slot.get("playtime_min"), current_slot.get("playtime_hrs"))
 
 	emit_signal("loaded")
 	return true
 
 func save_game(slot_idx):
-	save_data = _assemble_data()
+	current_slot.update(get_tree().get_current_scene().get_filename(), random_avatar())
 	var path = fmt_path(slot_idx)
-	write_save(path, save_data)
+	write_save(path, current_slot)
 
 	emit_signal("saved")
 	return true
 
 func quick_load():
 	var path = "user://" + "quick" + SAVE_NAME + "." + SAVE_EXT
-	save_data = read_save(path)
+	current_slot = read_save(path)
 	print("Quick loaded!")
 
 func quick_save():
-	save_data = _assemble_data()
 	var path = "user://" + "quick" + SAVE_NAME + "." + SAVE_EXT
-	write_save(path, save_data)
+	current_slot.update(get_tree().get_current_scene().get_filename())
+	write_save(path, current_slot)
 	print("Quick saved!")
-
-####################
-###   Modifiers  ###
-####################
-func get_value(key):
-	if !_has_key(key):
-		return
-	return save_data[key]
-
-func set_value(key, value):
-	if !_has_key(key):
-		return
-	save_data[key] = value
-
-# In addition to these above, you can write methods that have more verbose names
-# so as to have more legible code when accessing this script.
-func get_level(): return get_value("lv")
-func set_level(value):   set_value("lv", value)
-
-func get_scene(): return get_value("scene")
-func set_scene(value):   set_value("scene", value)
-
-func get_playtime(): return get_value("playtime")
-func set_playtime(value):   set_value("playtime", value)

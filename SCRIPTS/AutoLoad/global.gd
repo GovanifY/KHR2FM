@@ -59,7 +59,7 @@ func _input(event):
 				SaveManager.quick_save()
 			elif event.is_action("quick_load"):
 				SaveManager.quick_load()
-				SceneLoader.load_scene(SaveManager.get_scene())
+				SceneLoader.load_scene(SaveManager.current_slot.get_scene())
 		return
 
 

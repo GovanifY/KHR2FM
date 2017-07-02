@@ -100,4 +100,4 @@ func _start_game(selection):
 	AnimsMenu.play(selection)
 	yield(AnimsMenu, "finished")
 
-	SceneLoader.load_scene(SaveManager.get_scene())
+	SceneLoader.load_scene(SaveManager.current_slot.get_scene())
