@@ -25,6 +25,7 @@ func _on_area_body_enter(body):
 	if body.is_type("MapPlayer"):
 		body.interactable = self
 		body.set_process_input(true)
+		SceneLoader.load_scene("res://SCENES/Pause/LoadMenu.tscn")		
 
 func _on_area_body_exit(body):
 	if body.is_type("MapPlayer"):

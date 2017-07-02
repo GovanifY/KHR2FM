@@ -327,7 +327,6 @@ script/script = ExtResource( 5 )
 __meta__ = {
 "_editor_icon": ExtResource( 6 )
 }
-type = "NPC"
 
 [node name="Sprite" type="Sprite" parent="NPC"]
 
