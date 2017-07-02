@@ -41,6 +41,9 @@ func _hide():
 func _pressed(button_idx):
 	cursor_idx = button_idx
 
+	if button_idx >= Menu.size():
+		return # FIXME: temp code
+
 	# General rules
 	for i in range(0, Options.size()):
 		Options[i].set_focus_mode(FOCUS_NONE)
