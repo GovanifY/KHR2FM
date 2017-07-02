@@ -89,3 +89,13 @@ func confirm():
 		TextNode.set_visible_characters(0)
 		_play_se(confirm_sound)
 		emit_signal("cleared")
+		
+func set_text_raw(text):
+	if TextNode.is_type("RichTextLabel"):
+		TextNode.set_bbcode(text)
+	elif TextNode.is_type("Label"):
+		TextNode.set_text(text)
+
+func set_visibility_raw(visibility):
+	if TextNode.is_type("Label") || TextNode.is_type("RichTextLabel"):
+		TextNode.set_visible_characters(visibility)

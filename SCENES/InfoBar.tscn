@@ -22,7 +22,6 @@ expand_margin/left = 0.0
 expand_margin/right = 0.0
 expand_margin/top = 0.0
 expand_margin/bottom = 0.0
-modulate/color = Color( 1, 1, 1, 1 )
 draw_center = true
 
 [sub_resource type="DynamicFont" id=2]
@@ -41,12 +40,22 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Swish:play/play")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ "Infos" ] }
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ "Infos" ]
+}
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:margin/left")
 tracks/1/interp = 1
 tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 0.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ -450.0, 0.0 ] }
+tracks/1/keys = {
+"times": FloatArray( 0, 0.25 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ -450.0, 0.0 ]
+}
 
 [sub_resource type="Animation" id=4]
 
@@ -57,11 +66,21 @@ tracks/0/type = "value"
 tracks/0/path = NodePath(".:margin/left")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.25 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0, -450 ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 0.25 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0, -450 ]
+}
 
 [sub_resource type="SampleLibrary" id=5]
 
-samples/Infos = { "db":0.0, "pitch":1.0, "sample":ExtResource( 6 ) }
+samples/Infos = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 6 )
+}
 
 [node name="InfoBar" type="Panel"]
 
@@ -76,12 +95,11 @@ margin/right = -5.0
 margin/bottom = 80.0
 custom_styles/panel = SubResource( 1 )
 script/script = ExtResource( 2 )
-info_message = "INFO_BATTLE_MESSAGE"
+info_message = "Bonjour ceci est la boule magique oui vous avez bien entendu la fameuse et fabuleuse boule magique"
 autostart = true
 
 [node name="InfoLabel" type="Label" parent="."]
 
-editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
@@ -105,7 +123,9 @@ wait_time = 0.01
 one_shot = false
 autostart = false
 script/script = ExtResource( 4 )
-__meta__ = { "_editor_icon":ExtResource( 5 ) }
+__meta__ = {
+"_editor_icon": ExtResource( 5 )
+}
 text_node = NodePath("..")
 sound_node = NodePath("")
 character_sound = ""
