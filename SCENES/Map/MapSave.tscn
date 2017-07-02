@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=7 format=1]
 
-[ext_resource path="res://addons/map_event/MapEvent.gd" type="Script" id=1]
-[ext_resource path="res://addons/map_event/icon.png" type="Texture" id=2]
-[ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save.png" type="Texture" id=3]
-[ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save_anim.png" type="Texture" id=4]
+[ext_resource path="res://SCRIPTS/Map/MapEvent.gd" type="Script" id=1]
+[ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save.png" type="Texture" id=2]
+[ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save_anim.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -54,15 +53,12 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 1 )
-__meta__ = {
-"_editor_icon": ExtResource( 2 )
-}
-type = "SavePoint"
+type = "MapSave"
 
 [node name="Sprite" type="Sprite" parent="."]
 
 visibility/blend_mode = 1
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 hframes = 8
 
 [node name="main" type="AnimationPlayer" parent="."]
@@ -88,7 +84,7 @@ _update_shape_index = 0
 
 visibility/blend_mode = 1
 transform/pos = Vector2( -15, -14 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 vframes = 4
 hframes = 5
 frame = 19
@@ -103,6 +99,8 @@ playback/active = true
 playback/speed = 0.8
 blend_times = [  ]
 autoplay = ""
+
+[connection signal="interacted" from="." to="." method="_interacted"]
 
 [connection signal="touched" from="." to="approach" method="play" binds= [ "approach" ]]
 

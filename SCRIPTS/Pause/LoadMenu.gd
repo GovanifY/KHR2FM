@@ -8,6 +8,7 @@ enum INFO_PANEL_SIZE { INFO_SIZE_SMALL, INFO_SIZE_MEDIUM, INFO_SIZE_LARGE }
 # Instance members
 onready var anims  = get_node("Anims")
 
+
 onready var List = get_node("List")
 onready var Info = {
 	"panel"   : get_node("Info"),
@@ -24,6 +25,7 @@ func _ready():
 	Info.panel.hide()
 	connect("draw", self, "_show")
 	connect("hide", self, "_hide")
+
 
 	List.connect("finished", self, "_display_saves")
 

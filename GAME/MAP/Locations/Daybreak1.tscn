@@ -1,12 +1,11 @@
-[gd_scene load_steps=26 format=1]
+[gd_scene load_steps=25 format=1]
 
 [ext_resource path="res://SCENES/Map/MapPlan.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Maps/cds_000.png" type="Texture" id=2]
 [ext_resource path="res://GAME/MAP/Player/Kioku.tscn" type="PackedScene" id=3]
 [ext_resource path="res://SCENES/Map/MapSave.tscn" type="PackedScene" id=4]
-[ext_resource path="res://addons/map_event/MapEvent.gd" type="Script" id=5]
-[ext_resource path="res://addons/map_event/icon.png" type="Texture" id=6]
-[ext_resource path="res://ASSETS/GFX/Game/Maps/NPCs/Pnj_06.png" type="Texture" id=7]
+[ext_resource path="res://SCRIPTS/Map/MapEvent.gd" type="Script" id=5]
+[ext_resource path="res://ASSETS/GFX/Game/Maps/NPCs/Pnj_06.png" type="Texture" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -324,13 +323,11 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 5 )
-__meta__ = {
-"_editor_icon": ExtResource( 6 )
-}
+type = ""
 
 [node name="Sprite" type="Sprite" parent="NPC"]
 
-texture = ExtResource( 7 )
+texture = ExtResource( 6 )
 vframes = 4
 hframes = 4
 
