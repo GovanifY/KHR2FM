@@ -20,7 +20,6 @@ func _enter_tree():
 
 
 func _interacted():
-	print("yo")
 	if get_type() == "MapSave":
 		SceneLoader.load_scene(Save, SceneLoader.BACKGROUND | SceneLoader.HIGH_PRIORITY)		
 		SceneLoader.show_scene(Save)
@@ -32,11 +31,13 @@ func _interacted():
 #######################
 func _on_area_body_enter(body):
 	emit_signal("touched")
-	body.interactable = self
+	if get_type() == "MapSave" || get_type() == "MapPlayer":
+		body.interactable = self
 
 
 func _on_area_body_exit(body):
-	body.interactable = null
+	if get_type() == "MapSave" || get_type() == "MapPlayer":
+		body.interactable = null
 
 ########################
 ### Export functions ###

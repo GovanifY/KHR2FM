@@ -39,6 +39,7 @@ onready var sprite_motion = {
 ######################
 func _ready():
 	set_fixed_process(true)
+	set_process_input(true)
 
 func _fixed_process(delta):
 	# Grabbing directions from Input and transforming them into flags
