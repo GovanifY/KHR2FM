@@ -55,7 +55,8 @@ func _fixed_process(delta):
 func _input(event):
 	if event.is_pressed() && !event.is_echo():
 		if event.is_action("ui_accept"):
-			interactable.emit_signal("interacted")
+			if interactable != null:
+				interactable.emit_signal("interacted")
 
 func _animate_character(directions):
 	# If it can move to this direction

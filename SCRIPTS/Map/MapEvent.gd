@@ -21,10 +21,10 @@ func _enter_tree():
 
 func _interacted():
 	if get_type() == "MapSave":
+		get_tree().set_pause(true)
 		SceneLoader.load_scene(Save, SceneLoader.BACKGROUND | SceneLoader.HIGH_PRIORITY)		
 		SceneLoader.show_scene(Save)
-		#TODO: kill input on root scene
-
+		# TODO: kill input on root scene
 
 #######################
 ### Signal routines ###
@@ -37,7 +37,9 @@ func _on_area_body_enter(body):
 
 func _on_area_body_exit(body):
 	if get_type() == "MapSave" || get_type() == "MapPlayer":
-		body.interactable = null
+		# If player entered another area this area might be wanted
+		if body.interactable == self:
+			body.interactable = null
 
 ########################
 ### Export functions ###
