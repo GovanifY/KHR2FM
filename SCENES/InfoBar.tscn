@@ -95,7 +95,7 @@ margin/right = -5.0
 margin/bottom = 80.0
 custom_styles/panel = SubResource( 1 )
 script/script = ExtResource( 2 )
-info_message = "Bonjour ceci est la boule magique oui vous avez bien entendu la fameuse et fabuleuse boule magique"
+info_message = "INFO_BATTLE_MESSAGE"
 autostart = true
 
 [node name="InfoLabel" type="Label" parent="."]

@@ -48,15 +48,15 @@ func _fixed_process(delta):
 			
 		if accumulator > 1.05 && accumulator != 0:
 			if display_direction == true && (displayed_pos+30)<(info_message.length()+1):
-				TextScroll.set_text_raw(info_message.substr(displayed_pos, displayed_pos+30))
-				TextScroll.set_visibility_raw(30)
 				displayed_pos+=1
 				accumulator = 1
-			elif display_direction == false && (displayed_pos>1):
 				TextScroll.set_text_raw(info_message.substr(displayed_pos, displayed_pos+30))
 				TextScroll.set_visibility_raw(30)
+			elif display_direction == false && (displayed_pos+1>1):
 				displayed_pos-=1
 				accumulator = 1
+				TextScroll.set_text_raw(info_message.substr(displayed_pos, displayed_pos+30))
+				TextScroll.set_visibility_raw(30)
 			else:
 				display_direction = !display_direction
 				is_changing = true
