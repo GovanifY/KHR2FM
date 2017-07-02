@@ -56,6 +56,10 @@ func is_loaded():
 	return loaded_scenes.size() > 0
 
 func queue_scene(path):
+	if path == null:
+		print("SceneLoader: NULL path given!")
+		return false
+
 	var f = File.new()
 	if !f.file_exists(path):
 		print("SceneLoader: File not found:\n\t\"", path, "\"")
@@ -68,8 +72,8 @@ func queue_scene(path):
 
 # Adds the given resources to queue to load them with given flags
 func load_scene(path, flags=0):
-	queue_scene(path)
-	return load_next_scene(flags)
+	if queue_scene(path):
+		return load_next_scene(flags)
 
 # Begins loading the first scene in the queue
 func load_next_scene(flags=0):
