@@ -69,7 +69,9 @@ func _display():
 	if info_message.length() > 30:
 		displayed_text = info_message.substr(0, 30)
 		displayed_pos=0
-	TextScroll.scroll(displayed_text)
+		TextScroll.scroll(displayed_text)
+	else:
+		TextScroll.scroll(info_message)
 
 func _start_input():
 	set_process_input(true)
