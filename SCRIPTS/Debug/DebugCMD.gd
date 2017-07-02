@@ -51,7 +51,7 @@ func _clean_cmd():
 	# Clearing the Return-turned-newline oddity
 	var lin = CommandBox.cursor_get_line() - 1
 	var col = CommandBox.get_line(lin).length()
-	CommandBox.select(lin, col, lin+1, 0)
+	#CommandBox.select(lin, col, lin+1, 0)
 	CommandBox.insert_text_at_cursor("")
 
 	return CommandBox.get_text()
@@ -71,7 +71,7 @@ func _CommandBox_input(event):
 		var size = HistoryList.cmds.size()
 
 		# Controlling Returns
-		if event.is_action("ui_accept"):
+		if event.is_action("debug_accept"):
 			if _command_process():
 				HistoryList.idx = size - 1
 			return
