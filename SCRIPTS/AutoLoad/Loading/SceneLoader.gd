@@ -112,6 +112,9 @@ func show_next_scene(halt_current = false):
 
 # Erases the scene associated to the given path
 func erase_scene(path):
+	if path == null: return
+	if path.empty(): return
+
 	ThreadLoader.cancel_resource(path)
 	var node = root.get_node(get_scene_name(path))
 	if node != null:
