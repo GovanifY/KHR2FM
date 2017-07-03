@@ -1,12 +1,11 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Others/Info_00.png" type="Texture" id=1]
 [ext_resource path="res://SCRIPTS/InfoBar.gd" type="Script" id=2]
-[ext_resource path="res://ASSETS/LANG/FONTS/KH2_menu/KH2_ALL_MENU_I.TTF" type="DynamicFontData" id=3]
-[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://addons/text_scroll/TextScroll.gd" type="Script" id=5]
-[ext_resource path="res://addons/text_scroll/icon.png" type="Texture" id=6]
-[ext_resource path="res://ASSETS/SE/System/Infos.wav" type="Sample" id=7]
+[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://addons/text_scroll/TextScroll.gd" type="Script" id=4]
+[ext_resource path="res://addons/text_scroll/icon.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/SE/System/Infos.wav" type="Sample" id=6]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -15,8 +14,8 @@ content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
 texture = ExtResource( 1 )
-margin/left = 205.0
-margin/right = 13.0
+margin/left = 0.0
+margin/right = 0.0
 margin/top = 0.0
 margin/bottom = 0.0
 expand_margin/left = 0.0
@@ -27,19 +26,12 @@ draw_center = true
 
 [sub_resource type="DynamicFont" id=2]
 
-font/size = 12
-font/use_mipmaps = false
-font/use_filter = false
-font/font = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=3]
-
 font/size = 14
 font/use_mipmaps = false
 font/use_filter = true
-font/font = ExtResource( 4 )
+font/font = ExtResource( 3 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 
 length = 0.25
 loop = false
@@ -65,7 +57,7 @@ tracks/1/keys = {
 "values": [ -450.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 
 length = 0.25
 loop = false
@@ -81,13 +73,13 @@ tracks/0/keys = {
 "values": [ 0, -450 ]
 }
 
-[sub_resource type="SampleLibrary" id=6]
+[sub_resource type="SampleLibrary" id=5]
 
 samples/Infos = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 7 )
+"sample": ExtResource( 6 )
 }
 
 [node name="InfoBar" type="Panel"]
@@ -106,28 +98,8 @@ script/script = ExtResource( 2 )
 info_message = "INFO_BATTLE_MESSAGE"
 autostart = true
 
-[node name="Title" type="Label" parent="."]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 25.0
-margin/top = 1.0
-margin/right = 185.0
-margin/bottom = 20.0
-custom_fonts/font = SubResource( 2 )
-custom_colors/font_color = Color( 0.384314, 0.423529, 0.396078, 1 )
-text = "INFO_TITLE"
-clip_text = true
-uppercase = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
 [node name="InfoLabel" type="Label" parent="."]
 
-editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
@@ -138,7 +110,7 @@ margin/left = 30.0
 margin/top = 25.0
 margin/right = 30.0
 margin/bottom = 5.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
@@ -150,9 +122,9 @@ process_mode = 1
 wait_time = 0.01
 one_shot = false
 autostart = false
-script/script = ExtResource( 5 )
+script/script = ExtResource( 4 )
 __meta__ = {
-"_editor_icon": ExtResource( 6 )
+"_editor_icon": ExtResource( 5 )
 }
 text_node = NodePath("..")
 character_sound = null
@@ -163,8 +135,8 @@ confirm_sound = null
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/In = SubResource( 4 )
-anims/Out = SubResource( 5 )
+anims/In = SubResource( 3 )
+anims/Out = SubResource( 4 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -173,7 +145,7 @@ autoplay = ""
 [node name="Swish" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 6 )
+config/samples = SubResource( 5 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0

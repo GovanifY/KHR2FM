@@ -25,18 +25,20 @@ func _interacted():
 		SceneLoader.load_scene(Save, SceneLoader.BACKGROUND | SceneLoader.HIGH_PRIORITY)		
 		SceneLoader.show_scene(Save)
 		# TODO: kill input on root scene
+	if get_type() == "MapNPC":
+		
 
 #######################
 ### Signal routines ###
 #######################
 func _on_area_body_enter(body):
 	emit_signal("touched")
-	if get_type() == "MapSave" || get_type() == "MapPlayer":
+	if get_type() == "MapSave" || get_type() == "MapNPC":
 		body.interactable = self
 
 
 func _on_area_body_exit(body):
-	if get_type() == "MapSave" || get_type() == "MapPlayer":
+	if get_type() == "MapSave" || get_type() == "MapNPC":
 		# If player entered another area this area might be wanted
 		if body.interactable == self:
 			body.interactable = null

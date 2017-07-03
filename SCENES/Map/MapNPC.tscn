@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://SCRIPTS/Map/MapEvent.gd" type="Script" id=1]
+[ext_resource path="res://ASSETS/GFX/Game/Maps/NPCs/Pnj_06.png" type="Texture" id=2]
+[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=3]
+[ext_resource path="res://SCRIPTS/Dialogue/Dialogue.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=17]
+
+custom_solver_bias = 0.0
+extents = Vector2( 30, 40 )
+
+[sub_resource type="CapsuleShape2D" id=18]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 5.0
+
+[node name="NPC" type="Area2D"]
+
+transform/pos = Vector2( 687, 575 )
+input/pickable = true
+shapes/0/shape = SubResource( 17 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 15 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 1 )
+type = "MapNPC"
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+vframes = 4
+hframes = 4
+
+[node name="Collisions" type="StaticBody2D" parent="."]
+
+editor/display_folded = true
+input/pickable = false
+shapes/0/shape = SubResource( 18 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 35 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Legs" type="CollisionShape2D" parent="Collisions"]
+
+transform/pos = Vector2( 0, 35 )
+shape = SubResource( 18 )
+trigger = false
+_update_shape_index = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TalkArea" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( 0, 15 )
+shape = SubResource( 17 )
+trigger = false
+_update_shape_index = 0
+
+[node name="ParticleAttractor2D" type="ParticleAttractor2D" parent="."]
+
+enabled = true
+radius = 50.0
+disable_radius = 0.0
+gravity = 100.0
+absorption = 0.0
+particles_path = NodePath("")
+
+[node name="Dialogue" type="Control" parent="." instance=ExtResource( 3 )]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+script/script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+next_scene = ""
+csv_path = ""
+position = 2
+
+[connection signal="interacted" from="." to="." method="_interacted"]
+
+

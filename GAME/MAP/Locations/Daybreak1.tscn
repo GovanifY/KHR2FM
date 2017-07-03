@@ -1,11 +1,10 @@
-[gd_scene load_steps=25 format=1]
+[gd_scene load_steps=22 format=1]
 
 [ext_resource path="res://SCENES/Map/MapPlan.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Maps/cds_000.png" type="Texture" id=2]
 [ext_resource path="res://GAME/MAP/Player/Kioku.tscn" type="PackedScene" id=3]
 [ext_resource path="res://SCENES/Map/MapSave.tscn" type="PackedScene" id=4]
-[ext_resource path="res://SCRIPTS/Map/MapEvent.gd" type="Script" id=5]
-[ext_resource path="res://ASSETS/GFX/Game/Maps/NPCs/Pnj_06.png" type="Texture" id=6]
+[ext_resource path="res://SCENES/Map/MapNPC.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -86,17 +85,6 @@ points = Vector2Array( 1170.37, 780.6, 1184.78, 797.221, 1121.62, 833.786 )
 
 custom_solver_bias = 0.0
 points = Vector2Array( 1077.3, 822.705, 1077.3, 810.517, 1091.7, 821.597, 1083.95, 826.029 )
-
-[sub_resource type="RectangleShape2D" id=17]
-
-custom_solver_bias = 0.0
-extents = Vector2( 30, 40 )
-
-[sub_resource type="CapsuleShape2D" id=18]
-
-custom_solver_bias = 0.0
-radius = 10.0
-height = 5.0
 
 [node name="Daybreak" instance=ExtResource( 1 )]
 
@@ -311,67 +299,6 @@ transform/pos = Vector2( 450.536, 557.486 )
 
 transform/pos = Vector2( 571, 542 )
 
-[node name="NPC" type="Area2D" parent="."]
-
-transform/pos = Vector2( 687, 575 )
-input/pickable = true
-shapes/0/shape = SubResource( 17 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 15 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-script/script = ExtResource( 5 )
-type = ""
-
-[node name="Sprite" type="Sprite" parent="NPC"]
-
-texture = ExtResource( 6 )
-vframes = 4
-hframes = 4
-
-[node name="Collisions" type="StaticBody2D" parent="NPC"]
-
-editor/display_folded = true
-input/pickable = false
-shapes/0/shape = SubResource( 18 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 35 )
-shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Legs" type="CollisionShape2D" parent="NPC/Collisions"]
-
-transform/pos = Vector2( 0, 35 )
-shape = SubResource( 18 )
-trigger = false
-_update_shape_index = 0
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="TalkArea" type="CollisionShape2D" parent="NPC"]
-
-transform/pos = Vector2( 0, 15 )
-shape = SubResource( 17 )
-trigger = false
-_update_shape_index = 0
-
-[node name="ParticleAttractor2D" type="ParticleAttractor2D" parent="NPC"]
-
-enabled = true
-radius = 50.0
-disable_radius = 0.0
-gravity = 100.0
-absorption = 0.0
-particles_path = NodePath("")
+[node name="NPC" parent="." instance=ExtResource( 5 )]
 
 
