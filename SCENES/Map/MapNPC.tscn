@@ -76,6 +76,4 @@ gravity = 100.0
 absorption = 0.0
 particles_path = NodePath("")
 
-[connection signal="interacted" from="." to="." method="_interacted"]
-
 

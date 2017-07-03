@@ -100,8 +100,6 @@ playback/speed = 0.8
 blend_times = [  ]
 autoplay = ""
 
-[connection signal="interacted" from="." to="." method="_interacted"]
-
 [connection signal="touched" from="." to="approach" method="play" binds= [ "approach" ]]
 
 
