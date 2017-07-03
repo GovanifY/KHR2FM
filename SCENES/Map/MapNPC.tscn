@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=1]
 
-[ext_resource path="res://SCRIPTS/Map/MapEvent.gd" type="Script" id=1]
+[ext_resource path="res://SCRIPTS/Map/MapNPC.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/NPCs/Pnj_06.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -26,7 +26,7 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 1 )
-type = ""
+type = "NPC"
 
 [node name="Sprite" type="Sprite" parent="."]
 

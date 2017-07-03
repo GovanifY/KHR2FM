@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=1]
 
-[ext_resource path="res://SCRIPTS/Map/MapEvent.gd" type="Script" id=1]
+[ext_resource path="res://SCRIPTS/Map/MapSave.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save_anim.png" type="Texture" id=3]
 
@@ -53,7 +53,7 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 1 )
-type = "MapSave"
+type = "SavePoint"
 
 [node name="Sprite" type="Sprite" parent="."]
 
