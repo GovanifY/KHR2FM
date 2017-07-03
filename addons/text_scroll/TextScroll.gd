@@ -7,24 +7,32 @@ signal cleared
 
 # Exported variables
 export(NodePath) var text_node  = NodePath("..")
-export(NodePath) var sound_node = NodePath()
-export(String) var character_sound = String()
-export(String) var confirm_sound   = String()
+export(Sample) var character_sound
+export(Sample) var confirm_sound
 
 # "Private" members
+onready var SoundNode = SamplePlayer.new()
 var TextNode
-var SoundNode
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	# Connects signals
+	# Connecting signals
 	connect("timeout", self, "_on_TextScroll_timeout")
 
-	# Sets up the text and sound nodes
+	# Setting up the text node to scroll
 	set_text_node(get_node(text_node))
-	set_sound_node(get_node(sound_node))
+
+	# Setting up Sound node
+	var library = SampleLibrary.new()
+	if character_sound != null:
+		library.add_sample("character", character_sound)
+	if confirm_sound != null:
+		library.add_sample("confirm", confirm_sound)
+
+	SoundNode.set_sample_library(library)
+	SoundNode.set_polyphony(5)
 
 func _on_TextScroll_timeout():
 	# In case all characters have been written
@@ -33,7 +41,7 @@ func _on_TextScroll_timeout():
 		return
 
 	TextNode.set_visible_characters(TextNode.get_visible_characters() + 1)
-	_play_se(character_sound)
+	play_se("character")
 
 func _start_scrolling():
 	start()
@@ -42,10 +50,6 @@ func _start_scrolling():
 func _stop_scrolling():
 	stop()
 	emit_signal("finished")
-
-func _play_se(sound_name):
-	if SoundNode != null && SoundNode.get_sample_library().has_sample(sound_name):
-		SoundNode.play(sound_name)
 
 ###############
 ### Methods ###
@@ -59,12 +63,10 @@ func set_text_node(node):
 		TextNode = null
 		print("TextScroll: Text node was not set!")
 
-# Sets the node to use when playing sound effects. Optional
-func set_sound_node(node):
-	if node.is_type("SamplePlayer"):
-		SoundNode = node
-	else:
-		SoundNode = null
+# Plays given sound name if it's set
+func play_se(sound_name):
+	if SoundNode.get_sample_library().has_sample(sound_name):
+		SoundNode.play(sound_name)
 
 # Adds new text to scroll, then starts scrolling immediately
 func scroll(text_to_use):
@@ -87,9 +89,9 @@ func confirm():
 		_stop_scrolling()
 	else: # if we're done writing, clear everything
 		TextNode.set_visible_characters(0)
-		_play_se(confirm_sound)
+		play_se("confirm")
 		emit_signal("cleared")
-		
+
 func set_text_raw(text):
 	if TextNode.is_type("RichTextLabel"):
 		TextNode.set_bbcode(text)

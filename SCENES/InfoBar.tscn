@@ -25,21 +25,21 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=2]
 
 font/size = 12
 font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 
 font/size = 14
 font/use_mipmaps = false
 font/use_filter = true
 font/font = ExtResource( 4 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 
 length = 0.25
 loop = false
@@ -65,7 +65,7 @@ tracks/1/keys = {
 "values": [ -450.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 
 length = 0.25
 loop = false
@@ -81,7 +81,7 @@ tracks/0/keys = {
 "values": [ 0, -450 ]
 }
 
-[sub_resource type="SampleLibrary" id=5]
+[sub_resource type="SampleLibrary" id=6]
 
 samples/Infos = {
 "db": 0.0,
@@ -116,7 +116,7 @@ margin/left = 25.0
 margin/top = 1.0
 margin/right = 185.0
 margin/bottom = 20.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.384314, 0.423529, 0.396078, 1 )
 text = "INFO_TITLE"
 clip_text = true
@@ -138,7 +138,7 @@ margin/left = 30.0
 margin/top = 25.0
 margin/right = 30.0
 margin/bottom = 5.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
@@ -155,17 +155,16 @@ __meta__ = {
 "_editor_icon": ExtResource( 6 )
 }
 text_node = NodePath("..")
-sound_node = NodePath("")
-character_sound = ""
-confirm_sound = ""
+character_sound = null
+confirm_sound = null
 
 [node name="Slide" type="AnimationPlayer" parent="."]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/In = SubResource( 3 )
-anims/Out = SubResource( 4 )
+anims/In = SubResource( 4 )
+anims/Out = SubResource( 5 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -174,7 +173,7 @@ autoplay = ""
 [node name="Swish" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 5 )
+config/samples = SubResource( 6 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0

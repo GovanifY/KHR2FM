@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=1]
+[gd_scene load_steps=15 format=1]
 
 [ext_resource path="res://SCRIPTS/Dialogue/Dialogue.gd" type="Script" id=1]
 [ext_resource path="res://SCENES/Dialogue/box0.tres" type="StyleBox" id=2]
@@ -88,15 +88,6 @@ font/use_mipmaps = false
 font/use_filter = true
 font/font = ExtResource( 6 )
 
-[sub_resource type="SampleLibrary" id=5]
-
-samples/MSG_SOUND = {
-"db": 0.0,
-"pitch": 1.0,
-"priority": 0,
-"sample": ExtResource( 9 )
-}
-
 [node name="Dialogue" type="Control"]
 
 anchor/right = 1
@@ -113,6 +104,7 @@ script/script = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
+next_scene = ""
 csv_path = ""
 position = 2
 
@@ -294,26 +286,8 @@ __meta__ = {
 "_editor_icon": ExtResource( 8 )
 }
 text_node = NodePath("..")
-sound_node = NodePath("../SE")
-character_sound = ""
-confirm_sound = "MSG_SOUND"
-
-[node name="SE" type="SamplePlayer" parent="SkinPos/Bubble/TextContainer"]
-
-config/polyphony = 5
-config/samples = SubResource( 5 )
-default/volume_db = 0.0
-default/pitch_scale = 1.0
-default/pan = 0.0
-default/depth = 0.0
-default/height = 0.0
-default/filter/type = 0
-default/filter/cutoff = 5000.0
-default/filter/resonance = 1.0
-default/filter/gain = 1.0
-default/reverb_room = 2
-default/reverb_send = 0.0
-default/chorus_send = 0.0
+character_sound = null
+confirm_sound = ExtResource( 9 )
 
 [node name="Pause" parent="." instance=ExtResource( 10 )]
 
