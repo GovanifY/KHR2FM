@@ -15,7 +15,7 @@ scale = Vector2( 1, 1 )
 
 [node name="Panel" type="Panel" parent="."]
 
-visibility/self_opacity = 0.3
+visibility/self_opacity = 0.7
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -54,6 +54,7 @@ rect/min_size = Vector2( 0, 50 )
 margin/right = 172.0
 margin/bottom = 50.0
 text = "MENU_SAVE"
+can_cancel = true
 
 [node name="World Map" parent="Panel/Options" instance=ExtResource( 2 )]
 
@@ -62,6 +63,7 @@ margin/top = 70.0
 margin/right = 172.0
 margin/bottom = 120.0
 text = "MENU_WORLD_MAP"
+can_cancel = true
 
 [node name="SaveMenu" parent="Panel" instance=ExtResource( 3 )]
 
