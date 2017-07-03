@@ -31,12 +31,12 @@ func _interacted():
 #######################
 func _on_area_body_enter(body):
 	emit_signal("touched")
-	if get_type() == "MapSave" || get_type() == "MapPlayer":
+	if body.is_type("MapPlayer"):
 		body.interactable = self
 
 
 func _on_area_body_exit(body):
-	if get_type() == "MapSave" || get_type() == "MapPlayer":
+	if body.is_type("MapPlayer"):
 		# If player entered another area this area might be wanted
 		if body.interactable == self:
 			body.interactable = null
