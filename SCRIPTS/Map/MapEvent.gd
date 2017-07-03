@@ -24,7 +24,9 @@ func _interacted():
 		#get_tree().set_pause(true)
 		SceneLoader.load_scene(Save, SceneLoader.BACKGROUND | SceneLoader.HIGH_PRIORITY)		
 		SceneLoader.show_scene(Save)
-		# TODO: kill input on root scene
+		# TODO: RESTORE INPUT
+	if get_type() == "MapNPC":
+		print("sup man")
 
 #######################
 ### Signal routines ###
