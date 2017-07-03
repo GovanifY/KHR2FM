@@ -41,7 +41,9 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-__meta__ = { "_edit_lock_":true }
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Dialogue" parent="." instance=ExtResource( 3 )]
 
@@ -60,10 +62,12 @@ margin/top = 248.0
 margin/right = 234.0
 margin/bottom = 249.0
 script/script = ExtResource( 4 )
-__meta__ = { "_editor_icon":ExtResource( 5 ) }
+__meta__ = {
+"_editor_icon": ExtResource( 5 )
+}
 face_sprites = ExtResource( 6 )
 frame = 0
-flip_h = false
+flip_frame = false
 
 [node name="Kiryoku" type="Control" parent="Dialogue"]
 
@@ -78,10 +82,12 @@ margin/top = 250.0
 margin/right = 219.0
 margin/bottom = 251.0
 script/script = ExtResource( 4 )
-__meta__ = { "_editor_icon":ExtResource( 5 ) }
+__meta__ = {
+"_editor_icon": ExtResource( 5 )
+}
 face_sprites = ExtResource( 7 )
 frame = 0
-flip_h = false
+flip_frame = false
 
 [node name="Kioku" type="Control" parent="Dialogue"]
 
@@ -96,9 +102,11 @@ margin/top = 239.0
 margin/right = 219.0
 margin/bottom = 240.0
 script/script = ExtResource( 4 )
-__meta__ = { "_editor_icon":ExtResource( 5 ) }
+__meta__ = {
+"_editor_icon": ExtResource( 5 )
+}
 face_sprites = ExtResource( 8 )
 frame = 0
-flip_h = false
+flip_frame = false
 
 
