@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=1]
 
-[ext_resource path="res://SCRIPTS/Map/MapNPC.gd" type="Script" id=1]
+[ext_resource path="res://SCRIPTS/Map/Event/MapNPC.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/NPCs/Pnj_06.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]

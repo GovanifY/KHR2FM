@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=1]
 
-[ext_resource path="res://SCRIPTS/Map/MapSave.gd" type="Script" id=1]
+[ext_resource path="res://SCRIPTS/Map/Event/MapSave.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save.png" type="Texture" id=2]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Save/Save_anim.png" type="Texture" id=3]
 
