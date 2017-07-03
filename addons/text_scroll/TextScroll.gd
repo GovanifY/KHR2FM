@@ -37,18 +37,18 @@ func _ready():
 func _on_TextScroll_timeout():
 	# In case all characters have been written
 	if TextNode.get_visible_characters() >= TextNode.get_total_character_count():
-		_stop_scrolling()
+		stop()
 		return
 
 	TextNode.set_visible_characters(TextNode.get_visible_characters() + 1)
 	play_se("character")
 
-func _start_scrolling():
-	start()
+func start():
+	.start()
 	emit_signal("started")
 
-func _stop_scrolling():
-	stop()
+func stop():
+	.stop()
 	emit_signal("finished")
 
 ###############
@@ -74,19 +74,15 @@ func scroll(text_to_use):
 	text_to_use = text_to_use.replace("\\n", "\n")
 
 	# Setting text
-	if TextNode.is_type("RichTextLabel"):
-		TextNode.set_bbcode(text_to_use)
-	elif TextNode.is_type("Label"):
-		TextNode.set_text(text_to_use)
-
-	TextNode.set_visible_characters(1)
-	_start_scrolling()
+	set_text_raw(text_to_use)
+	set_visibility_raw(1)
+	start()
 
 # Checks whether to stop or to clear the text node
 func confirm():
 	if is_processing(): # if we're still writing, write everything
 		TextNode.set_visible_characters(-1)
-		_stop_scrolling()
+		stop()
 	else: # if we're done writing, clear everything
 		TextNode.set_visible_characters(0)
 		play_se("confirm")
@@ -99,5 +95,4 @@ func set_text_raw(text):
 		TextNode.set_text(text)
 
 func set_visibility_raw(visibility):
-	if TextNode.is_type("Label") || TextNode.is_type("RichTextLabel"):
-		TextNode.set_visible_characters(visibility)
+	TextNode.set_visible_characters(visibility)
