@@ -81,8 +81,8 @@ func _playtime():
 func reset_playtime(mins=0, hrs=0):
 	var playtime = get_node("Playtime")
 	playtime.stop()
-	Globals.set("PlaytimeMinutes", mins)
-	Globals.set("PlaytimeHours", hrs)
+	Globals.set("PlaytimeMinutes", mins if mins != null else 0)
+	Globals.set("PlaytimeHours", hrs if hrs != null else 0)
 	playtime.set_wait_time(60)
 	playtime.start()
 
