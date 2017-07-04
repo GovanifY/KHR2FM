@@ -93,22 +93,28 @@ func load_next_scene(flags=0):
 	ThreadLoader.queue_resource(next_scenes.front(), priority)
 	return true
 
-# Unloads current scene and loads the one in the given path (if loaded)
+# Unloads current scene (if requested) and loads the one in the given path
 func show_scene(path, halt_current = false):
+	var scene = null # Reference to the scene to show
+
 	# Instance the loaded scene and put it ahead all the others
 	var res = ThreadLoader.get_resource(path)
 	if halt_current: # Halt current scene (if issued)
 		get_tree().change_scene_to(res)
+		scene = get_tree().get_current_scene()
 	else:
-		root.add_child(res.instance())
+		scene = res.instance()
+		root.add_child(scene)
+
+	print(scene.get_path())
 
 	next_scenes.erase(path)
 	loaded_scenes.erase(path)
-	return true
+	return scene
 
 # Loads the next available scene
 func show_next_scene(halt_current = false):
-	show_scene(loaded_scenes.front(), halt_current)
+	return show_scene(loaded_scenes.front(), halt_current)
 
 # Erases the scene associated to the given path
 func erase_scene(path):
