@@ -45,7 +45,7 @@ func _on_visibility_changed():
 ########################
 ### Helper functions ###
 ########################
-static func get_scene_name(path):
+static func get_filename_from(path):
 	return path.get_file().replace(".tscn", "")
 
 ###############
@@ -103,8 +103,13 @@ func show_scene(path, halt_current = false):
 		get_tree().change_scene_to(res)
 		scene = get_tree().get_current_scene()
 	else:
-		scene = res.instance()
-		root.add_child(scene)
+		var name = get_filename_from(path)
+		if Globals.get(name) == null:
+			scene = res.instance()
+			root.add_child(scene)
+			Globals.set(name, scene)
+		else:
+			print("SceneLoader: '" + name + "' was already loaded! Ignoring.")
 
 	next_scenes.erase(path)
 	loaded_scenes.erase(path)
@@ -115,11 +120,7 @@ func show_next_scene(halt_current = false):
 	return show_scene(loaded_scenes.front(), halt_current)
 
 # Erases the scene associated to the given path
-func erase_scene(path):
-	if path == null: return
-	if path.empty(): return
-
-	ThreadLoader.cancel_resource(path)
-	var node = root.get_node(get_scene_name(path))
-	if node != null:
-		node.queue_free()
+func erase_scene(scene):
+	if scene == null: return
+	ThreadLoader.cancel_resource(scene.get_filename())
+	scene.queue_free()

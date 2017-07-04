@@ -44,17 +44,17 @@ func _input(event):
 				if get_tree().is_paused():
 					pause_game(false)
 				get_tree().reload_current_scene()
+
 			elif event.is_action("debug"):
 				var debug_name = "DebugCMD"
 				var debug_path = "res://SCENES/Debug/" + debug_name + ".tscn"
 
-				if !Globals.get(debug_name):
+				if Globals.get(debug_name) == null:
 					SceneLoader.load_scene(debug_path, SceneLoader.BACKGROUND | SceneLoader.HIGH_PRIORITY)
 					SceneLoader.show_scene(debug_path)
-					Globals.set(debug_name, true)
 				else:
-					SceneLoader.erase_scene(debug_path)
-					Globals.set(debug_name, false)
+					SceneLoader.erase_scene(Globals.get(debug_name))
+
 			elif event.is_action("quick_save"):
 				SaveManager.quick_save()
 			elif event.is_action("quick_load"):
