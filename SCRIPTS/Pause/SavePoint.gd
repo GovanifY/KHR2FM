@@ -15,10 +15,12 @@ var cursor_idx = 0
 ### Core functions ###
 ######################
 func _ready():
+	connect("hide", self, "_hide")
+
 	# Connecting main options
 	for i in range(0, Options.size()):
 		Options[i].connect("pressed", self, "_pressed", [i])
-		Options[i].connect("cancel", self, "_hide")
+		Options[i].connect("cancel", self, "hide")
 		if i < Menu.size(): # FIXME: temp code
 			Menu[i].connect("hide", self, "_dismissed_menu")
 
@@ -38,7 +40,6 @@ func _draw():
 func _hide():
 	# TODO: animate scene before freeing
 	KHR2.pause_game(false)
-	queue_free()
 
 func _pressed(button_idx):
 	cursor_idx = button_idx
