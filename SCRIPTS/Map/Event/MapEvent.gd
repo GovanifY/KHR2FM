@@ -12,7 +12,6 @@ export(String) var type = ""
 ######################
 func _ready():
 	# Setting up
-	set_pickable(true)
 	connect("interacted", self, "_interacted")
 	connect("body_enter", self, "_on_area_body_enter")
 	connect("body_exit", self, "_on_area_body_exit")
