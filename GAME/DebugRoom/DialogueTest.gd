@@ -70,4 +70,4 @@ func _ready():
 	Kioku.speak(1, 2)
 	yield(Kioku, "finished")
 
-	Dialogue.hide()
+	Dialogue.clear()

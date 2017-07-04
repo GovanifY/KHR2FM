@@ -95,6 +95,10 @@ func _on_CastAnim_complete(object, key):
 					Bubble.emit_signal("shown")
 
 func _get_line():
+	if Bubble.is_hidden():
+		Bubble.show_bubble()
+		return
+
 	if current_speaker == null:
 		return # No speaker available; random person/narrator talking
 
@@ -156,9 +160,8 @@ func speak(character, begin, end=begin):
 	var avatar_texture = character.Avatar.get_texture()
 	if character.is_hidden() && avatar_texture != null:
 		display(character)
-
-	if is_hidden() || Bubble.is_hidden():
-		show()
+	elif Bubble.is_visible():
+		Bubble.emit_signal("shown")
 
 # Resets values and silences a given character
 func silence(character=current_speaker):
@@ -172,19 +175,12 @@ func silence(character=current_speaker):
 		character = null
 	emit_signal("finished")
 
-func show():
-	.show()
-	if Bubble.is_hidden():
-		Bubble.show_box()
-	else:
-		Bubble.emit_signal("shown")
-
 # Hides Bubble box and dismisses all the avatars
-func hide():
+func clear():
 	silence()
 	Bubble.hide_box()
 	yield(Bubble, "hidden")
-	.hide()
+	emit_signal("hide")
 
 # Displays only ONE Avatar
 func display(character):
