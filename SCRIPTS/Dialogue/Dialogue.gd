@@ -5,7 +5,7 @@ const ANIM_TIME = 0.35
 
 # Export values
 export(String, FILE, "tscn") var next_scene = ""
-export(String, FILE, "csv") var csv_path = ""
+export(String, FILE, "csv") var csv_path
 export(int, "Top", "Middle", "Bottom") var position = 2
 
 # Signals

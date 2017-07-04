@@ -10,12 +10,15 @@ func _exit_tree():
 ### Methods ###
 ###############
 func set_csv(csv_path):
+	if csv_path == null:
+		print("Translator: No CSV file set. Global lines will be loaded.")
+		return false
+
 	var csv_file = File.new()
 
 	# Checking arguments
 	if (typeof(csv_path) != TYPE_STRING || csv_path.empty()
 	|| !csv_file.file_exists(csv_path)):
-		print("Translator: No CSV file set. Global lines will be loaded.")
 		return false
 
 	csv_file.open(csv_path, csv_file.READ) #####################################
