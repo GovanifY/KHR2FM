@@ -109,9 +109,12 @@ func show_scene(path, halt_current = false):
 	else:
 		var name = get_filename_from(path)
 		if Globals.get(name) == null:
+			# Instancing and adding to tree
 			scene = res.instance()
 			root.add_child(scene)
 
+			# Setting scene up
+			scene.set_filename(path)
 			scene.set_name(name)
 			Globals.set(name, scene)
 		else:
