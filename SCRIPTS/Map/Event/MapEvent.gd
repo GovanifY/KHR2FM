@@ -25,15 +25,15 @@ func _interacted():
 #######################
 func _on_area_body_enter(body):
 	emit_signal("touched")
-	if body.is_type("MapPlayer"):
-		body.interactable = self
+	if body.is_type("MapPlayer") && not body.has_interacting(self):
+		body.add_interacting(self)
 
 
 func _on_area_body_exit(body):
 	if body.is_type("MapPlayer"):
 		# If player entered another area this area might be wanted
-		if body.interactable == self:
-			body.interactable = null
+		if body.has_interacting(self):
+			body.erase_interacting(self)
 
 ########################
 ### Export functions ###

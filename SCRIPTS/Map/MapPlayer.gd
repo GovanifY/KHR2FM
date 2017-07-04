@@ -10,7 +10,7 @@ enum {
 # Instance members
 onready var Anims     = get_node("anims")
 onready var Character = get_node("Character")
-var interactable
+var interacting = []
 
 # "Private" members
 onready var sprite_direction = { # All 8 directions from this project's spriteset layout
@@ -37,9 +37,14 @@ onready var sprite_motion = {
 ######################
 ### Core functions ###
 ######################
+func _enter_tree():
+	Globals.set("MapPlayer", self)
+
+func _exit_tree():
+	Globals.set("MapPlayer", null)
+
 func _ready():
-	set_fixed_process(true)
-	set_process_input(true)
+	start()
 
 func _fixed_process(delta):
 	# Grabbing directions from Input and transforming them into flags
@@ -55,8 +60,9 @@ func _fixed_process(delta):
 func _input(event):
 	if event.is_pressed() && !event.is_echo():
 		if event.is_action("ui_accept"):
-			if interactable != null:
-				interactable.emit_signal("interacted")
+			if not interacting.empty():
+				# FIXME: Currently, using the last node touched
+				interacting[0].emit_signal("interacted")
 
 func _animate_character(directions):
 	# If it can move to this direction
@@ -91,3 +97,20 @@ func get_type():
 
 func is_type(type):
 	return type == get_type()
+
+func start():
+	set_fixed_process(true)
+	set_process_input(true)
+
+func stop():
+	set_fixed_process(false)
+	set_process_input(false)
+
+func add_interacting(body):
+	interacting.push_front(body)
+
+func has_interacting(body):
+	return (body in interacting)
+
+func erase_interacting(body):
+	interacting.erase(body)
