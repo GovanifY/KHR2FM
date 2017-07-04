@@ -76,27 +76,27 @@ func _center_hook():
 ### Signal routines ###
 #######################
 func _on_CastAnim_tween_complete(object, key):
-	if key == "set_offset":
-		# If object's offset is 0, it's been displayed.
-		# FIXME: I have to round this value because Godot is acting like JavaScript
-		# and returning me values like -0.000031!!!
-		var rounded_offset = round(object.get_offset().x)
-		if rounded_offset == 0:
-			_center_hook()
-			if Bubble.is_hidden():
-				Bubble.show_box()
-			else:
-				Bubble.emit_signal("shown")
-	elif key == "set_opacity":
-		# If object's opacity is 0, it's been dismissed
-		if object.get_opacity() == 0:
-			object.hide()
-			object.set_opacity(1.0)
+	if object.is_type("Avatar"):
+		if key == "set_opacity":
+			# If object's opacity is 0, it's been dismissed
+			if object.get_opacity() == 0:
+				object.hide()
+				object.set_opacity(1.0)
 
-			silence(object)
-		# Otherwise, it's being displayed
-		else:
-			object.show()
+				silence(object)
+
+	elif object.is_type("Sprite"):
+		if key == "set_offset":
+			# If object's offset is 0, it's been displayed.
+			# FIXME: I have to round this value because Godot is acting like JavaScript
+			# and returning me values like -0.000031!!!
+			var rounded_offset = round(object.get_offset().x)
+			if rounded_offset == 0:
+				_center_hook()
+				if Bubble.is_hidden():
+					Bubble.show_box()
+				else:
+					Bubble.emit_signal("shown")
 
 func _get_line():
 	# Parsing lineID
@@ -186,8 +186,12 @@ func display(character):
 	if !character.is_flipped():
 		off_bounds.x *= -1
 
+	# Setting character visibility
+	character.set_opacity(0)
+	character.show()
+
 	CastAnim.interpolate_method(character.Avatar, "set_offset", off_bounds, Vector2(), ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
-	CastAnim.interpolate_method(character, "set_opacity", 0.0, 1.0, 0.01, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	CastAnim.interpolate_method(character, "set_opacity", 0.0, 1.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
 
 	CastAnim.start()
 

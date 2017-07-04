@@ -291,6 +291,8 @@ confirm_sound = ExtResource( 9 )
 
 [node name="Pause" parent="." instance=ExtResource( 10 )]
 
+visibility/visible = false
+
 [connection signal="draw" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="set_active" binds= [ true ]]
 
 [connection signal="enter_tree" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon" method="hide"]
