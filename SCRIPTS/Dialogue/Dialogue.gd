@@ -165,15 +165,16 @@ func speak(character, begin, end=begin):
 
 # Resets values and silences a given character
 func silence(character=current_speaker):
+	if character != null:
+		character.call_deferred("emit_signal", "finished")
+		character = null
+
 	if is_processing_input():
 		# Resetting values
 		index = -1
 		Bubble.Hook.hide()
 		set_process_input(false)
 
-		if character != null:
-			character.call_deferred("emit_signal", "finished")
-			character = null
 		emit_signal("finished")
 
 # Overloading methods
@@ -190,9 +191,6 @@ func show():
 
 func hide():
 	silence()
-	Bubble.hide_box()
-	yield(Bubble, "hidden")
-	emit_signal("hide")
 	if Bubble.is_visible():
 		Bubble.hide_box()
 		yield(Bubble, "hidden")
