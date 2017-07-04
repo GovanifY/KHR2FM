@@ -11,6 +11,9 @@ func _interacted():
 		return
 
 	if Globals.get("Dialogue") == null:
+		var player = Globals.get("MapPlayer")
+		player.stop()
+
 		SceneLoader.load_scene(path_dialogue, SceneLoader.BACKGROUND)
 		var Dialogue = SceneLoader.show_scene(path_dialogue)
 		Dialogue.connect("hide", SceneLoader, "erase_scene", [Dialogue])
@@ -23,3 +26,4 @@ func _interacted():
 			yield(Dialogue, "finished")
 
 		Dialogue.hide()
+		player.start()
