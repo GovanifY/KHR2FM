@@ -10,7 +10,7 @@ export(String) var type = ""
 ######################
 ### Core functions ###
 ######################
-func _enter_tree():
+func _ready():
 	# Setting up
 	set_pickable(true)
 	connect("interacted", self, "_interacted")
