@@ -106,8 +106,6 @@ func show_scene(path, halt_current = false):
 		scene = res.instance()
 		root.add_child(scene)
 
-	print(scene.get_path())
-
 	next_scenes.erase(path)
 	loaded_scenes.erase(path)
 	return scene
