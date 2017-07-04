@@ -28,38 +28,31 @@ func _ready():
 	Sequences.play("Kiryoku down")
 	yield(Sequences, "finished")
 
-	Yuugure.speak(0, 4)
-	yield(Yuugure, "finished")
-
-	Kiryoku.speak(0, 3)
-	yield(Kiryoku, "finished")
-
-	Yuugure.speak(5, 6)
-	yield(Yuugure, "finished")
+	for line in [
+		[Yuugure, 0, 4],
+		[Kiryoku, 0, 3],
+		[Yuugure, 5, 6],
+	]:
+		line[0].speak(line[1], line[2])
+		yield(line[0], "finished")
 
 	Dialogue.hide()
 	Sequences.play("Kiryoku vanish")
 	yield(Sequences, "finished")
-	Dialogue.dismiss()
 
 	# Change music
 	AudioRoom.set_stream(preload("res://ASSETS/BGM/The Eye of Darkness.ogg"))
 	AudioRoom.play()
 
-	Kiryoku.speak(4, 10)
-	yield(Kiryoku, "finished")
-
-	Yuugure.speak(7, 8)
-	yield(Yuugure, "finished")
-
-	Kiryoku.speak(11, 16)
-	yield(Kiryoku, "finished")
-
-	Yuugure.speak(9, 12)
-	yield(Yuugure, "finished")
-
-	Kiryoku.speak(17, 19)
-	yield(Kiryoku, "finished")
+	for line in [
+		[Kiryoku, 4, 10],
+		[Yuugure, 7, 8],
+		[Kiryoku, 11, 16],
+		[Yuugure, 9, 12],
+		[Kiryoku, 17, 19],
+	]:
+		line[0].speak(line[1], line[2])
+		yield(line[0], "finished")
 
 	# Load next scene
 	SceneLoader.load_next_scene()
