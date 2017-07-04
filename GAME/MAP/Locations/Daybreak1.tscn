@@ -309,6 +309,7 @@ transform/pos = Vector2( 571, 542 )
 [node name="NPC1" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 687, 575 )
+lines = StringArray( "Hello!", "How do you do\?" )
 
 [node name="Sprite" type="Sprite" parent="NPC1"]
 

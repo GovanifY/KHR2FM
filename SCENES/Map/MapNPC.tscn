@@ -19,6 +19,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 1 )
 type = "NPC"
+lines = null
 
 [node name="TalkArea" type="CollisionShape2D" parent="."]
 
