@@ -190,7 +190,7 @@ func show():
 		Bubble.show_box()
 
 func hide():
-	silence()
+	dismiss()
 	if Bubble.is_visible():
 		Bubble.hide_box()
 		yield(Bubble, "hidden")
@@ -232,4 +232,4 @@ func dismiss(character=null):
 		CastAnim.interpolate_method(character.Avatar, "set_offset", Vector2(), off_bounds, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		CastAnim.interpolate_method(character, "set_opacity", 1.0, 0.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
 
-	CastAnim.start()
+		CastAnim.start()
