@@ -112,7 +112,7 @@ func _wait_for_thread():
 
 func clear():
 	issued_kill = true
-	#breakpoint
+
 	if thread.is_active():
 		_post("wait_to_finish")
 		_wait_for_thread()
@@ -121,6 +121,15 @@ func clear():
 	pending.clear()
 
 	issued_kill = false
+
+func has(path):
+	var ret = false
+
+	mutex.lock()
+	ret = (path in pending)
+	mutex.unlock()
+
+	return ret
 
 func is_empty():
 	var ret = false

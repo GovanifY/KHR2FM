@@ -62,7 +62,11 @@ func queue_scene(path):
 
 	var f = File.new()
 	if !f.file_exists(path):
-		print("SceneLoader: File not found:\n\t\"", path, "\"")
+		print("SceneLoader: File not found:\t'", path, "'")
+		return false
+
+	if ThreadLoader.has(path):
+		print("SceneLoader: '", path, "' was already queued.")
 		return false
 
 	# Pushing given scene as reference
@@ -109,7 +113,7 @@ func show_scene(path, halt_current = false):
 			root.add_child(scene)
 			Globals.set(name, scene)
 		else:
-			print("SceneLoader: '" + name + "' was already loaded! Ignoring.")
+			print("SceneLoader: '", name, "' was already loaded! Ignoring.")
 
 	next_scenes.erase(path)
 	loaded_scenes.erase(path)
