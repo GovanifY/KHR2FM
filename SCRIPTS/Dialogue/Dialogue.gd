@@ -49,7 +49,7 @@ func _ready():
 
 	# Initializing signals
 	Bubble.connect("shown", self, "_get_line")
-	CastAnim.connect("tween_complete", self, "_on_CastAnim_tween_complete")
+	CastAnim.connect("tween_complete", self, "_on_CastAnim_complete")
 
 func _input(event):
 	# Pressed, non-repeating Input check
@@ -75,23 +75,19 @@ func _center_hook():
 #######################
 ### Signal routines ###
 #######################
-func _on_CastAnim_tween_complete(object, key):
+func _on_CastAnim_complete(object, key):
 	if object.is_type("Avatar"):
+		var avatar = object
+
 		if key == "set_opacity":
 			# If object's opacity is 0, it's been dismissed
-			if object.get_opacity() == 0:
-				object.hide()
-				object.set_opacity(1.0)
+			if avatar.get_opacity() == 0:
+				avatar.hide()
+				avatar.set_opacity(1.0)
 
-				silence(object)
+				silence(avatar)
 
-	elif object.is_type("Sprite"):
-		if key == "set_offset":
-			# If object's offset is 0, it's been displayed.
-			# FIXME: I have to round this value because Godot is acting like JavaScript
-			# and returning me values like -0.000031!!!
-			var rounded_offset = round(object.get_offset().x)
-			if rounded_offset == 0:
+			else: # It's being displayed
 				_center_hook()
 				if Bubble.is_hidden():
 					Bubble.show_box()
@@ -102,13 +98,12 @@ func _get_line():
 	# Parsing lineID
 	var lineID = current_speaker.get_name().to_upper() + "_"
 	lineID += "%02d" % index
+	index += 1
 
 	# Centering hook
 	if Bubble.Hook.is_hidden():
 		_center_hook()
 
-	# Incrementing index
-	index += 1
 	write(lineID)
 
 func _next_line():
