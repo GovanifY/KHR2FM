@@ -63,7 +63,7 @@ func set_flip(value):
 	Avatar.set_flip_h(value)
 
 func set_side(right):
-	var Dialogue = get_node(Globals.get("Dialogue"))
+	var Dialogue = Globals.get("Dialogue")
 
 	var CastLeft  = Dialogue.get_node("CastLeft")
 	var CastRight = Dialogue.get_node("CastRight")
@@ -86,17 +86,17 @@ func set_side(right):
 
 # Methods from Dialogue node
 func speak(begin, end=begin):
-	var Dialogue = get_node(Globals.get("Dialogue"))
+	var Dialogue = Globals.get("Dialogue")
 	Dialogue.speak(self, begin, end)
 
 func display():
-	var Dialogue = get_node(Globals.get("Dialogue"))
+	var Dialogue = Globals.get("Dialogue")
 	Dialogue.display(self)
 
 func dismiss():
-	var Dialogue = get_node(Globals.get("Dialogue"))
+	var Dialogue = Globals.get("Dialogue")
 	Dialogue.dismiss(self)
 
 func silence():
-	var Dialogue = get_node(Globals.get("Dialogue"))
+	var Dialogue = Globals.get("Dialogue")
 	Dialogue.silence(self)
