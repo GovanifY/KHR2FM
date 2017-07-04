@@ -177,6 +177,11 @@ func silence(character=current_speaker):
 		emit_signal("finished")
 
 # Overloading methods
+func show(bubble_too=false):
+	.show()
+	if bubble_too && Bubble.is_hidden():
+		Bubble.show_box()
+
 func hide():
 	dismiss()
 	if Bubble.is_visible():

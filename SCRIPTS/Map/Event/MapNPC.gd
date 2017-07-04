@@ -19,7 +19,8 @@ func _interacted():
 		Dialogue.connect("hide", SceneLoader, "erase_scene", [Dialogue])
 
 		# Writing NPC's lines
-		Dialogue.show()
+		Dialogue.show(true)
+		yield(Dialogue.Bubble, "shown")
 
 		for line in lines:
 			Dialogue.write(line)
