@@ -37,7 +37,7 @@ func _ready():
 	Yuugure.speak(5, 6)
 	yield(Yuugure, "finished")
 
-	Dialogue.clear()
+	Dialogue.hide()
 	Sequences.play("Kiryoku vanish")
 	yield(Sequences, "finished")
 	Dialogue.dismiss()

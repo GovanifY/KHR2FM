@@ -176,12 +176,27 @@ func silence(character=current_speaker):
 			character = null
 		emit_signal("finished")
 
-# Hides Bubble box and dismisses all the avatars
-func clear():
+# Overloading methods
+func is_visible():
+	return .is_visible() && Bubble.is_visible()
+
+func is_hidden():
+	return .is_hidden() && Bubble.is_hidden()
+
+func show():
+	.show()
+	if Bubble.is_hidden():
+		Bubble.show_box()
+
+func hide():
 	silence()
 	Bubble.hide_box()
 	yield(Bubble, "hidden")
 	emit_signal("hide")
+	if Bubble.is_visible():
+		Bubble.hide_box()
+		yield(Bubble, "hidden")
+	.hide()
 
 # Displays only ONE Avatar
 func display(character):
