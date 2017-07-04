@@ -191,11 +191,7 @@ func hide():
 
 # Displays only ONE Avatar
 func display(character):
-	var off_bounds = character.Avatar.get_texture().get_size()
-	off_bounds.y = 0
-	# Drag animation from left or right depending on the situation
-	if !character.is_flipped():
-		off_bounds.x *= -1
+	var off_bounds = character.get_off_bounds()
 
 	# Setting character visibility
 	character.set_opacity(0)
@@ -216,11 +212,7 @@ func dismiss(character=null):
 		to_dismiss += CastRight.get_children()
 
 	for character in to_dismiss:
-		var off_bounds = character.Avatar.get_texture().get_size()
-		off_bounds.y = 0
-		# Drag animation from left or right depending on the situation
-		if !character.is_flipped():
-			off_bounds.x *= -1
+		var off_bounds = character.get_off_bounds()
 
 		CastAnim.interpolate_method(character.Avatar, "set_offset", Vector2(), off_bounds, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		CastAnim.interpolate_method(character, "set_opacity", 1.0, 0.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)

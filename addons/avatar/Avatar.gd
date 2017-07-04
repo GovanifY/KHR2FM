@@ -47,6 +47,13 @@ func _enter_tree():
 func get_center():
 	return get_pos().x
 
+func get_off_bounds():
+	var ret = Vector2(Avatar.get_texture().get_size().x, 0)
+	# Drag animation from left or right depending on the situation
+	if !is_flipped():
+		ret.x *= -1
+	return ret
+
 func get_type():
 	return "Avatar"
 
