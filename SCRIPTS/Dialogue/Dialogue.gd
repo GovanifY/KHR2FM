@@ -165,15 +165,16 @@ func speak(character, begin, end=begin):
 
 # Resets values and silences a given character
 func silence(character=current_speaker):
-	# Resetting values
-	index = -1
-	Bubble.Hook.hide()
-	set_process_input(false)
+	if is_processing_input():
+		# Resetting values
+		index = -1
+		Bubble.Hook.hide()
+		set_process_input(false)
 
-	if character != null:
-		character.call_deferred("emit_signal", "finished")
-		character = null
-	emit_signal("finished")
+		if character != null:
+			character.call_deferred("emit_signal", "finished")
+			character = null
+		emit_signal("finished")
 
 # Hides Bubble box and dismisses all the avatars
 func clear():
