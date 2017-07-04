@@ -48,7 +48,6 @@ func _ready():
 		SceneLoader.queue_scene(next_scene)
 
 	# Initializing signals
-	Bubble.connect("shown", self, "_get_line")
 	CastAnim.connect("tween_complete", self, "_on_CastAnim_complete")
 
 func _input(event):
@@ -91,14 +90,11 @@ func _on_CastAnim_complete(object, key):
 				_center_hook()
 				if Bubble.is_hidden():
 					Bubble.show_box()
-				else:
-					Bubble.emit_signal("shown")
+					yield(Bubble, "shown")
+
+				call_deferred("_get_line")
 
 func _get_line():
-	if Bubble.is_hidden():
-		Bubble.show_bubble()
-		return
-
 	if current_speaker == null:
 		return # No speaker available; random person/narrator talking
 
@@ -156,12 +152,15 @@ func speak(character, begin, end=begin):
 	last  = end
 	current_speaker = character
 
+	if is_hidden():
+		show()
+
 	# If character's invisible, make grand appearance
 	var avatar_texture = character.Avatar.get_texture()
 	if character.is_hidden() && avatar_texture != null:
 		display(character)
 	elif Bubble.is_visible():
-		Bubble.emit_signal("shown")
+		call_deferred("_get_line")
 
 # Resets values and silences a given character
 func silence(character=current_speaker):
@@ -178,17 +177,6 @@ func silence(character=current_speaker):
 		emit_signal("finished")
 
 # Overloading methods
-func is_visible():
-	return .is_visible() && Bubble.is_visible()
-
-func is_hidden():
-	return .is_hidden() && Bubble.is_hidden()
-
-func show():
-	.show()
-	if Bubble.is_hidden():
-		Bubble.show_box()
-
 func hide():
 	dismiss()
 	if Bubble.is_visible():
