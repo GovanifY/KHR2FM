@@ -27,7 +27,7 @@ font/font = ExtResource( 2 )
 [node name="Pause" type="CanvasLayer"]
 
 process/pause_mode = 2
-layer = 1
+layer = 100
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
