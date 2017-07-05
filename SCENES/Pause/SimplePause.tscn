@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://SCRIPTS/Pause/SimplePause.gd" type="Script" id=1]
+[ext_resource path="res://SCRIPTS/Pause/CutscenePause.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/LANG/FONTS/texgyreadventor/texgyreadventor-bold.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://SCENES/Button/KHR2_Button.tscn" type="PackedScene" id=3]
 

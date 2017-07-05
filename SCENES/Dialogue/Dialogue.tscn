@@ -9,7 +9,7 @@
 [ext_resource path="res://addons/text_scroll/TextScroll.gd" type="Script" id=7]
 [ext_resource path="res://addons/text_scroll/icon.png" type="Texture" id=8]
 [ext_resource path="res://ASSETS/SE/System/MSG_SOUND.wav" type="Sample" id=9]
-[ext_resource path="res://SCENES/Pause/SimplePause.tscn" type="PackedScene" id=10]
+[ext_resource path="res://SCENES/Pause/CutscenePause.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=1]
 
