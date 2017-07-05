@@ -6,21 +6,22 @@
 
 [node name="Pause" instance=ExtResource( 1 )]
 
+[node name="Background" parent="."]
+
 script/script = ExtResource( 2 )
 
-[node name="Resume" parent="Options"]
+[node name="Resume" parent="Background/Options"]
 
 margin/top = 0.0
 margin/bottom = 39.0
 
-[node name="Skip" parent="Options" instance=ExtResource( 3 )]
+[node name="Skip" parent="Background/Options" instance=ExtResource( 3 )]
 
 focus_neighbour/top = NodePath("../Resume")
 focus_neighbour/bottom = NodePath("../Resume")
 margin/top = 44.0
 margin/right = 200.0
 margin/bottom = 83.0
-click_on_press = true
 text = "PAUSE_SKIP"
 
 
