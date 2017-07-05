@@ -1,0 +1,103 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://SCRIPTS/Pause/SimplePause.gd" type="Script" id=1]
+[ext_resource path="res://ASSETS/LANG/FONTS/texgyreadventor/texgyreadventor-bold.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://SCENES/Button/KHR2_Button.tscn" type="PackedScene" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+bg_color = Color( 0, 0, 0, 1 )
+light_color = Color( 0.8, 0.8, 0.8, 1 )
+dark_color = Color( 0.8, 0.8, 0.8, 1 )
+border_size = 0
+border_blend = true
+draw_bg = true
+
+[sub_resource type="DynamicFont" id=2]
+
+font/size = 40
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 2 )
+
+[node name="Pause" type="Panel"]
+
+process/pause_mode = 2
+visibility/self_opacity = 0.7
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+custom_styles/panel = SubResource( 1 )
+script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Message" type="Label" parent="."]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 150.0
+margin/right = 0.0
+margin/bottom = 250.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_as_outline = 1
+text = "PAUSE_MESSAGE"
+align = 1
+valign = 1
+uppercase = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Options" type="VBoxContainer" parent="."]
+
+editor/display_folded = true
+anchor/left = 3
+anchor/right = 3
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 100.0
+margin/top = 242.0
+margin/right = -100.0
+margin/bottom = 324.0
+custom_constants/separation = 5
+alignment = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Resume" parent="Options" instance=ExtResource( 3 )]
+
+focus_neighbour/top = NodePath("../Skip")
+focus_neighbour/bottom = NodePath("../Skip")
+margin/top = 21.0
+margin/right = 200.0
+margin/bottom = 60.0
+text = "PAUSE_CONTINUE"
+
+
