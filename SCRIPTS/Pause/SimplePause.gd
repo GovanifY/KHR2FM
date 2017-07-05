@@ -16,7 +16,7 @@ func _ready():
 
 	# Connecting pause-behavior signals
 	KHR2.connect("toggle_pause", self, "_pressed_pause")
-	SceneLoader.connect("scene_was_pushed", self, "_set_availability", [PAUSE_BUTTON_SKIP, false])
+	SceneLoader.connect("has_queued", self, "_set_availability", [PAUSE_BUTTON_SKIP, false])
 
 	# Connecting button signals
 	for i in range(0, Options.get_child_count()):
@@ -42,7 +42,7 @@ func _pressed_pause():
 func _pause_controls(button_idx):
 	KHR2.pause_game()
 	if button_idx == PAUSE_BUTTON_SKIP:
-		if SceneLoader.is_loaded():
+		if SceneLoader.has_loaded():
 			SceneLoader.show_next_scene(true)
 		else:
 			SceneLoader.load_next_scene()

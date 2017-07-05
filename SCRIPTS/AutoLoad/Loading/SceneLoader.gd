@@ -1,8 +1,8 @@
 extends Control
 
 # Signals
-signal scene_was_pushed
-signal scene_was_loaded
+signal has_queued
+signal has_loaded
 
 # Flags
 enum { BACKGROUND = 0x1, HIGH_PRIORITY = 0x2 }
@@ -36,7 +36,7 @@ func _process(delta):
 
 func _scene_was_loaded(path):
 	loaded_scenes.push_back(path)
-	emit_signal("scene_was_loaded")
+	emit_signal("has_loaded")
 
 func _on_visibility_changed():
 	KHR2.set_process_input(is_hidden())
@@ -51,13 +51,15 @@ static func get_filename_from(path):
 ###############
 ### Methods ###
 ###############
-# Checks if any scene is loaded
-func is_loaded():
+func has_queued():
+	return next_scenes.size() > 0
+
+func has_loaded():
 	return loaded_scenes.size() > 0
 
 func queue_scene(path):
-	if path == null:
-		print("SceneLoader: NULL path given!")
+	if typeof(path) != TYPE_STRING:
+		print("SceneLoader: Path must be a string.")
 		return false
 
 	var f = File.new()
@@ -71,7 +73,7 @@ func queue_scene(path):
 
 	# Pushing given scene as reference
 	next_scenes.push_back(path)
-	emit_signal("scene_was_pushed")
+	emit_signal("has_queued")
 	return true
 
 # Adds the given resources to queue to load them with given flags
