@@ -101,8 +101,6 @@ __meta__ = {
 
 [node name="Resume" parent="Background/Options" instance=ExtResource( 3 )]
 
-focus_neighbour/top = NodePath("../Skip")
-focus_neighbour/bottom = NodePath("../Skip")
 margin/top = 21.0
 margin/right = 200.0
 margin/bottom = 60.0

@@ -10,8 +10,14 @@
 
 script/script = ExtResource( 2 )
 
+[node name="Options" parent="Background"]
+
+editor/display_folded = true
+
 [node name="Resume" parent="Background/Options"]
 
+focus_neighbour/top = NodePath("../Skip")
+focus_neighbour/bottom = NodePath("../Skip")
 margin/top = 0.0
 margin/bottom = 39.0
 
