@@ -18,7 +18,7 @@ var have_subtitles = false
 ######################
 func _enter_tree():
 	Globals.set("Pause", "cinema")
-	KHR2.connect("toggle_pause", self, "_toggled_pause")
+	KHR2.connect("toggled_pause", self, "_toggled_pause")
 
 func _exit_tree():
 	Globals.set("Pause", null)

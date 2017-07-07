@@ -18,8 +18,8 @@ func _ready():
 #######################
 ### Signal routines ###
 #######################
-func _pressed_pause():
-	._pressed_pause()
+func _toggled_pause():
+	._toggled_pause()
 	if get_tree().is_paused():
 		AudioRoom.set_volume(AudioRoom.VOL_LOW)
 		Options.get_child(0).grab_focus()

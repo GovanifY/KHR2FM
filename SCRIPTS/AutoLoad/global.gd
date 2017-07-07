@@ -4,7 +4,8 @@ extends Node
 # le timer, la pause ou le fullscreen
 
 # Signals
-signal toggle_pause
+signal toggled_pause
+signal pressed_pause
 
 ######################
 ### Core functions ###
@@ -36,6 +37,7 @@ func _input(event):
 			OS.set_window_fullscreen(!OS.is_window_fullscreen())
 		elif event.is_action("pause"):
 			pause_game()
+			emit_signal("pressed_pause")
 
 		# Debugging stuff, ignore this
 		if OS.is_debug_build():
@@ -93,4 +95,4 @@ func pause_game(value=!get_tree().is_paused()):
 
 	# Toggle pause and signal that it's been toggled
 	get_tree().set_pause(value)
-	emit_signal("toggle_pause")
+	emit_signal("toggled_pause")
