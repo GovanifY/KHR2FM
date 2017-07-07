@@ -28,13 +28,4 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="ParticleAttractor2D" type="ParticleAttractor2D" parent="."]
-
-enabled = true
-radius = 50.0
-disable_radius = 0.0
-gravity = 100.0
-absorption = 0.0
-particles_path = NodePath("")
-
 
