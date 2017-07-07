@@ -8,6 +8,6 @@
 stream/stream = ExtResource( 2 )
 next_scene = "res://GAME/STORY/Intro/Intro_message.tscn"
 subtitles_file = "res://ASSETS/VIDEO/Aqua.srt"
-csv_file = "res://ASSETS/LANG/TEXT/Game/Intro/Aqua.csv"
+translation_file = "res://ASSETS/LANG/TEXT/Game/Intro/Aqua.csv"
 
 

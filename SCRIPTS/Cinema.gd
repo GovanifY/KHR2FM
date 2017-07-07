@@ -3,15 +3,15 @@ extends VideoPlayer
 # Export values
 export(String, FILE, "tscn") var next_scene = ""
 export(String, FILE, "srt") var subtitles_file = ""
-export(String, FILE, "csv") var csv_file = ""
+export(String, FILE, "csv") var translation_file = ""
 
 # Instance members
 onready var Subtitles = {
 	"label" : get_node("Subtitles"), # Node where we keep our text
 	"array" : [],                    # Array of 3-cell arrays (more info below)
 	"index" : 0,                     # Index of the subtitles array
+	"on"    : false,                 # Boolean that enables the usage of subtitles
 }
-var have_subtitles = false
 
 ######################
 ### Core functions ###
@@ -35,7 +35,7 @@ func _ready():
 
 func _process(delta):
 	# Write subtitles
-	if have_subtitles && Subtitles.index < Subtitles.array.size():
+	if Subtitles.on && Subtitles.index < Subtitles.array.size():
 		var cur_pos = get_stream_pos()
 		var sub_begin = Subtitles.array[Subtitles.index][0] # ON timer
 		var sub_end   = Subtitles.array[Subtitles.index][1] # OFF timer
@@ -59,8 +59,8 @@ func _process(delta):
 func _parse_subtitles():
 	# Check for subtitle files
 	var subs = File.new()
-	have_subtitles = subs.file_exists(subtitles_file) && subs.file_exists(csv_file)
-	if !have_subtitles:
+	Subtitles.on = subs.file_exists(subtitles_file) && subs.file_exists(csv_file)
+	if !Subtitles.on:
 		return
 
 	subs.open(subtitles_file, File.READ) #######################################
