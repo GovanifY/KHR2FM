@@ -1,6 +1,6 @@
 extends "MapEvent.gd"
 
-var path_save = "res://SCENES/Pause/SaveMenu.tscn"
+var path_save = "res://SCENES/Pause/SavePoint.tscn"
 
 func _interacted():
 	SceneLoader.load_scene(path_save, SceneLoader.BACKGROUND)
