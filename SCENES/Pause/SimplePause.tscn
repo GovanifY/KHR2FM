@@ -24,15 +24,7 @@ font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 2 )
 
-[node name="Pause" type="CanvasLayer"]
-
-process/pause_mode = 2
-layer = 100
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-
-[node name="Background" type="Panel" parent="."]
+[node name="Pause" type="Panel"]
 
 process/pause_mode = 2
 visibility/self_opacity = 0.7
@@ -52,7 +44,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Message" type="Label" parent="Background"]
+[node name="Message" type="Label" parent="."]
 
 anchor/right = 1
 anchor/bottom = 1
@@ -80,7 +72,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Options" type="VBoxContainer" parent="Background"]
+[node name="Options" type="VBoxContainer" parent="."]
 
 editor/display_folded = true
 anchor/left = 3
@@ -99,7 +91,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Resume" parent="Background/Options" instance=ExtResource( 3 )]
+[node name="Resume" parent="Options" instance=ExtResource( 3 )]
 
 margin/top = 21.0
 margin/right = 200.0
