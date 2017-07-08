@@ -41,8 +41,7 @@ func _input(event):
 		if OS.is_debug_build():
 			if event.is_action("reload_scene"):
 				# Unpause the game if it's paused
-				if get_tree().is_paused():
-					pause_game(false)
+				pause_game(false)
 				get_tree().reload_current_scene()
 
 			elif event.is_action("debug"):
