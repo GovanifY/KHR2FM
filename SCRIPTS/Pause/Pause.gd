@@ -12,7 +12,7 @@ func _draw():
 ### Signal routines ###
 #######################
 func _pressed_pause():
-	if !get_tree().is_paused(): # If dismissing
+	if !get_tree().is_paused() && is_hidden(): # If dismissing
 		SE.play("system_dismiss")
 
 func _toggled_pause():
