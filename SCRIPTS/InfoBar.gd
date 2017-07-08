@@ -8,8 +8,12 @@ signal dismiss
 export(String, MULTILINE) var info_message = "INFO_BATTLE_MESSAGE"
 export(bool) var autostart = true
 
+# Constants
+const MAX_VISIBLE_CHARS = 30
+
 # Instance members
 onready var Slide      = get_node("Slide")
+onready var Info       = get_node("InfoLabel")
 onready var TextScroll = get_node("InfoLabel/TextScroll")
 
 # Private members
@@ -46,16 +50,16 @@ func _fixed_process(delta):
 			is_changing = false
 
 		if accumulator > 1.05 && accumulator != 0:
-			if display_direction == true && (displayed_pos+30)<(info_message.length()+1):
+			if display_direction == true && (displayed_pos+MAX_VISIBLE_CHARS)<(info_message.length()+1):
 				displayed_pos+=1
 				accumulator = 1
-				TextScroll.set_text_raw(info_message.substr(displayed_pos, displayed_pos+30))
-				TextScroll.set_visibility_raw(30)
+				TextScroll.set_text_raw(info_message.substr(displayed_pos, displayed_pos+MAX_VISIBLE_CHARS))
+				TextScroll.set_visibility_raw(MAX_VISIBLE_CHARS)
 			elif display_direction == false && (displayed_pos+1>1):
 				displayed_pos-=1
 				accumulator = 1
-				TextScroll.set_text_raw(info_message.substr(displayed_pos, displayed_pos+30))
-				TextScroll.set_visibility_raw(30)
+				TextScroll.set_text_raw(info_message.substr(displayed_pos, displayed_pos+MAX_VISIBLE_CHARS))
+				TextScroll.set_visibility_raw(MAX_VISIBLE_CHARS)
 			else:
 				display_direction = !display_direction
 				is_changing = true
@@ -63,9 +67,6 @@ func _fixed_process(delta):
 ###############
 ### Methods ###
 ###############
-func set_text(text):
-	info_message = text
-
 func play():
 	# Display info bar
 	Slide.play("In")
@@ -73,8 +74,10 @@ func play():
 	emit_signal("displayed")
 
 	# Start scrolling text. Partially if it's too long
-	if info_message.length() > 30:
-		displayed_text = info_message.substr(0, 30)
+	Info.set_text(info_message)
+	var clipping = Info.is_clipping_text()
+	if clipping:
+		displayed_text = info_message.substr(0, MAX_VISIBLE_CHARS)
 		displayed_pos=0
 		TextScroll.scroll(displayed_text)
 	else:
@@ -83,7 +86,7 @@ func play():
 
 	# Accept input to dismiss info bar
 	set_process_input(true)
-	if info_message.length() > 30:
+	if clipping:
 		set_fixed_process(true)
 	yield(TextScroll, "cleared")
 
