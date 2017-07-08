@@ -59,7 +59,7 @@ func _process(delta):
 func _parse_subtitles():
 	# Check for subtitle files
 	var subs = File.new()
-	Subtitles.on = subs.file_exists(subtitles_file) && subs.file_exists(csv_file)
+	Subtitles.on = subs.file_exists(subtitles_file) && subs.file_exists(translation_file)
 	if !Subtitles.on:
 		return
 
@@ -84,7 +84,7 @@ func _parse_subtitles():
 	subs.close() ###############################################################
 
 	# Opening translation
-	Translator.set_csv(csv_file)
+	Translator.set_csv(translation_file)
 
 #######################
 ### Signal routines ###

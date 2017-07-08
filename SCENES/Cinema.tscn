@@ -36,7 +36,7 @@ __meta__ = {
 }
 next_scene = ""
 subtitles_file = ""
-csv_file = ""
+translation_file = ""
 
 [node name="Subtitles" type="Label" parent="."]
 
