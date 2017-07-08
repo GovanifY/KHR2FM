@@ -105,6 +105,7 @@ func set_pause(packed_scene):
 
 	pause = packed_scene.instance()
 	pause.set_name("Pause")
+	pause.hide()
 	add_child(pause)
 
 func pause_game(value=!get_tree().is_paused()):

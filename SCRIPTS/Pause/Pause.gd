@@ -1,9 +1,9 @@
 extends Node
 
 func _ready():
-	hide()
 	KHR2.connect("pressed_pause", self, "_pressed_pause")
 	KHR2.connect("toggled_pause", self, "_toggled_pause")
+	set_pause_mode(PAUSE_MODE_PROCESS)
 
 func _draw():
 	SE.play("system_info")
