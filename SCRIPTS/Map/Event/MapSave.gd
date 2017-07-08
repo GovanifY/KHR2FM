@@ -1,8 +1,10 @@
 extends "MapEvent.gd"
 
-var path_save = "res://SCENES/Pause/SavePoint.tscn"
+onready var path_pause = KHR2.get_pause()
 
 func _interacted():
-	SceneLoader.load_scene(path_save, SceneLoader.BACKGROUND)
-	var scene = SceneLoader.show_scene(path_save)
-	scene.connect("hide", SceneLoader, "erase_scene", [scene])
+	KHR2.set_pause(load("res://SCENES/Pause/SavePoint.tscn"))
+	KHR2.get_node("Pause").connect("hide", self, "_dismissed")
+
+func _dismissed():
+	KHR2.set_pause(load(path_pause))
