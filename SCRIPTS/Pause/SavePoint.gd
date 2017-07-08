@@ -1,4 +1,4 @@
-extends Panel
+extends "Pause.gd"
 
 # Constants
 enum { SAVEPOINT_SAVE, SAVEPOINT_WORLD }
@@ -21,13 +21,8 @@ func _ready():
 	for i in range(0, Options.size()):
 		Options[i].connect("pressed", self, "_pressed", [i])
 		Options[i].connect("cancel", self, "hide")
-		if i < Menu.size(): # FIXME: temp code
+		if i < Menu.size(): # FIXME: temp code until "World Map" button is done
 			Menu[i].connect("hide", self, "_dismissed_menu")
-
-func _dismissed_menu():
-	for i in range(0, Options.size()):
-		Options[i].set_focus_mode(Options[i].FOCUS_ALL)
-	Options[cursor_idx].grab_focus()
 
 #######################
 ### Signal routines ###
@@ -45,7 +40,7 @@ func _pressed(button_idx):
 	cursor_idx = button_idx
 
 	if button_idx >= Menu.size():
-		return # FIXME: temp code
+		return # FIXME: temp code until "World Map" button is done
 
 	# General rules
 	for i in range(0, Options.size()):
@@ -53,3 +48,8 @@ func _pressed(button_idx):
 
 	if Menu[button_idx].is_hidden():
 		Menu[button_idx].anims.play("Fade In")
+
+func _dismissed_menu():
+	for i in range(0, Options.size()):
+		Options[i].set_focus_mode(Options[i].FOCUS_ALL)
+	Options[cursor_idx].grab_focus()
