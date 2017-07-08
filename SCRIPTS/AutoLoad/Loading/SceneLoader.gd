@@ -110,15 +110,14 @@ func show_scene(path, halt_current = false):
 		scene = get_tree().get_current_scene()
 	else:
 		var name = get_filename_from(path)
-		if Globals.get(name) == null:
+		if !KHR2.has_node(name):
 			# Instancing and adding to tree
 			scene = res.instance()
-			root.add_child(scene)
+			KHR2.add_child(scene)
 
 			# Setting scene up
 			scene.set_filename(path)
 			scene.set_name(name)
-			Globals.set(name, scene)
 		else:
 			print("SceneLoader: '", name, "' was already loaded! Ignoring.")
 
@@ -134,10 +133,6 @@ func show_next_scene(halt_current = false):
 func erase_scene(scene):
 	if scene == null:
 		return
-
-	var name = scene.get_name()
-	if Globals.get(name) != null:
-		Globals.set(name, null)
 
 	ThreadLoader.cancel_resource(scene.get_filename())
 	scene.queue_free()

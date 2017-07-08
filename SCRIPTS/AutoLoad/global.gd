@@ -1,4 +1,4 @@
-extends Node
+extends CanvasLayer
 
 # Ce script gère les fonctions globales du jeu les plus importantes, telles que
 # le timer, la pause ou le fullscreen
@@ -21,6 +21,7 @@ func _ready():
 	add_child(playtime)
 
 	# Final settings
+	set_layer(100)
 	set_pause_mode(PAUSE_MODE_PROCESS)
 	set_process_input(true)
 
@@ -51,11 +52,11 @@ func _input(event):
 				var debug_name = "DebugCMD"
 				var debug_path = "res://SCENES/Debug/" + debug_name + ".tscn"
 
-				if Globals.get(debug_name) == null:
+				if !has_node(debug_name):
 					SceneLoader.load_scene(debug_path, SceneLoader.BACKGROUND | SceneLoader.HIGH_PRIORITY)
 					SceneLoader.show_scene(debug_path)
 				else:
-					SceneLoader.erase_scene(Globals.get(debug_name))
+					SceneLoader.erase_scene(get_node(debug_name))
 
 			elif event.is_action("quick_save"):
 				SaveManager.quick_save()

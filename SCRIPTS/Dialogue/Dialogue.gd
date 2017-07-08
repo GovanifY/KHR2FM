@@ -27,13 +27,9 @@ var current_speaker = null
 ### Core functions ###
 ######################
 func _enter_tree():
-	if Globals.get("Dialogue") == null:
-		Globals.set("Dialogue", self)
 	Globals.set("Pause", "dialogue")
 
 func _exit_tree():
-	if Globals.get("Dialogue") != null:
-		Globals.set("Dialogue", null)
 	Globals.set("Pause", null)
 
 func _ready():
