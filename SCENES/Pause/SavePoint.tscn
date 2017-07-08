@@ -7,6 +7,7 @@
 
 [node name="SavePoint" type="Panel"]
 
+process/pause_mode = 2
 visibility/self_opacity = 0.7
 anchor/right = 1
 anchor/bottom = 1

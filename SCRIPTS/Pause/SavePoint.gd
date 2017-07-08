@@ -26,7 +26,7 @@ func _ready():
 
 func _dismissed_menu():
 	for i in range(0, Options.size()):
-		Options[i].set_focus_mode(FOCUS_ALL)
+		Options[i].set_focus_mode(Options[i].FOCUS_ALL)
 	Options[cursor_idx].grab_focus()
 
 #######################
@@ -49,7 +49,7 @@ func _pressed(button_idx):
 
 	# General rules
 	for i in range(0, Options.size()):
-		Options[i].set_focus_mode(FOCUS_NONE)
+		Options[i].set_focus_mode(Options[i].FOCUS_NONE)
 
 	if Menu[button_idx].is_hidden():
 		Menu[button_idx].anims.play("Fade In")
