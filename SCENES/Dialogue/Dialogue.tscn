@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://SCRIPTS/Dialogue/Dialogue.gd" type="Script" id=1]
 [ext_resource path="res://SCENES/Dialogue/box0.tres" type="StyleBox" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://addons/text_scroll/TextScroll.gd" type="Script" id=7]
 [ext_resource path="res://addons/text_scroll/icon.png" type="Texture" id=8]
 [ext_resource path="res://ASSETS/SE/System/MSG_SOUND.wav" type="Sample" id=9]
-[ext_resource path="res://SCENES/Pause/CutscenePause.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=1]
 
@@ -288,10 +287,6 @@ __meta__ = {
 text_node = NodePath("..")
 character_sound = null
 confirm_sound = ExtResource( 9 )
-
-[node name="Pause" parent="." instance=ExtResource( 10 )]
-
-visibility/visible = false
 
 [connection signal="draw" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="set_active" binds= [ true ]]
 

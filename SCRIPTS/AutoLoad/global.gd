@@ -89,9 +89,23 @@ func reset_playtime(mins=0, hrs=0):
 	playtime.set_wait_time(60)
 	playtime.start()
 
-# Properly pauses/unpauses the game
+# Pausing material
+func set_pause(packed_scene):
+	var pause
+	if has_node("Pause"):
+		pause = get_node("Pause")
+		pause.set_name("freeing")
+		pause.queue_free()
+
+	if packed_scene == null:
+		return
+
+	pause = packed_scene.instance()
+	pause.set_name("Pause")
+	add_child(pause)
+
 func pause_game(value=!get_tree().is_paused()):
-	if Globals.get("Pause") == null:
+	if !has_node("Pause"):
 		return # DO NOT PAUSE
 
 	# Toggle pause and signal that it's been toggled

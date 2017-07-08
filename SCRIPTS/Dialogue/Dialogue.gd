@@ -27,12 +27,12 @@ var current_speaker = null
 ### Core functions ###
 ######################
 func _enter_tree():
-	Globals.set("Pause", "dialogue")
+	KHR2.set_pause(preload("res://SCENES/Pause/CutscenePause.tscn"))
 	if Globals.get("Dialogue") == null:
 		Globals.set("Dialogue", self)
 
 func _exit_tree():
-	Globals.set("Pause", null)
+	KHR2.set_pause(null)
 	if Globals.get("Dialogue") != null:
 		Globals.set("Dialogue", null)
 
