@@ -20,6 +20,7 @@ MENU_SAVE_NOT_FOUND,Aucune sauvegarde,No save files found,Vacío
 MENU_SAVE,Sauvegarder,Save,Guardar
 MENU_WORLD_MAP,Navire Gummi,Gummi Ship,Barco Gummi
 MENU_WORLD_MAP_DESC,"Embarquer la navire Gummi?","Board the Gummi ship?","Abordar el barco Gummi?"
+CHOICE_GENERAL,"Êtes-vous sûr?","Are you sure?","¿Estás seguro?"
 CHOICE_YES,Oui,Yes,Si
 CHOICE_NO,Non,No,No
 LEVEL,NV.,LV.,NV.
