@@ -29,10 +29,6 @@ var is_changing = false
 ### Core functions ###
 ######################
 func _ready():
-	# Connecting signals
-	TextScroll.connect("finished", self, "_start_input")
-	TextScroll.connect("cleared", self, "_start_dismissal")
-
 	if autostart:
 		call_deferred("play")
 
@@ -64,33 +60,6 @@ func _fixed_process(delta):
 				display_direction = !display_direction
 				is_changing = true
 
-#######################
-### Signal routines ###
-#######################
-func _display():
-	emit_signal("displayed")
-	Slide.disconnect("finished", self, "_display")
-	if info_message.length() > 30:
-		displayed_text = info_message.substr(0, 30)
-		displayed_pos=0
-		TextScroll.scroll(displayed_text)
-	else:
-		TextScroll.scroll(info_message)
-
-func _start_input():
-	set_process_input(true)
-	if info_message.length() > 30:
-		set_fixed_process(true)
-
-func _start_dismissal():
-	set_process_input(false)
-	Slide.connect("finished", self, "_end_dismissal")
-	Slide.play("Out")
-
-func _end_dismissal():
-	Slide.disconnect("finished", self, "_end_dismissal")
-	emit_signal("dismiss")
-
 ###############
 ### Methods ###
 ###############
@@ -98,5 +67,28 @@ func set_text(text):
 	info_message = text
 
 func play():
-	Slide.connect("finished", self, "_display")
+	# Display info bar
 	Slide.play("In")
+	yield(Slide, "finished")
+	emit_signal("displayed")
+
+	# Start scrolling text. Partially if it's too long
+	if info_message.length() > 30:
+		displayed_text = info_message.substr(0, 30)
+		displayed_pos=0
+		TextScroll.scroll(displayed_text)
+	else:
+		TextScroll.scroll(info_message)
+	yield(TextScroll, "finished")
+
+	# Accept input to dismiss info bar
+	set_process_input(true)
+	if info_message.length() > 30:
+		set_fixed_process(true)
+	yield(TextScroll, "cleared")
+
+	# Dismiss info bar
+	set_process_input(false)
+	Slide.play("Out")
+	yield(Slide, "finished")
+	emit_signal("dismiss")
