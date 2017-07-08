@@ -64,17 +64,23 @@ func _input(event):
 				# FIXME: Currently, using the last node touched
 				interacting[0].emit_signal("interacted")
 
+# Character animation cycle
+func _start_animation(new_anim):
+	if new_anim != Anims.get_current_animation() || !Anims.is_playing():
+		Anims.play(new_anim)
+
+func _stop_animation():
+	Anims.stop()
+	var idle_frame = Character.get_frame() - (Character.get_frame() % Character.hframes)
+	Character.set_frame(idle_frame)
+
+# Movement
 func _animate_character(directions):
 	# If it can move to this direction
 	if sprite_direction.has(directions):
-		var new_anim = sprite_direction[directions]
-		if new_anim != Anims.get_current_animation() || !Anims.is_playing():
-			Anims.play(new_anim)
+		_start_animation(sprite_direction[directions])
 	else:
-		Anims.stop()
-		var idle_frame = Character.get_frame() - (Character.get_frame() % Character.hframes)
-		Character.set_frame(idle_frame)
-
+		_stop_animation()
 	return Anims.is_playing()
 
 func _move_character(directions, delta=0):
@@ -103,6 +109,7 @@ func start():
 	set_process_input(true)
 
 func stop():
+	_stop_animation()
 	set_fixed_process(false)
 	set_process_input(false)
 
