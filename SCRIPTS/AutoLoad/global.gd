@@ -10,9 +10,6 @@ signal pressed_pause
 ######################
 ### Core functions ###
 ######################
-func _enter_tree():
-	Globals.set("Pause", null)
-
 func _ready():
 	# Timer-related
 	var playtime = Timer.new()
