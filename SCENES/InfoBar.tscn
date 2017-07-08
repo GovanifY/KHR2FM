@@ -140,6 +140,7 @@ margin/right = 30.0
 margin/bottom = 5.0
 custom_fonts/font = SubResource( 3 )
 valign = 1
+clip_text = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = 1

@@ -1,4 +1,5 @@
 extends Node
+
 # Signals
 signal displayed
 signal dismiss
@@ -7,6 +8,11 @@ signal dismiss
 export(String, MULTILINE) var info_message = "INFO_BATTLE_MESSAGE"
 export(bool) var autostart = true
 
+# Instance members
+onready var Slide      = get_node("Slide")
+onready var TextScroll = get_node("InfoLabel/TextScroll")
+
+# Private members
 var displayed_text = ""
 var displayed_pos = 0
 
@@ -18,9 +24,6 @@ var accumulator = 0
 
 var is_changing = false
 
-# Instance members
-onready var Slide      = get_node("Slide")
-onready var TextScroll = get_node("InfoLabel/TextScroll")
 
 ######################
 ### Core functions ###
@@ -31,7 +34,7 @@ func _ready():
 	TextScroll.connect("cleared", self, "_start_dismissal")
 
 	if autostart:
-		play()
+		call_deferred("play")
 
 func _input(event):
 	# Avoid repeated key captures
