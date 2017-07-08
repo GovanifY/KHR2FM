@@ -89,7 +89,13 @@ func reset_playtime(mins=0, hrs=0):
 	playtime.set_wait_time(60)
 	playtime.start()
 
-# Pausing material
+# Returns the current pause scene's filename; null if non-existent
+func get_pause():
+	if KHR2.has_node("Pause"):
+		return KHR2.get_node("Pause").get_filename()
+	return null
+
+# Sets the next general Pause scene with given PackedScene
 func set_pause(packed_scene):
 	var pause
 	if has_node("Pause"):
