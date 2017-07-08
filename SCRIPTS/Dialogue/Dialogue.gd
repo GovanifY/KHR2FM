@@ -28,9 +28,13 @@ var current_speaker = null
 ######################
 func _enter_tree():
 	Globals.set("Pause", "dialogue")
+	if Globals.get("Dialogue") == null:
+		Globals.set("Dialogue", self)
 
 func _exit_tree():
 	Globals.set("Pause", null)
+	if Globals.get("Dialogue") != null:
+		Globals.set("Dialogue", null)
 
 func _ready():
 	# Initializing Translator
