@@ -13,16 +13,14 @@ onready var Slide      = get_node("Slide")
 onready var Info       = get_node("InfoLabel")
 onready var TextScroll = get_node("InfoLabel/TextScroll")
 
-# Private members
-const MAX_VISIBLE_CHARS = 30
+onready var info_font = Info.get("custom_fonts/font")
 
-enum { DIR_LEFT, DIR_RIGHT }
-var display_direction = DIR_RIGHT
+# Private members
+enum { LEFT, RIGHT }
+var display_direction = RIGHT
 var displayed_pos = 0
 
-var accumulator = 0
-
-var is_changing = false
+var wait_time = 0
 
 
 ######################
@@ -39,23 +37,22 @@ func _input(event):
 			TextScroll.confirm()
 
 func _process(delta):
-	accumulator+=delta
-	if accumulator > 1:
-		if is_changing:
-			accumulator = 0
-			is_changing = false
+	wait_time += delta
 
-		if accumulator > 1.05:
-			TextScroll.set_text_raw(info_message.substr(displayed_pos, displayed_pos+MAX_VISIBLE_CHARS))
-			if display_direction == DIR_RIGHT && (displayed_pos+MAX_VISIBLE_CHARS)<(info_message.length()+1):
-				displayed_pos+=1
-				accumulator = 1
-			elif display_direction == DIR_LEFT && (displayed_pos+1>1):
-				displayed_pos-=1
-				accumulator = 1
-			else:
-				display_direction = !display_direction
-				is_changing = true
+	if wait_time > (1 + 0.05):
+		var displayed_text = info_message.substr(displayed_pos, info_message.length())
+		var length = info_font.get_string_size(displayed_text).width
+		TextScroll.set_text_raw(displayed_text)
+
+		if display_direction == RIGHT && length >= Info.get_size().width:
+			displayed_pos += 1
+			wait_time = 1
+		elif display_direction == LEFT && displayed_text != info_message:
+			displayed_pos -= 1
+			wait_time = 1
+		else:
+			display_direction = LEFT if display_direction == RIGHT else RIGHT
+			wait_time = 0
 
 ###############
 ### Methods ###
@@ -64,23 +61,21 @@ func set_text(text):
 	info_message = text
 
 func play():
+	var length = info_font.get_string_size(info_message).width
+
 	# Display info bar
 	Slide.play("In")
 	yield(Slide, "finished")
 	emit_signal("displayed")
 
 	# Start scrolling text. Partially if it's too long
-	if info_message.length() > 30:
-		displayed_pos=0
-		TextScroll.scroll(info_message.substr(0, MAX_VISIBLE_CHARS))
-		Info.set_visible_characters(MAX_VISIBLE_CHARS)
-	else:
-		TextScroll.scroll(info_message)
+	TextScroll.scroll(info_message)
 	yield(TextScroll, "finished")
 
 	# Accept input to dismiss info bar
 	set_process_input(true)
-	if info_message.length() > MAX_VISIBLE_CHARS:
+	if length >= Info.get_size().width:
+		displayed_pos = 0
 		set_process(true)
 	yield(TextScroll, "cleared")
 
