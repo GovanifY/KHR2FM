@@ -92,7 +92,7 @@ samples/Infos = {
 
 [node name="InfoBar" type="Panel"]
 
-rect/min_size = Vector2( 445, 50 )
+rect/min_size = Vector2( 220, 50 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 0
