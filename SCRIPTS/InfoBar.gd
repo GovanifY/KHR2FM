@@ -12,6 +12,7 @@ export(bool) var autostart = true
 onready var Slide      = get_node("Slide")
 onready var Info       = get_node("InfoLabel")
 onready var TextScroll = get_node("InfoLabel/TextScroll")
+onready var Overflow   = get_node("InfoLabel/Overflow")
 
 onready var info_font = Info.get("custom_fonts/font")
 
@@ -20,6 +21,7 @@ enum { LEFT, RIGHT }
 var display_direction = RIGHT
 var displayed_pos = 0
 
+const END_DELAY = 1.0
 var wait_time = 0
 
 
@@ -27,6 +29,7 @@ var wait_time = 0
 ### Core functions ###
 ######################
 func _ready():
+	Overflow.connect("timeout", self, "_overflow")
 	if autostart:
 		call_deferred("play")
 
@@ -36,23 +39,23 @@ func _input(event):
 		if event.is_action("ui_accept"):
 			TextScroll.confirm()
 
-func _process(delta):
-	wait_time += delta
+func _overflow():
+	# Delays function each time the text reaches each side
+	if wait_time < END_DELAY:
+		wait_time += Overflow.get_wait_time()
+		return
 
-	if wait_time > (1 + 0.05):
-		var displayed_text = info_message.substr(displayed_pos, info_message.length())
-		var length = info_font.get_string_size(displayed_text).width
-		TextScroll.set_text_raw(displayed_text)
+	var displayed_text = info_message.substr(displayed_pos, info_message.length())
+	var length = info_font.get_string_size(displayed_text).width
+	TextScroll.set_text_raw(displayed_text)
 
-		if display_direction == RIGHT && length >= Info.get_size().width:
-			displayed_pos += 1
-			wait_time = 1
-		elif display_direction == LEFT && displayed_text != info_message:
-			displayed_pos -= 1
-			wait_time = 1
-		else:
-			display_direction = LEFT if display_direction == RIGHT else RIGHT
-			wait_time = 0
+	if display_direction == RIGHT && length >= Info.get_size().width:
+		displayed_pos += 1
+	elif display_direction == LEFT && displayed_text != info_message:
+		displayed_pos -= 1
+	else:
+		display_direction = LEFT if display_direction == RIGHT else RIGHT
+		wait_time = 0
 
 ###############
 ### Methods ###
@@ -76,12 +79,13 @@ func play():
 	set_process_input(true)
 	if length >= Info.get_size().width:
 		displayed_pos = 0
-		set_process(true)
+		wait_time = 0
+		Overflow.start()
 	yield(TextScroll, "cleared")
 
 	# Dismiss info bar
 	set_process_input(false)
-	set_process(false)
+	Overflow.stop()
 	Slide.play("Out")
 	yield(Slide, "finished")
 	emit_signal("dismiss")

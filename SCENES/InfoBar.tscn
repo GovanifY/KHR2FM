@@ -159,6 +159,13 @@ text_node = NodePath("..")
 character_sound = null
 confirm_sound = null
 
+[node name="Overflow" type="Timer" parent="InfoLabel"]
+
+process_mode = 1
+wait_time = 0.05
+one_shot = false
+autostart = false
+
 [node name="Slide" type="AnimationPlayer" parent="."]
 
 playback/process_mode = 1
