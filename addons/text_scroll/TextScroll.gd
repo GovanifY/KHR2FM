@@ -75,7 +75,7 @@ func scroll(text_to_use):
 
 	# Setting text
 	set_text_raw(text_to_use)
-	set_visibility_raw(1)
+	TextNode.set_visible_characters(1)
 	start()
 
 # Checks whether to stop or to clear the text node
@@ -93,6 +93,3 @@ func set_text_raw(text):
 		TextNode.set_bbcode(text)
 	elif TextNode.is_type("Label"):
 		TextNode.set_text(text)
-
-func set_visibility_raw(visibility):
-	TextNode.set_visible_characters(visibility)

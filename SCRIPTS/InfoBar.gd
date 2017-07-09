@@ -10,6 +10,7 @@ export(bool) var autostart = true
 
 # Instance members
 onready var Slide      = get_node("Slide")
+onready var Info       = get_node("InfoLabel")
 onready var TextScroll = get_node("InfoLabel/TextScroll")
 
 # Private members
@@ -72,7 +73,7 @@ func play():
 	if info_message.length() > 30:
 		displayed_pos=0
 		TextScroll.scroll(info_message.substr(0, MAX_VISIBLE_CHARS))
-		TextScroll.set_visibility_raw(MAX_VISIBLE_CHARS)
+		Info.set_visible_characters(MAX_VISIBLE_CHARS)
 	else:
 		TextScroll.scroll(info_message)
 	yield(TextScroll, "finished")
