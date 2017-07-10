@@ -26,9 +26,10 @@ func _ready():
 	connect("visibility_changed", self, "_on_visibility_changed")
 
 func _process(delta):
-	for scene in next_scenes:
-		if ThreadLoader.is_ready(scene):
-			show_scene(scene, true)
+	var scene = next_scenes.front()
+	if ThreadLoader.is_ready(scene):
+		show_scene(scene, true)
+		hide()
 
 	# If we're done here, stop processing
 	if get_tree().get_current_scene() != null:
@@ -91,7 +92,7 @@ func load_next_scene(flags=0):
 	var priority   = bool(flags & HIGH_PRIORITY)
 
 	# Are we doing foreground?
-	if !background && is_hidden():
+	if not background && is_hidden():
 		show()
 		get_tree().get_current_scene().queue_free()
 
