@@ -172,6 +172,7 @@ __meta__ = {
 
 [node name="Constraint" type="ScrollContainer" parent="."]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
@@ -197,9 +198,9 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -1.0
+margin/left = 0.0
 margin/top = 0.0
-margin/right = 384.0
+margin/right = 385.0
 margin/bottom = 20.0
 custom_fonts/font = SubResource( 7 )
 valign = 1

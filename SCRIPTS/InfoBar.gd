@@ -17,8 +17,9 @@ onready var TextScroll = Info.get_node("TextScroll")
 onready var Overflow   = Info.get_node("Overflow")
 onready var Delay      = Info.get_node("Delay")
 
-# Private members
-const DURATION = 1.0 # FIXME: Shouldn't be a fixed value
+# Duration-related
+const DURATION_PER_CHAR = 0.02
+var duration
 
 ######################
 ### Core functions ###
@@ -46,12 +47,12 @@ func _on_Overflow_end(_, _):
 	if Constraint.get_h_scroll() == 0:
 		var length = Info.get_size().width - Constraint.get_size().width
 		Overflow.interpolate_method(
-			Constraint, "set_h_scroll", 0, length, DURATION,
+			Constraint, "set_h_scroll", 0, length, duration,
 			Overflow.TRANS_LINEAR, Overflow.EASE_IN
 		)
 	else:
 		Overflow.interpolate_method(
-			Constraint, "set_h_scroll", Constraint.get_h_scroll(), 0, DURATION,
+			Constraint, "set_h_scroll", Constraint.get_h_scroll(), 0, duration,
 			Overflow.TRANS_LINEAR, Overflow.EASE_IN
 		)
 
@@ -62,6 +63,8 @@ func _on_Overflow_end(_, _):
 ###############
 func set_text(text):
 	info_message = text
+	Info.set_text(text)
+	duration = DURATION_PER_CHAR * info_message.length()
 
 func play():
 	# Display info bar
@@ -76,6 +79,7 @@ func play():
 	# Accept input to dismiss info bar
 	set_process_input(true)
 	if Info.get_size().width >= Constraint.get_size().width:
+		duration = DURATION_PER_CHAR * Info.get_total_character_count()
 		_on_Overflow_end(null, null)
 	yield(TextScroll, "cleared")
 
