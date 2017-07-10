@@ -71,7 +71,7 @@ func play():
 	yield(Slide, "finished")
 	emit_signal("displayed")
 
-	# Start scrolling text. Partially if it's too long
+	# Start scrolling text.
 	TextScroll.scroll(info_message)
 	yield(TextScroll, "finished")
 
