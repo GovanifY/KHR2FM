@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=1]
+[gd_scene load_steps=25 format=1]
 
 [ext_resource path="res://SCENES/Map/MapPlan.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Maps/cds_000.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://SCENES/Map/MapEvent/MapSave.tscn" type="PackedScene" id=4]
 [ext_resource path="res://SCENES/Map/MapEvent/MapNPC.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/NPCs/Pnj_06.png" type="Texture" id=6]
+[ext_resource path="res://SCENES/Map/MapEvent/MapChanger.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -254,5 +255,16 @@ _update_shape_index = 0
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="MapChanger" parent="." instance=ExtResource( 7 )]
+
+collision_node = NodePath("CollisionPolygon2D")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapChanger"]
+
+build_mode = 0
+polygon = Vector2Array( 145, 386, 345, 301, 476, 425, 188, 551 )
+shape_range = Vector2( 1, 1 )
+trigger = false
 
 
