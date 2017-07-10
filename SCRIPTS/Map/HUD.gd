@@ -11,8 +11,13 @@ const COMMAND = {
 onready var interact = get_node("Interact")
 
 func _ready():
-	for node in get_children():
-		node.hide()
+	var player = Globals.get("MapPlayer")
+
+	# General settings
+	for command in get_children():
+		command.hide()
+		if player != null:
+			command.connect("input_event", player, "interact")
 
 func set_command(node, key):
 	if COMMAND.has(key):

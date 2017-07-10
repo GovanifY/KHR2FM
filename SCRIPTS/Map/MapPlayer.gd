@@ -64,11 +64,7 @@ func _fixed_process(delta):
 		_move_character(directions, delta)
 
 func _input(event):
-	if event.is_pressed() && !event.is_echo():
-		if event.is_action("ui_accept"):
-			if not interacting.empty():
-				# FIXME: Currently, using the last node touched
-				interacting[0].emit_signal("interacted")
+	interact(event)
 
 # Character animation cycle
 func _start_animation(new_anim):
@@ -121,6 +117,15 @@ func stop():
 
 
 # Object interaction-related
+func interact(event):
+	if !can_interact():
+		return
+
+	if event.is_pressed() && !event.is_echo():
+		if event.is_action("ui_accept") || event.type in [InputEvent.MOUSE_BUTTON, InputEvent.SCREEN_TOUCH]:
+			# FIXME: Currently, using the last node touched
+			interacting.front().emit_signal("interacted")
+
 func can_interact():
 	return not interacting.empty()
 
