@@ -147,6 +147,14 @@ __meta__ = {
 }
 info_message = "INFO_BATTLE_MESSAGE"
 autostart = true
+autoclose = false
+
+[node name="Autoclose" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
 
 [node name="Title" type="Label" parent="."]
 
@@ -236,7 +244,7 @@ playback/speed = 1.0
 
 process_mode = 1
 wait_time = 1.0
-one_shot = false
+one_shot = true
 autostart = false
 
 [node name="Slide" type="AnimationPlayer" parent="."]

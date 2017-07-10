@@ -7,8 +7,10 @@ signal dismiss
 # Export values
 export(String, MULTILINE) var info_message = "INFO_BATTLE_MESSAGE"
 export(bool) var autostart = true
+export(bool) var autoclose = false
 
 # Instance members
+onready var Autoclose  = get_node("Autoclose")
 onready var Slide      = get_node("Slide")
 onready var Constraint = get_node("Constraint")
 
@@ -63,6 +65,11 @@ func _on_Overflow_end(_, _):
 func set_text(text):
 	Info.set_text(text)
 	duration = DURATION_PER_CHAR * text.length()
+	var close_in = max(2 * (duration + Delay.get_wait_time()), 3)
+	Autoclose.set_wait_time(close_in)
+
+func set_autoclose(value):
+	autoclose = value
 
 func play():
 	Constraint.set_h_scroll(0)
@@ -76,15 +83,26 @@ func play():
 	TextScroll.scroll()
 	yield(TextScroll, "finished")
 
-	# Accept input to dismiss info bar
-	set_process_input(true)
+	# Wait until info bar is dismissed
 	if Info.get_size().width >= Constraint.get_size().width:
 		_on_Overflow_end(null, null)
+
+	set_process_input(!autoclose)
+	if autoclose:
+		Autoclose.start()
+		yield(Autoclose, "timeout")
+		Overflow.stop_all()
+
+		Delay.start()
+		yield(Delay, "timeout")
+		TextScroll.call_deferred("confirm")
+	else:
+		Overflow.stop_all()
+
 	yield(TextScroll, "cleared")
 
 	# Dismiss info bar
 	set_process_input(false)
-	Overflow.stop_all()
 	Slide.play("Out")
 	yield(Slide, "finished")
 	emit_signal("dismiss")
