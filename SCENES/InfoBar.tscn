@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=19 format=1]
 
 [ext_resource path="res://ASSETS/GFX/Game/Battle/Others/Info_00.png" type="Texture" id=1]
 [ext_resource path="res://SCRIPTS/InfoBar.gd" type="Script" id=2]
@@ -32,14 +32,53 @@ font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="StyleBoxEmpty" id=16]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="Theme" id=15]
+
+HScrollBar/icons/decrement = null
+HScrollBar/icons/decrement_hilite = null
+HScrollBar/icons/increment = null
+HScrollBar/icons/increment_hilite = null
+HScrollBar/styles/grabber = SubResource( 16 )
+HScrollBar/styles/grabber_hilite = SubResource( 17 )
+HScrollBar/styles/scroll = SubResource( 13 )
+HScrollBar/styles/scroll_focus = SubResource( 14 )
+
+[sub_resource type="DynamicFont" id=7]
 
 font/size = 14
 font/use_mipmaps = false
 font/use_filter = true
 font/font = ExtResource( 4 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=8]
 
 length = 0.25
 loop = false
@@ -65,7 +104,7 @@ tracks/1/keys = {
 "values": [ Vector2( -450, 30 ), Vector2( 0, 30 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=9]
 
 length = 0.25
 loop = false
@@ -81,7 +120,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 30 ), Vector2( -450, 30 ) ]
 }
 
-[sub_resource type="SampleLibrary" id=6]
+[sub_resource type="SampleLibrary" id=10]
 
 samples/Infos = {
 "db": 0.0,
@@ -103,6 +142,9 @@ margin/right = -5.0
 margin/bottom = 80.0
 custom_styles/panel = SubResource( 1 )
 script/script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 info_message = "INFO_BATTLE_MESSAGE"
 autostart = true
 
@@ -124,28 +166,51 @@ uppercase = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="InfoLabel" type="Label" parent="."]
+[node name="Constraint" type="ScrollContainer" parent="."]
 
-editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
 focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
+size_flags/horizontal = 3
+size_flags/vertical = 3
+theme/theme = SubResource( 15 )
 margin/left = 30.0
 margin/top = 25.0
 margin/right = 30.0
-margin/bottom = 5.0
-custom_fonts/font = SubResource( 3 )
+margin/bottom = -7.0
+scroll/horizontal = true
+scroll/vertical = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="InfoLabel" type="Label" parent="Constraint"]
+
+editor/display_folded = true
+rect/min_size = Vector2( 385, 20 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -1.0
+margin/top = 0.0
+margin/right = 384.0
+margin/bottom = 20.0
+custom_fonts/font = SubResource( 7 )
 valign = 1
-clip_text = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = 1
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="TextScroll" type="Timer" parent="InfoLabel"]
+[node name="TextScroll" type="Timer" parent="Constraint/InfoLabel"]
 
 process_mode = 1
 wait_time = 0.01
@@ -159,10 +224,17 @@ text_node = NodePath("..")
 character_sound = null
 confirm_sound = null
 
-[node name="Overflow" type="Timer" parent="InfoLabel"]
+[node name="Overflow" type="Tween" parent="Constraint/InfoLabel"]
+
+playback/process_mode = 1
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="Delay" type="Timer" parent="Constraint/InfoLabel"]
 
 process_mode = 1
-wait_time = 0.05
+wait_time = 1.0
 one_shot = false
 autostart = false
 
@@ -171,8 +243,8 @@ autostart = false
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/In = SubResource( 4 )
-anims/Out = SubResource( 5 )
+anims/In = SubResource( 8 )
+anims/Out = SubResource( 9 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -181,7 +253,7 @@ autoplay = ""
 [node name="Swish" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = SubResource( 6 )
+config/samples = SubResource( 10 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0
