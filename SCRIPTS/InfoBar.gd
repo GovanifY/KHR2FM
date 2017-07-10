@@ -26,18 +26,17 @@ var duration
 ######################
 func _ready():
 	# Setting text slide animation
-	Constraint.set_h_scroll(0)
 	Overflow.connect("tween_complete", self, "_on_Overflow_end")
 
-	# Firing it up
+	# Final setup
+	set_text(info_message)
 	if autostart:
 		call_deferred("play")
 
 func _input(event):
 	# Avoid repeated key captures
-	if event.is_pressed() && !event.is_echo():
-		if event.is_action("ui_accept"):
-			TextScroll.confirm()
+	if (event.is_pressed() && !event.is_echo()) && event.is_action("ui_accept"):
+		TextScroll.confirm()
 
 func _on_Overflow_end(_, _):
 	Delay.start()
@@ -62,24 +61,24 @@ func _on_Overflow_end(_, _):
 ### Methods ###
 ###############
 func set_text(text):
-	info_message = text
 	Info.set_text(text)
-	duration = DURATION_PER_CHAR * info_message.length()
+	duration = DURATION_PER_CHAR * text.length()
 
 func play():
+	Constraint.set_h_scroll(0)
+
 	# Display info bar
 	Slide.play("In")
 	yield(Slide, "finished")
 	emit_signal("displayed")
 
-	# Start scrolling text.
-	TextScroll.scroll(info_message)
+	# Start scrolling text
+	TextScroll.scroll()
 	yield(TextScroll, "finished")
 
 	# Accept input to dismiss info bar
 	set_process_input(true)
 	if Info.get_size().width >= Constraint.get_size().width:
-		duration = DURATION_PER_CHAR * Info.get_total_character_count()
 		_on_Overflow_end(null, null)
 	yield(TextScroll, "cleared")
 
