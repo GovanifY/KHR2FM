@@ -2,12 +2,14 @@ extends KinematicBody2D
 
 # Constants
 const MOTION_SPEED = 300 # Pixels/second
+const PATH_HUD = "res://SCENES/Map/HUD.tscn"
 
 enum {
 	SPR_UP = 1, SPR_DOWN = 2, SPR_LEFT = 4, SPR_RIGHT = 8,
 }
 
 # Instance members
+var HUD
 onready var Anims     = get_node("anims")
 onready var Character = get_node("Character")
 var interacting = []
@@ -42,8 +44,12 @@ func _enter_tree():
 
 func _exit_tree():
 	Globals.set("MapPlayer", null)
+	SceneLoader.erase_scene(HUD)
 
 func _ready():
+	SceneLoader.load_scene(PATH_HUD, SceneLoader.BACKGROUND)
+	SceneLoader.show_scene(PATH_HUD)
+	HUD = KHR2.get_node("HUD")
 	start()
 
 func _fixed_process(delta):
@@ -113,11 +119,20 @@ func stop():
 	set_fixed_process(false)
 	set_process_input(false)
 
+
+# Object interaction-related
+func can_interact():
+	return not interacting.empty()
+
 func add_interacting(body):
 	interacting.push_front(body)
+	HUD.set_command(HUD.interact, body.get_type())
+	HUD.interact.show()
 
 func has_interacting(body):
 	return (body in interacting)
 
 func erase_interacting(body):
 	interacting.erase(body)
+	if !can_interact():
+		HUD.interact.hide()
