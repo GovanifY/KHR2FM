@@ -258,9 +258,9 @@ __meta__ = {
 
 [node name="MapChanger" parent="." instance=ExtResource( 7 )]
 
-collision_node = NodePath("CollisionPolygon2D")
+next_location = "res://GAME/STORY/Intro/Aqua.tscn"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapChanger"]
+[node name="ExitArea" type="CollisionPolygon2D" parent="MapChanger"]
 
 build_mode = 0
 polygon = Vector2Array( 145, 386, 345, 301, 476, 425, 188, 551 )

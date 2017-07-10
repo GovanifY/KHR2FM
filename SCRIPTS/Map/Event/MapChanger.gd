@@ -1,28 +1,34 @@
 extends "MapEvent.gd"
 
-# Collision object to grab area from
-export(NodePath) var collision_node
+# Export vars
+export(String, FILE, "tscn") var next_location
 
-onready var TouchArea = get_node("TouchArea")
-
+######################
+### Core functions ###
+######################
 func _ready():
+	var collision_node
+	for node in get_children():
+		if node.is_type("CollisionPolygon2D"):
+			collision_node = node
+			break
+
 	if collision_node == null:
 		disconnect("body_enter", self, "_on_area_body_enter")
-		print("MapChanger: No collision node found in order to map area!")
+		print("MapChanger: No CollisionPolygon2D child node found in order to map area!")
 		return
-	collision_node = get_node(collision_node)
 
 	var polygon = collision_node.get_polygon()
 	if polygon.size() <= 0:
-		print("MapChanger: Polygon size is empty!")
+		print("MapChanger: Collision polygon size is empty!")
 		return
 
-	TouchArea.get_shape().set_points(polygon)
+	get_node("TouchArea").get_shape().set_points(polygon)
 
+#######################
+### Signal routines ###
+#######################
 func _on_area_body_enter(body):
 	if body.is_type("MapPlayer") && not body.has_interacting(self):
 		body.add_interacting(self)
-		# XXX: Temporary code
-		var path = "res://GAME/STORY/Intro/Aqua.tscn"
-		SceneLoader.load_scene(path)
-		SceneLoader.show_scene(path, true)
+		SceneLoader.load_scene(next_location)

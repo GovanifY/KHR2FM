@@ -19,7 +19,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 1 )
 type = "MapChanger"
-collision_node = null
+next_location = null
 
 [node name="TouchArea" type="CollisionShape2D" parent="."]
 
