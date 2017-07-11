@@ -4,11 +4,11 @@ extends StreamPlayer
 signal end_fade
 
 # Constants
-const VOL_MAX  = 1
+const VOL_MAX  = 1.0
 const VOL_HIGH = 0.75
 const VOL_MED  = 0.5
 const VOL_LOW  = 0.25
-const VOL_MUTE = 0
+const VOL_MUTE = 0.0
 
 # Fader control
 onready var Fader = Tween.new()

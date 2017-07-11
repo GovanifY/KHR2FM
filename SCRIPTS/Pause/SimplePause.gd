@@ -24,7 +24,7 @@ func _toggled_pause():
 		Music.set_volume(Music.VOL_LOW)
 		Options.get_child(0).grab_focus()
 	else:
-		Music.set_volume(Music.VOL_NORMAL)
+		Music.set_volume(Music.get_current_volume())
 
 func _pause_controls(button_idx):
 	KHR2.pause_game()
