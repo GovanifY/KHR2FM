@@ -21,10 +21,10 @@ func _ready():
 func _toggled_pause():
 	._toggled_pause()
 	if get_tree().is_paused():
-		AudioRoom.set_volume(AudioRoom.VOL_LOW)
+		Music.set_volume(Music.VOL_LOW)
 		Options.get_child(0).grab_focus()
 	else:
-		AudioRoom.set_volume(AudioRoom.VOL_NORMAL)
+		Music.set_volume(Music.VOL_NORMAL)
 
 func _pause_controls(button_idx):
 	KHR2.pause_game()

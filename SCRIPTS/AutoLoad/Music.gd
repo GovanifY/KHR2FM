@@ -21,6 +21,7 @@ onready var Fader = Tween.new()
 ######################
 func _ready():
 	# Setting up Fader
+	Fader.set_name("Fade")
 	add_child(Fader)
 	Fader.connect("tween_complete", self, "_on_end_fade")
 

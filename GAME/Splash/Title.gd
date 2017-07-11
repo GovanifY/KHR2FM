@@ -33,8 +33,8 @@ func _ready():
 	Menu[1].connect("finished", self, "_start_game", ["Load Game"])
 
 	# Adding music
-	AudioRoom.set_stream(preload("res://ASSETS/BGM/Dearly_Beloved.ogg"))
-	AudioRoom.play()
+	Music.set_stream(preload("res://ASSETS/BGM/Dearly_Beloved.ogg"))
+	Music.play()
 
 	# Waiting few seconds of intro theme entrance
 	hide()
@@ -80,7 +80,7 @@ func _pressed_main(button_idx):
 		for i in range(0, Options.size()-1):
 			Options[i].set_disabled(true)
 
-		AudioRoom.fade_out(1)
+		Music.fade_out(1)
 		AnimsMenu.connect("finished", get_tree(), "quit")
 		AnimsMenu.play("Close")
 
@@ -96,7 +96,7 @@ func _start_game(selection):
 	yield(menu.anims, "finished")
 
 	# Fade music while playing the appropriate animation
-	AudioRoom.fade_out(1)
+	Music.fade_out(1)
 	AnimsMenu.play(selection)
 	yield(AnimsMenu, "finished")
 

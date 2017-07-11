@@ -17,8 +17,8 @@ func _ready():
 	Yuugure.set_side(true)
 
 	# Starting music
-	AudioRoom.set_stream(preload("res://ASSETS/BGM/Into the Darkness.ogg"))
-	AudioRoom.play()
+	Music.set_stream(preload("res://ASSETS/BGM/Into the Darkness.ogg"))
+	Music.play()
 
 	# Begin cutscene
 	Sequences.play("Water")
@@ -41,8 +41,8 @@ func _ready():
 	yield(Sequences, "finished")
 
 	# Change music
-	AudioRoom.set_stream(preload("res://ASSETS/BGM/The Eye of Darkness.ogg"))
-	AudioRoom.play()
+	Music.set_stream(preload("res://ASSETS/BGM/The Eye of Darkness.ogg"))
+	Music.play()
 
 	for line in [
 		[Kiryoku, 4, 10],
