@@ -7,10 +7,21 @@ extends CanvasLayer
 signal toggled_pause
 signal pressed_pause
 
+# Paths
+const PATH_CONFIG = "user://settings.cfg"
+
+# Instance members
+var config = ConfigFile.new()
+
 ######################
 ### Core functions ###
 ######################
 func _enter_tree():
+	# Loading config file
+	var err = config.load(PATH_CONFIG)
+	if err != OK: # Create a new one
+		config.save(PATH_CONFIG)
+
 	# Setting Map Dictionary
 	if Globals.get("Map") == null:
 		Globals.set("Map", {
@@ -18,6 +29,10 @@ func _enter_tree():
 			world    = null,
 			location = null,
 		})
+
+func _exit_tree():
+	# Saving config file
+	config.save(PATH_CONFIG)
 
 func _ready():
 	# Setting timer for Playtime

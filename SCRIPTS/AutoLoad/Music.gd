@@ -10,9 +10,6 @@ const VOL_MED  = 0.5
 const VOL_LOW  = 0.25
 const VOL_MUTE = 0
 
-# Regulated volume
-var VOL_NORMAL = VOL_MAX
-
 # Fader control
 onready var Fader = Tween.new()
 
@@ -20,9 +17,15 @@ onready var Fader = Tween.new()
 ### Core functions ###
 ######################
 func _ready():
+	# Grabbing saved volume
+	if !KHR2.config.has_section_key("music", "volume"):
+		set_current_volume(VOL_MAX)
+	else:
+		set_current_volume(get_current_volume())
+
 	# Setting up Fader
-	Fader.set_name("Fade")
 	add_child(Fader)
+	Fader.set_name("Fade")
 	Fader.connect("tween_complete", self, "_on_end_fade")
 
 	# Finishing touches
@@ -34,15 +37,18 @@ func _ready():
 func _on_end_fade(object, key):
 	if (get_volume() == VOL_MUTE):
 		stop()
-		set_volume(VOL_NORMAL)
+		set_volume(get_current_volume())
 	emit_signal("end_fade")
 
 ###############
 ### Methods ###
 ###############
 # Volume control
-func regulate_volume(value):
-	VOL_NORMAL = value
+func get_current_volume():
+	return KHR2.config.get_value("music", "volume")
+
+func set_current_volume(value):
+	KHR2.config.set_value("music", "volume", value)
 	set_volume(value)
 
 # Fading methods
@@ -55,7 +61,7 @@ func fade(time, vol_in, vol_out):
 	Fader.start()
 
 func fade_in(time):
-	fade(time, VOL_MUTE, VOL_NORMAL)
+	fade(time, VOL_MUTE, get_current_volume())
 
 func fade_out(time):
-	fade(time, VOL_NORMAL, VOL_MUTE)
+	fade(time, get_current_volume(), VOL_MUTE)
