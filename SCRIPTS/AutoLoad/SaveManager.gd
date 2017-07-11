@@ -32,15 +32,18 @@ func _ready():
 static func fmt_path(slot_idx):
 	return "user://" + SAVE_NAME + String(slot_idx) + "." + SAVE_EXT
 
+# Sorting function, sorts filenames by date
 static func sort_by_date(filename1, filename2):
 	var file = File.new()
 	var time1 = file.get_modified_time("user://" + filename1)
 	var time2 = file.get_modified_time("user://" + filename2)
 	return time1 > time2
 
+# Determines if filename follows a set name format
 static func is_save_file(filename):
 	return filename.begins_with(SAVE_NAME) && filename.extension() == SAVE_EXT
 
+# Returns one random avatar for a GUI save slot
 static func random_avatar():
 	var dir = Directory.new()
 	if dir.open("res://ASSETS/GFX/Title/MainMenu/Save/Avatars") != OK:
@@ -62,17 +65,19 @@ static func random_avatar():
 	var rand = randi() % list.size()
 	return list[rand]
 
+# Opens a save file, instances it and returns this instance
 static func read_save(path):
 	var savegame = File.new()
 	if !savegame.file_exists(path):
 		return {} # We don't have a save to load
 
 	savegame.open(path, File.READ) # FIXME: Open encrypted
-	var ret = dict2inst(savegame.get_var())
+	var data = dict2inst(savegame.get_var())
 	savegame.close()
 
-	return ret
+	return data
 
+# Writes a save file with given data
 static func write_save(path, data):
 	var savegame = File.new()
 

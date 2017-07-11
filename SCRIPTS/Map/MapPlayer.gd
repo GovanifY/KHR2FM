@@ -47,6 +47,7 @@ func _exit_tree():
 	SceneLoader.erase_scene(HUD)
 
 func _ready():
+	# Setting up HUD
 	SceneLoader.load_scene(PATH_HUD, SceneLoader.BACKGROUND)
 	SceneLoader.show_scene(PATH_HUD)
 	HUD = KHR2.get_node("HUD")
