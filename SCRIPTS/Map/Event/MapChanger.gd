@@ -25,10 +25,5 @@ func _ready():
 
 	get_node("TouchArea").get_shape().set_points(polygon)
 
-#######################
-### Signal routines ###
-#######################
-func _on_area_body_enter(body):
-	if body.is_type("MapPlayer") && not body.has_interacting(self):
-		body.add_interacting(self)
-		SceneLoader.load_scene(next_location)
+func _player_touched():
+	SceneLoader.load_scene(next_location)

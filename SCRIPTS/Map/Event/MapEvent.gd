@@ -17,6 +17,9 @@ func _ready():
 	connect("body_enter", self, "_on_area_body_enter")
 	connect("body_exit", self, "_on_area_body_exit")
 
+func _player_touched():
+	pass # Called when a MapPlayer has entered the area
+
 func _interacted():
 	pass # Called when interacted signal is emitted
 
@@ -27,6 +30,7 @@ func _on_area_body_enter(body):
 	emit_signal("touched")
 	if body.is_type("MapPlayer") && not body.has_interacting(self):
 		body.add_interacting(self)
+		_player_touched()
 
 func _on_area_body_exit(body):
 	if body.is_type("MapPlayer") && body.has_interacting(self):
