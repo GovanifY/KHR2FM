@@ -8,10 +8,14 @@ func _player_touched():
 		Approach.play("approach")
 
 func _interacted():
+	# Switching pause screen
 	KHR2.set_pause(load("res://SCENES/Pause/SavePoint.tscn"))
+
+	# Opening SavePoint menu
 	var pause = KHR2.get_node("Pause")
 	pause.show()
 	pause.connect("hide", self, "_dismissed")
 
 func _dismissed():
+	# Switching back
 	KHR2.set_pause(load(path_pause))

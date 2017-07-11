@@ -209,7 +209,7 @@ __meta__ = {
 
 [node name="Kioku" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 450.536, 557.486 )
+transform/pos = Vector2( 450, 557 )
 
 [node name="MapSave" parent="." instance=ExtResource( 4 )]
 
