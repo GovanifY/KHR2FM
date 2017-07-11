@@ -9,7 +9,7 @@ func _ready():
 	if !KHR2.config.has_section_key("sound", "volume"):
 		set_default_volume(get_default_volume())
 	else:
-		set_default_volume(KHR2.config.get_section_key("sound", "volume"))
+		set_default_volume(KHR2.config.get_value("sound", "volume"))
 
 func set_default_volume(value):
 	.set_default_volume(value)
