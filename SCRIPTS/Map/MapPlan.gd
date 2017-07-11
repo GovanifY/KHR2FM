@@ -10,5 +10,5 @@ func _exit_tree():
 	KHR2.set_pause(null)
 
 func _ready():
-	Globals.set("World", world_name)
-	Globals.set("Location", location)
+	Globals.get("Map").world = world_name
+	Globals.get("Map").location = location

@@ -10,8 +10,17 @@ signal pressed_pause
 ######################
 ### Core functions ###
 ######################
+func _enter_tree():
+	# Setting Map Dictionary
+	if Globals.get("Map") == null:
+		Globals.set("Map", {
+			player   = null,
+			world    = null,
+			location = null,
+		})
+
 func _ready():
-	# Timer-related
+	# Setting timer for Playtime
 	var playtime = Timer.new()
 	playtime.set_name("Playtime")
 	playtime.connect("timeout", self, "_playtime")

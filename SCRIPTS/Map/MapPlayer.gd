@@ -40,10 +40,10 @@ onready var sprite_motion = {
 ### Core functions ###
 ######################
 func _enter_tree():
-	Globals.set("MapPlayer", self)
+	Globals.get("Map").player = self
 
 func _exit_tree():
-	Globals.set("MapPlayer", null)
+	Globals.get("Map").player = null
 	SceneLoader.erase_scene(HUD)
 
 func _ready():

@@ -11,7 +11,7 @@ const COMMAND = {
 onready var interact = get_node("Interact")
 
 func _ready():
-	var player = Globals.get("MapPlayer")
+	var player = Globals.get("Map").player
 
 	# General settings
 	for command in get_children():

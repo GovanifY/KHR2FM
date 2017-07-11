@@ -14,8 +14,8 @@ func update(current_scene=null, avatar=null):
 		# IMPORTANT DATA
 		"difficulty"   : Globals.get("Difficulty"),
 		"scene"        : current_scene,
-		"world"        : Globals.get("World"),
-		"location"     : Globals.get("Location"),
+		"world"        : Globals.get("Map").world,
+		"location"     : Globals.get("Map").location,
 		"playtime_hrs" : Globals.get("PlayTimeHours"),
 		"playtime_min" : Globals.get("PlayTimeMinutes"),
 

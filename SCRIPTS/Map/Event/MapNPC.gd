@@ -11,7 +11,7 @@ func _interacted():
 		return
 
 	if Globals.get("Dialogue") == null:
-		var player = Globals.get("MapPlayer")
+		var player = Globals.get("Map").player
 		player.stop()
 
 		SceneLoader.load_scene(path_dialogue, SceneLoader.BACKGROUND)
