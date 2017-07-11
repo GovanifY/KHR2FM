@@ -93,10 +93,10 @@ func fetch_saves(cb_node, on_press, on_cancel):
 		var slot_info = {
 			lv         = tr("LEVEL") + "." + String(data.get("lv") if data.get("lv") != null else 0),
 			playtime   = hrs + ":" + mins,
-			location   = data.get("location")   if data.get("location") != null   else "null",
-			difficulty = data.get("difficulty") if data.get("difficulty") != null else "null",
-			img_world  = data.get("world").to_lower()  if data.get("world") != null  else "",
-			img_avatar = data.get("avatar").to_lower() if data.get("avatar") != null else "",
+			location   = var2str(data.get("location")),
+			difficulty = var2str(data.get("difficulty")),
+			img_world  = str(data.get("world")).to_lower(),
+			img_avatar = str(data.get("avatar")).to_lower(),
 		}
 
 		edit_slot(node, slot_info)
