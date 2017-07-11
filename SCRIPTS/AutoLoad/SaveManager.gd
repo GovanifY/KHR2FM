@@ -13,7 +13,7 @@ const SAVE_NAME = "slot"
 const SAVE_EXT  = "save"
 
 # SaveSlot class and current slot object
-const SaveSlot = preload("res://SCRIPTS/SaveSlot.gd")
+const SaveSlot = preload("SaveManager/SaveSlot.gd")
 var current_slot
 
 ######################
