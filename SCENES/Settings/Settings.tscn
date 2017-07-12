@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://SCRIPTS/Settings/Settings.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/LANG/FONTS/KH2_menu/KH2_ALL_MENU_I.TTF" type="DynamicFontData" id=2]
 [ext_resource path="res://SCENES/Settings/SubSlider.tscn" type="PackedScene" id=3]
+[ext_resource path="res://SCENES/Button/KHR2_Button.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -62,7 +63,7 @@ editor/display_folded = true
 anchor/right = 0
 anchor/bottom = 0
 margin/right = 397.0
-margin/bottom = 173.0
+margin/bottom = 151.0
 controls = "volume"
 
 [node name="Subtitle" parent="Subsettings/Music"]
@@ -79,9 +80,9 @@ margin/right = 397.0
 editor/display_folded = true
 anchor/right = 0
 anchor/bottom = 0
-margin/top = 177.0
+margin/top = 155.0
 margin/right = 397.0
-margin/bottom = 350.0
+margin/bottom = 306.0
 controls = "volume"
 
 [node name="Subtitle" parent="Subsettings/Sound"]
@@ -92,6 +93,13 @@ text = "SETTINGS_SOUND"
 [node name="Control" parent="Subsettings/Sound"]
 
 margin/right = 397.0
+
+[node name="Fullscreen" parent="Subsettings" instance=ExtResource( 4 )]
+
+margin/top = 310.0
+margin/right = 397.0
+margin/bottom = 349.0
+text = "SETTINGS_FULLSCREEN"
 
 
 [editable path="Subsettings/Music"]

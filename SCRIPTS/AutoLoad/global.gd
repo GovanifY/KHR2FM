@@ -57,6 +57,7 @@ func _input(event):
 			get_tree().quit()
 		elif event.is_action("fullscreen"):
 			OS.set_window_fullscreen(!OS.is_window_fullscreen())
+			config.set_value("fullscreen", "enabled", OS.is_window_fullscreen())
 		elif event.is_action("pause"):
 			pause_game()
 			emit_signal("pressed_pause")

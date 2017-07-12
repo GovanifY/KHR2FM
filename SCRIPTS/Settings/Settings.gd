@@ -2,6 +2,7 @@ extends Panel
 
 # Instance members
 onready var Subsettings = get_node("Subsettings")
+onready var fullscreen = Subsettings.get_node("Fullscreen")
 
 ######################
 ### Core functions ###
@@ -13,6 +14,10 @@ func _ready():
 	# Connecting sliders to respective objects
 	Subsettings.get_node("Music").connect("changed", Music, "set_current_volume")
 	Subsettings.get_node("Sound").connect("changed", self, "_se_changed")
+	fullscreen.connect("pressed", self, "_fullscreen_pressed", [true])
+
+	# Setting buttons up
+	_fullscreen_pressed(false)
 
 	# XXX: Test music
 	Music.set_stream(preload("res://ASSETS/BGM/Dearly_Beloved.ogg"))
@@ -22,3 +27,11 @@ func _ready():
 func _se_changed(value):
 	SE.set_default_volume(value)
 	SE.play("system_selected")
+
+func _fullscreen_pressed(value):
+	var event = InputEvent()
+	event.set_as_action("fullscreen", value)
+	get_node("/root").input(event)
+	fullscreen.set_text(tr("SETTINGS_FULLSCREEN") + " " +
+		tr("ON" if OS.is_window_fullscreen() else "OFF")
+	)
