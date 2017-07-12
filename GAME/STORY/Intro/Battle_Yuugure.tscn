@@ -5,7 +5,8 @@
 [ext_resource path="res://ASSETS/BGM/The Eye of Darkness.ogg" type="AudioStream" id=3]
 [ext_resource path="res://SCENES/InfoBar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://GAME/BATTLE/Player/Kiryoku.tscn" type="PackedScene" id=5]
-[ext_resource path="res://GAME/BATTLE/Enemy/Yuugure.tscn" type="PackedScene" id=6]
+[ext_resource path="res://GAME/BATTLE/Enemy/Bosses/Yuugure.tscn" type="PackedScene" id=6]
+
 
 [node name="Battle_Yuugure" type="Node2D"]
 
