@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=1]
+[gd_scene load_steps=26 format=1]
 
 [ext_resource path="res://SCENES/Map/MapPlan.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Maps/cds_000.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://SCENES/Map/MapEvent/MapNPC.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/NPCs/Pnj_06.png" type="Texture" id=6]
 [ext_resource path="res://SCENES/Map/MapEvent/MapChanger.tscn" type="PackedScene" id=7]
+[ext_resource path="res://GAME/MAP/Enemy/Shadow.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -266,5 +267,10 @@ build_mode = 0
 polygon = Vector2Array( 145, 386, 345, 301, 476, 425, 188, 551 )
 shape_range = Vector2( 1, 1 )
 trigger = false
+
+[node name="Shadow" parent="." instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 432, 700 )
+battle_scene = "res://GAME/STORY/Intro/Battle_Yuugure.tscn"
 
 
