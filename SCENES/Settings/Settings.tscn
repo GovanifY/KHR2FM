@@ -1,0 +1,98 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://SCRIPTS/Settings/Settings.gd" type="Script" id=1]
+[ext_resource path="res://ASSETS/LANG/FONTS/KH2_menu/KH2_ALL_MENU_I.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://SCENES/Settings/SubSlider.tscn" type="PackedScene" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+
+font/size = 30
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 2 )
+
+[node name="Settings" type="Panel"]
+
+visibility/self_opacity = 0.7
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+script/script = ExtResource( 1 )
+
+[node name="Title" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 15.0
+margin/top = 15.0
+margin/right = 253.0
+margin/bottom = 45.0
+custom_fonts/font = SubResource( 1 )
+text = "SETTINGS_TITLE"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Subsettings" type="VBoxContainer" parent="."]
+
+anchor/right = 3
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 30.0
+margin/top = 100.0
+margin/right = 0.0
+margin/bottom = 30.0
+alignment = 0
+
+[node name="Music" parent="Subsettings" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+anchor/right = 0
+anchor/bottom = 0
+margin/right = 397.0
+margin/bottom = 173.0
+controls = "volume"
+
+[node name="Subtitle" parent="Subsettings/Music"]
+
+margin/right = 397.0
+text = "SETTINGS_MUSIC"
+
+[node name="Control" parent="Subsettings/Music"]
+
+margin/right = 397.0
+
+[node name="Sound" parent="Subsettings" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+anchor/right = 0
+anchor/bottom = 0
+margin/top = 177.0
+margin/right = 397.0
+margin/bottom = 350.0
+controls = "volume"
+
+[node name="Subtitle" parent="Subsettings/Sound"]
+
+margin/right = 397.0
+text = "SETTINGS_SOUND"
+
+[node name="Control" parent="Subsettings/Sound"]
+
+margin/right = 397.0
+
+
+[editable path="Subsettings/Music"]
+[editable path="Subsettings/Sound"]
