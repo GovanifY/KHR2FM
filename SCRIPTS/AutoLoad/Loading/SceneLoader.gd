@@ -24,6 +24,7 @@ func _exit_tree():
 	ThreadLoader.clear()
 
 func _ready():
+	hide()
 	ThreadLoader.set_progress_node(get_node("Status/Progress"))
 	ThreadLoader.connect("finished", self, "_scene_was_loaded")
 	connect("visibility_changed", self, "_on_visibility_changed")
