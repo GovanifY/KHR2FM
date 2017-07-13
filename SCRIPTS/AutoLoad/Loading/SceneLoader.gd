@@ -137,4 +137,5 @@ func erase_scene(scene):
 		return
 
 	ThreadLoader.cancel_resource(scene.get_filename())
+	scene.set_name("freeing")
 	scene.queue_free()
