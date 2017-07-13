@@ -27,7 +27,8 @@ func _ready():
 # Specific setting changers (require more than just one-liners)
 func _se_changed(value):
 	SE.set_default_volume(value)
-	SE.play("system_selected")
+	if !SE.is_active():
+		SE.play("system_selected")
 
 func _fullscreen_pressed(pressed):
 	var on = KHR2.fullscreen() if pressed else OS.is_window_fullscreen()
