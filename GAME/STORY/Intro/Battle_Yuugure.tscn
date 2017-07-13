@@ -7,7 +7,6 @@
 [ext_resource path="res://GAME/BATTLE/Player/Kiryoku.tscn" type="PackedScene" id=5]
 [ext_resource path="res://GAME/BATTLE/Enemy/Bosses/Yuugure.tscn" type="PackedScene" id=6]
 
-
 [node name="Battle_Yuugure" type="Node2D"]
 
 [node name="Foreground" type="ParallaxBackground" parent="."]
@@ -31,6 +30,8 @@ scroll/ignore_camera_zoom = false
 battle_music = ExtResource( 3 )
 
 [node name="InfoBar" parent="BattlePlan" instance=ExtResource( 4 )]
+
+info_message = "INFO_INTRO_YUUGURE"
 
 [node name="Kiryoku" parent="BattlePlan" instance=ExtResource( 5 )]
 
