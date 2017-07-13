@@ -145,13 +145,12 @@ func save_game(slot_idx):
 	emit_signal("saved")
 	return true
 
+const PATH_QUICK_SAVE = "user://" + "quick" + SAVE_NAME + "." + SAVE_EXT
 func quick_load():
-	var path = "user://" + "quick" + SAVE_NAME + "." + SAVE_EXT
-	current_slot = read_save(path)
+	current_slot = read_save(PATH_QUICK_SAVE)
 	print("Quick loaded!")
 
 func quick_save():
-	var path = "user://" + "quick" + SAVE_NAME + "." + SAVE_EXT
 	current_slot.update(get_tree().get_current_scene().get_filename())
-	write_save(path, current_slot)
+	write_save(PATH_QUICK_SAVE, current_slot)
 	print("Quick saved!")
