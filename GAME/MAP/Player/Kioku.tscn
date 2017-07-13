@@ -1,28 +1,211 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=12 format=1]
 
-[ext_resource path="res://SCENES/Map/MapPlayer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://SCRIPTS/Map/MapPlayer.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Players/Kioku.png" type="Texture" id=2]
 
-[sub_resource type="CanvasItemShaderGraph" id=1]
+[sub_resource type="CapsuleShape2D" id=1]
 
-_code = { "fragment":"vec3 nd2sl0=vec3(0.051086,0.726562,0.140798);\nfloat nd2sl1=1;\nCOLOR.rgb=nd2sl0;\n", "fragment_ofs":0, "light":"", "light_ofs":0, "vertex":"", "vertex_ofs":0 }
-_data = { "shaders":[ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [ 0, 2, 0 ], 1, 0, Vector2( 50, 40 ), null, null, [  ], 2, 3, Vector2( 240, 20 ), Color( 0.0510864, 0.726562, 0.140798, 1 ), null, [  ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ] }
+custom_solver_bias = 0.0
+radius = 10.0
+height = 20.0
 
-[sub_resource type="CanvasItemMaterial" id=2]
+[sub_resource type="Animation" id=9]
 
-shader/shader = SubResource( 1 )
-shader/shading_mode = 0
+resource/name = "down"
+length = 0.24
+loop = true
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath("Character:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.24 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 1, 9 ]
+}
 
-[node name="Kioku" instance=ExtResource( 1 )]
+[sub_resource type="Animation" id=2]
 
-[node name="Character" parent="."]
+resource/name = "down_left"
+length = 0.24
+loop = true
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath("Character:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.24 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 55, 63 ]
+}
+
+[sub_resource type="Animation" id=3]
+
+resource/name = "down_right"
+length = 0.24
+loop = true
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath("Character:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.24 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 46, 54 ]
+}
+
+[sub_resource type="Animation" id=4]
+
+resource/name = "left"
+length = 0.24
+loop = true
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath("Character:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.24 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 10, 18 ]
+}
+
+[sub_resource type="Animation" id=5]
+
+resource/name = "right"
+length = 0.24
+loop = true
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath("Character:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.24 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 19, 27 ]
+}
+
+[sub_resource type="Animation" id=6]
+
+length = 0.24
+loop = true
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath("Character:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.24 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 28, 36 ]
+}
+
+[sub_resource type="Animation" id=7]
+
+resource/name = "up_left"
+length = 0.24
+loop = true
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath("Character:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.24 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 37, 45 ]
+}
+
+[sub_resource type="Animation" id=8]
+
+resource/name = "up_right"
+length = 0.24
+loop = true
+step = 0.03
+tracks/0/type = "value"
+tracks/0/path = NodePath("Character:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.24 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 64, 72 ]
+}
+
+[node name="Kioku" type="KinematicBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 20 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Character" type="Sprite" parent="."]
 
 texture = ExtResource( 2 )
 vframes = 8
 hframes = 9
 
-[node name="Body" parent="."]
+[node name="Body" type="CollisionShape2D" parent="."]
 
-material/material = SubResource( 2 )
+transform/pos = Vector2( 0, 20 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="anims" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 0
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/down = SubResource( 9 )
+anims/down_left = SubResource( 2 )
+anims/down_right = SubResource( 3 )
+anims/left = SubResource( 4 )
+anims/right = SubResource( 5 )
+anims/up = SubResource( 6 )
+anims/up_left = SubResource( 7 )
+anims/up_right = SubResource( 8 )
+playback/active = true
+playback/speed = 0.5
+blend_times = [  ]
+autoplay = ""
+
+[node name="IsoCam" type="Camera2D" parent="."]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = 0
+limit/top = 0
+limit/right = 2000
+limit/bottom = 1000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
 
 
