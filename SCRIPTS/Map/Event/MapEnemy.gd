@@ -41,6 +41,6 @@ func _player_touched(area_shape):
 func _player_untouched(area_shape):
 	if area_shape == SPAWN_AREA && is_visible():
 		if Delay.get_time_left() > 0:
-			return # Don't do anything
+			yield(Delay, "timeout") # Wait until Delay is done
 		_hide()
 		Delay.start()
