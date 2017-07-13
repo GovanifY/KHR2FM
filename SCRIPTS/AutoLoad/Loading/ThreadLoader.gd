@@ -82,8 +82,9 @@ func _thread_loop(_):
 #############################
 ### Main thread functions ###
 #############################
-func _init(progress_node):
-	Progress = progress_node
+func _init(progress_node=null):
+	if progress_node != null:
+		Progress = progress_node
 
 	# Start thread
 	var err = thread.start(self, "_thread_loop")
@@ -154,6 +155,11 @@ func set_progress(value):
 	_lock("set_progress")
 	has_progress = value
 	Progress.set_hidden(!value)
+	_unlock("set_progress")
+
+func set_progress_node(node):
+	_lock("set_progress")
+	Progress = node
 	_unlock("set_progress")
 
 func queue_resource(path, p_in_front = false):
