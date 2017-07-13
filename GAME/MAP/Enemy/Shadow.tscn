@@ -5,19 +5,18 @@
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Enemies/spawn.tres" type="SpriteFrames" id=3]
 [ext_resource path="res://ASSETS/SE/Battle/General/Heartless Spawn.wav" type="Sample" id=4]
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 150.0
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=2]
 
 custom_solver_bias = 0.0
 radius = 20.0
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
-resource/name = "idle"
 length = 1.0
 loop = true
 step = 0.05
@@ -32,9 +31,8 @@ tracks/0/keys = {
 "values": [ 0, 9, 7, 1 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 
-resource/name = "In"
 length = 1.0
 loop = false
 step = 0.1
@@ -109,9 +107,8 @@ tracks/6/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 
-resource/name = "Out"
 length = 1.0
 loop = false
 step = 0.1
@@ -186,7 +183,7 @@ tracks/6/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="SampleLibrary" id=5]
+[sub_resource type="SampleLibrary" id=6]
 
 "samples/Heartless Spawn" = {
 "db": 0.0,
@@ -195,15 +192,13 @@ tracks/6/keys = {
 "sample": ExtResource( 4 )
 }
 
-[node name="Shadow" type="Area2D" groups=[
-"MapEnemy",
-]]
+[node name="Shadow" type="Area2D"]
 
 input/pickable = true
-shapes/0/shape = SubResource( 6 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
-shapes/1/shape = SubResource( 1 )
+shapes/1/shape = SubResource( 2 )
 shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/1/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -220,13 +215,13 @@ battle_scene = null
 
 [node name="SpawnArea" type="CollisionShape2D" parent="."]
 
-shape = SubResource( 6 )
+shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
 [node name="BattleArea" type="CollisionShape2D" parent="."]
 
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 1
 
@@ -247,7 +242,7 @@ hframes = 10
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/idle = SubResource( 2 )
+anims/idle = SubResource( 3 )
 playback/active = true
 playback/speed = 0.7
 blend_times = [  ]
@@ -264,8 +259,8 @@ animation = "default"
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/In = SubResource( 3 )
-anims/Out = SubResource( 4 )
+anims/In = SubResource( 4 )
+anims/Out = SubResource( 5 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -279,7 +274,7 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = SubResource( 5 )
+config/samples = SubResource( 6 )
 config/pitch_random = 0.2
 
 

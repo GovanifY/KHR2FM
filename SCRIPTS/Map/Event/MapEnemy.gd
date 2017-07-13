@@ -12,7 +12,10 @@ onready var Delay = get_node("Delay")
 ######################
 ### Core functions ###
 ######################
-func _draw():
+func _enter_tree():
+	add_to_group("MapEnemy")
+
+func _show():
 	if "In" in spawn.get_animation_list():
 		spawn.play("In")
 
@@ -27,7 +30,7 @@ func _player_touched(area_shape):
 	if area_shape == SPAWN_AREA && is_hidden():
 		if Delay.get_time_left() > 0:
 			return # Don't do anything
-		_draw()
+		_show()
 		Delay.start()
 
 	elif area_shape == BATTLE_AREA && is_visible():
