@@ -18,10 +18,12 @@ onready var Fader = Tween.new()
 ######################
 func _ready():
 	# Grabbing saved volume
+	var volume
 	if !KHR2.config.has_section_key("music", "volume"):
-		set_current_volume(VOL_MAX)
+		volume = VOL_MAX
 	else:
-		set_current_volume(get_current_volume())
+		volume = get_current_volume()
+	set_current_volume(volume)
 
 	# Setting up Fader
 	add_child(Fader)
