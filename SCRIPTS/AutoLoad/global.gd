@@ -56,8 +56,7 @@ func _input(event):
 		if event.is_action("quit"):
 			get_tree().quit()
 		elif event.is_action("fullscreen"):
-			OS.set_window_fullscreen(!OS.is_window_fullscreen())
-			config.set_value("fullscreen", "enabled", OS.is_window_fullscreen())
+			fullscreen()
 		elif event.is_action("pause"):
 			pause_game()
 			emit_signal("pressed_pause")
@@ -109,6 +108,11 @@ func reset_playtime(mins=0, hrs=0):
 	Globals.set("PlaytimeHours", hrs if hrs != null else 0)
 	playtime.set_wait_time(60)
 	playtime.start()
+
+func fullscreen(value=!OS.is_window_fullscreen()):
+	config.set_value("fullscreen", "enabled", value)
+	OS.set_window_fullscreen(value)
+	return value
 
 # Returns the current pause scene's filename; null if non-existent
 func get_pause():

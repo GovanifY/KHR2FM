@@ -28,10 +28,8 @@ func _se_changed(value):
 	SE.set_default_volume(value)
 	SE.play("system_selected")
 
-func _fullscreen_pressed(value):
-	var event = InputEvent()
-	event.set_as_action("fullscreen", value)
-	get_node("/root").input(event)
+func _fullscreen_pressed(pressed):
+	var on = KHR2.fullscreen() if pressed else OS.is_window_fullscreen()
 	fullscreen.set_text(tr("SETTINGS_FULLSCREEN") + " " +
-		tr("ON" if OS.is_window_fullscreen() else "OFF")
+		tr("ON" if on else "OFF")
 	)
