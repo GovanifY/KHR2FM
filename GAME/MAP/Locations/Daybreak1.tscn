@@ -264,7 +264,7 @@ trigger = false
 
 [node name="Shadow" parent="." instance=ExtResource( 8 )]
 
-transform/pos = Vector2( 451, 692 )
+transform/pos = Vector2( 474, 754 )
 battle_scene = "res://GAME/STORY/Intro/Battle_Yuugure.tscn"
 
 

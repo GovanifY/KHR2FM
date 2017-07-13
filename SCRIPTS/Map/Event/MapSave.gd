@@ -3,7 +3,7 @@ extends "MapEvent.gd"
 onready var Approach = get_node("approach")
 onready var path_pause = KHR2.get_pause()
 
-func _player_touched():
+func _player_touched(area_shape):
 	if !Approach.is_playing():
 		Approach.play("approach")
 

@@ -25,5 +25,5 @@ func _ready():
 
 	get_node("TouchArea").get_shape().set_points(polygon)
 
-func _player_touched():
+func _player_touched(area_shape):
 	SceneLoader.load_scene(next_location)
