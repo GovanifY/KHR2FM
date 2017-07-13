@@ -15,5 +15,8 @@ func define_map():
 	Globals.get("Map").world = world_name
 	Globals.get("Map").location = location
 
+	# Setting props and MapEvents
+	get_tree().call_group(0, "MapEnemy", "hide")
+
 func undefine_map():
 	pass

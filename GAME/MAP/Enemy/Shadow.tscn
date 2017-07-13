@@ -98,6 +98,16 @@ tracks/5/keys = {
 "update": 2,
 "values": [ "Heartless Spawn" ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("..:visibility/visible")
+tracks/6/interp = 1
+tracks/6/imported = false
+tracks/6/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=4]
 
@@ -165,6 +175,16 @@ tracks/5/keys = {
 "update": 2,
 "values": [ "Heartless Spawn" ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("..:visibility/visible")
+tracks/6/interp = 1
+tracks/6/imported = false
+tracks/6/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="SampleLibrary" id=5]
 
@@ -175,7 +195,9 @@ tracks/5/keys = {
 "sample": ExtResource( 4 )
 }
 
-[node name="Shadow" type="Area2D"]
+[node name="Shadow" type="Area2D" groups=[
+"MapEnemy",
+]]
 
 input/pickable = true
 shapes/0/shape = SubResource( 6 )
@@ -208,6 +230,13 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 1
 
+[node name="Delay" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
 [node name="Sprite" type="Sprite" parent="."]
 
 texture = ExtResource( 2 )
@@ -229,7 +258,6 @@ autoplay = "idle"
 visibility/visible = false
 frames = ExtResource( 3 )
 animation = "default"
-frame = 17
 
 [node name="anim" type="AnimationPlayer" parent="spawn"]
 

@@ -7,14 +7,11 @@ enum { SPAWN_AREA, BATTLE_AREA }
 
 # Instance members
 onready var spawn = get_node("spawn/anim")
+onready var Delay = get_node("Delay")
 
 ######################
 ### Core functions ###
 ######################
-func _ready():
-	add_to_group("MapEnemy")
-	hide()
-
 func _draw():
 	if "In" in spawn.get_animation_list():
 		spawn.play("In")
@@ -22,16 +19,18 @@ func _draw():
 func _hide():
 	if "Out" in spawn.get_animation_list():
 		spawn.play("Out")
-		yield(spawn, "finished")
-		hide()
 
 ######################
 ### Event routines ###
 ######################
 func _player_touched(area_shape):
-	if area_shape == SPAWN_AREA:
-		show()
-	elif area_shape == BATTLE_AREA:
+	if area_shape == SPAWN_AREA && is_hidden():
+		if Delay.get_time_left() > 0:
+			return # Don't do anything
+		_draw()
+		Delay.start()
+
+	elif area_shape == BATTLE_AREA && is_visible():
 		# TODO: Save exact coordinates of this map before switching scenes
 		if battle_scene != null:
 			SceneLoader.queue_scene(battle_scene)
@@ -40,5 +39,8 @@ func _player_touched(area_shape):
 			SceneLoader.load_next_scene()
 
 func _player_untouched(area_shape):
-	if area_shape == SPAWN_AREA:
+	if area_shape == SPAWN_AREA && is_visible():
+		if Delay.get_time_left() > 0:
+			return # Don't do anything
 		_hide()
+		Delay.start()
