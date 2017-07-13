@@ -19,9 +19,10 @@ func _ready():
 	# Setting buttons up
 	_fullscreen_pressed(false)
 
-	# XXX: Test music
-	Music.set_stream(preload("res://ASSETS/BGM/Dearly_Beloved.ogg"))
-	Music.play()
+	# Add test music
+	if !Music.is_playing():
+		Music.set_stream(preload("res://ASSETS/BGM/Dearly_Beloved.ogg"))
+		Music.play()
 
 # Specific setting changers (require more than just one-liners)
 func _se_changed(value):
