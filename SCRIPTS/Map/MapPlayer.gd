@@ -9,7 +9,7 @@ enum {
 }
 
 # Instance members
-var HUD
+onready var HUD  = KHR2.get_node("HUD")
 onready var Anims     = get_node("anims")
 onready var Character = get_node("Character")
 var interacting = []
@@ -41,16 +41,14 @@ onready var sprite_motion = {
 ######################
 func _enter_tree():
 	Globals.get("Map").player = self
+	SceneLoader.load_scene(PATH_HUD, SceneLoader.BACKGROUND)
+	SceneLoader.show_scene(PATH_HUD)
 
 func _exit_tree():
 	Globals.get("Map").player = null
 	SceneLoader.erase_scene(HUD)
 
 func _ready():
-	# Setting up HUD
-	SceneLoader.load_scene(PATH_HUD, SceneLoader.BACKGROUND)
-	SceneLoader.show_scene(PATH_HUD)
-	HUD = KHR2.get_node("HUD")
 	start()
 
 func _fixed_process(delta):
