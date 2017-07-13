@@ -5,11 +5,10 @@ export(String, FILE, "tscn") var battle_scene
 
 # Instance members
 onready var spawn = get_node("spawn/anim")
-onready var can_spawn = "spawn" in spawn.get_animation_list()
 
 func _ready():
-	if can_spawn:
-		spawn.play("spawn")
+	if "In" in spawn.get_animation_list():
+		spawn.play("In")
 
 func _player_touched():
 	# TODO: Save exact coordinates of this map before switching scenes
@@ -20,7 +19,8 @@ func _player_touched():
 		SceneLoader.load_next_scene()
 
 func queue_free():
-	if can_spawn:
-		spawn.play("spawn")
+	if "Out" in spawn.get_animation_list():
+		spawn.play("Out")
 		yield(spawn, "finished")
+
 	.queue_free()
