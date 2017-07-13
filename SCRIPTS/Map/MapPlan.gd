@@ -4,12 +4,14 @@ export(String) var world_name = ""
 export(String) var location = ""
 
 func _enter_tree():
-	define_map()
 	KHR2.set_pause(preload("res://SCENES/Pause/SimplePause.tscn"))
 
 func _exit_tree():
 	undefine_map()
 	KHR2.set_pause(null)
+
+func _ready():
+	define_map()
 
 func define_map():
 	Globals.get("Map").world = world_name
