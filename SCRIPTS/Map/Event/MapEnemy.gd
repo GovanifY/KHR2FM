@@ -12,10 +12,10 @@ func _ready():
 
 func _player_touched():
 	# TODO: Save exact coordinates of this map before switching scenes
-	# TODO: Play introductory animation (the heart explosion thing)
 	if battle_scene != null:
 		SceneLoader.queue_scene(battle_scene)
 		SceneLoader.queue_scene(get_tree().get_current_scene().get_filename())
+		SceneLoader.transition("Battle")
 		SceneLoader.load_next_scene()
 
 func queue_free():

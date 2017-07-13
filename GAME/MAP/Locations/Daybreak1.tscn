@@ -226,9 +226,6 @@ lines = StringArray( "Hello!", "How do you do\?" )
 texture = ExtResource( 6 )
 vframes = 4
 hframes = 4
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Collisions" type="StaticBody2D" parent="NPC1"]
 
@@ -243,9 +240,6 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Legs" type="CollisionShape2D" parent="NPC1/Collisions"]
 
@@ -271,5 +265,6 @@ trigger = false
 [node name="Shadow" parent="." instance=ExtResource( 8 )]
 
 transform/pos = Vector2( 451, 692 )
+battle_scene = "res://GAME/STORY/Intro/Battle_Yuugure.tscn"
 
 

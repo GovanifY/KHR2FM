@@ -9,6 +9,7 @@ enum { BACKGROUND = 0x1, HIGH_PRIORITY = 0x2 }
 
 # Instance members
 var ThreadLoader = preload("res://SCRIPTS/AutoLoad/Loading/ThreadLoader.gd").new()
+onready var Transition = get_node("Transition")
 
 # Queues
 var next_scenes = []
@@ -30,6 +31,9 @@ func _ready():
 	connect("visibility_changed", self, "_on_visibility_changed")
 
 func _process(delta):
+	if Transition.is_playing():
+		return # Ignore processing
+
 	var scene = next_scenes.front()
 	if ThreadLoader.is_ready(scene):
 		show_scene(scene, true)
@@ -133,6 +137,10 @@ func show_scene(path, halt_current = false):
 # Loads the next available scene
 func show_next_scene(halt_current = false):
 	return show_scene(loaded_scenes.front(), halt_current)
+
+# Plays a transition animation
+func transition(name):
+	Transition.play(name)
 
 # Erases the scene associated to the given path
 func erase_scene(scene):
