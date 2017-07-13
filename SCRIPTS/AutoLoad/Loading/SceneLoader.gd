@@ -9,6 +9,8 @@ enum { BACKGROUND = 0x1, HIGH_PRIORITY = 0x2 }
 
 # Instance members
 var ThreadLoader = preload("res://SCRIPTS/AutoLoad/Loading/ThreadLoader.gd").new()
+
+# Queues
 var next_scenes = []
 var loaded_scenes = []
 
@@ -22,7 +24,7 @@ func _exit_tree():
 	ThreadLoader.clear()
 
 func _ready():
-	ThreadLoader.set_progress_node(get_node("Progress"))
+	ThreadLoader.set_progress_node(get_node("Status/Progress"))
 	ThreadLoader.connect("finished", self, "_scene_was_loaded")
 	connect("visibility_changed", self, "_on_visibility_changed")
 
