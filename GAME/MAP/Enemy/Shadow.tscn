@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=1]
 
-[ext_resource path="res://SCENES/Map/MapEvent/MapHeartless.tscn" type="PackedScene" id=1]
+[ext_resource path="res://SCENES/Map/Event/MapHeartless.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Maps/Enemies/Shadow.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=2]
