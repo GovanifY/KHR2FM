@@ -53,10 +53,10 @@ func _ready():
 
 func _fixed_process(delta):
 	# Grabbing directions from Input and transforming them into flags
-	var directions = int(Input.is_action_pressed("up"))    << 0
-	directions    |= int(Input.is_action_pressed("down"))  << 1
-	directions    |= int(Input.is_action_pressed("left"))  << 2
-	directions    |= int(Input.is_action_pressed("right")) << 3
+	var directions = int(Input.is_action_pressed(sprite_direction[SPR_UP]))    << 0
+	directions    |= int(Input.is_action_pressed(sprite_direction[SPR_DOWN]))  << 1
+	directions    |= int(Input.is_action_pressed(sprite_direction[SPR_LEFT]))  << 2
+	directions    |= int(Input.is_action_pressed(sprite_direction[SPR_RIGHT])) << 3
 
 	# If it can animate the character, then it can move
 	if _animate_character(directions):
@@ -121,7 +121,7 @@ func interact(event):
 		return
 
 	if event.is_pressed() && !event.is_echo():
-		if event.is_action("ui_accept") || event.type in [InputEvent.MOUSE_BUTTON, InputEvent.SCREEN_TOUCH]:
+		if event.is_action("ui_accept"):
 			# FIXME: Currently, using the last node touched
 			interacting.front().emit_signal("interacted")
 
