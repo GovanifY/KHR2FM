@@ -42,8 +42,8 @@ transform/pos = Vector2( 162, 212 )
 transform/pos = Vector2( 680, 233 )
 max_health = 150
 
-[connection signal="dismiss" from="BattlePlan/InfoBar" to="BattlePlan" method="_battle_begin"]
+[connection signal="dismiss" from="BattlePlan/InfoBar" to="BattlePlan" method="start"]
 
-[connection signal="displayed" from="BattlePlan/InfoBar" to="BattlePlan" method="_battle_halt"]
+[connection signal="displayed" from="BattlePlan/InfoBar" to="BattlePlan" method="stop"]
 
 

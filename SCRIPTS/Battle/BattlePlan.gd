@@ -5,20 +5,21 @@ export(AudioStream) var battle_music
 export(int, 1, 20) var enemy_instances = 1
 export(bool) var random_instances = false
 
+# Constants
+const PATH_HUD = "res://SCENES/Battle/HUD/HUD.tscn"
+
 # Instance members
+onready var HUD = KHR2.get_node("HUD")
 
 ######################
 ### Core functions ###
 ######################
 func _enter_tree():
-	if Globals.get("BattlePlan") != null:
-		print("One BattlePlan node is already enough!")
-		queue_free()
-	else:
-		Globals.set("BattlePlan", get_path())
+	SceneLoader.load_scene(PATH_HUD, SceneLoader.BACKGROUND)
+	SceneLoader.show_scene(PATH_HUD)
 
 func _exit_tree():
-	Globals.set("BattlePlan", null)
+	SceneLoader.erase_scene(HUD)
 
 func _ready():
 	# Preparing music
@@ -43,21 +44,17 @@ func _ready():
 				# Fixing positions
 				# TODO: fix new_enemy node's positions so they don't stack on one another
 
-	# Preparing all battlers (they must stand down before further instructions)
+	# Setting all battlers' Y position (they must stand down before further instructions)
 	var middle = int(OS.get_video_mode_size().y) >> 1
 	get_tree().call_group(SceneTree.GROUP_CALL_DEFAULT, "Battler", "set_y", middle)
 
-	_battle_begin()
-
-#######################
-### Signal routines ###
-#######################
-func _battle_begin():
-	get_tree().call_group(SceneTree.GROUP_CALL_DEFAULT, "Battler", "fight")
-
-func _battle_halt():
-	get_tree().call_group(SceneTree.GROUP_CALL_DEFAULT, "Battler", "at_ease")
+	start()
 
 ###############
 ### Methods ###
 ###############
+func start():
+	get_tree().call_group(SceneTree.GROUP_CALL_DEFAULT, "Battler", "fight")
+
+func stop():
+	get_tree().call_group(SceneTree.GROUP_CALL_DEFAULT, "Battler", "at_ease")

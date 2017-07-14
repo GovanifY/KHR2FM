@@ -1,4 +1,4 @@
-extends "res://SCRIPTS/Battle/Battler.gd"
+extends "../Battler.gd"
 
 # Constants
 const STILL_POSE = "Still"
@@ -8,9 +8,6 @@ enum {
 	ACT_UP = 0x1, ACT_DOWN = 0x2, ACT_LEFT = 0x4, ACT_RIGHT = 0x8,
 	ACT_ACCEPT = 0x10, ACT_CANCEL = 0x20,
 }
-
-# Export values
-export(StringArray) var finisher_voice_se
 
 # Instance members
 onready var AnimMovement   = get_node("movement")
@@ -40,8 +37,6 @@ var combo = {
 ######################
 func _ready():
 	# Setup player data
-	add_to_group(.get_type())
-	add_to_group(get_type())
 	setup_data()
 
 	create_timer(0.4, true)
@@ -54,7 +49,7 @@ func _ready():
 	AnimAttack.connect("finished", self, "_action_finished")
 
 	# Player gains control
-	set_process_unhandled_input(true)
+	set_process_input(true)
 
 func _fixed_process(delta):
 	# Simple Input check
@@ -65,12 +60,12 @@ func _fixed_process(delta):
 	if battler_action.has(actions):
 		_act_battler(actions)
 		# Physically moving
-		if is_processing_unhandled_input() && battler_motion.has(actions):
+		if is_processing_input() && battler_motion.has(actions):
 			_move_battler(actions, delta)
 	elif AnimMovement.get_current_animation() != STILL_POSE:
 		AnimMovement.play(STILL_POSE)
 
-func _unhandled_input(event):
+func _input(event):
 	var actions = 0
 	# If pressed, non-hold
 	if event.is_pressed() && !event.is_echo():
@@ -123,10 +118,10 @@ func _increment_combo():
 func _action_started(name):
 	# TODO: rename animations to support Beginners, Combos and Finishers
 	if name == "Guard" || name.begins_with("Attack"):
-		set_process_unhandled_input(false)
+		set_process_input(false)
 
 func _action_finished():
-	set_process_unhandled_input(true)
+	set_process_input(true)
 
 func _end_combo():
 	ComboTimer.stop()
@@ -144,11 +139,11 @@ func is_type(type):
 
 func fight():
 	.fight()
-	set_process_unhandled_input(true)
+	set_process_input(true)
 
 func at_ease():
 	.at_ease()
-	set_process_unhandled_input(false)
+	set_process_input(false)
 
 ### Handling animations
 func random_voice(snd_arr):

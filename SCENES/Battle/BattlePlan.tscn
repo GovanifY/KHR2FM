@@ -1,17 +1,8 @@
-[gd_scene load_steps=16 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://SCRIPTS/Battle/BattlePlan.gd" type="Script" id=1]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Player/MP-Fond.png" type="Texture" id=2]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Player/Mp-Barre.png" type="Texture" id=3]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-vert.tres" type="StyleBox" id=4]
-[ext_resource path="res://SCRIPTS/Battle/Enemy/EnemyHP.gd" type="Script" id=5]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-rouge.tres" type="StyleBox" id=6]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.tres" type="StyleBox" id=7]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.png" type="Texture" id=8]
-[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Bold.ttf" type="DynamicFontData" id=9]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Commands/Commands_Lr_010.png" type="Texture" id=10]
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 1000, 1 )
@@ -20,37 +11,6 @@ extents = Vector2( 1000, 1 )
 
 custom_solver_bias = 0.0
 extents = Vector2( 1, 240 )
-
-[sub_resource type="StyleBoxEmpty" id=3]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-
-[sub_resource type="StyleBoxTexture" id=4]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-texture = ExtResource( 8 )
-margin/left = 2.0
-margin/right = 2.0
-margin/top = 2.0
-margin/bottom = 2.0
-expand_margin/left = 0.0
-expand_margin/right = 0.0
-expand_margin/top = 0.0
-expand_margin/bottom = 0.0
-draw_center = true
-
-[sub_resource type="DynamicFont" id=5]
-
-font/size = 9
-font/use_mipmaps = false
-font/use_filter = false
-font/font = ExtResource( 9 )
 
 [node name="BattlePlan" type="YSort"]
 
@@ -67,10 +27,10 @@ random_instances = false
 
 editor/display_folded = true
 input/pickable = false
-shapes/0/shape = SubResource( 6 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 450, -1 )
 shapes/0/trigger = false
-shapes/1/shape = SubResource( 6 )
+shapes/1/shape = SubResource( 1 )
 shapes/1/transform = Matrix32( 1, 0, 0, 1, 450, 480 )
 shapes/1/trigger = false
 shapes/2/shape = SubResource( 2 )
@@ -93,14 +53,14 @@ __meta__ = {
 [node name="Top" type="CollisionShape2D" parent="Ring"]
 
 transform/pos = Vector2( 450, -1 )
-shape = SubResource( 6 )
+shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
 [node name="Bottom" type="CollisionShape2D" parent="Ring"]
 
 transform/pos = Vector2( 450, 480 )
-shape = SubResource( 6 )
+shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 1
 
@@ -117,167 +77,5 @@ transform/pos = Vector2( 855, 240 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 3
-
-[node name="HUD" type="CanvasLayer" parent="."]
-
-layer = 5
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-
-[node name="PlayerMP" type="Node2D" parent="HUD"]
-
-editor/display_folded = true
-transform/pos = Vector2( 722, 452 )
-
-[node name="MP-Fond" type="Sprite" parent="HUD/PlayerMP"]
-
-texture = ExtResource( 2 )
-vframes = 2
-
-[node name="MP-Barre" type="Sprite" parent="HUD/PlayerMP"]
-
-texture = ExtResource( 3 )
-vframes = 3
-
-[node name="EnemyHP" type="ProgressBar" parent="HUD"]
-
-editor/display_folded = true
-anchor/left = 1
-anchor/right = 1
-rect/scale = Vector2( -1, 1 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 15.0
-margin/top = 15.0
-margin/right = -300.0
-margin/bottom = 25.0
-custom_styles/fg = ExtResource( 4 )
-custom_styles/bg = SubResource( 3 )
-range/min = 0.0
-range/max = 100.0
-range/step = 1.0
-range/page = 0.0
-range/value = 100.0
-range/exp_edit = false
-range/rounded = true
-percent/visible = false
-script/script = ExtResource( 5 )
-SLIDE_DURATION = 0.5
-DELAY_DURATION = 1.0
-
-[node name="SlideAnim" type="Tween" parent="HUD/EnemyHP"]
-
-playback/process_mode = 0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
-
-[node name="Layers" type="Control" parent="HUD/EnemyHP"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 0.0
-margin/bottom = 0.0
-
-[node name="RedBar" type="ProgressBar" parent="HUD/EnemyHP"]
-
-visibility/behind_parent = true
-anchor/right = 1
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 0.0
-margin/bottom = 10.0
-custom_styles/fg = ExtResource( 6 )
-custom_styles/bg = ExtResource( 7 )
-range/min = 0.0
-range/max = 100.0
-range/step = 1.0
-range/page = 0.0
-range/value = 100.0
-range/exp_edit = false
-range/rounded = false
-percent/visible = false
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Panel_HP" type="Panel" parent="HUD/EnemyHP"]
-
-editor/display_folded = true
-rect/min_size = Vector2( 20, 0 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = -2.0
-margin/top = 11.0
-margin/right = 14.0
-margin/bottom = 24.0
-custom_styles/panel = SubResource( 4 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Label_HP" type="Label" parent="HUD/EnemyHP/Panel_HP"]
-
-rect/scale = Vector2( -1, 1 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 17.0
-margin/top = -1.0
-margin/right = 33.0
-margin/bottom = 13.0
-custom_fonts/font = SubResource( 5 )
-custom_colors/font_color = Color( 0.588235, 0.607843, 0.580392, 1 )
-text = "HP"
-align = 1
-valign = 3
-uppercase = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Commands" type="Node2D" parent="HUD"]
-
-editor/display_folded = true
-transform/pos = Vector2( 0, 448 )
-
-[node name="Selected" type="Sprite" parent="HUD/Commands"]
-
-editor/display_folded = true
-texture = ExtResource( 10 )
-centered = false
-
-[node name="BATTLE_ATTACK" type="Label" parent="HUD/Commands/Selected"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 10.0
-margin/right = 181.0
-margin/bottom = 24.0
-text = "BATTLE_ATTACK"
-align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 

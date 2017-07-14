@@ -5,8 +5,7 @@ extends "res://SCRIPTS/Battle/Battler.gd"
 ### Core functions ###
 ######################
 func _ready():
-	add_to_group(.get_type())
-	add_to_group(get_type())
+	add_to_group("Enemy")
 
 ###############
 ### Methods ###
