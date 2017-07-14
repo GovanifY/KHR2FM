@@ -49,6 +49,7 @@ func _exit_tree():
 	SceneLoader.erase_scene(HUD)
 
 func _ready():
+	KHR2.move_child(HUD, 0)
 	start()
 
 func _fixed_process(delta):
