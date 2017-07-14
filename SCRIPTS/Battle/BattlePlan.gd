@@ -32,17 +32,7 @@ func _ready():
 	# Preparing Enemies
 	enemy_instances -= 1 # Don't count the already avaliable instance
 	if enemy_instances > 0:
-		# Grab all enemies picked for this battle
-		var all_enemies = get_tree().get_nodes_in_group("Enemy")
-		for enemy in all_enemies:
-			# Use RNG if requested; otherwise, use the exact number requested
-			var rng = randi() % enemy_instances if random_instances else enemy_instances
-			for i in range(rng):
-				var new_enemy = enemy.duplicate()
-				enemy.get_parent().call_deferred("add_child", new_enemy)
-
-				# Fixing positions
-				# TODO: fix new_enemy node's positions so they don't stack on one another
+		instance_enemies()
 
 	# Setting all battlers' Y position (they must stand down before further instructions)
 	var middle = int(OS.get_video_mode_size().y) >> 1
@@ -58,3 +48,16 @@ func start():
 
 func stop():
 	get_tree().call_group(SceneTree.GROUP_CALL_DEFAULT, "Battler", "at_ease")
+
+func instance_enemies():
+	# Grab all enemies picked for this battle
+	var all_enemies = get_tree().get_nodes_in_group("Enemy")
+	for enemy in all_enemies:
+		# Use RNG if requested; otherwise, use the exact number requested
+		var rng = randi() % enemy_instances if random_instances else enemy_instances
+		for i in range(rng):
+			var new_enemy = enemy.duplicate()
+			enemy.get_parent().call_deferred("add_child", new_enemy)
+
+			# Fixing positions
+			# TODO: fix new_enemy node's positions so they don't stack on one another

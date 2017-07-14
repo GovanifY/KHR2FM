@@ -1,4 +1,4 @@
-extends "res://SCRIPTS/Battle/HUD/DynamicBar.gd"
+extends "DynamicBar.gd"
 
 # Instance members
 onready var RedBar = get_node("RedBar")

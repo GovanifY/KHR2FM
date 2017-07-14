@@ -10,15 +10,9 @@ export(int, 0, 1000) var max_mana = 10
 
 # Constants
 enum { STAT_HP, STAT_MP, STAT_STR, STAT_DEF, STAT_END }
+var stat_name = [ "HP", "MP", "STR", "DEF", ]
 
-var stat_name = [
-	"HP", "MP",
-	"STR", "DEF",
-]
-
-# Important Battler data
-var HUD
-onready var Stats = Array()
+# Instance members
 var ComboTimer
 
 ######################
@@ -26,8 +20,6 @@ var ComboTimer
 ######################
 func _ready():
 	add_to_group("Battler")
-	if KHR2.has_node("HUD"):
-		HUD = KHR2.get_node("HUD")
 	fight()
 
 ###############
