@@ -21,12 +21,14 @@ func _ready():
 	Music.play()
 
 	# Begin cutscene
-	Sequences.play("Water")
+	Sequences.play("BG_Appear")
 	yield(Sequences, "finished")
+#	Sequences.play("Water")
+#	yield(Sequences, "finished")
 
-	get_node("Kiryoku_down").play()
-	Sequences.play("Kiryoku down")
-	yield(Sequences, "finished")
+#	get_node("Kiryoku_down").play()
+#	Sequences.play("Kiryoku down")
+#	yield(Sequences, "finished")
 
 	for line in [
 		[Yuugure, 0, 4],
@@ -37,6 +39,10 @@ func _ready():
 		yield(line[0], "finished")
 
 	Dialogue.hide()
+	
+	Sequences.play("Flash")
+	yield(Sequences, "finished")
+	
 	Sequences.play("Kiryoku vanish")
 	yield(Sequences, "finished")
 

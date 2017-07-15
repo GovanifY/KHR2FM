@@ -1,19 +1,128 @@
-[gd_scene load_steps=21 format=1]
+[gd_scene load_steps=51 format=1]
 
 [ext_resource path="res://GAME/STORY/Intro/Intro.gd" type="Script" id=1]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_01.png" type="Texture" id=2]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_02.png" type="Texture" id=3]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_03.png" type="Texture" id=4]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_04.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_05.png" type="Texture" id=6]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/BG_Kiryoku/Introduction_06.png" type="Texture" id=7]
-[ext_resource path="res://ASSETS/GFX/Animations/Intro/Water.png" type="Texture" id=8]
-[ext_resource path="res://ASSETS/SE/Cutscenes/Water_Drop.wav" type="Sample" id=9]
-[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=10]
-[ext_resource path="res://addons/avatar/Avatar.gd" type="Script" id=11]
-[ext_resource path="res://addons/avatar/icon.png" type="Texture" id=12]
-[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku.tres" type="SpriteFrames" id=13]
-[ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure.tres" type="SpriteFrames" id=14]
+[ext_resource path="res://ASSETS/GFX/Game/Events/Introduction/Introduction_108.jpg" type="Texture" id=2]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_12.png" type="Texture" id=3]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_13.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_14.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_15.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_16.png" type="Texture" id=7]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_17.png" type="Texture" id=8]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_18.png" type="Texture" id=9]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_19.png" type="Texture" id=10]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_20.png" type="Texture" id=11]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_21.png" type="Texture" id=12]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_22.png" type="Texture" id=13]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_23.png" type="Texture" id=14]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_24.png" type="Texture" id=15]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_25.png" type="Texture" id=16]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_26.png" type="Texture" id=17]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_27.png" type="Texture" id=18]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_28.png" type="Texture" id=19]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_29.png" type="Texture" id=20]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_30.png" type="Texture" id=21]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_31.png" type="Texture" id=22]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_32.png" type="Texture" id=23]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_33.png" type="Texture" id=24]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_34.png" type="Texture" id=25]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_36.png" type="Texture" id=26]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_37.png" type="Texture" id=27]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_38.png" type="Texture" id=28]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_39.png" type="Texture" id=29]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_40.png" type="Texture" id=30]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_41.png" type="Texture" id=31]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_42.png" type="Texture" id=32]
+[ext_resource path="res://ASSETS/GFX/Animations/Intro/Flash/Flash_43.png" type="Texture" id=33]
+[ext_resource path="res://ASSETS/BGM/Realm of darkness.ogg" type="AudioStream" id=34]
+[ext_resource path="res://ASSETS/SE/Cutscenes/Reminiscence_2.wav" type="Sample" id=35]
+[ext_resource path="res://ASSETS/SE/Cutscenes/Water_Drop.wav" type="Sample" id=36]
+[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=37]
+[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=38]
+[ext_resource path="res://addons/avatar/Avatar.gd" type="Script" id=39]
+[ext_resource path="res://addons/avatar/icon.png" type="Texture" id=40]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku.tres" type="SpriteFrames" id=41]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure.tres" type="SpriteFrames" id=42]
+
+[sub_resource type="Animation" id=7]
+
+resource/name = "BG_Appear"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("BG:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=8]
+
+resource/name = "Flash"
+length = 10.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Flash:visibility/visible")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Flash:frame")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 30 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Big:visibility/opacity")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 3, 4, 5, 6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 1.0, 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("General:play/play")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 3 ),
+"transitions": FloatArray( 1 ),
+"update": 2,
+"values": [ "Reminiscence_2" ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Flash:visibility/opacity")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0, 6, 7 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=11]
+
+resource/name = "Hurt"
+length = 1.0
+loop = false
+step = 0.1
 
 [sub_resource type="Animation" id=1]
 
@@ -21,36 +130,6 @@ resource/name = "Kiryoku down"
 length = 1.0
 loop = false
 step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Kiryoku_down:playing")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = {
-"times": FloatArray( 0 ),
-"transitions": FloatArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Kiryoku_down:visibility/opacity")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = {
-"times": FloatArray( 0, 1 ),
-"transitions": FloatArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Kiryoku_down:visibility/visible")
-tracks/2/interp = 1
-tracks/2/imported = false
-tracks/2/keys = {
-"times": FloatArray( 0 ),
-"transitions": FloatArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
 
 [sub_resource type="Animation" id=2]
 
@@ -58,130 +137,37 @@ resource/name = "Kiryoku vanish"
 length = 1.0
 loop = false
 step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Darkness Fog:playing")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = {
-"times": FloatArray( 0 ),
-"transitions": FloatArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Darkness Fog:transform/scale")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = {
-"times": FloatArray( 0, 1 ),
-"transitions": FloatArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 3, 3 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Kiryoku_down:visibility/opacity")
-tracks/2/interp = 1
-tracks/2/imported = false
-tracks/2/keys = {
-"times": FloatArray( 0, 1 ),
-"transitions": FloatArray( 1, 1 ),
-"update": 0,
-"values": [ 1.0, 0.0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Kiryoku_down:playing")
-tracks/3/interp = 1
-tracks/3/imported = false
-tracks/3/keys = {
-"times": FloatArray( 0, 1 ),
-"transitions": FloatArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Darkness Fog:visibility/visible")
-tracks/4/interp = 1
-tracks/4/imported = false
-tracks/4/keys = {
-"times": FloatArray( 0, 1 ),
-"transitions": FloatArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Kiryoku_down:visibility/visible")
-tracks/5/interp = 1
-tracks/5/imported = false
-tracks/5/keys = {
-"times": FloatArray( 1 ),
-"transitions": FloatArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
 
-[sub_resource type="Animation" id=3]
-
-resource/name = "Water"
-length = 5.0
-loop = false
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Water:frame")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = {
-"times": FloatArray( 1.7, 3.1 ),
-"transitions": FloatArray( 1, 1 ),
-"update": 0,
-"values": [ 0, 49 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("General:play/play")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = {
-"times": FloatArray( 1.93733 ),
-"transitions": FloatArray( 1 ),
-"update": 2,
-"values": [ "Water_Drop" ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Water:visibility/visible")
-tracks/2/interp = 1
-tracks/2/imported = false
-tracks/2/keys = {
-"times": FloatArray( 0, 1.7 ),
-"transitions": FloatArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=9]
 
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ) ],
 "loop": true,
 "name": "default",
-"speed": 7.0
-} ]
-
-[sub_resource type="SpriteFrames" id=5]
-
-animations = [ {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "default",
-"speed": 10.0
+"speed": 5.0
 } ]
 
 [sub_resource type="SampleLibrary" id=6]
 
+samples/Reminiscence_2 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 35 )
+}
 samples/Water_Drop = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 9 )
+"sample": ExtResource( 36 )
 }
+
+[sub_resource type="DynamicFont" id=10]
+
+font/size = 36
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 37 )
 
 [node name="Intro" type="Node"]
 
@@ -192,40 +178,38 @@ script/script = ExtResource( 1 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
+anims/BG_Appear = SubResource( 7 )
+anims/Flash = SubResource( 8 )
+anims/Hurt = SubResource( 11 )
 "anims/Kiryoku down" = SubResource( 1 )
 "anims/Kiryoku vanish" = SubResource( 2 )
-anims/Water = SubResource( 3 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="Kiryoku_down" type="AnimatedSprite" parent="."]
+[node name="BG" type="Sprite" parent="."]
 
-visibility/visible = false
-visibility/opacity = 0.0
-frames = SubResource( 4 )
-animation = "default"
-frame = 1
-playing = true
+texture = ExtResource( 2 )
 centered = false
 
-[node name="Darkness Fog" type="AnimatedSprite" parent="."]
+[node name="Flash" type="AnimatedSprite" parent="."]
 
-visibility/visible = false
-transform/pos = Vector2( 360, 240 )
-transform/scale = Vector2( 1e-05, 1e-05 )
-frames = SubResource( 5 )
+visibility/blend_mode = 1
+frames = SubResource( 9 )
 animation = "default"
+centered = false
 
-[node name="Water" type="Sprite" parent="."]
+[node name="Realm of Darkness" type="StreamPlayer" parent="."]
 
-visibility/visible = false
-transform/pos = Vector2( 439, 240 )
-texture = ExtResource( 8 )
-vframes = 10
-hframes = 5
-frame = 49
+stream/stream = ExtResource( 34 )
+stream/play = false
+stream/loop = false
+stream/volume_db = 0.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
 
 [node name="General" type="SamplePlayer" parent="."]
 
@@ -244,7 +228,25 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
-[node name="Dialogue" parent="." instance=ExtResource( 10 )]
+[node name="Big" type="Label" parent="."]
+
+visibility/opacity = 0.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 357.0
+margin/top = 198.0
+margin/right = 403.0
+margin/bottom = 212.0
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "BIG_00"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Dialogue" parent="." instance=ExtResource( 38 )]
 
 next_scene = "res://GAME/STORY/Intro/Battle_Yuugure.tscn"
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro.csv"
@@ -261,11 +263,11 @@ margin/left = -312.0
 margin/top = -182.0
 margin/right = -311.0
 margin/bottom = -181.0
-script/script = ExtResource( 11 )
+script/script = ExtResource( 39 )
 __meta__ = {
-"_editor_icon": ExtResource( 12 )
+"_editor_icon": ExtResource( 40 )
 }
-face_sprites = ExtResource( 13 )
+face_sprites = ExtResource( 41 )
 frame = 0
 flip_frame = false
 
@@ -281,11 +283,11 @@ margin/left = -332.0
 margin/top = 274.0
 margin/right = -331.0
 margin/bottom = 275.0
-script/script = ExtResource( 11 )
+script/script = ExtResource( 39 )
 __meta__ = {
-"_editor_icon": ExtResource( 12 )
+"_editor_icon": ExtResource( 40 )
 }
-face_sprites = ExtResource( 14 )
+face_sprites = ExtResource( 42 )
 frame = 0
 flip_frame = false
 
