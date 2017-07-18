@@ -120,7 +120,7 @@
 [ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku.tres" type="SpriteFrames" id=118]
 [ext_resource path="res://ASSETS/GFX/Game/Avatars/Yuugure.tres" type="SpriteFrames" id=119]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=8]
 
 resource/name = "BG_Appear"
 length = 1.0
@@ -137,7 +137,7 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=9]
 
 resource/name = "Flash"
 length = 10.0
@@ -194,9 +194,8 @@ tracks/4/keys = {
 "values": [ 1.0, 1.0 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 
-resource/name = "Hand"
 length = 5.0
 loop = false
 step = 0.1
@@ -251,7 +250,7 @@ tracks/4/keys = {
 "values": [ 0.0, -80.0 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=11]
 
 resource/name = "Hurt"
 length = 4.0
@@ -345,21 +344,20 @@ tracks/4/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=13]
 
 length = 1.0
 loop = false
 step = 0.1
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=14]
 
 length = 1.0
 loop = false
 step = 0.1
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=15]
 
-resource/name = "Hand"
 length = 1.0
 loop = true
 step = 0.1
@@ -374,7 +372,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="SpriteFrames" id=11]
+[sub_resource type="SpriteFrames" id=16]
 
 animations = [ {
 "frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
@@ -383,7 +381,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="SpriteFrames" id=17]
 
 animations = [ {
 "frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 46 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 54 ), ExtResource( 55 ), ExtResource( 56 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 74 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 77 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 80 ), ExtResource( 81 ), ExtResource( 82 ), ExtResource( 83 ), ExtResource( 84 ), ExtResource( 85 ), ExtResource( 86 ), ExtResource( 87 ), ExtResource( 88 ), ExtResource( 89 ), ExtResource( 90 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ), ExtResource( 96 ), ExtResource( 97 ), ExtResource( 98 ), ExtResource( 99 ), ExtResource( 100 ), ExtResource( 101 ), ExtResource( 102 ), ExtResource( 103 ), ExtResource( 104 ), ExtResource( 105 ), ExtResource( 106 ) ],
@@ -425,7 +423,7 @@ samples/Water_Drop = {
 "sample": ExtResource( 113 )
 }
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=18]
 
 font/size = 36
 font/use_mipmaps = false
@@ -441,13 +439,13 @@ script/script = ExtResource( 1 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/BG_Appear = SubResource( 1 )
-anims/Flash = SubResource( 2 )
-anims/Hand = SubResource( 9 )
-anims/Hurt = SubResource( 3 )
+anims/BG_Appear = SubResource( 8 )
+anims/Flash = SubResource( 9 )
+anims/Hand = SubResource( 10 )
+anims/Hurt = SubResource( 11 )
 anims/Keyblade = SubResource( 12 )
-"anims/Kiryoku down" = SubResource( 4 )
-"anims/Kiryoku vanish" = SubResource( 5 )
+"anims/Kiryoku down" = SubResource( 13 )
+"anims/Kiryoku vanish" = SubResource( 14 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -458,7 +456,7 @@ autoplay = ""
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/Hand = SubResource( 10 )
+anims/Hand = SubResource( 15 )
 playback/active = true
 playback/speed = 3.0
 blend_times = [  ]
@@ -479,7 +477,7 @@ centered = false
 [node name="Hand" type="AnimatedSprite" parent="."]
 
 visibility/opacity = 0.0
-frames = SubResource( 11 )
+frames = SubResource( 16 )
 animation = "default"
 frame = 1
 centered = false
@@ -493,7 +491,7 @@ centered = false
 
 visibility/opacity = 0.0
 visibility/blend_mode = 1
-frames = SubResource( 6 )
+frames = SubResource( 17 )
 animation = "default"
 frame = 99
 centered = false
@@ -548,7 +546,7 @@ margin/left = 357.0
 margin/top = 198.0
 margin/right = 403.0
 margin/bottom = 212.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 18 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "BIG_00"
 percent_visible = 1.0

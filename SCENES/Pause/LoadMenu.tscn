@@ -677,7 +677,6 @@ __meta__ = {
 
 [node name="Info" type="Panel" parent="."]
 
-editor/display_folded = true
 anchor/left = 3
 anchor/top = 3
 anchor/right = 3
@@ -719,7 +718,6 @@ __meta__ = {
 
 [node name="Contents" type="VBoxContainer" parent="Info"]
 
-editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false

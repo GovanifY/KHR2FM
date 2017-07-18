@@ -78,4 +78,5 @@ func _ready():
 		yield(line[0], "finished")
 	
 	# Load next scene
+	SceneLoader.transition("Battle")
 	SceneLoader.load_next_scene()
