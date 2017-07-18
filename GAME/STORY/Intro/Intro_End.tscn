@@ -1,8 +1,13 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://GAME/STORY/Intro/Intro_End.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Animations/Intro/Introduction_113.jpg" type="Texture" id=2]
 [ext_resource path="res://ASSETS/BGM/Don't give up.ogg" type="AudioStream" id=3]
+[ext_resource path="res://SCENES/Battle/ForeGround/Fog.tscn" type="PackedScene" id=4]
+[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/avatar/Avatar.gd" type="Script" id=6]
+[ext_resource path="res://addons/avatar/icon.png" type="Texture" id=7]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku.tres" type="SpriteFrames" id=8]
 
 [sub_resource type="Animation" id=1]
 
@@ -51,5 +56,48 @@ stream/autoplay = true
 stream/paused = false
 stream/loop_restart_time = 0.0
 stream/buffering_ms = 500
+
+[node name="Foreground" type="ParallaxBackground" parent="."]
+
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+scroll/offset = Vector2( 0, 0 )
+scroll/base_offset = Vector2( 0, 0 )
+scroll/base_scale = Vector2( 1, 1 )
+scroll/limit_begin = Vector2( 0, 0 )
+scroll/limit_end = Vector2( 0, 0 )
+scroll/ignore_camera_zoom = true
+
+[node name="Fog" parent="Foreground" instance=ExtResource( 4 )]
+
+visibility/visible = false
+
+[node name="Dialogue" parent="." instance=ExtResource( 5 )]
+
+[node name="Kiryoku" type="Control" parent="Dialogue"]
+
+visibility/visible = false
+visibility/behind_parent = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 211.0
+margin/top = 247.0
+margin/right = 212.0
+margin/bottom = 248.0
+script/script = ExtResource( 6 )
+__meta__ = {
+"_editor_icon": ExtResource( 7 )
+}
+face_sprites = ExtResource( 8 )
+frame = 0
+flip_frame = false
+
+[node name="Escape" type="YSort" parent="."]
+
+sort/enabled = true
 
 

@@ -2,7 +2,9 @@ extends Node
 
 # Instance members
 onready var Sequences = get_node("Master")
-var path_dialogue = "res://SCENES/Dialogue/Dialogue.tscn"
+onready var Dialogue = get_node("Dialogue")
+onready var Kiryoku  = Dialogue.get_node("Kiryoku")
+
 
 ######################
 ### Core functions ###
@@ -11,21 +13,20 @@ func _ready():
 	# Begin cutscene
 	Sequences.play("Kiryoku_down")
 	yield(Sequences, "finished")
-	
-	
-	SceneLoader.load_scene(path_dialogue, SceneLoader.BACKGROUND)
-	var Dialogue = SceneLoader.show_scene(path_dialogue)
-	Dialogue.connect("hide", SceneLoader, "erase_scene", [Dialogue])
 
+	Dialogue.set_box(2)
 	Dialogue.show(true)
 	yield(Dialogue.Bubble, "shown")
 
-	#for line in [
-	#	[Kiryoku, 20, 22]
-	#]:
-	#	Dialogue.write(line)
-	#	yield(Dialogue, "finished")
+	for line in [
+		[Kiryoku, 20, 21]
+	]:
+		line[0].speak(line[1], line[2])
+		yield(Dialogue, "finished")
 
+	#Dialogue.hide()
+	#yield(Dialogue, "finished")
+	#ANIM: to black then fade in to battle screen then dialogue appears
 	#Dialogue.hide()
 
 #	Sequences.play("Water")
