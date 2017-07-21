@@ -27,19 +27,24 @@ var current_speaker = null
 ### Core functions ###
 ######################
 func _enter_tree():
+	# Initializing Translator
+	Translator.set_csv(csv_path)
+
+	# Pause and globalizing this node
 	KHR2.set_pause(preload("res://SCENES/Pause/CutscenePause.tscn"))
 	if Globals.get("Dialogue") == null:
 		Globals.set("Dialogue", self)
 
 func _exit_tree():
+	# De-initializing Translator
+	Translator.close()
+
+	# Pause and globalizing this node
 	KHR2.set_pause(null)
 	if Globals.get("Dialogue") != null:
 		Globals.set("Dialogue", null)
 
 func _ready():
-	# Initializing Translator
-	Translator.set_csv(csv_path)
-
 	# Initializing Bubble
 	set_alignment(position)
 
@@ -48,6 +53,7 @@ func _ready():
 		SceneLoader.queue_scene(next_scene)
 
 	# Initializing signals
+	Bubble.TextScroll.connect("cleared", self, "_next_line")
 	CastAnim.connect("tween_complete", self, "_on_CastAnim_complete")
 
 func _input(event):
@@ -69,7 +75,7 @@ func _center_hook():
 	var center = current_speaker.get_center()
 	if current_speaker.is_flipped():
 		center += CastRight.get_pos().x
-	Bubble.set_hook(current_speaker, center)
+	Bubble.set_hook_pos(center)
 
 #######################
 ### Signal routines ###
@@ -87,8 +93,8 @@ func _on_CastAnim_complete(object, key):
 				silence(avatar)
 
 			else: # It's being displayed
-				_center_hook()
 				if Bubble.is_hidden():
+					_center_hook()
 					Bubble.show_box()
 					yield(Bubble, "shown")
 
@@ -103,16 +109,12 @@ func _get_line():
 	lineID += "%02d" % index
 	index += 1
 
-	# Centering hook
-	if Bubble.Hook.is_hidden():
-		_center_hook()
-
 	write(lineID)
 
 func _next_line():
 	if is_loaded(): # Scroll next line
 		_get_line()
-	else: # No more lines, close everything
+	else: # No more lines, hide Bubble
 		silence()
 
 ###############
@@ -152,42 +154,29 @@ func speak(character, begin, end=begin):
 	last  = end
 	current_speaker = character
 
-	if is_hidden():
-		show()
-
+	Bubble.set_hook()
 	# If character's invisible, make grand appearance
-	var avatar_texture = character.Avatar.get_texture()
-	if character.is_hidden() && avatar_texture != null:
+	if character.is_hidden():
 		display(character)
 	elif Bubble.is_visible():
+		_center_hook()
 		call_deferred("_get_line")
 
 # Resets values and silences a given character
 func silence(character=current_speaker):
 	if character != null:
 		character.call_deferred("emit_signal", "finished")
-		character = null
+
+	if current_speaker == character:
+		current_speaker = null
 
 	if is_processing_input():
 		# Resetting values
-		index = -1
-		Bubble.Hook.hide()
 		set_process_input(false)
+		index = -1
+		Bubble.set_hook(-1)
 
 		emit_signal("finished")
-
-# Overloading methods
-func show(bubble_too=false):
-	.show()
-	if bubble_too && Bubble.is_hidden():
-		Bubble.show_box()
-
-func hide():
-	dismiss()
-	if Bubble.is_visible():
-		Bubble.hide_box()
-		yield(Bubble, "hidden")
-	.hide()
 
 # Displays only ONE Avatar
 func display(character):
@@ -218,3 +207,11 @@ func dismiss(character=null):
 		CastAnim.interpolate_method(character, "set_opacity", 1.0, 0.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
 
 	CastAnim.start()
+
+# Dismisses all present characters and hides Bubble
+func close():
+	dismiss()
+	if Bubble.is_visible():
+		Bubble.hide_box()
+		yield(Bubble, "hidden")
+	emit_signal("finished")

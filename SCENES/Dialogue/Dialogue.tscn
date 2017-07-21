@@ -294,8 +294,6 @@ confirm_sound = ExtResource( 9 )
 
 [connection signal="hide" from="SkinPos/Bubble/ConfirmIcon" to="SkinPos/Bubble/ConfirmIcon/Hover" method="set_active" binds= [ false ]]
 
-[connection signal="cleared" from="SkinPos/Bubble/TextContainer/TextScroll" to="." method="_next_line"]
-
 [connection signal="cleared" from="SkinPos/Bubble/TextContainer/TextScroll" to="SkinPos/Bubble/ConfirmIcon" method="hide"]
 
 [connection signal="finished" from="SkinPos/Bubble/TextContainer/TextScroll" to="SkinPos/Bubble/ConfirmIcon" method="show"]

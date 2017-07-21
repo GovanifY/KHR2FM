@@ -52,21 +52,23 @@ func hide_box():
 func get_box():
 	return current_box
 
-func set_box(index):
-	if current_box != index:
-		current_box = index
-		Hook.hide()
-		if 0 <= current_box && current_box < ALL_BOXES.size():
-			add_style_override("panel", ALL_BOXES[current_box])
-		else:
-			hide_box()
+func set_box(idx):
+	if current_box == idx:
+		return
 
-func set_hook(character, center):
+	Hook.hide()
+	if 0 <= idx && idx < ALL_BOXES.size():
+		current_box = idx
+		add_style_override("panel", ALL_BOXES[current_box])
+	else:
+		current_box = -1
+		hide_box()
+
+func set_hook(idx=get_box()):
 	# Verify if showing a hook is even possible
-	if 0 <= get_box() && get_box() < Hook.get_vframes():
+	if 0 <= idx && idx < Hook.get_vframes():
 		# Positioning the hook
-		set_hook_pos(center)
-		Hook.set_frame(get_box())
+		Hook.set_frame(idx)
 		Hook.show()
 	else:
 		Hook.hide()

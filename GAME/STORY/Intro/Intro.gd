@@ -38,7 +38,7 @@ func _ready():
 	Sequences.play("Hurt")
 	yield(Sequences, "finished")
 
-	Dialogue.hide()
+	Dialogue.close()
 
 	Sequences.play("Flash")
 	yield(Sequences, "finished")
@@ -49,7 +49,7 @@ func _ready():
 	Kiryoku.speak(4, 10)
 	yield(Kiryoku, "finished")
 
-	Dialogue.hide()
+	Dialogue.close()
 
 	# Switching music
 	Music.fade_out(1)
