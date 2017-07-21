@@ -1,7 +1,7 @@
 extends Node
 
 # Instance members
-var Lines
+var lines
 
 func _exit_tree():
 	close()
@@ -26,7 +26,7 @@ func set_csv(csv_path):
 	# Grabbing locale and locale_short version
 	var strarr = Array(csv_file.get_csv_line())
 
-	var locale = TranslationServer.get_locale()
+	var locale = TS.get_locale()
 	var locale_short = locale.split("_")[0]
 	var locale_index = strarr.find(locale)
 
@@ -39,24 +39,24 @@ func set_csv(csv_path):
 			locale = "en"
 			locale_index = strarr.find(locale)
 
-	# Setting new Lines
+	# Setting new lines
 	close()
-	Lines = Translation.new()
-	Lines.set_locale(locale)
+	lines = Translation.new()
+	lines.set_locale(locale)
 
 	# Iterating CSV lines
 	while !csv_file.eof_reached():
 		strarr = csv_file.get_csv_line()
 		if 0 < locale_index && locale_index < strarr.size():
-			Lines.add_message(strarr[0], strarr[locale_index])
+			lines.add_message(strarr[0], strarr[locale_index])
 
 	csv_file.close() ###########################################################
 
 	# Adding translation to server
-	TranslationServer.add_translation(Lines)
+	TS.add_translation(lines)
 	return true
 
 func close():
-	if Lines != null:
-		TranslationServer.remove_translation(Lines)
-		Lines = null
+	if lines != null:
+		TS.remove_translation(lines)
+		lines = null
