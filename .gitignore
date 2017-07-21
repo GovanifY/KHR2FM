@@ -5,6 +5,7 @@
 *.icloud
 *.swp
 *.swo
+*.directory
 
 # Work files (stuff we don't want to share with one another)
 *.scn
