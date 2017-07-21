@@ -40,12 +40,14 @@ func _fade_animation_finished():
 ### Methods ###
 ###############
 func show_box():
-	Fade.play("In")
-	current_signal = "shown"
+	if is_hidden():
+		Fade.play("In")
+		current_signal = "shown"
 
 func hide_box():
-	Fade.play("Out")
-	current_signal = "hidden"
+	if is_visible():
+		Fade.play("Out")
+		current_signal = "hidden"
 
 func get_box():
 	return current_box
@@ -56,6 +58,8 @@ func set_box(index):
 		Hook.hide()
 		if 0 <= current_box && current_box < ALL_BOXES.size():
 			add_style_override("panel", ALL_BOXES[current_box])
+		else:
+			hide_box()
 
 func set_hook(character, center):
 	# Verify if showing a hook is even possible
