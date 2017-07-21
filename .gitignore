@@ -5,13 +5,13 @@
 *.icloud
 *.swp
 *.swo
+
 # Work files (stuff we don't want to share with one another)
 *.scn
 *.psd
 *.kra
 
 # Work directories
-
+.import
 
 # Temporarily adding stuff here before pushing it
-addons/godot-git-control.funabab/
