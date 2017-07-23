@@ -5,17 +5,18 @@ signal shown
 signal hidden
 
 # Skin data
-const ALL_BOXES = [
+var ALL_BOXES = [
+	StyleBoxEmpty.new(),
 	preload("res://SCENES/Dialogue/box0.tres"),
 	preload("res://SCENES/Dialogue/box1.tres"),
 	preload("res://SCENES/Dialogue/box2.tres")
 ]
-enum ALL_BOX_INDEXES { BOX_CHARACTER, BOX_NARRATOR1, BOX_NARRATOR2 }
+enum ALL_BOX_INDEXES { BOX_EMPTY, BOX_CHARACTER, BOX_NARRATOR1, BOX_NARRATOR2 }
 
 # Instance members
 onready var Fade       = get_node("Fade")
 onready var Hook       = get_node("Hook")
-var current_box = -1
+var current_box = BOX_EMPTY
 var current_signal
 
 ######################
@@ -58,14 +59,13 @@ func set_box(idx):
 	Hook.hide()
 	if 0 <= idx && idx < ALL_BOXES.size():
 		current_box = idx
-		add_style_override("panel", ALL_BOXES[current_box])
 	else:
-		current_box = -1
-		hide_box()
+		current_box = 0
+	add_style_override("panel", ALL_BOXES[current_box])
 
 func set_hook(idx=get_box()):
 	# Verify if showing a hook is even possible
-	if 0 <= idx && idx < Hook.get_vframes():
+	if BOX_CHARACTER <= idx && idx < Hook.get_vframes():
 		# Positioning the hook
 		Hook.set_frame(idx)
 		Hook.show()

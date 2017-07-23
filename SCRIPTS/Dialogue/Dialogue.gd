@@ -92,9 +92,6 @@ func _on_CastAnim_complete(object, key):
 			avatar.set_opacity(1.0)
 
 func _get_line():
-	if current_speaker == null:
-		return # No speaker available; random person/narrator talking
-
 	# Parsing lineID
 	var lineID = current_speaker.get_name().to_upper() + "_"
 	lineID += "%02d" % index
@@ -103,9 +100,9 @@ func _get_line():
 	write(lineID)
 
 func _next_line():
-	if is_loaded(): # Scroll next line
+	if is_loaded(): # Fetch next line
 		_get_line()
-	else: # No more lines, hide Bubble
+	else: # No more lines, silence current speaker
 		silence(current_speaker)
 
 ###############
@@ -131,13 +128,17 @@ func set_box(idx):
 # Writes text on the Dialogue box
 func write(text):
 	# Writing line to textbox
-	TextNode.set_visible_characters(0)
 	TextNode.set_text(text)
-
-	# Applying text effect
 	if text_effect == TEXT_NONE:
 		TextNode.set_visible_characters(-1)
-	else:
+
+	# If Bubble is hidden, show it
+	if Bubble.is_hidden():
+		Bubble.show_box()
+		yield(Bubble, "shown")
+
+	# Applying text effect
+	if text_effect != TEXT_NONE:
 		TextEffect.start()
 
 	# Enabling input detection
@@ -174,11 +175,6 @@ func speak(character, begin, end=begin):
 	if Bubble.get_box() != -1:
 		Bubble.set_hook()
 		Bubble.set_hook_pos(character.get_center())
-
-	# If Bubble is hidden, show it
-	if Bubble.is_hidden():
-		Bubble.show_box()
-		yield(Bubble, "shown")
 
 	# Finally, get the speaker's line
 	call_deferred("_get_line")
