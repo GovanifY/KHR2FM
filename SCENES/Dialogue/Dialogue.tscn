@@ -58,10 +58,10 @@ tracks/1/path = NodePath(".:visibility/visible")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
-"times": FloatArray( 0.25 ),
-"transitions": FloatArray( 1 ),
+"times": FloatArray( 0, 0.25 ),
+"transitions": FloatArray( 1, 1 ),
 "update": 1,
-"values": [ false ]
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -244,6 +244,7 @@ autoplay = "Down_Up"
 
 [node name="TextContainer" type="Label" parent="SkinPos/Bubble"]
 
+editor/display_folded = true
 anchor/left = 2
 anchor/right = 2
 anchor/bottom = 1
