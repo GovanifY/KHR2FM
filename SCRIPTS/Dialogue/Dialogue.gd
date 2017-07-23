@@ -68,16 +68,16 @@ func _input(event):
 	# Pressed, non-repeating Input check
 	if event.is_pressed() && !event.is_echo():
 		if event.is_action("ui_accept"):
-			TextEffect.confirm()
+			confirm()
 
 	# Pressed, repeating Input check
 	elif event.is_pressed() && event.is_echo():
 		if event.is_action("fast-forward"):
-			TextEffect.confirm()
+			confirm()
 
 	# Touch events
 	elif event.type == InputEvent.SCREEN_TOUCH:
-		TextEffect.confirm()
+		confirm()
 
 func _center_hook():
 	var center = current_speaker.get_center()
@@ -161,6 +161,13 @@ func write(text):
 	if !is_processing_input():
 		set_process_input(true)
 
+# Confirmation from the part of the
+func confirm():
+	if text_effect == TEXT_NONE:
+		call_deferred("_next_line")
+	else:
+		TextEffect.confirm()
+
 # Makes a character speak.
 func speak(character, begin, end=begin):
 	# Check indexes
@@ -195,6 +202,7 @@ func silence(character=current_speaker):
 		# Resetting values
 		set_process_input(false)
 		index = -1
+		TextNode.set_visible_characters(0)
 		Bubble.set_hook(-1)
 
 		emit_signal("finished")
