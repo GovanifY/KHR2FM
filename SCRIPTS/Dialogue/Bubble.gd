@@ -15,7 +15,6 @@ enum ALL_BOX_INDEXES { BOX_CHARACTER, BOX_NARRATOR1, BOX_NARRATOR2 }
 # Instance members
 onready var Fade       = get_node("Fade")
 onready var Hook       = get_node("Hook")
-onready var TextScroll = get_node("TextContainer/TextScroll")
 var current_box = -1
 var current_signal
 

@@ -2,11 +2,13 @@ extends Control
 
 # Constants
 const ANIM_TIME = 0.35
+enum DIALOGUE_TEXT_FX { TEXT_NONE, TEXT_SCROLL }
 
 # Export values
 export(String, FILE, "tscn") var next_scene = ""
 export(String, FILE, "csv") var csv_path
 export(int, "Top", "Middle", "Bottom") var position = 2
+export(int, "None", "Scroll") var text_effect = 1
 
 # Signals
 signal finished
@@ -16,6 +18,10 @@ onready var CastLeft  = get_node("CastLeft")
 onready var CastRight = get_node("CastRight")
 onready var CastAnim  = get_node("CastAnim")
 onready var Bubble    = get_node("SkinPos/Bubble")
+onready var TextNode  = Bubble.get_node("TextContainer")
+
+# Text effect nodes
+var TextEffect
 
 # "Private" members
 var index = -1
@@ -45,31 +51,32 @@ func _exit_tree():
 		Globals.set("Dialogue", null)
 
 func _ready():
-	# Initializing Bubble
+	# Initializing signals
+	TextNode.get_node("TextScroll").connect("cleared", self, "_next_line")
+	CastAnim.connect("tween_complete", self, "_on_CastAnim_complete")
+
+	# Setting Dialogue properties
 	set_alignment(position)
+	set_text_effect(text_effect)
 
 	# Setting potential next scene to be loaded at the end of the Dialogue
 	if !next_scene.empty():
 		SceneLoader.queue_scene(next_scene)
 
-	# Initializing signals
-	Bubble.TextScroll.connect("cleared", self, "_next_line")
-	CastAnim.connect("tween_complete", self, "_on_CastAnim_complete")
-
 func _input(event):
 	# Pressed, non-repeating Input check
 	if event.is_pressed() && !event.is_echo():
 		if event.is_action("ui_accept"):
-			Bubble.TextScroll.confirm()
+			TextEffect.confirm()
 
 	# Pressed, repeating Input check
 	elif event.is_pressed() && event.is_echo():
 		if event.is_action("fast-forward"):
-			Bubble.TextScroll.confirm()
+			TextEffect.confirm()
 
 	# Touch events
 	elif event.type == InputEvent.SCREEN_TOUCH:
-		Bubble.TextScroll.confirm()
+		TextEffect.confirm()
 
 func _center_hook():
 	var center = current_speaker.get_center()
@@ -122,7 +129,13 @@ func _next_line():
 ###############
 # Sets Bubble alignment
 func set_alignment(value):
+	position = value
 	get_node("SkinPos").set_alignment(value)
+
+# Sets the text effect to apply when writing. Must be a TextNode child, properly indexed
+func set_text_effect(value):
+	text_effect = value
+	TextEffect = TextNode.get_child(value)
 
 # Tells if there are still lines on hold.
 func is_loaded():
@@ -133,8 +146,15 @@ func set_box(idx):
 
 # Writes text on the Dialogue box
 func write(text):
-	# Writing line to bubble
-	Bubble.TextScroll.scroll(text)
+	# Writing line to textbox
+	TextNode.set_visible_characters(0)
+	TextNode.set_text(text)
+
+	# Applying text effect
+	if TextEffect == null:
+		TextNode.set_visible_characters(-1)
+	else:
+		TextEffect.start()
 
 	# Enabling input detection
 	if !is_processing_input():
