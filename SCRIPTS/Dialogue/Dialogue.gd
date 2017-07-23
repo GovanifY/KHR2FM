@@ -212,7 +212,7 @@ func display(character):
 	character.set_opacity(0)
 	character.show()
 
-	CastAnim.interpolate_method(character.Avatar, "set_offset", off_bounds, Vector2(), ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	CastAnim.interpolate_method(character.sprite, "set_offset", off_bounds, Vector2(), ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	CastAnim.interpolate_method(character, "set_opacity", 0.0, 1.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
 
 	CastAnim.start()
