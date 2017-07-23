@@ -13,7 +13,7 @@ export(bool)         var flip_frame = false setget set_flip
 const SLOT = "default"
 
 # Instance members
-var Avatar = Sprite.new()
+var sprite = Sprite.new()
 
 ########################
 ### Export functions ###
@@ -27,15 +27,15 @@ func set_frame(idx):
 		return
 	if 0 <= idx && idx < face_sprites.get_frame_count(SLOT):
 		frame = idx
-		Avatar.set_texture(face_sprites.get_frame(SLOT, idx))
+		sprite.set_texture(face_sprites.get_frame(SLOT, idx))
 
 ######################
 ### Core functions ###
 ######################
 func _enter_tree():
 	# Adding children nodes
-	if !is_a_parent_of(Avatar):
-		add_child(Avatar)
+	if !is_a_parent_of(sprite):
+		add_child(sprite)
 
 	# Setting up
 	set_draw_behind_parent(true)
@@ -48,26 +48,26 @@ func get_center():
 	return get_pos().x
 
 func get_off_bounds():
-	var ret = Vector2(Avatar.get_texture().get_size().x, 0)
+	var ret = Vector2(sprite.get_texture().get_size().x, 0)
 	# Drag animation from left or right depending on the situation
 	if !is_flipped():
 		ret.x *= -1
 	return ret
 
 func get_type():
-	return "Avatar"
+	return "sprite"
 
 func is_type(istype):
 	return istype == get_type()
 
 func is_flipped():
-	return Avatar.is_flipped_h()
+	return sprite.is_flipped_h()
 
 func set_flip(value):
-	if Avatar == null:
+	if sprite == null:
 		return
 	flip_frame = value
-	Avatar.set_flip_h(value)
+	sprite.set_flip_h(value)
 
 func set_side(right):
 	var Dialogue = Globals.get("Dialogue")

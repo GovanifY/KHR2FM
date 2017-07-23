@@ -231,7 +231,7 @@ func dismiss(character=null):
 	for character in to_dismiss:
 		var off_bounds = character.get_off_bounds()
 
-		CastAnim.interpolate_method(character.Avatar, "set_offset", Vector2(), off_bounds, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		CastAnim.interpolate_method(character.sprite, "set_offset", Vector2(), off_bounds, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		CastAnim.interpolate_method(character, "set_opacity", 1.0, 0.0, ANIM_TIME, Tween.TRANS_LINEAR, Tween.EASE_IN)
 
 	CastAnim.start()
