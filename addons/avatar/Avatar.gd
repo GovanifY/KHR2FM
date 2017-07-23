@@ -45,7 +45,7 @@ func _enter_tree():
 ### Methods ###
 ###############
 func get_center():
-	return get_pos().x
+	return get_global_pos().x
 
 func get_off_bounds():
 	var ret = Vector2(sprite.get_texture().get_size().x, 0)

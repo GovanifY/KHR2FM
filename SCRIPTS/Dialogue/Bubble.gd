@@ -76,7 +76,10 @@ func set_hook_pos(x):
 	var limit_left  = get_margin(MARGIN_LEFT)
 	var limit_right = get_margin(MARGIN_RIGHT)
 
-	# Search for a switch
+	# Subtracting Bubble's current global position since X is global
+	x -= get_global_pos().x
+
+	# Flip depending on where it sits on the screen
 	var flip = x > (int(limit_right) >> 1)
 	Hook.set_flip_h(flip)
 
@@ -86,7 +89,6 @@ func set_hook_pos(x):
 		x = limit_right
 
 	Hook.set_pos(Vector2(x, 0))
-	return flip
 
 func set_modulate(mod):
 	get_stylebox("panel").set_modulate(mod)

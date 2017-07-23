@@ -79,12 +79,6 @@ func _input(event):
 	elif event.type == InputEvent.SCREEN_TOUCH:
 		confirm()
 
-func _center_hook():
-	var center = current_speaker.get_center()
-	if current_speaker.is_flipped():
-		center += CastRight.get_pos().x
-	Bubble.set_hook_pos(center)
-
 #######################
 ### Signal routines ###
 #######################
@@ -176,9 +170,12 @@ func speak(character, begin, end=begin):
 		display(character)
 		yield(CastAnim, "tween_complete")
 
+	# Centering hook (if necessary)
+	if Bubble.get_box() != -1:
+		Bubble.set_hook()
+		Bubble.set_hook_pos(character.get_center())
+
 	# If Bubble is hidden, show it
-	Bubble.set_hook()
-	_center_hook()
 	if Bubble.is_hidden():
 		Bubble.show_box()
 		yield(Bubble, "shown")
