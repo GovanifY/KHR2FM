@@ -93,10 +93,8 @@ func _on_CastAnim_complete(object, key):
 
 func _get_line():
 	# Parsing lineID
-	var lineID = current_speaker.get_name().to_upper() + "_"
-	lineID += "%02d" % index
+	var lineID = current_speaker.get_name().to_upper() + "_%02d" % index
 	index += 1
-
 	write(lineID)
 
 func _next_line():
