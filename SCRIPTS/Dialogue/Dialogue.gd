@@ -92,21 +92,10 @@ func _on_CastAnim_complete(object, key):
 	if object.is_type("Avatar"):
 		var avatar = object
 
-		if key == "set_opacity":
-			# If object's opacity is 0, it's been dismissed
-			if avatar.get_opacity() == 0:
-				avatar.hide()
-				avatar.set_opacity(1.0)
-
-				silence(avatar)
-
-			else: # It's being displayed
-				if Bubble.is_hidden():
-					_center_hook()
-					Bubble.show_box()
-					yield(Bubble, "shown")
-
-				call_deferred("_get_line")
+		# If object's opacity is 0, it's been dismissed
+		if key == "set_opacity" && avatar.get_opacity() == 0:
+			avatar.hide()
+			avatar.set_opacity(1.0)
 
 func _get_line():
 	if current_speaker == null:
@@ -123,7 +112,7 @@ func _next_line():
 	if is_loaded(): # Scroll next line
 		_get_line()
 	else: # No more lines, hide Bubble
-		silence()
+		silence(current_speaker)
 
 ###############
 ### Methods ###
@@ -182,21 +171,29 @@ func speak(character, begin, end=begin):
 	last  = end
 	current_speaker = character
 
-	Bubble.set_hook()
 	# If character's invisible, make grand appearance
-	if character.is_hidden():
+	if character.is_hidden() || character.get_opacity() == 0:
 		display(character)
-	elif Bubble.is_visible():
-		_center_hook()
-		call_deferred("_get_line")
+		yield(CastAnim, "tween_complete")
 
-# Resets values and silences a given character
-func silence(character=current_speaker):
+	# If Bubble is hidden, show it
+	Bubble.set_hook()
+	_center_hook()
+	if Bubble.is_hidden():
+		Bubble.show_box()
+		yield(Bubble, "shown")
+
+	# Finally, get the speaker's line
+	call_deferred("_get_line")
+
+# Resets values and silences a given character, or hides the box
+func silence(character=null):
+	current_speaker = null
 	if character != null:
 		character.call_deferred("emit_signal", "finished")
-
-	if current_speaker == character:
-		current_speaker = null
+	else:
+		Bubble.hide_box()
+		yield(Bubble, "hidden")
 
 	if is_processing_input():
 		# Resetting values
@@ -222,6 +219,8 @@ func display(character):
 
 # Dismisses a specified Avatar, or all of them if NULL
 func dismiss(character=null):
+	silence(character)
+
 	var to_dismiss = Array()
 	if character != null:
 		to_dismiss.push_back(character)
