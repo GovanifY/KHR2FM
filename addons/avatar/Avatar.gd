@@ -72,21 +72,21 @@ func set_flip(value):
 func set_side(right):
 	var Dialogue = Globals.get("Dialogue")
 
-	var CastLeft  = Dialogue.get_node("CastLeft")
-	var CastRight = Dialogue.get_node("CastRight")
+	var left_side  = Dialogue.CastLeft
+	var right_side = Dialogue.CastRight
 
 	# Fitting avatar in the Dialogue window
 	if Dialogue.is_a_parent_of(self):
 		Dialogue.remove_child(self)
-	elif CastLeft.is_a_parent_of(self) && right:
-		CastLeft.remove_child(self)
-	elif CastRight.is_a_parent_of(self) && !right:
-		CastRight.remove_child(self)
+	elif left_side.is_a_parent_of(self) && right:
+		left_side.remove_child(self)
+	elif right_side.is_a_parent_of(self) && not right:
+		right_side.remove_child(self)
 
 	if right:
-		CastRight.add_child(self)
+		right_side.add_child(self)
 	else:
-		CastLeft.add_child(self)
+		left_side.add_child(self)
 
 	# Flipping the character's sprite by default (will always reset when)
 	set_flip(right)
