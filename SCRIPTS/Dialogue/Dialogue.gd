@@ -52,8 +52,9 @@ func _exit_tree():
 
 func _ready():
 	# Initializing signals
-	TextNode.get_node("TextScroll").connect("cleared", self, "_next_line")
 	CastAnim.connect("tween_complete", self, "_on_CastAnim_complete")
+	# Initializing Text effect nodes signals
+	TextNode.get_node("TextScroll").connect("cleared", self, "_next_line")
 
 	# Setting Dialogue properties
 	set_alignment(position)
@@ -135,7 +136,7 @@ func set_alignment(value):
 # Sets the text effect to apply when writing. Must be a TextNode child, properly indexed
 func set_text_effect(value):
 	text_effect = value
-	TextEffect = TextNode.get_child(value)
+	TextEffect = TextNode.get_child(value-1) if value > 0 else null
 
 # Tells if there are still lines on hold.
 func is_loaded():
@@ -151,7 +152,7 @@ func write(text):
 	TextNode.set_text(text)
 
 	# Applying text effect
-	if TextEffect == null:
+	if text_effect == TEXT_NONE:
 		TextNode.set_visible_characters(-1)
 	else:
 		TextEffect.start()
