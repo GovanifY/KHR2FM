@@ -35,6 +35,7 @@ func _ready():
 		line[0].speak(line[1], line[2])
 		yield(line[0], "finished")
 
+	Dialogue.silence()
 	Sequences.play("Hurt")
 	yield(Sequences, "finished")
 
