@@ -80,7 +80,8 @@ func play():
 	emit_signal("displayed")
 
 	# Start scrolling text
-	TextScroll.scroll()
+	Info.set_visible_characters(0)
+	TextScroll.start()
 	yield(TextScroll, "finished")
 
 	# Wait until info bar is dismissed

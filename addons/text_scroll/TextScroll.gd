@@ -68,16 +68,6 @@ func play_se(sound_name):
 	if SoundNode.get_sample_library().has_sample(sound_name):
 		SoundNode.play(sound_name)
 
-# Adds new text to node, then starts scrolling immediately
-func scroll(text=""):
-	if !text.empty():
-		# Parsing newlines
-		text = text.replace("\\n", "\n")
-		set_text_raw(text)
-
-	TextNode.set_visible_characters(1)
-	start()
-
 # Checks whether to stop or to clear the text node
 func confirm():
 	if is_processing(): # if we're still writing, write everything
