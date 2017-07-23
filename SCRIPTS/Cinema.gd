@@ -17,7 +17,7 @@ onready var Subtitles = {
 ### Core functions ###
 ######################
 func _enter_tree():
-	KHR2.set_pause(preload("res://SCENES/Pause/CutscenePause.tscn"))
+	KHR2.set_pause(preload("res://SCENES/Menus/CutscenePause.tscn"))
 	KHR2.connect("toggled_pause", self, "_toggled_pause")
 
 func _exit_tree():

@@ -1,7 +1,7 @@
 [gd_scene load_steps=27 format=1]
 
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_02.png" type="Texture" id=1]
-[ext_resource path="res://SCRIPTS/Pause/LoadMenu.gd" type="Script" id=2]
+[ext_resource path="res://SCRIPTS/Menus/LoadMenu.gd" type="Script" id=2]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_01_back.png" type="Texture" id=3]
 [ext_resource path="res://ASSETS/GFX/Title/MainMenu/Save/Save_Load_01_front.png" type="Texture" id=4]
 [ext_resource path="res://ASSETS/LANG/FONTS/KH2_menu/KH2_menu_general.tres" type="DynamicFont" id=5]

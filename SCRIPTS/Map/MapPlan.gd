@@ -4,7 +4,7 @@ export(String) var world_name = ""
 export(String) var location = ""
 
 func _enter_tree():
-	KHR2.set_pause(preload("res://SCENES/Pause/SimplePause.tscn"))
+	KHR2.set_pause(preload("res://SCENES/Menus/SimplePause.tscn"))
 
 func _exit_tree():
 	undefine_map()

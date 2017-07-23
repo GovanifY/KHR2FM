@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=1]
 
-[ext_resource path="res://SCRIPTS/Pause/SavePoint.gd" type="Script" id=1]
+[ext_resource path="res://SCRIPTS/Menus/SavePoint.gd" type="Script" id=1]
 [ext_resource path="res://SCENES/Button/KHR2_Button.tscn" type="PackedScene" id=2]
-[ext_resource path="res://SCENES/Pause/LoadMenu.tscn" type="PackedScene" id=3]
-[ext_resource path="res://SCRIPTS/Pause/SaveMenu.gd" type="Script" id=4]
+[ext_resource path="res://SCENES/Menus/LoadMenu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://SCRIPTS/Menus/SaveMenu.gd" type="Script" id=4]
 [ext_resource path="res://SCENES/Button/BinaryChoice.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=4]

@@ -37,7 +37,7 @@ func _enter_tree():
 	Translator.set_csv(csv_path)
 
 	# Pause and globalizing this node
-	KHR2.set_pause(preload("res://SCENES/Pause/CutscenePause.tscn"))
+	KHR2.set_pause(preload("res://SCENES/Menus/CutscenePause.tscn"))
 	if Globals.get("Dialogue") == null:
 		Globals.set("Dialogue", self)
 

@@ -9,7 +9,7 @@ func _player_touched(area_shape):
 
 func _interacted():
 	# Switching pause screen
-	KHR2.set_pause(load("res://SCENES/Pause/SavePoint.tscn"))
+	KHR2.set_pause(load("res://SCENES/Menus/SavePoint.tscn"))
 
 	# Opening SavePoint menu
 	var pause = KHR2.get_node("Pause")
