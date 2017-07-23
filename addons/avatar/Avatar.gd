@@ -55,7 +55,7 @@ func get_off_bounds():
 	return ret
 
 func get_type():
-	return "sprite"
+	return "Avatar"
 
 func is_type(istype):
 	return istype == get_type()
