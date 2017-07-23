@@ -41,11 +41,9 @@ func _ready():
 
 	Dialogue.close()
 
-	Sequences.play("Flash")
-	yield(Sequences, "finished")
-
-	Sequences.play("Hand")
-	yield(Sequences, "finished")
+	for anim in ["Flash", "Hand"]:
+		Sequences.play(anim)
+		yield(Sequences, "finished")
 
 	Kiryoku.speak(4, 10)
 	yield(Kiryoku, "finished")
