@@ -11,7 +11,7 @@ export(float, 0, 5, 0.1) var SLIDE_DURATION = 0.5
 export(float, 0, 5, 0.1) var DELAY_DURATION = 1.0
 
 # Instance members
-onready var SlideAnim = get_node("SlideAnim") # A DynamicBar requires a Tween node with this name
+onready var SlideAnim = Tween.new() # A Tween that serves for the progress sliding animation
 
 # "Private" members
 var limit_value = 1
@@ -19,6 +19,10 @@ var limit_value = 1
 ######################
 ### Core functions ###
 ######################
+func _ready():
+	SlideAnim.set_name("SlideAnim")
+	add_child(SlideAnim)
+
 func _play_anim(target):
 	SlideAnim.interpolate_method(target, "set_value", target.get_value(), get_value(), SLIDE_DURATION, Tween.TRANS_LINEAR, Tween.EASE_OUT, DELAY_DURATION)
 	SlideAnim.start()
