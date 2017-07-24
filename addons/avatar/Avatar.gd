@@ -8,6 +8,7 @@ signal finished
 export(SpriteFrames) var face_sprites   setget set_face_sprites
 export(int, 0, 64)   var frame = 0      setget set_frame
 export(bool)         var flip_frame = false setget set_flip
+export(bool)         var stay_hidden = false # Forces visibility status
 
 # Settings that no one should touch
 const SLOT = "default"

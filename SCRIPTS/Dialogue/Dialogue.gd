@@ -91,15 +91,11 @@ func _on_CastAnim_complete(object, key):
 			avatar.hide()
 			avatar.set_opacity(1.0)
 
-func _get_line():
-	# Parsing lineID
-	var lineID = current_speaker.get_name().to_upper() + "_%02d" % index
-	index += 1
-	write(lineID)
-
 func _next_line():
 	if is_loaded(): # Fetch next line
-		_get_line()
+		var lineID = current_speaker.get_name().to_upper() + "_%02d" % index
+		index += 1
+		write(lineID)
 	else: # No more lines, silence current speaker
 		silence(current_speaker)
 
@@ -165,7 +161,7 @@ func speak(character, begin, end=begin):
 	current_speaker = character
 
 	# If character's invisible, make grand appearance
-	if character.is_hidden() || character.get_opacity() == 0:
+	if (character.is_hidden() || character.get_opacity() == 0) && !character.stay_hidden:
 		display(character)
 		yield(CastAnim, "tween_complete")
 
@@ -175,7 +171,7 @@ func speak(character, begin, end=begin):
 		Bubble.set_hook_pos(character.get_center())
 
 	# Finally, get the speaker's line
-	call_deferred("_get_line")
+	call_deferred("_next_line")
 
 # Resets values and silences a given character, or hides the box
 func silence(character=null):
