@@ -3,14 +3,11 @@ extends KinematicBody2D
 # Signals
 signal zero_hp
 
+# Classes
+# TODO
+
 # Export values
 export(int, 100, 300) var battler_speed = 100 # Pixels/second
-export(int, 0, 2000) var max_health = 100
-export(int, 0, 1000) var max_mana = 10
-
-# Constants
-enum { STAT_HP, STAT_MP, STAT_STR, STAT_DEF, STAT_END }
-var stat_name = [ "HP", "MP", "STR", "DEF", ]
 
 # Instance members
 var ComboTimer

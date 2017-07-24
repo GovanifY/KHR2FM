@@ -15,22 +15,19 @@ onready var SlideAnim = Tween.new() # A Tween that serves for the progress slidi
 
 # "Private" members
 var limit_value = 1
+var stats
 
 ######################
 ### Core functions ###
 ######################
 func _ready():
 	SlideAnim.set_name("SlideAnim")
+	SlideAnim.set_repeat(false)
 	add_child(SlideAnim)
 
 func _play_anim(target):
 	SlideAnim.interpolate_method(target, "set_value", target.get_value(), get_value(), SLIDE_DURATION, Tween.TRANS_LINEAR, Tween.EASE_OUT, DELAY_DURATION)
 	SlideAnim.start()
-
-func _reset_anim():
-	SlideAnim.reset_all()
-	SlideAnim.remove_all()
-	SlideAnim.set_repeat(false)
 
 ###############
 ### Methods ###
@@ -42,9 +39,9 @@ func get_type():
 func is_type(type):
 	return type == get_type()
 
+### Dynamic bar virtual methods
 func update(value):
-	value = value if (value < limit_value) else limit_value
-	set_value(value)
+	set_value(min(value, limit_value))
 
 func set_limit_value(value):
 	limit_value = value

@@ -11,7 +11,6 @@ func update(value, animate_red=false):
 
 	if RedBar != null:
 		if animate_red:
-			_reset_anim()
 			_play_anim(RedBar)
 		else:
 			RedBar.set_value(value)
