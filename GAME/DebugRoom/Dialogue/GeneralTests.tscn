@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=1]
 
-[ext_resource path="res://GAME/DebugRoom/DialogueTest.gd" type="Script" id=1]
+[ext_resource path="res://GAME/DebugRoom/Dialogue/GeneralTests.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/avatar/Avatar.gd" type="Script" id=4]
@@ -16,7 +16,7 @@ font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 2 )
 
-[node name="DialogueTest" type="Node"]
+[node name="GeneralTests" type="Node"]
 
 script/script = ExtResource( 1 )
 

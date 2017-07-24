@@ -3,7 +3,7 @@
 [ext_resource path="res://SCENES/Battle/BattlePlan.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GAME/BATTLE/Player/Kiryoku.tscn" type="PackedScene" id=2]
 
-[node name="BattleTest" type="Node2D"]
+[node name="PlayerMovement" type="Node"]
 
 [node name="BattlePlan" parent="." instance=ExtResource( 1 )]
 
