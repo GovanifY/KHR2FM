@@ -38,8 +38,6 @@ func _enter_tree():
 
 	# Pause and globalizing this node
 	KHR2.set_pause(preload("res://SCENES/Menus/CutscenePause.tscn"))
-	if Globals.get("Dialogue") == null:
-		Globals.set("Dialogue", self)
 
 func _exit_tree():
 	# De-initializing Translator
@@ -47,8 +45,6 @@ func _exit_tree():
 
 	# Pause and globalizing this node
 	KHR2.set_pause(null)
-	if Globals.get("Dialogue") != null:
-		Globals.set("Dialogue", null)
 
 func _ready():
 	# Initializing signals
@@ -102,6 +98,13 @@ func _next_line():
 ###############
 ### Methods ###
 ###############
+### Overloading methods
+func get_type():
+	return "Dialogue"
+
+func is_type(type):
+	return type == get_type()
+
 # Sets Bubble alignment
 func set_alignment(value):
 	position = value

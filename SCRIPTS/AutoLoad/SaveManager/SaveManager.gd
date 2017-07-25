@@ -124,7 +124,7 @@ func get_save_count():
 
 # Wrapper functions
 func new_game(difficulty, initial_scene = null):
-	Globals.set("Difficulty", difficulty)
+	KHR2.set("Difficulty", difficulty)
 	current_slot = SaveSlot.new()
 	current_slot.set_scene(initial_scene)
 	KHR2.reset_playtime()

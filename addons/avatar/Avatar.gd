@@ -5,6 +5,7 @@ extends Control
 signal finished
 
 # Export values
+export(NodePath)     var dialogue_node = NodePath("..")
 export(SpriteFrames) var face_sprites   setget set_face_sprites
 export(int, 0, 64)   var frame = 0      setget set_frame
 export(bool)         var flip_frame = false setget set_flip
@@ -14,6 +15,7 @@ export(bool)         var stay_hidden = false # Forces visibility status
 const SLOT = "default"
 
 # Instance members
+var Dialogue
 var sprite = Sprite.new()
 
 ########################
@@ -34,6 +36,10 @@ func set_frame(idx):
 ### Core functions ###
 ######################
 func _enter_tree():
+	# Update Dialogue reference
+	if get_node(dialogue_node).is_type("Dialogue"):
+		Dialogue = get_node(dialogue_node)
+
 	# Adding children nodes
 	if !is_a_parent_of(sprite):
 		add_child(sprite)
@@ -71,8 +77,6 @@ func set_flip(value):
 	sprite.set_flip_h(value)
 
 func set_side(right):
-	var Dialogue = Globals.get("Dialogue")
-
 	var left_side  = Dialogue.CastLeft
 	var right_side = Dialogue.CastRight
 
@@ -94,17 +98,13 @@ func set_side(right):
 
 # Methods from Dialogue node
 func speak(begin, end=begin):
-	var Dialogue = Globals.get("Dialogue")
 	Dialogue.speak(self, begin, end)
 
 func display():
-	var Dialogue = Globals.get("Dialogue")
 	Dialogue.display(self)
 
 func dismiss():
-	var Dialogue = Globals.get("Dialogue")
 	Dialogue.dismiss(self)
 
 func silence():
-	var Dialogue = Globals.get("Dialogue")
 	Dialogue.silence(self)

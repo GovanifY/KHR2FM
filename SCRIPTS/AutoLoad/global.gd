@@ -7,11 +7,24 @@ extends CanvasLayer
 signal toggled_pause
 signal pressed_pause
 
-# Paths
+# Configuration file data
 const PATH_CONFIG = "user://settings.cfg"
-
-# Instance members
 var config = ConfigFile.new()
+
+# Global definitions
+var global = {
+	"Difficulty" : null,
+	"Playtime" : {
+		hrs  = 0,
+		mins = 0,
+	},
+	"Map" : {
+		player   = null,
+		world    = null,
+		location = null,
+	},
+	"Player" : null, # TODO: Player stats
+}
 
 ######################
 ### Core functions ###
@@ -21,14 +34,6 @@ func _enter_tree():
 	var err = config.load(PATH_CONFIG)
 	if err != OK: # Create a new one
 		config.save(PATH_CONFIG)
-
-	# Setting Map Dictionary
-	if Globals.get("Map") == null:
-		Globals.set("Map", {
-			player   = null,
-			world    = null,
-			location = null,
-		})
 
 func _exit_tree():
 	# Saving config file
@@ -45,6 +50,14 @@ func _ready():
 	set_layer(100)
 	set_pause_mode(PAUSE_MODE_PROCESS)
 	set_process_input(true)
+
+# Setter for global KHR2 variables
+func _set(key, value):
+	global[key] = value
+
+# Getter for global KHR2 variables
+func _get(key):
+	return global[key]
 
 func _notification(notif):
 	if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
@@ -90,12 +103,12 @@ func _input(event):
 ### Signal routines ###
 #######################
 func _playtime():
-	var mins = Globals.get("PlaytimeMinutes") + 1
-	var hrs  = Globals.get("PlaytimeHours")
-	Globals.set("PlaytimeMinutes", mins)
+	var mins = get("Playtime").mins + 1
 	if mins >= 60:
-		Globals.set("PlaytimeMinutes", 0)
-		Globals.set("PlaytimeHours", hrs + 1)
+		get("Playtime").mins = 0
+		get("Playtime").hrs += 1
+	else:
+		get("Playtime").mins = mins
 
 ###############
 ### Methods ###
@@ -104,11 +117,12 @@ func _playtime():
 func reset_playtime(mins=0, hrs=0):
 	var playtime = get_node("Playtime")
 	playtime.stop()
-	Globals.set("PlaytimeMinutes", mins if mins != null else 0)
-	Globals.set("PlaytimeHours", hrs if hrs != null else 0)
+	get("Playtime").mins = min(max(0, int(mins)), 60)
+	get("Playtime").hrs  = max(0, int(hrs))
 	playtime.set_wait_time(60)
 	playtime.start()
 
+# Toggles/sets fullscreen
 func fullscreen(value=!OS.is_window_fullscreen()):
 	config.set_value("fullscreen", "enabled", value)
 	OS.set_window_fullscreen(value)
@@ -116,9 +130,7 @@ func fullscreen(value=!OS.is_window_fullscreen()):
 
 # Returns the current pause scene's filename; null if non-existent
 func get_pause():
-	if KHR2.has_node("Pause"):
-		return KHR2.get_node("Pause").get_filename()
-	return null
+	return get_node("Pause").get_filename() if has_node("Pause") else null
 
 # Sets the next general Pause scene with given PackedScene
 func set_pause(packed_scene):
@@ -137,7 +149,7 @@ func set_pause(packed_scene):
 	add_child(pause)
 
 func pause_game(value=!get_tree().is_paused()):
-	if !has_node("Pause"):
+	if not has_node("Pause"):
 		return # DO NOT PAUSE
 
 	# Toggle pause and signal that it's been toggled

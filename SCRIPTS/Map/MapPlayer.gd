@@ -40,12 +40,12 @@ onready var sprite_motion = {
 ### Core functions ###
 ######################
 func _enter_tree():
-	Globals.get("Map").player = self
+	KHR2.get("Map").player = self
 	SceneLoader.load_scene(PATH_HUD, SceneLoader.BACKGROUND)
 	SceneLoader.show_scene(PATH_HUD)
 
 func _exit_tree():
-	Globals.get("Map").player = null
+	KHR2.get("Map").player = null
 	SceneLoader.erase_scene(HUD)
 
 func _ready():

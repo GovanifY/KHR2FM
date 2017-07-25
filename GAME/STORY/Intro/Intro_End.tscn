@@ -123,6 +123,7 @@ script/script = ExtResource( 5 )
 __meta__ = {
 "_editor_icon": ExtResource( 6 )
 }
+dialogue_node = NodePath("..")
 face_sprites = ExtResource( 7 )
 frame = 0
 flip_frame = false

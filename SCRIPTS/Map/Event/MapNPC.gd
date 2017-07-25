@@ -10,8 +10,8 @@ func _interacted():
 	if lines == null:
 		return
 
-	if Globals.get("Dialogue") == null:
-		var player = Globals.get("Map").player
+	if !KHR2.has_node("Dialogue"):
+		var player = KHR2.get("Map").player
 		player.stop()
 
 		SceneLoader.load_scene(path_dialogue, SceneLoader.BACKGROUND)
@@ -19,9 +19,6 @@ func _interacted():
 		Dialogue.connect("hide", SceneLoader, "erase_scene", [Dialogue])
 
 		# Writing NPC's lines
-		Dialogue.show(true)
-		yield(Dialogue.Bubble, "shown")
-
 		for line in lines:
 			Dialogue.write(line)
 			yield(Dialogue, "finished")

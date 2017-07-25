@@ -563,9 +563,11 @@ script/script = ExtResource( 114 )
 __meta__ = {
 "_editor_icon": ExtResource( 115 )
 }
+dialogue_node = NodePath("..")
 face_sprites = ExtResource( 116 )
 frame = 0
 flip_frame = false
+stay_hidden = false
 
 [node name="Yuugure" type="Control" parent="Dialogue"]
 
@@ -583,8 +585,10 @@ script/script = ExtResource( 114 )
 __meta__ = {
 "_editor_icon": ExtResource( 115 )
 }
+dialogue_node = NodePath("..")
 face_sprites = ExtResource( 117 )
 frame = 0
 flip_frame = false
+stay_hidden = false
 
 

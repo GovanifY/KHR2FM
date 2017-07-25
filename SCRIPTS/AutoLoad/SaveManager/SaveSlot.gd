@@ -12,24 +12,18 @@ func _init(data = null):
 func update(current_scene=null, avatar=null):
 	save_data = {
 		# IMPORTANT DATA
-		"difficulty"   : Globals.get("Difficulty"),
+		"difficulty"   : KHR2.get("Difficulty"),
 		"scene"        : current_scene,
-		"world"        : Globals.get("Map").world,
-		"location"     : Globals.get("Map").location,
-		"playtime_hrs" : Globals.get("PlayTimeHours"),
-		"playtime_min" : Globals.get("PlayTimeMinutes"),
+		"world"        : KHR2.get("Map").world,
+		"location"     : KHR2.get("Map").location,
+		"playtime_hrs" : KHR2.get("Playtime").hrs,
+		"playtime_min" : KHR2.get("Playtime").mins,
 
 		# Save-specific content
 		"avatar"       : avatar,
 
-		# Switches
-		# Basic stats
-		"lv"           : 1,
-		"hp"           : 10,
-		"attack"       : 1,
-		"defense"      : 1,
-		# Stat adders
-		"keyblade"     : null,
+		# Stats
+		"stats" : KHR2.get("Player")
 		# TODO: Items, magic, abilities, limits
 	}
 
@@ -52,8 +46,5 @@ func set(key, value):
 
 # In addition to these above, you can write methods that have more verbose names
 # so as to have more legible code when accessing this script.
-func get_level(): return get("lv")
-func set_level(value):   set("lv", value)
-
 func get_scene(): return get("scene")
 func set_scene(value):   set("scene", value)
