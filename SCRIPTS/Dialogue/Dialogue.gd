@@ -176,11 +176,13 @@ func speak(character, begin, end=begin):
 # Resets values and silences a given character, or hides the box
 func silence(character=null):
 	current_speaker = null
-	if character != null:
-		character.call_deferred("emit_signal", "finished")
-	else:
+
+	if character == null || text_effect == TEXT_NONE:
 		Bubble.hide_box()
 		yield(Bubble, "hidden")
+
+	if character != null:
+		character.call_deferred("emit_signal", "finished")
 
 	if is_processing_input():
 		# Resetting values
