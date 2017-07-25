@@ -107,6 +107,10 @@ func test_battle():
 	print("\nYour battler got 'Bravery'")
 	apply_mod(battler, bravery)
 	
+	print("\nYour battler got hit: -12")
+	battler.set("hp", battler.get("hp")-12)
+	battler.print_stats()
+	
 	print("\nYour battler got 'Curse'")
 	apply_mod(battler, curse)
 	
