@@ -39,14 +39,3 @@ func fight():
 
 func at_ease():
 	set_fixed_process(false)
-
-### Battler timer
-func create_timer(wait_time = 0.5, one_shot = false):
-	if ComboTimer != null:
-		ComboTimer.free()
-
-	ComboTimer = Timer.new()
-	ComboTimer.set_wait_time(wait_time)
-	ComboTimer.set_one_shot(one_shot)
-	ComboTimer.set_timer_process_mode(Timer.TIMER_PROCESS_FIXED)
-	add_child(ComboTimer)

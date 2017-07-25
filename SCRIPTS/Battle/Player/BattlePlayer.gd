@@ -27,21 +27,10 @@ var battler_motion = {
 	ACT_RIGHT            : Vector2( 1,  0),
 }
 
-var combo = {
-	"counter" : 0,
-	"maxed"   : 3,
-}
-
 ######################
 ### Core functions ###
 ######################
 func _ready():
-	# Setup player data
-	setup_data()
-
-	create_timer(0.4, true)
-	ComboTimer.connect("timeout", self, "_end_combo")
-
 	# Connecting signals
 	AnimMethodical.connect("animation_started", self, "_action_started")
 	AnimMethodical.connect("finished", self, "_action_finished")
@@ -90,8 +79,8 @@ func _act_battler(actions):
 
 	# If it's about attacking
 	elif actions & ACT_ACCEPT:
-		_increment_combo()
-		AnimAttack.play(new_anim + String(combo.counter))
+		# TODO: Take combos into account
+		AnimAttack.play(new_anim + String(1))
 
 func _move_battler(actions, delta):
 	var direction = battler_motion[actions]
@@ -103,15 +92,6 @@ func _move_battler(actions, delta):
 	direction.y = 1
 	set_scale(direction)
 
-### Combo-related
-func _increment_combo():
-	ComboTimer.start()
-
-	if combo.counter < combo.maxed:
-		combo.counter += 1
-	else:
-		_end_combo()
-
 #######################
 ### Signal routines ###
 #######################
@@ -122,10 +102,6 @@ func _action_started(name):
 
 func _action_finished():
 	set_process_input(true)
-
-func _end_combo():
-	ComboTimer.stop()
-	combo.counter = 0
 
 ###############
 ### Methods ###
@@ -144,15 +120,3 @@ func fight():
 func at_ease():
 	.at_ease()
 	set_process_input(false)
-
-### Handling animations
-func random_voice(snd_arr):
-	var voice = get_node("Voice")
-	if typeof(snd_arr) == TYPE_STRING_ARRAY && voice != null:
-		var rng = randi() % snd_arr.size()
-		voice.play(snd_arr[rng])
-
-func setup_data():
-	if Globals.get("PlayerData"):
-		# TODO: Grab PlayerData's battler information (LV, STR, DEF, etc.)
-		pass
