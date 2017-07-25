@@ -25,14 +25,7 @@ func _set(key, value):
 	pass # do nothing
 
 func _get(key):
-	var total = get_base(key)
-
-	for id in modifiers:
-		var mod = modifiers[id]
-		total += mod.get_add(key)
-		total += mod.get_mul(key) * get_base(key)
-
-	return total
+	return calculate(key)
 
 ###############
 ### Methods ###
@@ -73,3 +66,14 @@ func set_modifier(id, mod):
 # Retrieves given ID's modifier
 func get_modifier(id):
 	return modifiers[id]
+
+# Calculates the given stat
+func calculate(key):
+	var total = get_base(key)
+
+	for id in modifiers:
+		var mod = modifiers[id]
+		total += mod.get_add(key)
+		total += mod.get_mul(key) * get_base(key)
+
+	return total

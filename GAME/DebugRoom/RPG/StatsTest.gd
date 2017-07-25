@@ -54,6 +54,7 @@ func _ready():
 	#test_equipment()
 	#test_status()
 	test_battle()
+	get_tree().quit()
 
 # Function Helpers
 static func apply_mod(target, value):
