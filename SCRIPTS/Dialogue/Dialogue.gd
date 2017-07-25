@@ -124,9 +124,6 @@ func set_box(idx):
 
 # Writes text on the Dialogue box
 func write(text):
-	if is_hidden():
-		show()
-
 	# Writing line to textbox
 	TextNode.set_text(text)
 	if text_effect == TEXT_NONE:
@@ -189,8 +186,9 @@ func silence(character=null):
 	current_speaker = null
 
 	if character == null || text_effect == TEXT_NONE:
-		Bubble.hide_box()
-		yield(Bubble, "hidden")
+		if Bubble.is_visible():
+			Bubble.hide_box()
+			yield(Bubble, "hidden")
 
 	if character != null:
 		character.call_deferred("emit_signal", "finished")
@@ -250,9 +248,10 @@ func dismiss(character=null):
 
 # Dismisses all present characters and hides everything
 func close():
-	dismiss()
 	if Bubble.is_visible():
 		Bubble.hide_box()
-		yield(Bubble, "hidden")
-	hide()
+
+	dismiss()
+	yield(CastAnim, "tween_complete")
+
 	emit_signal("finished")

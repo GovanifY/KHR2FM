@@ -485,6 +485,7 @@ default/chorus_send = 0.0
 
 [node name="BG" type="Sprite" parent="."]
 
+visibility/visible = false
 texture = ExtResource( 7 )
 centered = false
 
