@@ -124,6 +124,10 @@ func write(text):
 	# Writing line to textbox
 	TextNode.set_text(text)
 	if text_effect == TEXT_NONE:
+		# If Bubble is visible, hide it for the Fade effect to work
+		if Bubble.is_visible():
+			Bubble.hide_box()
+			yield(Bubble, "hidden")
 		TextNode.set_visible_characters(-1)
 
 	# If Bubble is hidden, show it
