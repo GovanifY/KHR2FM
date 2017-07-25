@@ -36,14 +36,14 @@ func _enter_tree():
 	# Initializing Translator
 	Translator.set_csv(csv_path)
 
-	# Pause and globalizing this node
+	# Setting Pause screen
 	KHR2.set_pause(preload("res://SCENES/Menus/CutscenePause.tscn"))
 
 func _exit_tree():
 	# De-initializing Translator
 	Translator.close()
 
-	# Pause and globalizing this node
+	# Setting Pause screen
 	KHR2.set_pause(null)
 
 func _ready():
@@ -124,6 +124,9 @@ func set_box(idx):
 
 # Writes text on the Dialogue box
 func write(text):
+	if is_hidden():
+		show()
+
 	# Writing line to textbox
 	TextNode.set_text(text)
 	if text_effect == TEXT_NONE:
@@ -168,9 +171,10 @@ func speak(character, begin, end=begin):
 	current_speaker = character
 
 	# If character's invisible, make grand appearance
-	if (character.is_hidden() || character.get_opacity() == 0) && !character.stay_hidden:
-		display(character)
-		yield(CastAnim, "tween_complete")
+	if character.has_sprite():
+		if (character.is_hidden() || character.get_opacity() == 0) && !character.stay_hidden:
+			display(character)
+			yield(CastAnim, "tween_complete")
 
 	# Centering hook (if necessary)
 	if Bubble.get_box() != -1:
@@ -244,10 +248,11 @@ func dismiss(character=null):
 
 	CastAnim.start()
 
-# Dismisses all present characters and hides Bubble
+# Dismisses all present characters and hides everything
 func close():
 	dismiss()
 	if Bubble.is_visible():
 		Bubble.hide_box()
 		yield(Bubble, "hidden")
+	hide()
 	emit_signal("finished")

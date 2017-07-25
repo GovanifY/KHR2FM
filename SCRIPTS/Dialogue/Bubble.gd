@@ -40,14 +40,12 @@ func _fade_animation_finished():
 ### Methods ###
 ###############
 func show_box():
-	if is_hidden():
-		Fade.play("In")
-		current_signal = "shown"
+	Fade.play("In")
+	current_signal = "shown"
 
 func hide_box():
-	if is_visible():
-		Fade.play("Out")
-		current_signal = "hidden"
+	Fade.play("Out")
+	current_signal = "hidden"
 
 func get_box():
 	return current_box

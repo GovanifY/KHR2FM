@@ -35,6 +35,9 @@ func set_frame(idx):
 ######################
 ### Core functions ###
 ######################
+func _init(name="Avatar"):
+	set_name(name)
+
 func _enter_tree():
 	# Update Dialogue reference
 	if get_node(dialogue_node).is_type("Dialogue"):
@@ -51,6 +54,25 @@ func _enter_tree():
 ###############
 ### Methods ###
 ###############
+# Overloading methods
+func get_type():
+	return "Avatar"
+
+func is_type(type):
+	return type == get_type()
+
+# Editor methods
+func is_flipped():
+	return sprite.is_flipped_h()
+
+func set_flip(value):
+	flip_frame = value
+	sprite.set_flip_h(value)
+
+# Helpers for Dialogue
+func has_sprite():
+	return sprite.get_texture() != null
+
 func get_center():
 	return get_global_pos().x
 
@@ -61,20 +83,18 @@ func get_off_bounds():
 		ret.x *= -1
 	return ret
 
-func get_type():
-	return "Avatar"
+# Methods from Dialogue node
+func speak(begin, end=begin):
+	Dialogue.speak(self, begin, end)
 
-func is_type(istype):
-	return istype == get_type()
+func display():
+	Dialogue.display(self)
 
-func is_flipped():
-	return sprite.is_flipped_h()
+func dismiss():
+	Dialogue.dismiss(self)
 
-func set_flip(value):
-	if sprite == null:
-		return
-	flip_frame = value
-	sprite.set_flip_h(value)
+func silence():
+	Dialogue.silence(self)
 
 func set_side(right):
 	var left_side  = Dialogue.CastLeft
@@ -93,18 +113,5 @@ func set_side(right):
 	else:
 		left_side.add_child(self)
 
-	# Flipping the character's sprite by default (will always reset when)
+	# Flipping the character's sprite by default (will always reset whenever necessary)
 	set_flip(right)
-
-# Methods from Dialogue node
-func speak(begin, end=begin):
-	Dialogue.speak(self, begin, end)
-
-func display():
-	Dialogue.display(self)
-
-func dismiss():
-	Dialogue.dismiss(self)
-
-func silence():
-	Dialogue.silence(self)
