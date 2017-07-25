@@ -13,7 +13,7 @@ var MAIN_STATS = [
 ]
 
 # Final Dictionary with updated values for quick reference
-var battle = {}
+var final = {}
 
 ######################
 ### Core functions ###
@@ -22,7 +22,7 @@ func _init(copy={}):
 	# General base stats filling
 	for stat in MAX_STATS + MAIN_STATS:
 		base[stat] = max(round(copy[stat]), 0) if copy.has(stat) else 0
-		battle[stat] = base[stat]
+		final[stat] = base[stat]
 
 	# Setting maximum values
 	for stat in MAIN_STATS:
@@ -30,34 +30,34 @@ func _init(copy={}):
 		if max_stat in MAX_STATS:
 			base[max_stat] = max(base[max_stat], 1) # The minimum maximum is 1.
 			base[stat] = base[max_stat]
-			battle[stat] = base[stat]
+			final[stat] = base[stat]
 
 	connect("modifier_changed", self, "update")
 
-# Sets battle stat values
+# Sets final stat values
 func _set(stat, value):
-	if stat in battle:
+	if stat in final:
 		# Avoid negative values
 		value = max(round(value), 0)
 
 		# If it's a max_stat, no need for complicated stuff
 		if stat.begins_with("max_"):
-			battle[stat] = value
+			final[stat] = value
 		else:
 			# If there's a maximum of the given stat, set the minimum of the two
 			var max_stat = "max_" + stat
-			battle[stat] = min(value, battle[max_stat]) if max_stat in MAX_STATS else value
+			final[stat] = min(value, final[max_stat]) if max_stat in MAX_STATS else value
 
-# Gets calculated battle values, so as to not be a performance hit
+# Gets calculated final values, so as to not be a performance hit
 func _get(stat):
-	return battle[stat] if stat in battle else 0
+	return final[stat] if stat in final else 0
 
 ###############
 ### Methods ###
 ###############
 func print_stats():
 	.print_stats()
-	print("Battle: ", battle.to_json())
+	print("Battle: ", final.to_json())
 
 # Sets maximum base value (this is useful since it also updates its counterpart)
 func set_max(stat, value):
