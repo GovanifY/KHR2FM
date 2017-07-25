@@ -27,6 +27,5 @@ func _interacted():
 		Dialogue.speak(Avatar.new("NPC"), lines_idx.x, lines_idx.y)
 		yield(Dialogue, "finished")
 
-		Translator.close()
 		Dialogue.close()
 		player.start()
