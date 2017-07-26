@@ -48,7 +48,8 @@ func _set(stat, value):
 		else:
 			# If there's a maximum of the given stat, set the minimum of the two
 			var max_stat = "max_" + stat
-			final[stat] = min(value, final[max_stat]) if max_stat in MAX_STATS else value
+			value = min(value, final[max_stat]) if max_stat in MAX_STATS else value
+			final[stat] = value
 		emit_signal("value_changed", stat, value)
 
 # Gets calculated final values, so as to not be a performance hit
