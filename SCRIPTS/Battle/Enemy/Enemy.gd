@@ -1,6 +1,7 @@
 extends "res://SCRIPTS/Battle/Battler.gd"
 
 
+# Enemy instancing data
 export(int, 1, 20) var enemy_instances = 1
 export(bool) var random_instances = false
 
@@ -9,6 +10,21 @@ export(bool) var random_instances = false
 ######################
 func _ready():
 	add_to_group("Enemy")
+
+	# Setting stats
+	if not override_stats:
+		# Use data saved on a specific Enemy database
+		#stats = BattlerStats.new(database.get(get_name()))
+	else:
+		stats = BattlerStats.new({
+			"max_hp" : max_health, "hp" : max_health,
+			"max_mp" : max_mana,   "mp" : max_mana,
+			"str" : strength,
+			"def" : defense,
+		})
+	HUD.set_player_stats(stats)
+
+	# Instance multiple enemies
 	if enemy_instances > 1:
 		enemy_instances -= 1 # Don't count the already available instance
 

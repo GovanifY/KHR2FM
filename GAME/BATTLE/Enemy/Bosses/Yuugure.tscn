@@ -350,8 +350,13 @@ collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 battler_speed = 100
+override_stats = false
 max_health = 100
 max_mana = 10
+strength = 1
+defense = 1
+enemy_instances = 1
+random_instances = false
 
 [node name="Voice" type="SamplePlayer2D" parent="."]
 
