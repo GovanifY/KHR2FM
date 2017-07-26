@@ -13,8 +13,6 @@ radius = 11.0
 
 script/source = "extends Area2D
 
-onready var HUD = KHR2.get_node(\"HUD\")
-
 func _ready():
 	set_fixed_process(true)
 	
@@ -28,8 +26,6 @@ func _fixed_process(delta):
 [sub_resource type="GDScript" id=3]
 
 script/source = "extends Area2D
-
-onready var HUD = KHR2.get_node(\"HUD\")
 
 func _ready():
 	set_fixed_process(true)
@@ -48,7 +44,7 @@ func _fixed_process(delta):
 
 transform/pos = Vector2( 420, 240 )
 override_stats = true
-max_health = 100
+max_health = 500
 max_mana = 50
 
 [node name="Hurts" type="Area2D" parent="BattlePlan"]
