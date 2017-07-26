@@ -1,20 +1,29 @@
 extends Control
 
+
 # Instance members
 onready var commands = get_node("Commands")
 
-onready var player = {
-	"mp" : get_node("Player/MP"),
-}
-
-onready var enemy = {
-	"mp" : get_node("Enemy/HP"),
-}
-
+var player = {}
+var enemy = {}
 
 ###############
 ### Methods ###
 ###############
+func _ready():
+	# Automagically set up node references
+	reset_hud(get_node("Player"), player)
+	reset_hud(get_node("Enemy"), enemy)
+
+func reset_hud(parent, member):
+	for node in parent.get_children():
+		# If we cannot change its value, ignore it
+		if !node.has_method("set_value"):
+			continue
+
+		var name = node.get_name().to_lower()
+		member[name] = node
+
 func set_stats(member, stats):
 	# Iterate the member's dictionary of ProgressBars/GUI nodes
 	for key in member:
