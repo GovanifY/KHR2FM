@@ -1,5 +1,7 @@
 extends "Stats.gd"
 
+# Signals
+signal value_changed(stat, value)
 
 # Maximum stats list
 var MAX_STATS = [
@@ -47,6 +49,7 @@ func _set(stat, value):
 			# If there's a maximum of the given stat, set the minimum of the two
 			var max_stat = "max_" + stat
 			final[stat] = min(value, final[max_stat]) if max_stat in MAX_STATS else value
+		emit_signal("value_changed", stat, value)
 
 # Gets calculated final values, so as to not be a performance hit
 func _get(stat):
