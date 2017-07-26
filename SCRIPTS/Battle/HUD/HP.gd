@@ -6,11 +6,11 @@ onready var RedBar = get_node("RedBar")
 ###############
 ### Methods ###
 ###############
-func update(value, animate_red=false):
-	.update(value)
+func set_value(value):
+	.set_value(value)
 
-	if RedBar != null:
-		if animate_red:
-			_play_anim(RedBar)
-		else:
-			RedBar.set_value(value)
+	if RedBar.get_value() > value:
+		_slide(RedBar)
+	else:
+		SlideAnim.stop_all()
+		RedBar.set_value(value)
