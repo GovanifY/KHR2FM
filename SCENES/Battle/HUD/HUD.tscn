@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://SCRIPTS/Battle/HUD/HUD.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-vert.tres" type="StyleBox" id=2]
@@ -8,6 +8,19 @@
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.png" type="Texture" id=6]
 [ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Bold.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Commands/Commands_Lr_010.png" type="Texture" id=8]
+
+[sub_resource type="StyleBoxFlat" id=5]
+
+content_margin/left = 10.0
+content_margin/right = 0.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+bg_color = Color( 0.00392157, 0.929412, 0.0183824, 1 )
+light_color = Color( 0.0762255, 0.929412, 0.00392157, 1 )
+dark_color = Color( 0.0648897, 0.784314, 0.00392157, 1 )
+border_size = 4
+border_blend = true
+draw_bg = true
 
 [sub_resource type="StyleBoxFlat" id=1]
 
@@ -87,6 +100,29 @@ margin/bottom = 0.0
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="HP" type="ProgressBar" parent="Player"]
+
+anchor/right = 1
+anchor/bottom = 1
+rect/min_size = Vector2( 165, 12 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 50.0
+margin/right = 39.0
+margin/bottom = 76.0
+custom_styles/fg = SubResource( 5 )
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 50.0
+range/exp_edit = false
+range/rounded = false
+percent/visible = true
 
 [node name="MP" type="ProgressBar" parent="Player"]
 

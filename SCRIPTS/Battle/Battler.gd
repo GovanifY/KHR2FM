@@ -9,10 +9,10 @@ const BattlerStats = preload("res://SCRIPTS/RPG/Stats/BattlerStats.gd")
 # Export values
 export(int, 100, 300) var battler_speed = 100 # Pixels/second
 export(bool) var override_stats = false
-export(int, 1, 2000) var max_health
-export(int, 1, 2000) var max_mana
-export(int, 1, 100) var strength
-export(int, 1, 100) var defense
+export(int, 1, 2000) var max_health = 1
+export(int, 1, 2000) var max_mana   = 1
+export(int, 1, 100) var strength    = 1
+export(int, 1, 100) var defense     = 1
 
 # Instance members
 onready var HUD = KHR2.get_node("HUD")

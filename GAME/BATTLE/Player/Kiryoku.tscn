@@ -270,7 +270,6 @@ tracks/0/keys = {
 
 [node name="Kiryoku" type="KinematicBody2D"]
 
-transform/pos = Vector2( 192, 215 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, -11, 0 )
@@ -280,8 +279,11 @@ collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 battler_speed = 250
-max_health = 100
-max_mana = 10
+override_stats = false
+max_health = 1
+max_mana = 1
+strength = 1
+defense = 1
 
 [node name="Voice" type="SamplePlayer" parent="."]
 
