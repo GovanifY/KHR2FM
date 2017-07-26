@@ -3,6 +3,9 @@ extends CanvasLayer
 # Ce script gère les fonctions globales du jeu les plus importantes, telles que
 # le timer, la pause ou le fullscreen
 
+# Classes
+const PlayerStats = preload("res://SCRIPTS/RPG/Stats/PlayerStats.gd")
+
 # Signals
 signal toggled_pause
 signal pressed_pause
@@ -23,7 +26,7 @@ var global = {
 		world    = null,
 		location = null,
 	},
-	"Player" : null, # TODO: Player stats
+	"Player" : PlayerStats.new(),
 }
 
 ######################

@@ -4,13 +4,13 @@ extends KinematicBody2D
 signal zero_hp
 
 # Classes
-# TODO
+const BattlerStats = preload("res://SCRIPTS/RPG/Stats/BattlerStats.gd")
 
 # Export values
 export(int, 100, 300) var battler_speed = 100 # Pixels/second
 
 # Instance members
-var ComboTimer
+var stats
 
 ######################
 ### Core functions ###

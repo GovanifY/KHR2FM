@@ -1,5 +1,6 @@
 extends "../Battler.gd"
 
+
 # Constants
 const STILL_POSE = "Still"
 const WALK_POSE = "Walk"
@@ -31,6 +32,9 @@ var battler_motion = {
 ### Core functions ###
 ######################
 func _ready():
+	# Use pre-calculated values from current Player stats
+	stats = BattlerStats.new(KHR2.get("Player").final)
+
 	# Connecting signals
 	AnimMethodical.connect("animation_started", self, "_action_started")
 	AnimMethodical.connect("finished", self, "_action_finished")
