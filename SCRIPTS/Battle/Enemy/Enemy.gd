@@ -15,6 +15,7 @@ func _ready():
 	if not override_stats:
 		# Use data saved on a specific Enemy database
 		#stats = BattlerStats.new(database.get(get_name()))
+		pass
 	else:
 		stats = BattlerStats.new({
 			"max_hp" : max_health, "hp" : max_health,
