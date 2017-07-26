@@ -22,7 +22,7 @@ func _ready():
 			"str" : strength,
 			"def" : defense,
 		})
-	HUD.set_player_stats(stats)
+	HUD.set_enemy_stats(stats)
 
 	# Instance multiple enemies
 	if enemy_instances > 1:
