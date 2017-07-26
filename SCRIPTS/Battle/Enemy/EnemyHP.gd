@@ -8,7 +8,9 @@ const OneLayer = preload("res://SCENES/Battle/Enemy/HPLayer.tscn")
 onready var Layers = get_node("Layers")
 
 # "Private" members
+var top_layer_size
 var maximum = 0
+var max_layers = 0
 var green_layers = 0
 
 ######################
@@ -25,17 +27,25 @@ func _ready():
 func set_max(value):
 	maximum = value
 
-	# Add bars
+	# Grabbing percentage values
 	var bar_data = split(value)
-	set_value(bar_data[0])
-	RedBar.set_value(bar_data[0])
+	var new_value = bar_data[0]
+	max_layers = bar_data[1]
+
+	# Setting values
+	.set_value(new_value)
+
+	# Resizing HP bar
+	top_layer_size = get_size()
+	top_layer_size.width = int(top_layer_size.width * new_value / 100.0)
+	RedBar.set_size(top_layer_size)
 
 	# Clear any previous nodes available in Layers
 	for layer in Layers.get_children():
 		layer.queue_free()
 
 	# Instancing the number of layers obtained
-	for idx in range(bar_data[1]):
+	for idx in range(max_layers):
 		var layer = OneLayer.instance()
 		Layers.add_child(layer)
 		layer.set_pos(Vector2(idx * layer.get_size().x, 0))
@@ -59,11 +69,20 @@ func set_value(value):
 			else:
 				layer.set_value(0)
 
+	# Updating HP bar size if we have full bars
+	if green_layers == max_layers && RedBar.get_size() != top_layer_size:
+		print("Setting max HP size")
+		RedBar.set_size(top_layer_size)
+	# Revert it otherwise
+	elif green_layers != max_layers && RedBar.get_size() == top_layer_size:
+		print("Setting normal HP size")
+		RedBar.set_size(get_size())
 
 static func split(value):
 	# Grabbing data
-	var current_val = int(value) % MAX_HP_MOD
-	var num_layers = int(value / MAX_HP_MOD)
+	value = int(value)
+	var current_val = value % MAX_HP_MOD
+	var num_layers  = value / MAX_HP_MOD
 
 	# Correcting math in case mod of HP == 0
 	if current_val == 0 && num_layers > 0:

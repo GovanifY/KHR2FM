@@ -230,7 +230,7 @@ range/rounded = true
 percent/visible = false
 script/script = ExtResource( 3 )
 SLIDE_DURATION = 0.5
-DELAY_DURATION = 1.0
+DELAY_DURATION = 0.5
 
 [node name="Value" type="Label" parent="Enemy/HP" groups=[
 "LabelValue",
@@ -264,6 +264,9 @@ margin/left = 20.0
 margin/top = 12.0
 margin/right = 20.0
 margin/bottom = 12.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="RedBar" type="ProgressBar" parent="Enemy/HP"]
 
