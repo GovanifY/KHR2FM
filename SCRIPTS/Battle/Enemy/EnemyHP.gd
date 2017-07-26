@@ -10,6 +10,7 @@ onready var Layers = get_node("Layers")
 # "Private" members
 var top_layer_size
 var maximum = 0
+var maximum_mod = 0
 var max_layers = 0
 var green_layers = 0
 
@@ -29,16 +30,16 @@ func set_max(value):
 
 	# Grabbing percentage values
 	var bar_data = split(value)
-	var new_value = bar_data[0]
+	maximum_mod = bar_data[0]
 	max_layers = bar_data[1]
 
 	# Setting values
-	.set_value(new_value)
+	.set_value(maximum_mod)
 
 	# Resizing HP bar
 	top_layer_size = get_size()
-	top_layer_size.width = int(top_layer_size.width * new_value / 100.0)
-	RedBar.set_size(top_layer_size)
+	top_layer_size.width = int(top_layer_size.width * maximum_mod / 100.0)
+	resize_redbar(top_layer_size, maximum_mod)
 
 	# Clear any previous nodes available in Layers
 	for layer in Layers.get_children():
@@ -56,7 +57,8 @@ func get_max():
 func set_value(value):
 	# FIXME: optimize this portion by avoiding various split() calls
 	var bar_data = split(value)
-	.set_value(bar_data[0])
+	var new_value = bar_data[0]
+	.set_value(new_value)
 
 	# Update green layers only if necessary
 	var num_layers = bar_data[1]
@@ -71,12 +73,10 @@ func set_value(value):
 
 	# Updating HP bar size if we have full bars
 	if green_layers == max_layers && RedBar.get_size() != top_layer_size:
-		print("Setting max HP size")
-		RedBar.set_size(top_layer_size)
+		resize_redbar(top_layer_size, maximum_mod)
 	# Revert it otherwise
 	elif green_layers != max_layers && RedBar.get_size() == top_layer_size:
-		print("Setting normal HP size")
-		RedBar.set_size(get_size())
+		resize_redbar(get_size(), MAX_HP_MOD)
 
 static func split(value):
 	# Grabbing data
