@@ -1,14 +1,15 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=13 format=1]
 
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-vert.tres" type="StyleBox" id=1]
-[ext_resource path="res://SCRIPTS/Battle/Enemy/EnemyHP.gd" type="Script" id=2]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-rouge.tres" type="StyleBox" id=3]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.tres" type="StyleBox" id=4]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Bold.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Commands/Commands_Lr_010.png" type="Texture" id=7]
+[ext_resource path="res://SCRIPTS/Battle/HUD/HUD.gd" type="Script" id=1]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-vert.tres" type="StyleBox" id=2]
+[ext_resource path="res://SCRIPTS/Battle/Enemy/EnemyHP.gd" type="Script" id=3]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-rouge.tres" type="StyleBox" id=4]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.tres" type="StyleBox" id=5]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Bold.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Commands/Commands_Lr_010.png" type="Texture" id=8]
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=1]
 
 content_margin/left = 10.0
 content_margin/right = 0.0
@@ -21,20 +22,20 @@ border_size = 4
 border_blend = true
 draw_bg = true
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxEmpty" id=2]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
 
-[sub_resource type="StyleBoxTexture" id=2]
+[sub_resource type="StyleBoxTexture" id=3]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 margin/left = 2.0
 margin/right = 2.0
 margin/top = 2.0
@@ -45,12 +46,12 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=4]
 
 font/size = 9
 font/use_mipmaps = false
 font/use_filter = false
-font/font = ExtResource( 6 )
+font/font = ExtResource( 7 )
 
 [node name="HUD" type="Control"]
 
@@ -64,6 +65,10 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
+script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Player" type="Panel" parent="."]
 
@@ -96,7 +101,7 @@ margin/left = 10.0
 margin/top = 10.0
 margin/right = 39.0
 margin/bottom = 116.0
-custom_styles/fg = SubResource( 5 )
+custom_styles/fg = SubResource( 1 )
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -121,6 +126,7 @@ margin/bottom = 55.0
 
 [node name="HP" type="ProgressBar" parent="Enemy"]
 
+editor/display_folded = true
 anchor/left = 1
 anchor/right = 1
 rect/scale = Vector2( -1, 1 )
@@ -132,8 +138,8 @@ margin/left = 40.0
 margin/top = 10.0
 margin/right = -275.0
 margin/bottom = 20.0
-custom_styles/fg = ExtResource( 1 )
-custom_styles/bg = SubResource( 1 )
+custom_styles/fg = ExtResource( 2 )
+custom_styles/bg = SubResource( 2 )
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -142,7 +148,7 @@ range/value = 100.0
 range/exp_edit = false
 range/rounded = true
 percent/visible = false
-script/script = ExtResource( 2 )
+script/script = ExtResource( 3 )
 SLIDE_DURATION = 0.5
 DELAY_DURATION = 1.0
 
@@ -169,8 +175,8 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 10.0
-custom_styles/fg = ExtResource( 3 )
-custom_styles/bg = ExtResource( 4 )
+custom_styles/fg = ExtResource( 4 )
+custom_styles/bg = ExtResource( 5 )
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -195,7 +201,7 @@ margin/left = -2.0
 margin/top = 11.0
 margin/right = 14.0
 margin/bottom = 24.0
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -211,7 +217,7 @@ margin/left = 17.0
 margin/top = -1.0
 margin/right = 33.0
 margin/bottom = 13.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.588235, 0.607843, 0.580392, 1 )
 text = "HP"
 align = 1
@@ -232,7 +238,7 @@ transform/pos = Vector2( 0, 448 )
 [node name="Selected" type="Sprite" parent="Commands"]
 
 editor/display_folded = true
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 centered = false
 
 [node name="BATTLE_ATTACK" type="Label" parent="Commands/Selected"]
