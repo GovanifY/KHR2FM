@@ -125,7 +125,9 @@ range/exp_edit = false
 range/rounded = false
 percent/visible = false
 
-[node name="Value" type="Label" parent="Player/HP"]
+[node name="Value" type="Label" parent="Player/HP" groups=[
+"LabelValue",
+]]
 
 anchor/right = 1
 anchor/bottom = 1
@@ -168,7 +170,9 @@ range/exp_edit = false
 range/rounded = false
 percent/visible = false
 
-[node name="Value" type="Label" parent="Player/MP"]
+[node name="Value" type="Label" parent="Player/MP" groups=[
+"LabelValue",
+]]
 
 anchor/right = 1
 anchor/bottom = 1
@@ -228,7 +232,9 @@ script/script = ExtResource( 3 )
 SLIDE_DURATION = 0.5
 DELAY_DURATION = 1.0
 
-[node name="Value" type="Label" parent="Enemy/HP"]
+[node name="Value" type="Label" parent="Enemy/HP" groups=[
+"LabelValue",
+]]
 
 anchor/right = 1
 anchor/bottom = 1

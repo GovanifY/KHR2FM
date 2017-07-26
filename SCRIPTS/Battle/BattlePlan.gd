@@ -1,6 +1,7 @@
 extends Node
 
 # Export values
+export(bool) var show_bar_values = false
 export(AudioStream) var battle_music
 
 # Constants
@@ -20,6 +21,9 @@ func _exit_tree():
 	SceneLoader.erase_scene(HUD)
 
 func _ready():
+	# Preparing debug stuff
+	get_tree().call_group(0, "LabelValue", "set_hidden", !show_bar_values)
+
 	# Preparing music
 	if battle_music != null:
 		# If the tracks are different, swap with the new one

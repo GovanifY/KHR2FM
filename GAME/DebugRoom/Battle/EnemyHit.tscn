@@ -29,6 +29,8 @@ script/script = SubResource( 1 )
 
 [node name="BattlePlan" parent="." instance=ExtResource( 1 )]
 
+show_bar_values = true
+
 [node name="Instructions" type="Label" parent="BattlePlan"]
 
 focus/ignore_mouse = true
