@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=15 format=1]
 
 [ext_resource path="res://SCRIPTS/Battle/HUD/HUD.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-vert.tres" type="StyleBox" id=2]
@@ -21,6 +21,13 @@ dark_color = Color( 0.0648897, 0.784314, 0.00392157, 1 )
 border_size = 4
 border_blend = true
 draw_bg = true
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
 
 [sub_resource type="StyleBoxFlat" id=2]
 
@@ -93,7 +100,7 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.749415
+margin/left = 0.65
 margin/top = 0.7
 margin/right = 0.0
 margin/bottom = 0.0
@@ -104,18 +111,19 @@ __meta__ = {
 [node name="HP" type="ProgressBar" parent="Player"]
 
 editor/display_folded = true
-anchor/right = 1
+anchor/left = 1
 anchor/bottom = 1
-rect/min_size = Vector2( 165, 12 )
-focus/ignore_mouse = false
+rect/min_size = Vector2( 165, 10 )
+focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 10.0
+margin/left = 204.0
 margin/top = 50.0
-margin/right = 39.0
-margin/bottom = 76.0
+margin/right = 260.0
+margin/bottom = 84.0
 custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 6 )
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -149,16 +157,16 @@ max_lines_visible = -1
 [node name="MP" type="ProgressBar" parent="Player"]
 
 editor/display_folded = true
-anchor/right = 1
+anchor/left = 1
 anchor/bottom = 1
 rect/min_size = Vector2( 165, 12 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 10.0
+margin/left = 204.0
 margin/top = 10.0
-margin/right = 39.0
+margin/right = 0.0
 margin/bottom = 116.0
 custom_styles/fg = SubResource( 2 )
 range/min = 0.0
