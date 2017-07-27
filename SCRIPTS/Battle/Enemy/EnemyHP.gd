@@ -63,6 +63,11 @@ func set_value(value):
 	# Update green layers only if necessary
 	var num_layers = bar_data[1]
 	if num_layers != green_layers:
+		# Avoid sliding RedBar when value is increasing
+		if green_layers < num_layers:
+			reset_redbar()
+
+		# Update all layers
 		green_layers = num_layers
 		for layer in Layers.get_children():
 			if num_layers > 0:
@@ -78,6 +83,10 @@ func set_value(value):
 	elif green_layers != max_layers && RedBar.get_size() == top_layer_size:
 		resize_redbar(get_size(), MAX_HP_MOD)
 
+
+########################
+### Helper functions ###
+########################
 static func split(value):
 	# Grabbing data
 	value = int(value)

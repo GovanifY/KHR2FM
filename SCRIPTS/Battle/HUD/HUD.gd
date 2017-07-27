@@ -32,7 +32,6 @@ func reset_hud(parent, member):
 		if !node.has_method("set_value"):
 			continue
 
-		node.set_block_signals(true)
 		var name = node.get_name().to_lower()
 		member[name] = node
 
