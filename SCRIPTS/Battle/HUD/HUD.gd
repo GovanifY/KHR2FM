@@ -7,9 +7,9 @@ onready var commands = get_node("Commands")
 var player = {}
 var enemy = {}
 
-###############
-### Methods ###
-###############
+######################
+### Core functions ###
+######################
 func _ready():
 	# Automagically set up node references
 	reset_hud(get_node("Player"), player)

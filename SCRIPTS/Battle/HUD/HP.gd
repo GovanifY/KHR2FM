@@ -3,9 +3,9 @@ extends "DynamicBar.gd"
 # Instance members
 onready var RedBar = get_node("RedBar")
 
-###############
-### Methods ###
-###############
+######################
+### Core functions ###
+######################
 func _ready():
 	connect("value_changed", self, "animate_redbar")
 	RedBar.connect("changed", self, "reset_redbar")
