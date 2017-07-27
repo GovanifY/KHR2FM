@@ -1,6 +1,6 @@
 [gd_scene load_steps=38 format=1]
 
-[ext_resource path="res://SCRIPTS/Battle/Enemy/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://SCRIPTS/Battle/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_00.wav" type="Sample" id=2]
 [ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_01.wav" type="Sample" id=3]
 [ext_resource path="res://ASSETS/SE/Battle/Yuugure/Yuugure_02.wav" type="Sample" id=4]

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://SCRIPTS/Battle/HUD/HUD.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-vert.tres" type="StyleBox" id=2]
-[ext_resource path="res://SCRIPTS/Battle/Enemy/EnemyHP.gd" type="Script" id=3]
+[ext_resource path="res://SCRIPTS/Battle/HUD/EnemyHP.gd" type="Script" id=3]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-rouge.tres" type="StyleBox" id=4]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.tres" type="StyleBox" id=5]
 [ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.png" type="Texture" id=6]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=62 format=1]
 
-[ext_resource path="res://SCRIPTS/Battle/Player/BattlePlayer.gd" type="Script" id=1]
+[ext_resource path="res://SCRIPTS/Battle/Player.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_02.wav" type="Sample" id=2]
 [ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_03.wav" type="Sample" id=3]
 [ext_resource path="res://ASSETS/SE/Battle/Kiryoku/Kiryoku_04.wav" type="Sample" id=4]

@@ -1,4 +1,4 @@
-extends "../Battler.gd"
+extends "Battler.gd"
 
 
 # Constants
@@ -43,7 +43,8 @@ func _ready():
 			"str" : strength,
 			"def" : defense,
 		})
-	HUD.set_player_stats(stats)
+	if HUD != null:
+		HUD.set_player_stats(stats)
 
 	# Connecting signals
 	AnimMethodical.connect("animation_started", self, "_action_started")

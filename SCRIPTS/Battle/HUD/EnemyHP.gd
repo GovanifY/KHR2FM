@@ -1,4 +1,4 @@
-extends "res://SCRIPTS/Battle/HUD/HP.gd"
+extends "HP.gd"
 
 # Constants
 const MAX_HP_MOD = 100

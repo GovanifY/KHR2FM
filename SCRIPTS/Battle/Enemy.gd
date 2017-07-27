@@ -1,4 +1,4 @@
-extends "res://SCRIPTS/Battle/Battler.gd"
+extends "Battler.gd"
 
 
 # Enemy instancing data
@@ -23,7 +23,8 @@ func _ready():
 			"str" : strength,
 			"def" : defense,
 		})
-	HUD.set_enemy_stats(stats)
+	if HUD != null:
+		HUD.set_enemy_stats(stats)
 
 	# Instance multiple enemies
 	if enemy_instances > 1:
