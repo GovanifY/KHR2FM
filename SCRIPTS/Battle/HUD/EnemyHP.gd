@@ -4,7 +4,7 @@ extends "HP.gd"
 const MAX_HP_MOD = 100
 
 # Instance members
-const OneLayer = preload("res://SCENES/Battle/Enemy/HPLayer.tscn")
+const OneLayer = preload("res://SCENES/Battle/HUD/EnemyHP-Layer.tscn")
 onready var Layers = get_node("Layers")
 
 # "Private" members
