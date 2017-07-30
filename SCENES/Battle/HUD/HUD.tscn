@@ -22,14 +22,14 @@ border_size = 4
 border_blend = true
 draw_bg = true
 
-[sub_resource type="StyleBoxEmpty" id=6]
+[sub_resource type="StyleBoxEmpty" id=2]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=3]
 
 content_margin/left = 10.0
 content_margin/right = 0.0
@@ -42,14 +42,14 @@ border_size = 4
 border_blend = true
 draw_bg = true
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxEmpty" id=4]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
 
-[sub_resource type="StyleBoxTexture" id=4]
+[sub_resource type="StyleBoxTexture" id=5]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -66,7 +66,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=6]
 
 font/size = 9
 font/use_mipmaps = false
@@ -123,7 +123,7 @@ margin/top = 50.0
 margin/right = 260.0
 margin/bottom = 84.0
 custom_styles/fg = SubResource( 1 )
-custom_styles/bg = SubResource( 6 )
+custom_styles/bg = SubResource( 2 )
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -132,6 +132,9 @@ range/value = 50.0
 range/exp_edit = false
 range/rounded = false
 percent/visible = false
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Value" type="Label" parent="Player/HP" groups=[
 "LabelValue",
@@ -168,7 +171,7 @@ margin/left = 204.0
 margin/top = 10.0
 margin/right = 0.0
 margin/bottom = 116.0
-custom_styles/fg = SubResource( 2 )
+custom_styles/fg = SubResource( 3 )
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -177,6 +180,9 @@ range/value = 50.0
 range/exp_edit = false
 range/rounded = false
 percent/visible = false
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Value" type="Label" parent="Player/MP" groups=[
 "LabelValue",
@@ -227,7 +233,7 @@ margin/top = 10.0
 margin/right = -275.0
 margin/bottom = 20.0
 custom_styles/fg = ExtResource( 2 )
-custom_styles/bg = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -314,7 +320,7 @@ margin/left = -2.0
 margin/top = 11.0
 margin/right = 14.0
 margin/bottom = 24.0
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -330,7 +336,7 @@ margin/left = 17.0
 margin/top = -1.0
 margin/right = 33.0
 margin/bottom = 13.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 0.588235, 0.607843, 0.580392, 1 )
 text = "HP"
 align = 1
