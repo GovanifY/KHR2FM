@@ -14,6 +14,7 @@
 
 # Work directories
 .import
+modules/*/*.png
 
 # Temporarily adding stuff here before pushing it
 ASSETS/MESH
