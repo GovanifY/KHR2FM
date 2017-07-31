@@ -14,10 +14,10 @@ const MAX_ARC_VALUE = 100
 
 # "Private" members
 
-######################
-### Core functions ###
-######################
-### Export functions
+
+########################
+### Export functions ###
+########################
 # Centers the bar based on either upper-left-most side or at the center of this canvas
 func set_centered(value):
 	centered = value
@@ -39,32 +39,36 @@ func set_thickness(value):
 	thickness = value if value < limit else limit
 	update()
 
+######################
+### Core functions ###
+######################
 # Overloading functions
 func _draw():
-	# Preliminary values
-	var arc_value = get_value() if get_value() < MAX_ARC_VALUE else MAX_ARC_VALUE
-	var arc_max   = get_max() if get_max() < MAX_ARC_VALUE else MAX_ARC_VALUE
-	var rest_value = get_value() - MAX_ARC_VALUE if get_value() >= MAX_ARC_VALUE else 0
-	var rest_max   = get_max() - MAX_ARC_VALUE if get_max() >= MAX_ARC_VALUE else 0
-
 	# Let us draw this whole thing from scratch
 	var center = get_pos() if not centered else get_size() / 2
 
-	# Draw background of the bar
-	var rect_pos = draw_circle_arc(center, radius + thickness, BG_COLOR, arc_max)
-	# Draw progress of the bar
-	draw_circle_arc(center, radius + thickness, color, arc_value)
+	# Draw background, then progress
+	var rect_pos = _draw_round_bar(center, Vector2(), BG_COLOR, get_max())
+	_draw_round_bar(center, rect_pos, color, get_value())
 
 	# Draw centered blank space
-	draw_circle(center, radius - thickness, Color()) # FIXME: use a transparent color
+	draw_circle(center, radius - (int(thickness) >> 1), Color()) # FIXME: use a transparent color
 
-	# Draw the rest of the bar with a rectangle
-	if get_max() > MAX_ARC_VALUE:
-		var real_thickness = thickness * 2
-		rect_pos.y -= real_thickness
-		draw_rect(Rect2(rect_pos, Vector2(-rest_max, real_thickness)), BG_COLOR)
-		draw_rect(Rect2(rect_pos, Vector2(-rest_value, real_thickness)), color)
+# Draws our bar
+func _draw_round_bar(center, rect_pos, color, value):
+	var arc_value = value if value < MAX_ARC_VALUE else MAX_ARC_VALUE
+	rect_pos = draw_circle_arc(center, radius + (int(thickness) >> 1), color, arc_value)
 
+	if value > MAX_ARC_VALUE:
+		var rest_value = value - MAX_ARC_VALUE if value >= MAX_ARC_VALUE else 0
+		rect_pos.y -= thickness
+		draw_rect(Rect2(rect_pos, Vector2(-rest_value, thickness)), color)
+
+	return rect_pos
+
+########################
+### Helper functions ###
+########################
 func draw_circle_arc(center, radius, color, amount):
 	var maximum = 270 # 3/4 of a circle
 	var angle_from = -180
