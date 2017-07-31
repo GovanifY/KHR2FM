@@ -13,7 +13,7 @@ const BG_COLOR = Color(0.2, 0.2, 0.2)
 const MAX_ARC_VALUE = 100
 
 # "Private" members
-
+var half_thickness
 
 ########################
 ### Export functions ###
@@ -37,6 +37,7 @@ func set_color(value):
 func set_thickness(value):
 	var limit = int(radius) >> 1
 	thickness = value if value < limit else limit
+	half_thickness = thickness >> 1
 	update()
 
 ######################
@@ -48,16 +49,16 @@ func _draw():
 	var center = get_pos() if not centered else get_size() / 2
 
 	# Draw background, then progress
-	var rect_pos = _draw_round_bar(center, Vector2(), BG_COLOR, get_max())
-	_draw_round_bar(center, rect_pos, color, get_value())
+	var hbar_pos = _draw_round_bar(center, Vector2(), BG_COLOR, get_max())
+	_draw_round_bar(center, hbar_pos, color, get_value())
 
 	# Draw centered blank space
-	draw_circle(center, radius - (int(thickness) >> 1), Color()) # FIXME: use a transparent color
+	draw_circle(center, radius - half_thickness, Color()) # FIXME: use a transparent color
 
 # Draws our bar
 func _draw_round_bar(center, rect_pos, color, value):
-	var arc_value = value if value < MAX_ARC_VALUE else MAX_ARC_VALUE
-	rect_pos = draw_circle_arc(center, radius + (int(thickness) >> 1), color, arc_value)
+	var arc_value = max(min(value, MAX_ARC_VALUE), 0)
+	rect_pos = draw_circle_arc(center, radius + half_thickness, color, arc_value)
 
 	if value > MAX_ARC_VALUE:
 		var rest_value = value - MAX_ARC_VALUE if value >= MAX_ARC_VALUE else 0
@@ -74,7 +75,7 @@ func draw_circle_arc(center, radius, color, amount):
 	var angle_from = -180
 	var angle_to = maximum * amount / MAX_ARC_VALUE + angle_from
 
-	if angle_from == angle_to:
+	if angle_from >= angle_to:
 		return
 
 	# Drawing a round ProgressBar
