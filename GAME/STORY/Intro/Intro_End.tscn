@@ -1,13 +1,18 @@
-[gd_scene load_steps=11 format=1]
+[gd_scene load_steps=18 format=1]
 
 [ext_resource path="res://GAME/STORY/Intro/Intro_End.gd" type="Script" id=1]
 [ext_resource path="res://ASSETS/GFX/Animations/Intro/Introduction_113.jpg" type="Texture" id=2]
 [ext_resource path="res://SCENES/Battle/ForeGround/Fog.tscn" type="PackedScene" id=3]
-[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=4]
-[ext_resource path="res://addons/avatar/Avatar.gd" type="Script" id=5]
-[ext_resource path="res://addons/avatar/icon.png" type="Texture" id=6]
-[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku.tres" type="SpriteFrames" id=7]
-[ext_resource path="res://SCENES/InfoBar.tscn" type="PackedScene" id=8]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_64.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_65.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_66.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_67.png" type="Texture" id=7]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_68.png" type="Texture" id=8]
+[ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=9]
+[ext_resource path="res://addons/avatar/Avatar.gd" type="Script" id=10]
+[ext_resource path="res://addons/avatar/icon.png" type="Texture" id=11]
+[ext_resource path="res://ASSETS/GFX/Game/Avatars/Kiryoku.tres" type="SpriteFrames" id=12]
+[ext_resource path="res://SCENES/InfoBar.tscn" type="PackedScene" id=13]
 
 [sub_resource type="Animation" id=1]
 
@@ -62,6 +67,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [ 0.0, 0.0, 1.0 ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Kiryoku:visibility/opacity")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 4, 6 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[sub_resource type="SpriteFrames" id=4]
+
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="Intro_End" type="Node"]
 
@@ -101,10 +130,35 @@ scroll/ignore_camera_zoom = true
 
 visibility/opacity = 0.0
 
-[node name="Dialogue" parent="." instance=ExtResource( 4 )]
+[node name="Kiryoku" type="KinematicBody2D" parent="."]
+
+visibility/opacity = 0.0
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 3.68877, 0, 0, 1.76443, 217.954, 254.938 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+
+[node name="Crawling" type="AnimatedSprite" parent="Kiryoku"]
+
+transform/pos = Vector2( -100, 0 )
+frames = SubResource( 4 )
+animation = "default"
+centered = false
+
+[node name="Hitbox" type="CollisionShape2D" parent="Kiryoku"]
+
+transform/pos = Vector2( 217.954, 254.938 )
+transform/scale = Vector2( 3.68877, 1.76443 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Dialogue" parent="." instance=ExtResource( 9 )]
 
 csv_path = "res://ASSETS/LANG/TEXT/Game/Intro/Intro_End.csv"
-text_effect = 0
 
 [node name="Kiryoku" type="Control" parent="Dialogue"]
 
@@ -119,12 +173,12 @@ margin/left = 211.0
 margin/top = 247.0
 margin/right = 212.0
 margin/bottom = 248.0
-script/script = ExtResource( 5 )
+script/script = ExtResource( 10 )
 __meta__ = {
-"_editor_icon": ExtResource( 6 )
+"_editor_icon": ExtResource( 11 )
 }
 dialogue_node = NodePath("..")
-face_sprites = ExtResource( 7 )
+face_sprites = ExtResource( 12 )
 frame = 0
 flip_frame = false
 stay_hidden = true
@@ -134,7 +188,7 @@ stay_hidden = true
 visibility/opacity = 0.0
 sort/enabled = true
 
-[node name="InfoBar" parent="Escape" instance=ExtResource( 8 )]
+[node name="InfoBar" parent="Escape" instance=ExtResource( 13 )]
 
 info_message = "INFO_ESCAPE_KIRYOKU"
 autostart = false

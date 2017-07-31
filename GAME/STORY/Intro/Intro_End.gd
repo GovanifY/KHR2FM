@@ -17,7 +17,8 @@ func _ready():
 	Music.play()
 
 	# Prepare Dialogue for this particular scene
-	Dialogue.set_box(0)
+	Dialogue.set_box(3)
+	Dialogue.set_text_effect(1)
 
 	# Begin cutscene
 	Sequences.play("Kiryoku_down")
@@ -25,14 +26,16 @@ func _ready():
 
 	Kiryoku.speak(20, 21)
 	yield(Kiryoku, "finished")
+	Dialogue.close()
 
 	Sequences.play("Swap_Escape")
+	Kiryoku.stay_hidden = false
 	yield(Sequences, "finished")
 
 	Kiryoku.speak(22, 23)
 	yield(Kiryoku, "finished")
 
-	Dialogue.hide()
+	Dialogue.close()
 	InfoBar.play()
 
 	# TODO: to black then fade in to battle screen then dialogue appears
