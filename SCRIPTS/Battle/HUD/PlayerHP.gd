@@ -3,8 +3,7 @@ extends Range
 
 # Export values
 export(bool) var centered = false setget set_centered
-export(int) var radius = 0 setget set_radius
-export(int) var thickness = 1 setget set_thickness
+export(int) var thickness = 20 setget set_thickness
 
 export(Color, RGB) var color = Color(0, 1, 0) setget set_color
 
@@ -23,20 +22,14 @@ func set_centered(value):
 	centered = value
 	update()
 
-# Sets the radius of the round bar
-func set_radius(value):
-	radius = value
-	update()
-
 # Sets colors
 func set_color(value):
 	color = value
 	update()
 
-# Sets thickness of the bar (cannot be bigger than radius)
+# Sets thickness of the bar
 func set_thickness(value):
-	var limit = int(radius) >> 1
-	thickness = value if value < limit else limit
+	thickness = value
 	half_thickness = thickness >> 1
 	update()
 
@@ -49,16 +42,14 @@ func _draw():
 	var center = get_pos() if not centered else get_size() / 2
 
 	# Draw background, then progress
-	var hbar_pos = _draw_round_bar(center, Vector2(), BG_COLOR, get_max())
-	_draw_round_bar(center, hbar_pos, color, get_value())
-
-	# Draw centered blank space
-	draw_circle(center, radius - half_thickness, Color()) # FIXME: use a transparent color
+	_draw_round_bar(center, BG_COLOR, get_max())
+	_draw_round_bar(center, color, get_value())
 
 # Draws our bar
-func _draw_round_bar(center, rect_pos, color, value):
+func _draw_round_bar(center, color, value):
 	var arc_value = max(min(value, MAX_ARC_VALUE), 0)
-	rect_pos = draw_circle_arc(center, radius + half_thickness, color, arc_value)
+	var radius = (int(get_size().x) >> 1) - thickness
+	var rect_pos = draw_circle_arc(center, radius, 270, color, arc_value)
 
 	if value > MAX_ARC_VALUE:
 		var rest_value = value - MAX_ARC_VALUE if value >= MAX_ARC_VALUE else 0
@@ -70,25 +61,31 @@ func _draw_round_bar(center, rect_pos, color, value):
 ########################
 ### Helper functions ###
 ########################
-func draw_circle_arc(center, radius, color, amount):
-	var maximum = 270 # 3/4 of a circle
+func draw_circle_arc(center, radius, maximum, color, amount):
 	var angle_from = -180
 	var angle_to = maximum * amount / MAX_ARC_VALUE + angle_from
 
 	if angle_from >= angle_to:
 		return
 
-	# Drawing a round ProgressBar
-	var nb_points = 32
-	var points_arc = Vector2Array()
-	points_arc.push_back(center)
-	var colors = ColorArray([color])
-
 	var position
-	for i in range(nb_points+1):
-		var angle_point = angle_from + i * (angle_to - angle_from)/nb_points
-		position = center + Vector2( cos(deg2rad(angle_point)), sin(deg2rad(angle_point)) ) * radius
-		points_arc.push_back(position)
-	draw_polygon(points_arc, colors)
+	var nb_points = 32
+	var points_inner = Vector2Array()
+	var points_outer = Vector2Array()
 
+	var bar_inner = Vector2(1, 1) * (radius - half_thickness)
+	var bar_outer = Vector2(1, 1) * (radius + half_thickness)
+	var angle = (angle_to - angle_from)/nb_points
+
+	for i in range(nb_points+1):
+		var angle_point_outer = angle_from + i * angle
+		var angle_point_inner = angle_from + (nb_points-i) * angle
+
+		position = center + Vector2( cos(deg2rad(angle_point_outer)), sin(deg2rad(angle_point_outer)) ) * bar_outer
+		points_outer.push_back(position)
+
+		var new_pos = center + Vector2( cos(deg2rad(angle_point_inner)), sin(deg2rad(angle_point_inner)) ) * bar_inner
+		points_inner.push_back(new_pos)
+
+	draw_polygon(points_outer + points_inner, ColorArray([color]))
 	return position

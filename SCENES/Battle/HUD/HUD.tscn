@@ -96,12 +96,12 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 150.0
-margin/top = 62.0
-margin/right = 190.0
-margin/bottom = 102.0
+margin/left = 117.0
+margin/top = 28.0
+margin/right = 246.0
+margin/bottom = 142.0
 range/min = 0.0
-range/max = 100.0
+range/max = 150.0
 range/step = 1.0
 range/page = 0.0
 range/value = 50.0
@@ -112,8 +112,7 @@ __meta__ = {
 "_edit_group_": true
 }
 centered = true
-radius = 45
-thickness = 10
+thickness = 20
 color = Color( 0, 1, 0, 1 )
 
 [node name="Value" type="Label" parent="Player/HP" groups=[
