@@ -3,7 +3,7 @@ extends Node
 # Instance members
 onready var Sequences = get_node("Master")
 onready var Dialogue  = get_node("Dialogue")
-onready var InfoBar   = get_node("Escape/InfoBar")
+onready var InfoBar   = get_node("InfoBar")
 
 # Characters
 onready var Kiryoku  = Dialogue.get_node("Kiryoku")
