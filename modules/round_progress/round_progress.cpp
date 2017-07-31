@@ -1,5 +1,5 @@
 /*************************************************************************
- *  round_bar.cpp                                                        *
+ *  round_progress.cpp                                                   *
  *************************************************************************
  * The MIT License (MIT)                                                 *
  *                                                                       *
@@ -28,9 +28,9 @@
  * USE OR OTHER DEALINGS IN THE SOFTWARE.                                *
  *                                                                       *
 *************************************************************************/
-#include "round_bar.hpp"
+#include "round_progress.hpp"
 
-Size2 RoundBar::get_minimum_size() const {
+Size2 RoundProgress::get_minimum_size() const {
 
 	Ref<StyleBox> bg = get_stylebox("bg");
 	Ref<Font> font = get_font("font");
@@ -42,7 +42,7 @@ Size2 RoundBar::get_minimum_size() const {
 	return ms;
 }
 
-void RoundBar::_notification(int p_what) {
+void RoundProgress::_notification(int p_what) {
 
 	if (p_what == NOTIFICATION_DRAW) {
 
@@ -61,31 +61,31 @@ void RoundBar::_notification(int p_what) {
 		}
 
 		if (value_visible) {
-			String txt = itos(int(get_value())) + " / " + itos(int(get_max()));
+			String txt = itos(int(get_val())) + " / " + itos(int(get_max()));
 			font->draw_halign(get_canvas_item(), Point2(0, font->get_ascent() + (get_size().height - font->get_height()) / 2), HALIGN_CENTER, get_size().width, txt, font_color);
 		}
 	}
 }
 
-void RoundBar::set_value_visible(bool p_visible) {
+void RoundProgress::set_value_visible(bool p_visible) {
 
 	value_visible = p_visible;
 	update();
 }
 
-bool RoundBar::is_value_visible() const {
+bool RoundProgress::is_value_visible() const {
 
 	return value_visible;
 }
 
-void RoundBar::_bind_methods() {
+void RoundProgress::_bind_methods() {
 
-	ObjectTypeDB::bind_method(_MD("set_value_visible", "visible"), &RoundBar::set_value_visible);
-	ObjectTypeDB::bind_method(_MD("is_value_visible"), &RoundBar::is_value_visible);
-	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "percent/visible"), _SCS("set_value_visible"), _SCS("is_value_visible"));
+	ObjectTypeDB::bind_method(_MD("set_value_visible", "visible"), &RoundProgress::set_value_visible);
+	ObjectTypeDB::bind_method(_MD("is_value_visible"), &RoundProgress::is_value_visible);
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "value/visible"), _SCS("set_value_visible"), _SCS("is_value_visible"));
 }
 
-RoundBar::RoundBar() {
+RoundProgress::RoundProgress() {
 
 	set_v_size_flags(0);
 	value_visible = true;

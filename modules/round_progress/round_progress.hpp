@@ -1,5 +1,5 @@
 /*************************************************************************
- *  round_bar.hpp                                                        *
+ *  round_progress.hpp                                                   *
  *************************************************************************
  * The MIT License (MIT)                                                 *
  *                                                                       *
@@ -33,9 +33,9 @@
 
 #include "scene/gui/range.h"
 
-class RoundBar : public Range {
+class RoundProgress : public Range {
 
-	OBJ_TYPE(RoundBar, Range);
+	OBJ_TYPE(RoundProgress, Range);
 
 	bool value_visible;
 
@@ -48,7 +48,7 @@ public:
 	bool is_value_visible() const;
 
 	Size2 get_minimum_size() const;
-	RoundBar();
+	RoundProgress();
 };
 
 #endif // ROUND_PROGRESS_BAR_H
