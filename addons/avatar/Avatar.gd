@@ -39,12 +39,16 @@ func _init(name="Avatar"):
 	set_name(name)
 
 func _enter_tree():
+	# Add it to Avatar group
+	if not is_in_group("Avatar"):
+		add_to_group("Avatar")
+
 	# Update Dialogue reference
 	if get_node(dialogue_node).is_type("Dialogue"):
 		Dialogue = get_node(dialogue_node)
 
 	# Adding children nodes
-	if !is_a_parent_of(sprite):
+	if not is_a_parent_of(sprite):
 		add_child(sprite)
 
 	# Setting up

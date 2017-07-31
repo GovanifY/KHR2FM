@@ -229,8 +229,7 @@ func dismiss(character=null):
 	if character != null:
 		to_dismiss.push_back(character)
 	else:
-		to_dismiss = CastLeft.get_children()
-		to_dismiss += CastRight.get_children()
+		to_dismiss = get_tree().get_nodes_in_group("Avatar")
 
 	for character in to_dismiss:
 		CastAnim.interpolate_method(
