@@ -29,6 +29,6 @@
  *                                                                       *
 *************************************************************************/
 
-void register_round_bar_types();
-void unregister_round_bar_types();
+void register_round_progress_types();
+void unregister_round_progress_types();
 /* yes, the word in the middle must be the same as the module folder name */

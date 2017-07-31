@@ -31,12 +31,12 @@
 
 #include "register_types.h"
 #include "object_type_db.h"
-#include "round_bar.hpp"
+#include "round_progress.hpp"
 
-void register_round_bar_types() {
-    ObjectTypeDB::register_type<RoundBar>();
+void register_round_progress_types() {
+    ObjectTypeDB::register_type<RoundProgress>();
 }
 
-void unregister_round_bar_types() {
+void unregister_round_progress_types() {
 	//nothing to do here
 }
