@@ -39,16 +39,16 @@ func set_thickness(value):
 # Overloading functions
 func _draw():
 	# Let us draw this whole thing from scratch
-	var center = get_pos() if not centered else get_size() / 2
+	var radius = (int(get_size().x) >> 1) - thickness
+	var center = Vector2() if not centered else get_size() * 0.5
 
 	# Draw background, then progress
-	_draw_round_bar(center, BG_COLOR, get_max())
-	_draw_round_bar(center, color, get_value())
+	_draw_round_bar(center, radius, BG_COLOR, get_max())
+	_draw_round_bar(center, radius, color, get_value())
 
 # Draws our bar
-func _draw_round_bar(center, color, value):
+func _draw_round_bar(center, radius, color, value):
 	var arc_value = max(min(value, MAX_ARC_VALUE), 0)
-	var radius = (int(get_size().x) >> 1) - thickness
 	var rect_pos = draw_circle_arc(center, radius, 270, color, arc_value)
 
 	if value > MAX_ARC_VALUE:
@@ -62,6 +62,7 @@ func _draw_round_bar(center, color, value):
 ### Helper functions ###
 ########################
 func draw_circle_arc(center, radius, maximum, color, amount):
+	maximum = max(min(maximum, 360), 0)
 	var angle_from = -180
 	var angle_to = maximum * amount / MAX_ARC_VALUE + angle_from
 
