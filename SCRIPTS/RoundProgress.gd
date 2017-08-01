@@ -11,6 +11,7 @@ const BG_COLOR = Color(0.2, 0.2, 0.2)
 const MAX_ARC_VALUE = 100
 
 # "Private" members
+var half_thickness
 
 ########################
 ### Export functions ###
@@ -23,6 +24,7 @@ func set_color(value):
 # Sets thickness of the bar
 func set_thickness(value):
 	thickness = value
+	half_thickness = thickness >> 1
 	update()
 
 ######################
@@ -31,7 +33,7 @@ func set_thickness(value):
 # Overloading functions
 func _draw():
 	# Let us draw this whole thing from scratch
-	var radius = (int(min(get_size().x, get_size().y)) >> 1)
+	var radius = (int(min(get_size().x, get_size().y)) >> 1) - thickness
 	var center = get_size() * 0.5
 
 	# Draw background, then progress
@@ -63,14 +65,22 @@ func draw_circle_arc(center, radius, maximum, color, amount):
 
 	var position
 	var nb_points = 32
-	var points = Vector2Array()
+	var points_inner = Vector2Array()
+	var points_outer = Vector2Array()
 
+	var bar_inner = Vector2(1, 1) * (radius - half_thickness)
+	var bar_outer = Vector2(1, 1) * (radius + half_thickness)
 	var angle = (angle_to - angle_from)/nb_points
-	points.push_back(center)
-	for i in range(nb_points+1):
-		var angle_point = angle_from + i * angle
-		position = center + Vector2( cos(deg2rad(angle_point)), sin(deg2rad(angle_point)) ) * radius
-		points.push_back(position)
 
-	draw_colored_polygon(points, color)
+	for i in range(nb_points+1):
+		var angle_point_outer = angle_from + i * angle
+		var angle_point_inner = angle_from + (nb_points-i) * angle
+
+		position = center + Vector2( cos(deg2rad(angle_point_outer)), sin(deg2rad(angle_point_outer)) ) * bar_outer
+		points_outer.push_back(position)
+
+		var new_pos = center + Vector2( cos(deg2rad(angle_point_inner)), sin(deg2rad(angle_point_inner)) ) * bar_inner
+		points_inner.push_back(new_pos)
+
+	draw_colored_polygon(points_outer + points_inner, color)
 	return position
