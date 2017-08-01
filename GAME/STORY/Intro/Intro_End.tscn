@@ -4,11 +4,11 @@
 [ext_resource path="res://SCENES/InfoBar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ASSETS/GFX/Animations/Intro/Introduction_113.jpg" type="Texture" id=3]
 [ext_resource path="res://SCENES/Battle/ForeGround/Fog.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_64.png" type="Texture" id=5]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_65.png" type="Texture" id=6]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_66.png" type="Texture" id=7]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_67.png" type="Texture" id=8]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_68.png" type="Texture" id=9]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_064.png" type="Texture" id=5]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_065.png" type="Texture" id=6]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_066.png" type="Texture" id=7]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_067.png" type="Texture" id=8]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/Player/Kiryoku/Kiryoku_068.png" type="Texture" id=9]
 [ext_resource path="res://SCENES/Dialogue/Dialogue.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/avatar/Avatar.gd" type="Script" id=11]
 [ext_resource path="res://addons/avatar/icon.png" type="Texture" id=12]
@@ -139,10 +139,9 @@ collision/margin = 0.08
 
 [node name="Crawling" type="AnimatedSprite" parent="Kiryoku"]
 
-transform/pos = Vector2( -100, 0 )
+transform/pos = Vector2( 151, 240 )
 frames = SubResource( 4 )
 animation = "default"
-centered = false
 
 [node name="Hitbox" type="CollisionShape2D" parent="Kiryoku"]
 
