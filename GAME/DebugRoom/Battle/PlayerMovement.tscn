@@ -7,6 +7,8 @@
 
 [node name="BattlePlan" parent="." instance=ExtResource( 1 )]
 
+show_bar_values = false
+
 [node name="Kiryoku" parent="BattlePlan" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 194, 215 )
