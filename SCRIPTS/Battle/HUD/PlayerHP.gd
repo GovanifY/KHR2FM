@@ -39,7 +39,7 @@ func set_thickness(value):
 # Overloading functions
 func _draw():
 	# Let us draw this whole thing from scratch
-	var radius = (int(get_size().x) >> 1) - thickness
+	var radius = (int(min(get_size().x, get_size().y)) >> 1) - thickness
 	var center = Vector2() if not centered else get_size() * 0.5
 
 	# Draw background, then progress
@@ -88,5 +88,5 @@ func draw_circle_arc(center, radius, maximum, color, amount):
 		var new_pos = center + Vector2( cos(deg2rad(angle_point_inner)), sin(deg2rad(angle_point_inner)) ) * bar_inner
 		points_inner.push_back(new_pos)
 
-	draw_polygon(points_outer + points_inner, ColorArray([color]))
+	draw_colored_polygon(points_outer + points_inner, color)
 	return position
