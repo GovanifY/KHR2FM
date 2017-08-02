@@ -6,9 +6,10 @@ export(int) var thickness = 20 setget set_thickness
 export(Color, RGB) var color = Color(0, 1, 0) setget set_color
 
 # Constants
-const BG_COLOR = Color(0.2, 0.2, 0.2)
-const ARC_ANGLE = 270
-const MAX_ARC_VALUE = 100
+const BG_COLOR = Color(0.2, 0.2, 0.2) # Color for Background bar
+const ARC_ANGLE = 270                 # Amount of arc to draw in degrees
+const MAX_ARC_VALUE = 100             # Value representative of the arc
+const NUM_POINTS = 32                 # Number of points to render the polygon
 
 # Instance members
 var bg # Background Polygon2D
@@ -73,9 +74,9 @@ func get_progress_bar(center, radius, value):
 		var rest_value = value - MAX_ARC_VALUE if value >= MAX_ARC_VALUE else 0
 
 		rect_pos.x -= rest_value
-		points.insert(33, rect_pos)
+		points.insert(NUM_POINTS+1, rect_pos)
 		rect_pos.y += thickness
-		points.insert(33, rect_pos)
+		points.insert(NUM_POINTS+1, rect_pos)
 
 	return points
 
@@ -96,17 +97,16 @@ func get_circle_arc(center, radius, amount):
 	if angle_from >= angle_to:
 		return
 
-	var nb_points = 32
 	var points_inner = Vector2Array()
 	var points_outer = Vector2Array()
 
 	var bar_inner = radius - half_thickness
 	var bar_outer = radius + half_thickness
-	var angle = (angle_to - angle_from)/nb_points
+	var angle = (angle_to - angle_from)/NUM_POINTS
 
-	for i in range(nb_points+1):
+	for i in range(NUM_POINTS+1):
 		var angle_point_outer = angle_from + i * angle
-		var angle_point_inner = angle_from + (nb_points-i) * angle
+		var angle_point_inner = angle_from + (NUM_POINTS-i) * angle
 
 		var position = center + Vector2( cos(deg2rad(angle_point_outer)), sin(deg2rad(angle_point_outer)) ) * bar_outer
 		points_outer.push_back(position)
