@@ -23,7 +23,8 @@ var half_thickness
 # Sets colors
 func set_color(value):
 	color = value
-	update()
+	if fg != null:
+		fg.set_color(value)
 
 # Sets thickness of the bar
 func set_thickness(value):
@@ -55,10 +56,10 @@ func _draw():
 
 	# Draw background, then progress
 	var points_bg = get_progress_bar(center, radius, get_max())
-	var points_fg = get_progress_bar(center, radius, get_value())
 	if points_bg != null:
 		bg.set_polygon(points_bg)
 
+	var points_fg = get_progress_bar(center, radius, get_value())
 	if points_fg != null:
 		fg.set_polygon(points_fg)
 
