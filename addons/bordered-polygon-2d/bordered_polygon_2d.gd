@@ -77,8 +77,8 @@ func prepare():
 	borders = get_or_create_node(BORDERS_NODE_NAME)
 	move_child(fill, 0)
 	move_child(borders, 1)
-	
-	
+
+
 
 func _process(delta):
 	# Editor mode only
@@ -111,7 +111,7 @@ func cross_product_z(a, b):
 func is_clockwise_shape(shape):
 	var shape_size = shape.size()
 	if shape_size >= 3:
-		var total = 0 
+		var total = 0
 		for i in range(shape_size):
 			var res = cross_product_z(shape[i], shape[(i + 1) % shape_size])
 			total += res
@@ -193,7 +193,7 @@ func smooth_shape_points(shape_points, max_angle):
 			break
 		else:
 			new_smooth_points_count += round_new_points_count
-			
+
 		var num_added_points = 0
 		for point_info in point_to_smooth:
 			shape_points.remove(point_info[0] + num_added_points)
@@ -230,7 +230,7 @@ func expand_or_contract_shape_points(shape_points, amount, advance=true):
 		var expand_or_contract_amount = 0.0
 		var output_points = []
 		var point_normals = []
-			
+
 		for i in range(points_count):
 			var a = shape_points[(i + points_count - 1) % points_count]
 			var b = shape_points[i]
@@ -241,13 +241,13 @@ func expand_or_contract_shape_points(shape_points, amount, advance=true):
 			var a_90 = Vector2(subtractA_B.y, -subtractA_B.x)
 			var c_90 = Vector2(subtractC_B.y, -subtractC_B.x)
 
-			point_normals.append((a_90 + c_90).normalized()) 
+			point_normals.append((a_90 + c_90).normalized())
 
 		if advance == true:
 			for test_point in range(points_count):
 				var closet_point
 				var closest_distance = abs(amount)
-				var test_normal = [shape_points[test_point], amount * point_normals[test_point] + shape_points[test_point]]				
+				var test_normal = [shape_points[test_point], amount * point_normals[test_point] + shape_points[test_point]]
 				for wall in range(points_count):
 					if wall != test_point:
 						var top_wall = [shape_points[wall],shape_points[(wall + 1) % points_count]]
@@ -257,14 +257,14 @@ func expand_or_contract_shape_points(shape_points, amount, advance=true):
 							var distance_from_test_point_to_intersetion = shape_points[test_point].distance_to(normal_and_wall_intersect)
 							if distance_from_test_point_to_intersetion < closest_distance and distance_from_test_point_to_intersetion != 0:
 								closest_distance = distance_from_test_point_to_intersetion
-								closet_point =  normal_and_wall_intersect 
-								
+								closet_point =  normal_and_wall_intersect
+
 				var newVector
 				if closest_distance != abs(amount):
-					newVector = closet_point 
+					newVector = closet_point
 				else:
 					newVector = point_normals[test_point] * amount + shape_points[test_point]
-				output_points.append(newVector)	
+				output_points.append(newVector)
 		else:
 			for i in range(points_count):
 				output_points.append(point_normals[i] * amount + shape_points[i])
@@ -332,15 +332,15 @@ func create_border(border_size, quad, offset=Vector2(0,0)):
 
 	var n = (quad[1] - quad[0]).normalized()
 	var phi = Vector2(-1,0).angle_to(n)
-	
+
 	var top_width = quad[0].distance_to(quad[1])
 	var bottom_width = quad[2].distance_to(quad[3])
 
 	var bottom_x = (quad[0] - quad[3]).rotated(-phi).x
-	
-	border.set_uv([Vector2(0, 0) + offset, 
-		Vector2(0 + top_width, 0) + offset, 
-		Vector2(bottom_x + bottom_width, border_size) + offset, 
+
+	border.set_uv([Vector2(0, 0) + offset,
+		Vector2(0 + top_width, 0) + offset,
+		Vector2(bottom_x + bottom_width, border_size) + offset,
 		Vector2(bottom_x, border_size) + offset])
 
 	border.set_polygon(quad)
@@ -352,11 +352,11 @@ func create_border(border_size, quad, offset=Vector2(0,0)):
 	tex.set_flags(tex.get_flags() | Texture.FLAG_REPEAT)
 	border.set_texture(tex)
 	border.set_material(get_border_material(tex_idx))
-	
+
 	var texture_rotation = deg2rad(border_texture_rotation) + PI
 	border.set_texture_rotation(texture_rotation)
 	border.set_texture_scale(invert_scale(border_texture_scale))
-	
+
 	return border
 
 func calculate_quad(index, points, border_points_count):
@@ -370,12 +370,12 @@ func calculate_quad(index, points, border_points_count):
 
 	# If quad twisted
 	var intersect_point_1 = Geometry.segment_intersects_segment_2d(quad[0], quad[3], quad[1], quad[2])
-	var intersect_point_2 = Geometry.segment_intersects_segment_2d(quad[1], quad[0], quad[2], quad[3])	
+	var intersect_point_2 = Geometry.segment_intersects_segment_2d(quad[1], quad[0], quad[2], quad[3])
 	if intersect_point_1 != null:
 		quad = [quad[1], quad[0], quad[2], quad[3]]
 	if intersect_point_2 != null:
 		quad = [quad[2], quad[3], quad[1], quad[0]]
-	
+
 	return quad
 
 func is_shape(shape_points):
@@ -410,13 +410,13 @@ func get_texture_sample():
 
 func make_border(border_size):
 	var shape_points = get_polygon()
-	
+
 	if not is_clockwise_shape(shape_points):
 		shape_points.invert()
 
 	if smooth_level > 0:
 		shape_points = smooth_shape_points(shape_points, get_smooth_max_angle())
-	
+
 	set_inner_polygon(expand_or_contract_shape_points(shape_points, border_overlap))
 	var border_points = calculate_border_points(shape_points, border_size, border_overlap)
 
