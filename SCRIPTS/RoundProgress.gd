@@ -50,20 +50,36 @@ func _ready():
 		fg.set_use_parent_material(true)
 		add_child(fg)
 
+	connect("changed", self, "_draw_both")
+	connect("value_changed", self, "_draw_foreground")
+
 # Overloading functions
 func _draw():
+	if not get_tree().is_editor_hint():
+		return
+	_draw_both()
+
+func _draw_progress_bar(polygon, value):
 	var radius = (int(min(get_size().x, get_size().y)) >> 1) - thickness
 	var center = get_size() * 0.5
 
-	# Draw background, then progress
-	var points_bg = get_progress_bar(center, radius, get_max())
-	if points_bg != null:
-		bg.set_polygon(points_bg)
+	var points = get_progress_bar(center, radius, value)
+	if points != null:
+		polygon.set_polygon(points)
 
-	var points_fg = get_progress_bar(center, radius, get_value())
-	if points_fg != null:
-		fg.set_polygon(points_fg)
+func _draw_both(_=null):
+	_draw_background()
+	_draw_foreground()
 
+func _draw_background():
+	_draw_progress_bar(bg, get_max())
+
+func _draw_foreground(value=get_value()):
+	_draw_progress_bar(fg, value)
+
+########################
+### Helper functions ###
+########################
 # Gets complete polygon for our bar
 func get_progress_bar(center, radius, value):
 	var arc_amount = max(min(value, MAX_ARC_VALUE), 0)
@@ -80,9 +96,6 @@ func get_progress_bar(center, radius, value):
 
 	return points
 
-########################
-### Helper functions ###
-########################
 func get_rect_bar_position(center, radius):
 	var angle_from = -180
 	var angle_to = ARC_ANGLE + angle_from
