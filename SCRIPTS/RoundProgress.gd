@@ -44,12 +44,18 @@ func _draw():
 func _draw_round_bar(center, radius, color, value):
 	var arc_amount = max(min(value, MAX_ARC_VALUE), 0)
 	var points = get_circle_arc(center, radius, 270, arc_amount)
-	draw_colored_polygon(points, color)
 
 	if value > MAX_ARC_VALUE:
 		var rect_pos = get_rect_bar_position(center, radius-half_thickness, 270)
 		var rest_value = value - MAX_ARC_VALUE if value >= MAX_ARC_VALUE else 0
-		draw_rect(Rect2(rect_pos, Vector2(-rest_value, thickness)), color)
+
+		rect_pos.x -= rest_value
+		points.insert(33, rect_pos)
+		rect_pos.y += thickness
+		points.insert(33, rect_pos)
+
+	if points != null:
+		draw_colored_polygon(points, color)
 
 ########################
 ### Helper functions ###
