@@ -17,7 +17,6 @@ const SMOOTH_MAX_NODES_PER_FACE = 10
 const FILL_NODE_NAME = '_Fill'
 const BORDERS_NODE_NAME = '_Borders'
 
-var _is_ready = false
 var _is_reloading = false
 var inner_polygon
 var clockwise
@@ -33,7 +32,7 @@ func is_editor_mode():
 		# script, and we are in editor mode
 		return true
 	else:
-		false
+		return false
 
 func _init():
 	# If we have children when init, then
@@ -43,19 +42,14 @@ func _init():
 
 func _enter_tree():
 	if _is_reloading:
-		initialize()
+		prepare()
 
 func _ready():
-	if not _is_ready:
-		initialize()
-
-func initialize():
-	_is_ready = true
 	prepare()
-	update()
-	if is_editor_mode():
-		# Hack updates on editor mode
-		set_process(true)
+
+func _draw():
+	update_borders()
+	update_color_and_opacity()
 
 func remove_child_if_present(path):
 	if has_node(path):
@@ -80,19 +74,8 @@ func prepare():
 
 
 
-func _process(delta):
-	# Editor mode only
-	update(true)
-
 func tileset_size(tileset):
 	return tileset.get_tiles_ids().size()
-
-func update(shallow=false):
-	if _is_ready:
-		if not shallow:
-			update_borders()
-		update_color_and_opacity()
-	.update()
 
 func invalidate():
 	clockwise = null
@@ -345,17 +328,19 @@ func create_border(border_size, quad, offset=Vector2(0,0)):
 
 	border.set_polygon(quad)
 
-	var tex_idx = 0
-	if border_textures != null:
-		tex_idx = texture_idx_from_angle(border_textures, border_angle)
-	var tex = get_border_texture(tex_idx)
-	tex.set_flags(tex.get_flags() | Texture.FLAG_REPEAT)
-	border.set_texture(tex)
-	border.set_material(get_border_material(tex_idx))
+	# Prepare textures only if they're set
+	if has_border_textures():
+		var tex_idx = 0
+		if border_textures != null:
+			tex_idx = texture_idx_from_angle(border_textures, border_angle)
+		var tex = get_border_texture(tex_idx)
+		tex.set_flags(tex.get_flags() | Texture.FLAG_REPEAT)
+		border.set_texture(tex)
+		border.set_material(get_border_material(tex_idx))
 
-	var texture_rotation = deg2rad(border_texture_rotation) + PI
-	border.set_texture_rotation(texture_rotation)
-	border.set_texture_scale(invert_scale(border_texture_scale))
+		var texture_rotation = deg2rad(border_texture_rotation) + PI
+		border.set_texture_rotation(texture_rotation)
+		border.set_texture_scale(invert_scale(border_texture_scale))
 
 	return border
 
@@ -423,8 +408,7 @@ func make_border(border_size):
 	# Turn points to quads
 	var lastborder_texture_offset = 0
 	var border_points_count = border_points.size()
-	var texture_sample = get_texture_sample()
-	var sample_width = texture_sample.get_size().x
+	#var sample_width = get_texture_sample().get_size().x # FIXME: test code?
 
 	for i in range(border_points_count/2 - 1):
 		var quad = calculate_quad(i, border_points, border_points_count)
@@ -436,7 +420,7 @@ func make_border(border_size):
 func update_borders():
 	# Remove old borders
 	remove_borders()
-	if is_shape(get_polygon()) and has_border_textures():
+	if is_shape(get_polygon()):
 		make_border(border_size)
 
 func update_color_and_opacity():
@@ -445,7 +429,7 @@ func update_color_and_opacity():
 	if inner_polygon != null:
 		update_polygon_color(inner_polygon, get_color(), opacity)
 	for border in borders.get_children():
-		update_polygon_color(border, get_color(), opacity)
+		update_polygon_color(border, border_color, opacity)
 	hide_editor_polygon()
 
 func hide_editor_polygon():
