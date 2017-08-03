@@ -60,7 +60,7 @@ func _draw_progress_bar(polygon, value):
 	var center = get_size() * 0.5
 
 	var points = get_progress_bar(center, radius, value)
-	if points != null:
+	if points != null && points.size() > 3:
 		polygon.set_polygon(points)
 
 func _draw_both(_=null):
