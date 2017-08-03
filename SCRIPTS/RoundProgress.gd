@@ -5,7 +5,6 @@ extends Range
 export(NodePath) var background_polygon = NodePath("bg") setget set_bg_node
 export(NodePath) var foreground_polygon = NodePath("fg") setget set_fg_node
 export(int) var thickness = 20 setget set_thickness
-export(Color, RGB) var color = Color(0.1, 0.1, 0.1) setget set_color
 
 # Constants
 const BG_COLOR = Color(0.2, 0.2, 0.2) # Color for Background bar
@@ -32,12 +31,6 @@ func set_fg_node(value):
 	foreground_polygon = value
 	update()
 
-# Sets colors
-func set_color(value):
-	color = value
-	if fg != null:
-		fg.set_color(value)
-
 # Sets thickness of the bar
 func set_thickness(value):
 	thickness = value
@@ -48,28 +41,16 @@ func set_thickness(value):
 ### Core functions ###
 ######################
 func _ready():
-	# Setting bars
-	if bg != null:
-		bg.set_color(BG_COLOR)
-		bg.set_use_parent_material(true)
-	if fg != null:
-		fg.set_color(color)
-		fg.set_use_parent_material(true)
+	reset_polygons()
 
 	connect("changed", self, "_draw_both")
 	connect("value_changed", self, "_draw_foreground")
 
 # Overloading functions
 func _draw():
-	if bg == null && has_node(background_polygon):
-		bg = get_node(background_polygon)
-
-	if fg == null && has_node(foreground_polygon):
-		fg = get_node(foreground_polygon)
-
-	if not get_tree().is_editor_hint():
-		return
-	_draw_both()
+	if get_tree().is_editor_hint():
+		reset_polygons()
+		_draw_both()
 
 func _draw_progress_bar(polygon, value):
 	if polygon == null:
@@ -91,6 +72,17 @@ func _draw_background():
 
 func _draw_foreground(value=get_value()):
 	_draw_progress_bar(fg, value)
+
+###############
+### Methods ###
+###############
+func reset_polygons():
+	if bg == null && has_node(background_polygon):
+		bg = get_node(background_polygon)
+
+	if fg == null && has_node(foreground_polygon):
+		fg = get_node(foreground_polygon)
+		fg.set_use_parent_material(true)
 
 ########################
 ### Helper functions ###

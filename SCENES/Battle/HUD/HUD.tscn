@@ -1,14 +1,16 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://SCRIPTS/Battle/HUD/HUD.gd" type="Script" id=1]
 [ext_resource path="res://SCRIPTS/RoundProgress.gd" type="Script" id=2]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-vert.tres" type="StyleBox" id=3]
-[ext_resource path="res://SCRIPTS/Battle/HUD/EnemyHP.gd" type="Script" id=4]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-rouge.tres" type="StyleBox" id=5]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.tres" type="StyleBox" id=6]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.png" type="Texture" id=7]
-[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Bold.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Commands/Commands_Lr_010.png" type="Texture" id=9]
+[ext_resource path="res://addons/bordered-polygon-2d/bordered_polygon_2d.gd" type="Script" id=3]
+[ext_resource path="res://addons/bordered-polygon-2d/icon.png" type="Texture" id=4]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-vert.tres" type="StyleBox" id=5]
+[ext_resource path="res://SCRIPTS/Battle/HUD/EnemyHP.gd" type="Script" id=6]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Barr-rouge.tres" type="StyleBox" id=7]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.tres" type="StyleBox" id=8]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Enemy/Boss-Fond.png" type="Texture" id=9]
+[ext_resource path="res://ASSETS/LANG/FONTS/NotoSans/NotoSans-Bold.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://ASSETS/GFX/Game/Battle/HUD/Commands/Commands_Lr_010.png" type="Texture" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 
@@ -36,7 +38,7 @@ content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 margin/left = 2.0
 margin/right = 2.0
 margin/top = 2.0
@@ -52,7 +54,7 @@ draw_center = true
 font/size = 9
 font/use_mipmaps = false
 font/use_filter = false
-font/font = ExtResource( 8 )
+font/font = ExtResource( 10 )
 
 [node name="HUD" type="Control"]
 
@@ -111,8 +113,56 @@ script/script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+background_polygon = NodePath("bg")
+foreground_polygon = NodePath("fg")
 thickness = 20
+
+[node name="bg" type="Polygon2D" parent="Player/HP"]
+
+visibility/self_opacity = 0.0
+material/use_parent = true
+polygon = Vector2Array( 19, 54.5, 19.4762, 48.0439, 20.8946, 41.7275, 23.2245, 35.6876, 26.4153, 30.0549, 30.3982, 24.9514, 35.0867, 20.4875, 40.3795, 16.7599, 46.1619, 13.8493, 52.3089, 11.8186, 58.6872, 10.7119, 65.159, 10.553, 71.584, 11.3454, 77.8232, 13.0721, 83.7415, 15.6955, 89.2108, 19.1589, 94.1127, 23.3873, 98.3411, 28.2892, 101.805, 33.7585, 104.428, 39.6768, 106.155, 45.916, 106.947, 52.341, 106.788, 58.8128, 105.681, 65.1911, 103.651, 71.3381, 100.74, 77.1205, 97.0125, 82.4133, 92.5486, 87.1019, 87.4451, 91.0847, 81.8124, 94.2755, 75.7725, 96.6054, 69.4561, 98.0238, 63, 98.5, 13, 98.5, 13, 78.5, 63, 78.5, 66.5215, 78.2402, 69.9668, 77.4666, 73.2613, 76.1957, 76.3337, 74.4553, 79.1174, 72.2828, 81.5522, 69.7254, 83.5855, 66.8385, 85.1731, 63.6844, 86.2807, 60.3315, 86.8844, 56.8524, 86.9711, 53.3224, 86.5388, 49.8178, 85.5971, 46.4146, 84.1661, 43.1865, 82.277, 40.2032, 79.9706, 37.5294, 77.2968, 35.223, 74.3135, 33.3339, 71.0854, 31.9029, 67.6822, 30.9612, 64.1776, 30.5289, 60.6476, 30.6156, 57.1685, 31.2192, 53.8156, 32.3269, 50.6615, 33.9145, 47.7746, 35.9478, 45.2172, 38.3826, 43.0447, 41.1663, 41.3043, 44.2387, 40.0334, 47.5332, 39.2598, 50.9785, 39, 54.5 )
+uv = Vector2Array(  )
+color = Color( 0.2, 0.2, 0.2, 0 )
+vertex_colors = ColorArray(  )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+script/script = ExtResource( 3 )
+__meta__ = {
+"_editor_icon": ExtResource( 4 )
+}
+border_size = 5
+border_overlap = 0
+border_color = Color( 0, 0, 0, 1 )
+border_textures = null
+border_clockwise_shift = 0
+border_texture = null
+border_material = null
+border_texture_scale = Vector2( 1, 1 )
+border_texture_offset = Vector2( 0, 0 )
+border_texture_rotation = 0.0
+smooth_level = 0.0
+smooth_max_angle = 90
+
+[node name="fg" type="Polygon2D" parent="Player/HP"]
+
+material/use_parent = true
+polygon = Vector2Array( 19, 54.5, 19.1192, 51.2632, 19.4762, 48.0439, 20.0691, 44.8595, 20.8946, 41.7275, 21.9483, 38.6646, 23.2245, 35.6876, 24.7162, 32.8125, 26.4153, 30.0549, 28.3128, 27.4298, 30.3982, 24.9514, 32.6602, 22.6331, 35.0867, 20.4875, 37.6644, 18.5263, 40.3795, 16.7599, 43.2171, 15.1981, 46.1619, 13.8493, 49.198, 12.7208, 52.3089, 11.8186, 55.4777, 11.1478, 58.6872, 10.7119, 61.9202, 10.5133, 65.159, 10.553, 68.3861, 10.8309, 71.584, 11.3454, 74.7354, 12.0939, 77.8232, 13.0721, 80.8306, 14.2748, 83.7415, 15.6955, 86.5399, 17.3264, 89.2108, 19.1589, 91.7396, 21.1828, 94.1127, 23.3873, 79.9706, 37.5294, 78.6761, 36.327, 77.2968, 35.223, 75.8399, 34.2235, 74.3135, 33.3339, 72.7258, 32.559, 71.0854, 31.9029, 69.4011, 31.3694, 67.6822, 30.9612, 65.9379, 30.6805, 64.1776, 30.5289, 62.411, 30.5072, 60.6476, 30.6156, 58.8969, 30.8533, 57.1685, 31.2192, 55.4716, 31.7113, 53.8156, 32.3269, 52.2093, 33.0626, 50.6615, 33.9145, 49.1806, 34.878, 47.7746, 35.9478, 46.451, 37.1181, 45.2172, 38.3826, 44.0797, 39.7344, 43.0447, 41.1663, 42.1179, 42.6704, 41.3043, 44.2387, 40.6082, 45.8625, 40.0334, 47.5332, 39.5831, 49.2416, 39.2598, 50.9785, 39.065, 52.7345, 39, 54.5 )
+uv = Vector2Array(  )
 color = Color( 0, 1, 0, 1 )
+vertex_colors = ColorArray(  )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
 
 [node name="Value" type="Label" parent="Player/HP" groups=[
 "LabelValue",
@@ -210,7 +260,7 @@ margin/left = 40.0
 margin/top = 10.0
 margin/right = -275.0
 margin/bottom = 20.0
-custom_styles/fg = ExtResource( 3 )
+custom_styles/fg = ExtResource( 5 )
 custom_styles/bg = SubResource( 2 )
 range/min = 0.0
 range/max = 100.0
@@ -220,7 +270,7 @@ range/value = 100.0
 range/exp_edit = false
 range/rounded = true
 percent/visible = false
-script/script = ExtResource( 4 )
+script/script = ExtResource( 6 )
 SLIDE_DURATION = 0.5
 DELAY_DURATION = 0.5
 
@@ -272,8 +322,8 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 10.0
-custom_styles/fg = ExtResource( 5 )
-custom_styles/bg = ExtResource( 6 )
+custom_styles/fg = ExtResource( 7 )
+custom_styles/bg = ExtResource( 8 )
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -335,7 +385,7 @@ transform/pos = Vector2( 0, 448 )
 [node name="Selected" type="Sprite" parent="Commands"]
 
 editor/display_folded = true
-texture = ExtResource( 9 )
+texture = ExtResource( 11 )
 centered = false
 
 [node name="BATTLE_ATTACK" type="Label" parent="Commands/Selected"]
