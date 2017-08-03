@@ -10,7 +10,7 @@ export(int) var thickness = 20 setget set_thickness
 const BG_COLOR = Color(0.2, 0.2, 0.2) # Color for Background bar
 const ARC_ANGLE = 270                 # Amount of arc to draw in degrees
 const MAX_ARC_VALUE = 100             # Value representative of the arc
-const NUM_POINTS = 32                 # Number of points to render the polygon
+const NUM_POINTS = 24                 # Number of points to render the polygon
 
 # Instance members
 var bg # Background Polygon2D
@@ -96,9 +96,16 @@ func get_progress_bar(center, radius, value):
 		var rect_pos = get_rect_bar_position(center, radius-half_thickness)
 		var rest_value = value - MAX_ARC_VALUE if value >= MAX_ARC_VALUE else 0
 
-		rect_pos.x -= rest_value
+		# Additional points to avoid over-smoothing
+		rect_pos.x -= rest_value + 2
 		points.insert(NUM_POINTS+1, rect_pos)
+		rect_pos.x -= 2
+		points.insert(NUM_POINTS+1, rect_pos)
+
+		# Adding leftmost points
 		rect_pos.y += thickness
+		points.insert(NUM_POINTS+1, rect_pos)
+		rect_pos.x += 2
 		points.insert(NUM_POINTS+1, rect_pos)
 
 	return points
