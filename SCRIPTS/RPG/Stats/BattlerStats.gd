@@ -1,5 +1,9 @@
 extends "Stats.gd"
 
+# Classes
+const Stats       = preload("Stats.gd")
+const PlayerStats = preload("PlayerStats.gd")
+
 # Signals
 signal value_changed(stat, value)
 
@@ -21,6 +25,14 @@ var final = {}
 ### Core functions ###
 ######################
 func _init(copy={}):
+	if typeof(copy) != TYPE_DICTIONARY:
+		if copy extends PlayerStats:
+			copy = copy.final
+		elif copy extends Stats:
+			copy = copy.base
+		else:
+			copy = {}
+
 	# General base stats filling
 	for stat in MAX_STATS + MAIN_STATS:
 		base[stat] = max(round(copy[stat]), 0) if copy.has(stat) else 0
@@ -28,11 +40,10 @@ func _init(copy={}):
 
 	# Setting maximum values
 	for stat in MAIN_STATS:
-		var max_stat = "max_" + stat
-		if max_stat in MAX_STATS:
-			base[max_stat] = max(base[max_stat], 1) # The minimum maximum is 1.
-			base[stat] = base[max_stat]
-			final[stat] = base[stat]
+		set_max(stat, max(base[stat], 0)) # The minimum maximum is 0.
+
+	# Handling exceptions
+	set_max("hp", max(base.hp, 1)) # Max HP is >= 1
 
 	connect("modifier_changed", self, "update")
 
@@ -71,6 +82,10 @@ func set_max(stat, value):
 	if max_stat in MAX_STATS && value > 0:
 		set_base(max_stat, value)
 		set_base(stat, min(get_base(stat), value))
+		final[max_stat] = value
+
+func get_max(stat):
+	return get("max_" + stat)
 
 # Updates all stats (or just the given one) so as to not over/underflow.
 # This is called automatically, but can be called upon request

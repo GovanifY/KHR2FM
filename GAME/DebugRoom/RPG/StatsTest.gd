@@ -49,18 +49,22 @@ onready var battler = BattlerStats.new({
 })
 
 func _ready():
-	pass
 	#test_one_stat()
 	#test_equipment()
 	#test_status()
-	test_battle()
+	test_battle1()
+	#test_battle2()
 	get_tree().quit()
 
 # Function Helpers
 static func apply_mod(target, value):
 	target.add_modifier(value.id, value.mod)
 	target.print_stats()
-	
+
+static func remove_mod(target, value):
+	target.remove_modifier(value.id)
+	target.print_stats()
+
 static func reset_mods(target):
 	target.modifiers.clear()
 
@@ -98,21 +102,32 @@ func test_status():
 	character.remove_modifier(bravery.id)
 	character.print_stat("str")
 	character.print_stat("def")
-	
+
 	reset_mods(character)
-	
-func test_battle():
+
+func test_battle1():
 	print("Initial stats")
 	battler.print_stats()
 
 	print("\nYour battler got 'Bravery'")
 	apply_mod(battler, bravery)
-	
+
 	print("\nYour battler got hit: -12")
 	battler.set("hp", battler.get("hp")-12)
 	battler.print_stats()
-	
+
 	print("\nYour battler got 'Curse'")
 	apply_mod(battler, curse)
-	
+
+	print("\n'Curse' wore off")
+	remove_mod(battler, curse)
+
 	reset_mods(battler)
+
+func test_battle2():
+	print("Creating Battler stats from existing character:")
+	character.print_stats()
+	var new_battler = BattlerStats.new(character)
+
+	print("\nCharacter successfully became a Battler")
+	new_battler.print_stats()
