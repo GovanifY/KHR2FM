@@ -27,7 +27,7 @@ func print_stats():
 func set_add(key, value):
 	add[key] = value
 func set_mul(key, value):
-	mul[key] = value if 0 <= value && value <= 1 else 0
+	mul[key] = value if 0 < value && value <= 1 else 0
 
 func get_add(key):
 	return add[key] if add.has(key) else 0
