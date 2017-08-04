@@ -1,7 +1,7 @@
 extends Object
 
 # Classes
-const Ability = preload("Abilities/Ability.gd")
+const Ability = preload("Ability.gd")
 
 
 # List of all abilities learned by idx = level.
