@@ -4,7 +4,7 @@ extends CanvasLayer
 # le timer, la pause ou le fullscreen
 
 # Classes
-const PlayerStats = preload("res://SCRIPTS/RPG/Stats/PlayerStats.gd")
+const Profile = preload("res://SCRIPTS/RPG/Profile.gd")
 
 # Signals
 signal toggled_pause
@@ -26,9 +26,7 @@ var global = {
 		world    = null,
 		location = null,
 	},
-	"Player" : {
-		stats = PlayerStats.new(),
-	},
+	"Player" : Profile.new(),
 }
 
 ######################
