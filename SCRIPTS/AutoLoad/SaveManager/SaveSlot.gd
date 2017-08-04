@@ -23,7 +23,7 @@ func update(current_scene=null, avatar=null):
 		"avatar"       : avatar,
 
 		# Stats
-		"stats" : KHR2.get("Player")
+		"stats" : KHR2.get("Player").stats
 		# TODO: Items, magic, abilities, limits
 	}
 

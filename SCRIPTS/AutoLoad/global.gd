@@ -26,7 +26,9 @@ var global = {
 		world    = null,
 		location = null,
 	},
-	"Player" : PlayerStats.new(),
+	"Player" : {
+		stats = PlayerStats.new(),
+	},
 }
 
 ######################

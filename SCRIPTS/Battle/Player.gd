@@ -35,7 +35,7 @@ func _ready():
 	# Setting stats
 	if not override_stats:
 		# Use pre-calculated values from current Player stats
-		stats = BattlerStats.new(KHR2.get("Player").final)
+		stats = BattlerStats.new(KHR2.get("Player").stats.final)
 	else:
 		stats = BattlerStats.new({
 			"max_hp" : max_health, "hp" : max_health,
