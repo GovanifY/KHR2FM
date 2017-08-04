@@ -1,11 +1,8 @@
 extends Object
 
 # Classes
-const Ability     = preload("Abilities/Ability.gd")
-const PlayerStats = preload("Stats/PlayerStats.gd")
+const Ability = preload("Abilities/Ability.gd")
 
-# Associated stats object
-var stats
 
 # List of all abilities learned by idx = level.
 # e.g. Abilities obtained at level 15 are stored in abilities[14] as an Array
@@ -15,15 +12,9 @@ var abilities = []
 ######################
 ### Core functions ###
 ######################
-func _init(new_stats, new_abilities=[]):
-	if new_stats extends PlayerStats:
-		abilities = new_abilities
-		stats = new_stats
-		set_maximum_level(stats.get("lv"))
-	else:
-		print("Level: Given constructor argument is not valid")
-		free()
-		return null
+func _init(num_levels=1, new_abilities=[]):
+	abilities = new_abilities
+	set_maximum_level(num_levels)
 
 func _get(idx):
 	return abilities[idx-1] if 0 < idx && idx < abilities.size() else []
@@ -61,11 +52,6 @@ func set_maximum_level(value):
 func set_level(value):
 	if value == get_level():
 		return # do nothing
-	elif value > get_level():
-		add_abilities(value)
-	else:
-		remove_abilities(value)
-	stats.set("lv", value)
 	set_maximum_level(value)
 
 func get_level():
@@ -77,16 +63,3 @@ func level_up():
 
 func level_down():
 	set_level(get_level() - 1)
-
-# Abilities manipulation
-func add_abilities(end):
-	for idx in range(get_level(), end):
-		for ability in abilities[idx]:
-			stats.add_modifier(ability.name, ability)
-
-func remove_abilities(end):
-	if get_level() <= end:
-		return # Avoid infinite loop
-	for idx in range(get_level(), end, -1):
-		for ability in abilities[idx]:
-			stats.remove_modifier(ability.name)
