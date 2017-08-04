@@ -1,4 +1,4 @@
-extends "res://SCRIPTS/Stats/Modifier.gd"
+extends "Stats/Modifier.gd"
 
 var name
 var icon
