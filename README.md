@@ -1,12 +1,7 @@
-This is a minimal README that will define the state of the project, will be 
-replaced by an actual readme at the end of the development process.
+KHR2FM
+======
 
-Development status: ON FIRE
+This is a fanmade game recreation of [Kingdom Hearts Rebirth 2](http://www.alexdor.info/?p=jeu&id=893) under Godot Engine.   
+The project has been abandonned due to lack of time, and contact between the original team and the recreation team, which leaded to the game being rewritten 3 times in the span of a little less than a year.
 
-GovanifY status: Semi busy with Team 1(mostly understanding wtf is going on) and mostly university
-
-Keyaku status: ON FIRE
-
-Overall status: OMGWTFBBQ. Tl;dr Team 1 is reprogramming mainly the whole game
-leaving our sanity with little to no luck. Keyaku is finishing important and main
-parts of the engine and I'll work on maps and stuff asap
+This project was a cooperation between myself and [António "Keyaku" Sarmento](https://twitter.com/Keyaku) as a part of the [SKYNISM](https://skynism.com) team.
